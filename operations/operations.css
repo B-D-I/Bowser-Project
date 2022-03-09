@@ -1,0 +1,21 @@
+#new_tasks {
+  border: #727272;
+  border-radius: 5px;
+}
+
+.operations-list {
+  padding: 30px;
+  background-color: #a4c3fd;
+}
+.text_area {
+  padding: 30px;
+  background-color: #fddea4;
+}
+#rando {
+  background-color: #fddea4;
+}
+
+#new_tasks {
+  padding: 30px;
+  background-color: #a4c3fd;
+}
