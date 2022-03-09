@@ -41,14 +41,14 @@
 
 
             <div class="nav-link-wrapper">
-                <a class="text-focus-in" id="link" href="#exampleModal" data-bs-toggle="modal" >Report</a>
+                <a class="text-focus-in" id="link" href="#reportModal" data-bs-toggle="modal" >Report</a>
 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Report Form</h5>
+                                <h5 class="modal-title" id="reportModalLabel">Report Form</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -70,7 +70,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="form-floating">
@@ -94,40 +93,35 @@
             <h2 class="text-focus-in">Bowser Hub</h2>
         </div>
 
-
         <div class="right-side">
-
             <div class="nav-link-wrapper">
                 <a class="text-focus-in" id="loginLink" href="#loginModal" data-bs-toggle="modal" >Login</a>
 
                 <!-- Modal -->
-                <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                                <h5 class="modal-title" id="loginModalLabel">Login</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
 
                                 <div class="row">
-
                                     <div class="col">
                                         <form>
                                             <div class="mb-3">
-                                                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                                <label for="loginInputEmail1" class="form-label">Email address</label>
+                                                <input type="email" class="form-control" id="loginInputEmail1" aria-describedby="emailHelp">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="exampleInputPassword1" class="form-label">Password</label>
-                                                <input type="password" class="form-control" id="exampleInputPassword1">
+                                                <label for="loginInputPassword1" class="form-label">Password</label>
+                                                <input type="password" class="form-control" id="loginInputPassword1">
                                             </div>
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </form>
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -137,42 +131,39 @@
                     <a class="text-focus-in" id="registerLink" href="#registerModal" data-bs-toggle="modal" >Registration</a>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Registration</h5>
+                                    <h5 class="modal-title" id="registerModalLabel">Registration</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-
                                     <div class="row">
-
                                         <div class="col">
 
-                                            <form>
+                                            <form method="post" id="login_form">
                                                 <div class="mb-3">
-                                                    <input type="email" class="form-control" placeholder="Email" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                                    <input type="email" class="form-control" placeholder="Email" id="registerInputEmail1" aria-describedby="emailHelp">
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <input type="password" class="form-control" placeholder="Password" id="exampleInputPassword1">
+                                                    <input type="password" class="form-control" placeholder="Password" id="registerInputPassword">
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <input type="password" class="form-control" placeholder="Repeat Password" id="exampleInputPassword1">
+                                                    <input type="password" class="form-control" placeholder="Repeat Password" id="registerInputPassword1">
                                                 </div>
 
                                                 <button type="submit" class="btn btn-primary">Submit</button>
+                                                <hr>
                                             </form>
 
                                             <br /><br />
 
                                             <p>Please check you email inbox for registration confirmation</p>
                                         </div>
-
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -186,7 +177,6 @@
     <div class="upperPage">
         <div class="shadow-sm p-3 mb-5 bg-body rounded">
             <div class="row">
-
                 <div class="col">
 
                     <ul class="notification-list">
@@ -210,14 +200,8 @@
                         <li> 11.30 - Water bowser 008 out of repaired </li>
                         <br />
                     </ul>
-
                     <br />
-
-
-
                 </div>
-
-
 
 
                 <div class="col">
@@ -229,15 +213,10 @@
 
                         <!--div to display map--->
                         <div id="map"></div>
-
                     </div>
                 </div>
-
-
-
             </div>
         </div>
-
 
         <br /><br /><br /><br /><br />
 
@@ -246,7 +225,11 @@
         <br />  <br />
 
         <script src="home.js"></script>
+        <script src="login.js"></script>
+
         <script src ="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization&callback=initMap" async defer> </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+
 </body>
 </html>
