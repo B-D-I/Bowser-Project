@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="664e1b31-0450-4bad-a5ca-cf828bdf247f" name="Bowser-Project" url="http://grp20224-ct5038.uogs.co.uk/httpdocs/">
+        <fileTransfer rootFolder="httpdocs/" accessType="SFTP" host="grp20224-ct5038.uogs.co.uk" port="22" sshConfigId="49ca178c-0ed8-43b4-ae7a-45c0f5c3a5e4" sshConfig="Bowser-Project">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

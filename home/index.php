@@ -28,7 +28,7 @@
     <div class="nav-wrapper">
         <div class="left-side">
             <div class="nav-link-wrapper active-nav-link">
-                <a class="text-focus-in" href="index.html">Home</a>
+                <a class="text-focus-in" href="index.php">Home</a>
             </div>
 
             <div class="nav-link-wrapper active-nav-link">
@@ -109,7 +109,7 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <form>
+                                        <form method="post" id="login_form">
                                             <div class="mb-3">
                                                 <label for="loginInputEmail1" class="form-label">Email address</label>
                                                 <input type="email" class="form-control" id="loginInputEmail1" aria-describedby="emailHelp">
@@ -142,7 +142,7 @@
                                     <div class="row">
                                         <div class="col">
 
-                                            <form method="post" id="login_form">
+                                            <form method="post" id="formUserRegistration">
                                                 <div class="mb-3">
                                                     <input type="email" class="form-control" placeholder="Email" id="registerInputEmail1" aria-describedby="emailHelp">
                                                 </div>
@@ -226,10 +226,12 @@
 
         <script src="home.js"></script>
         <script src="login.js"></script>
+        <script src="register.js"></script>
 
         <script src ="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization&callback=initMap" async defer> </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 
 
 </body>
+
 </html>
