@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 
@@ -13,10 +12,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!--jQuery-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
     <!--google maps api-->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <title>Water Bowser</title>
+
 </head>
 
 <body>
@@ -144,18 +144,18 @@
 
                                             <form method="post" id="formUserRegistration">
                                                 <div class="mb-3">
-                                                    <input type="email" class="form-control" placeholder="Email" id="registerInputEmail1" aria-describedby="emailHelp">
+                                                    <input type="email" class="form-control" placeholder="Email" id="registerInputEmail" aria-describedby="emailHelp">
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <input type="password" class="form-control" placeholder="Password" id="registerInputPassword">
+                                                    <input type="password" class="form-control" placeholder="Password" id="password_create">
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <input type="password" class="form-control" placeholder="Repeat Password" id="registerInputPassword1">
+                                                    <input type="password" class="form-control" placeholder="Repeat Password" id="password_confirm">
                                                 </div>
 
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <button type="submit" id="registerAccountSubmit" class="btn btn-primary">Submit</button>
                                                 <hr>
                                             </form>
 
