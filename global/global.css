@@ -216,3 +216,15 @@ select::-ms-expand {
   -o-transition: 0.25s all ease;
   transition: 0.25s all ease;
 }
+
+
+/*	@media used to enable modifications when screen size changes */
+@media only screen and (max-width: 1200px) {
+  .middle {
+    margin-left: 50px;
+    /*display: none;*/
+  }
+  /*.task_manager {*/
+  /*  margin-left: 10px;*/
+  /*}*/
+}

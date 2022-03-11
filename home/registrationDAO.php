@@ -1,8 +1,19 @@
 <?php
 
-
 // get connection from config.php
 include "../include/config.php";
+// server
+$servername = "localhost";
+$serverusername = "root";
+$serverpassword = "";
+$dbname = "bowser-database"; // database name
+// connection variable to hold credentials
+$connection = new mysqli($servername, $serverusername, $serverpassword, $dbname);
+// confirmation if error
+if($connection->connect_error) {
+    echo $connection->connect_error;
+}
+
 
 // create new user function
 if ($_POST['phpFunction']=='create') {
@@ -43,29 +54,41 @@ function create() {
 	// get connection from config.php
 	include "../include/config.php";
 
+//     // server
+//     $servername = "localhost";
+//     $serverusername = "root";
+//     $serverpassword = "";
+//     $dbname = "bowser-database"; // database name
+// // connection variable to hold credentials
+//     $connection = new mysqli($servername, $serverusername, $serverpassword, $dbname);
+// // confirmation if error
+//     if($connection->connect_error) {
+//         echo $connection->connect_error;
+//     }
+
 
 	// query to select from database
-	$sql="SELECT * FROM `tbl_user_account` WHERE email='{$email}'";
-	$query = mysqli_query(connection, $sql);
+	$sql="SELECT * FROM `tbl_user_account` WHERE email='$email'";
+	$query = mysqli_query($connection, $sql);
 	if(mysqli_num_rows($query) > 0){
 		echo "This email is already registered!";
 		return;
 	}
 
 	// construct query string - insert into db
-	$sql="INSERT INTO `user_account` (User_Type, Password, Email, UserLevel, isVerified, Verification_Code)"." values ".
+	$sql="INSERT INTO `tbl_user_account` (User_Type, Password, Email, UserLevel, isVerified, Verification_Code)"." values ".
 		"('Customer','$password','$email', 1,'0','$verificationcode')";
 
 	// connection confirmation
-	if (mysqli_query(connection, $sql)){
+	if (mysqli_query($connection, $sql)){
 		echo "Successfully registered $email ";
 		echo sendEmail($email, $verificationcode);
 		// if an error
 	}else{
-		echo mysqli_error(connection);
+		echo mysqli_error($connection);
 		return;
 	}
-	mysqli_close(connection);
+	mysqli_close($connection);
 }
 
 
@@ -74,6 +97,18 @@ function create() {
 function sendEmail($emailTo, $verificationcode) {
 
 	include "../include/config.php";
+//     // server
+//     $servername = "localhost";
+//     $serverusername = "root";
+//     $serverpassword = "";
+//     $dbname = "bowser-database"; // database name
+// // connection variable to hold credentials
+//     $connection = new mysqli($servername, $serverusername, $serverpassword, $dbname);
+// // confirmation if error
+//     if($connection->connect_error) {
+//         echo $connection->connect_error;
+//     }
+
 	// sender
 	$fromserver="<br />FROM: s4008324@glos.ac.uk";
 	// echo from
@@ -89,8 +124,19 @@ function sendEmail($emailTo, $verificationcode) {
 
 }
 
-//verfiy user function
+//verifiy user function
 function verify() {
+    // server
+//     $servername = "localhost";
+//     $serverusername = "root";
+//     $serverpassword = "";
+//     $dbname = "bowser-database"; // database name
+// // connection variable to hold credentials
+//     $connection = new mysqli($servername, $serverusername, $serverpassword, $dbname);
+// // confirmation if error
+//     if($connection->connect_error) {
+//         echo $connection->connect_error;
+//     }
 
 	// echo the verify information
 	echo password_verify(input, hashedDBPassword);
@@ -108,17 +154,17 @@ function verify() {
 	$sql = "UPDATE `user_account` SET IsVerified=1 WHERE email = '$email' AND VerificationCode='$verificationcode'";
 	echo $sql;
 
-	if(mysqli_query(connection, $sql)) {
+	if(mysqli_query($connection, $sql)) {
 		// $_SESSION["success"] = "Account created. Please sign in";
 		echo "Account has been verified. <br />";
 
 		// this link to direct to login page
-		echo '<a href="../Login/Login.php">Click here to login</a> <br />';
+		echo '<a href="../home/index.php">Click here to login</a> <br />';
 
 		// this link to close window
 		echo '<a href="javascript: self.close()">Login</a>';
 	} else {
-		echo mysqli_error(connection);
+		echo mysqli_error($connection);
 		// return;
 	}
 }
@@ -180,4 +226,4 @@ function verify() {
 //}
 //
 //?>
-<!---->
+

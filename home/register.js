@@ -1,18 +1,19 @@
+
 // Event handler for registration form submit
 $('#formUserRegistration').submit(function(event){
-    formData = $('#formUserRegistration').serialize();
+    let formData = $('#formUserRegistration').serialize();
     // cancels the form submission
     event.preventDefault();
 
-    checkStrength(); // checkStrength function called
+    checkStrength(formData); // checkStrength function called
 });
 
 // 			Password Strength Checker & Password Match Checker
 
 // Function to calculate strength of input
-function checkStrength(){
+function checkStrength(formData){
 
-    document.getElementById("account_submit_button").onclick=function(e){	// function for id="password_create" will execute when (e) is called below
+    document.getElementById("registerAccountSubmit").onclick=function(e){	// function for id="password_create" will execute when (e) is called below
 
         let strengthValue = {  // strength metrics for checker defined. Set to false, as will not be false wont be counted as a parameter in strength value
             'caps': false,
@@ -33,19 +34,16 @@ function checkStrength(){
             for (let index=0; index < passwordEntered.length; index++) {
                 let char = passwordEntered.charCodeAt(index);
 
-                if( strengthValue.caps === false && char >=65 && char <=90) { // characters 65 - 90 are capital letters
+                if (strengthValue.caps === false && char >= 65 && char <= 90) { // characters 65 - 90 are capital letters
                     strengthValue.caps = true;
                     strengthIndicator++;		// if input contains the characters the strenght indicator increases
-                }
-                else if( strengthValue.small === false && char >=97 && char <=122){
+                } else if (strengthValue.small === false && char >= 97 && char <= 122) {
                     strengthValue.small = true;
                     strengthIndicator++;
-                }
-                else if( strengthValue.numbers === false && char >=48 && char <=57){
+                } else if (strengthValue.numbers === false && char >= 48 && char <= 57) {
                     strengthValue.numbers = true;
                     strengthIndicator++;
-                }
-                else  if(strengthValue.special === false && ((char >=33 && char <=47) || (char >=58 && char <= 64))) {
+                } else if (strengthValue.special === false && ((char >= 33 && char <= 47) || (char >= 58 && char <= 64))) {
                     strengthValue.special = true;
                     strengthIndicator++;
                 }
