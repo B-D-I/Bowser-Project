@@ -59,13 +59,13 @@ include '../include/config.php';
 
                 <!-- Modal -->
                 <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+                    <form action="" id="report" method="POST">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="reportModalLabel">Report Form</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-
                             <div class="modal-body">
 
                                 <div class="row">
@@ -77,10 +77,10 @@ include '../include/config.php';
                                     <div class="col">
                                         <div class="select">
                                             <select name="Report_Type" id="select" onchange="reportTypeCheck(this);">
-                                                <option id="1" value="Water Refill">Water Refill</option>
-                                                <option id="2" value="Faults / Damage">Faults / Damage</option>
-                                                <option id="3" value="Complaint">Complaint</option>
-                                                <option id="4" value="Complaint">Something Else</option>
+                                                <option id="1" value="1">Water Refill</option>
+                                                <option id="2" value="2">Faults / Damage</option>
+                                                <option id="3" value="3">Complaint</option>
+                                                <option id="4" value="4">Something Else</option>
                                             </select>
                                         </div>
                                     </div>
@@ -93,22 +93,21 @@ include '../include/config.php';
                                         <p>Bowser ID: </p>
                                     </div>
                                     <div class="col">
-										<div class='select' name='BowserID'>
-											<select>
+										<div class='select'>
+											<select name='Bowser_ID'>
 											<?php 
 												$connection = OpenConnection();
 												echo "Connection OK";
-    											$result = mysqli_query($connection, 'SELECT Bowser_ID FROM tbl_bowser_inuse WHERE Bowser_ID > 0;');
+    											$result = mysqli_query($connection, "SELECT Bowser_ID FROM tbl_bowser_inuse WHERE Bowser_ID > 0;");
+												echo "<option value='-1' disabled selected>---</option>";
 												if (mysqli_num_rows($result) > 0){
 													while($row = mysqli_fetch_assoc($result)) {
-														echo '<option value="-1"></option>';
-														echo '<option value="'.$row['Bowser_ID'].'">'.$row['Bowser_ID'].'</option>'; //close your tags!!
-													} 
-												} else {
-													echo '<option value="0">Bowser Not Listed</option>';
+														echo "<option value='".$row['Bowser_ID']."'>".$row['Bowser_ID']."</option>"; //close your tags!!
+													}
 												}
 												CloseConnection($connection);
 											?>
+											<option value="0">Bowser Not Listed</option>
                                         	</select>
                                         </div>
                                     </div>
@@ -116,7 +115,7 @@ include '../include/config.php';
                             </div>
 
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Description" id="floatingTextarea2" style="height: 100px"></textarea>
+                                <textarea class="form-control" name="Description" placeholder="Description" id="floatingTextarea2" style="height: 100px"></textarea>
                                 <label for="floatingTextarea2">Description</label>
                             </div>
 
@@ -124,10 +123,28 @@ include '../include/config.php';
                                 <p>You must login before sending a report. <br /><br />For assistance please contact us at: example@email.com
                                 </p><br /><br />
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Send Report</button>
+                               <input type="submit" name="submit" value="Send Report"></input>
+								
+							   	<?php
+									$connection = OpenConnection();
+    								if(isset($_POST["submit"])){
+										$Report_Type = $connection->real_escape_string($_POST['Report_Type']);
+										$Bowser_ID = $connection->real_escape_string($_POST['Bowser_ID']);
+										$Description = $connection->real_escape_string($_POST['Description']);
+										$User_ID = '999';
+        								if($query = mysqli_query($connection,"INSERT INTO tbl_Reports(Report_ID,Report_Type,Bowser_ID,Description,User_ID) VALUES (NULL,$Report_Type,$Bowser_ID,$Description, $User_ID)")){
+            								echo "Success";
+        								} else {
+            								echo "Failure" . mysqli_error($connection);
+        								}
+    								}
+                        		?>
+
                             </div>
                         </div>
                     </div>
+                    </form>
+
                 </div>
             </div>
         </div>
