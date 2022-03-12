@@ -2,7 +2,7 @@
 <project version="4">
   <component name="SshConfigs">
     <configs>
-      <sshConfig authType="PASSWORD" connectionConfig="{&quot;serverAliveInterval&quot;:300}" host="grp20224-ct5038.uogs.co.uk" id="49ca178c-0ed8-43b4-ae7a-45c0f5c3a5e4" port="22" customName="Bowser-Project" nameFormat="CUSTOM" username="grp20224" useOpenSSHConfig="true">
+      <sshConfig authType="PASSWORD" connectionConfig="{&quot;serverAliveInterval&quot;:300}" host="grp20224-ct5038.uogs.co.uk" id="49ca178c-0ed8-43b4-ae7a-45c0f5c3a5e4" port="22" customName="Bowser-Project" nameFormat="CUSTOM" username="grp20224-ct5038" useOpenSSHConfig="true">
         <option name="customName" value="Bowser-Project" />
       </sshConfig>
     </configs>
