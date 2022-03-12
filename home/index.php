@@ -1,3 +1,14 @@
+
+<?php
+// session start function
+// variable assigned for user email
+session_start();
+//$email =$_SESSION['email'];
+// establish connection
+include '../include/config.php';
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -112,11 +123,11 @@
                                         <form method="post" id="login_form">
                                             <div class="mb-3">
                                                 <label for="loginInputEmail1" class="form-label">Email address</label>
-                                                <input type="email" class="form-control" id="loginInputEmail1" aria-describedby="emailHelp">
+                                                <input type="email" name="email" class="form-control" id="loginInputEmail1" aria-describedby="emailHelp">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="loginInputPassword1" class="form-label">Password</label>
-                                                <input type="password" class="form-control" id="loginInputPassword1">
+                                                <input type="password" name="password" class="form-control" id="loginInputPassword1">
                                             </div>
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </form>
@@ -144,22 +155,24 @@
 
                                             <form method="post" id="formUserRegistration">
                                                 <div class="mb-3">
-                                                    <input type="email" class="form-control" placeholder="Email" id="registerInputEmail" aria-describedby="emailHelp">
+                                                    <input type="email" name="email" class="form-control" placeholder="Email" id="registerInputEmail" aria-describedby="emailHelp">
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <input type="password" class="form-control" placeholder="Password" id="password_create">
+                                                    <input type="password" name="password" class="form-control" placeholder="Password" id="password_create">
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <input type="password" class="form-control" placeholder="Repeat Password" id="password_confirm">
+                                                    <input type="password" name="re_password" class="form-control" placeholder="Repeat Password" id="password_confirm">
                                                 </div>
 
+                                                <div id="account_submit_button">
                                                 <button type="submit" id="registerAccountSubmit" class="btn btn-primary">Submit</button>
                                                 <hr>
+                                                </div>
                                             </form>
 
-                                            <br /><br />
+                                            <br />
 
                                             <p>Please check you email inbox for registration confirmation</p>
                                         </div>
@@ -172,7 +185,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="upperPage">
         <div class="shadow-sm p-3 mb-5 bg-body rounded">
@@ -218,7 +230,34 @@
             </div>
         </div>
 
-        <br /><br /><br /><br /><br />
+        <div class="col-md-12 text-center">
+        <a class="text-focus-in" id="FAQLink" href="#FAQModal" data-bs-toggle="modal" >FAQ's</a>
+
+        <!-- Modal -->
+        <div class="modal fade" id="FAQModal" tabindex="-1" aria-labelledby="FAQModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <h2>FAQ's</h2><br />
+                                <p>- Notifications and alerts of Bowser activity, along with locations, are viewable from the home page.</p>
+                                <br />
+                                <p>- To report an issue, select the REPORT tab and fill the associated report form. (You must be logged in)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+        <br />  <br />
+
+
 
         <!-- Link back to top of page -->
         <p><a id="top_link" href="#back_to_top" >RETURN TO TOP</a></p>

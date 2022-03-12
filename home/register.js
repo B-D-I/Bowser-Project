@@ -1,7 +1,8 @@
 
 // Event handler for registration form submit
-$('#formUserRegistration').submit(function(event){
-    let formData = $('#formUserRegistration').serialize();
+$('#formUserRegistration').submit(function(event) {
+    formData = $('#formUserRegistration').serialize();
+
     // cancels the form submission
     event.preventDefault();
 
@@ -13,7 +14,7 @@ $('#formUserRegistration').submit(function(event){
 // Function to calculate strength of input
 function checkStrength(formData){
 
-    document.getElementById("registerAccountSubmit").onclick=function(e){	// function for id="password_create" will execute when (e) is called below
+    document.getElementById("account_submit_button").onclick=function(e){	// function for id="password_create" will execute when (e) is called below
 
         let strengthValue = {  // strength metrics for checker defined. Set to false, as will not be false wont be counted as a parameter in strength value
             'caps': false,
