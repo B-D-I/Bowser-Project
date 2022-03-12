@@ -15,6 +15,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
     <!--google maps api-->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	<!--report screen functions -->
+	<script type = "text/javascript" src="reportFuncs.js"></script>
+	
     <title>Water Bowser</title>
 
 </head>
@@ -51,6 +54,7 @@
                                 <h5 class="modal-title" id="reportModalLabel">Report Form</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
+
                             <div class="modal-body">
 
                                 <div class="row">
@@ -61,12 +65,39 @@
 
                                     <div class="col">
                                         <div class="select">
-                                            <select name="Report_Type" id="select">
-                                                <option value="Water Refill">Water Refill</option>
-                                                <option value="Faults / Damage">Faults / Damage</option>
-                                                <option value="Complaint">Complaint</option>
-                                                <option value="Complaint">Something Else</option>
+                                            <select name="Report_Type" id="select" onchange="reportTypeCheck(this);">
+                                                <option id="1" value="Water Refill">Water Refill</option>
+                                                <option id="2" value="Faults / Damage">Faults / Damage</option>
+                                                <option id="3" value="Complaint">Complaint</option>
+                                                <option id="4" value="Complaint">Something Else</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+							<div class="modal-body" id="bowserSelect">
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Bowser ID: </p>
+                                    </div>
+                                    <div class="col">
+										<div class='select' name='BowserID'>
+											<select>
+											<?php include($_SERVER['DOCUMENT_ROOT'].'/Bowser-Project/include/config.php');
+												$connection = OpenConnection();
+    											$result = mysqli_query($connection, 'SELECT Bowser_ID FROM tbl_bowser_inuse WHERE Bowser_ID > 0;');
+												if (mysqli_num_rows($result) > 0){
+													while($row = mysqli_fetch_assoc($result)) {
+														echo '<option value="-1"></option>';
+														echo '<option value="'.$row['Bowser_ID'].'">'.$row['Bowser_ID'].'</option>'; //close your tags!!
+													} 
+												} else {
+													echo '<option value="0">Bowser Not Listed</option>';
+												}
+												CloseConnection($connection);
+											?>
+                                        	</select>
                                         </div>
                                     </div>
                                 </div>
