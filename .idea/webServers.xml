@@ -2,8 +2,15 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="e8f0860f-b8cd-4364-bfaf-ccf60b28ea2b" name="XAMPP" url="http://localhost">
-        <fileTransfer mountedRoot="C:\xampp\htdocs" accessType="MOUNT" port="0" />
+      <webServer id="e8f0860f-b8cd-4364-bfaf-ccf60b28ea2b" name="XAMPP" url="http://localhost/Bowser-Project">
+        <fileTransfer mountedRoot="C:\xampp\htdocs\Bowser-Project" accessType="MOUNT" port="0" />
+      </webServer>
+      <webServer id="7038a44c-6e84-4a48-8f71-9f64c810a3d6" name="bowser_application" url="https://grp20224-ct5038.uogs.co.uk/">
+        <fileTransfer rootFolder="/httpdocs" accessType="SFTP" host="grp20224-ct5038.uogs.co.uk" port="22" sshConfigId="49ca178c-0ed8-43b4-ae7a-45c0f5c3a5e4" sshConfig="Bowser-Project">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
       </webServer>
     </option>
   </component>
