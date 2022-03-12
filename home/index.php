@@ -95,8 +95,9 @@ include '../include/config.php';
                                     <div class="col">
 										<div class='select' name='BowserID'>
 											<select>
-											<?php include($_SERVER['DOCUMENT_ROOT'].'/Bowser-Project/include/config.php');
+											<?php 
 												$connection = OpenConnection();
+												echo "Connection OK";
     											$result = mysqli_query($connection, 'SELECT Bowser_ID FROM tbl_bowser_inuse WHERE Bowser_ID > 0;');
 												if (mysqli_num_rows($result) > 0){
 													while($row = mysqli_fetch_assoc($result)) {
