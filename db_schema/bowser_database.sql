@@ -16,6 +16,22 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`bowser_database` /*!40100 DEFAULT CHARA
 
 USE `bowser_database`;
 
+/*Table structure for table `tbl_user_account` */
+
+DROP TABLE IF EXISTS `tbl_user_account`;
+
+CREATE TABLE `tbl_user_account` (
+  `User_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `User_Type` varchar(100) NOT NULL,
+  `Password` varchar(250) NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  `UserLevel` varchar(100) NOT NULL,
+  `IsVerified` tinyint(4) DEFAULT NULL,
+  `Verification_Code` varchar(250) NOT NULL,
+  PRIMARY KEY (`User_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 /*Table structure for table `tbl_area` */
 
 DROP TABLE IF EXISTS `tbl_area`;
@@ -116,20 +132,6 @@ CREATE TABLE `tbl_reports` (
   PRIMARY KEY (`Report_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
-/*Table structure for table `tbl_user_account` */
-
-DROP TABLE IF EXISTS `tbl_user_account`;
-
-CREATE TABLE `tbl_user_account` (
-  `User_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `User_Type` varchar(100) NOT NULL,
-  `Password` varchar(250) NOT NULL,
-  `Email` varchar(100) NOT NULL,
-  `UserLevel` varchar(100) NOT NULL,
-  `IsVerified` tinyint(4) DEFAULT NULL,
-  `Verification_Code` varchar(250) NOT NULL,
-  PRIMARY KEY (`User_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
