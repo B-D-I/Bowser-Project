@@ -16,6 +16,7 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`bowser_database` /*!40100 DEFAULT CHARA
 
 USE `bowser_database`;
 
+
 /*Table structure for table `tbl_user_account` */
 
 DROP TABLE IF EXISTS `tbl_user_account`;
@@ -30,7 +31,6 @@ CREATE TABLE `tbl_user_account` (
   `Verification_Code` varchar(250) NOT NULL,
   PRIMARY KEY (`User_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 /*Table structure for table `tbl_area` */
 
@@ -90,7 +90,6 @@ CREATE TABLE `tbl_bowser_stock` (
   `Bowser_ID` int(11) NOT NULL,
   `Bowser_Capacity` int(11) NOT NULL,
   `Bowser_Status` varchar(100) NOT NULL,
-  `Bowser_Quantity` int(11) NOT NULL,
   `Bowser_Model` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -112,12 +111,24 @@ DROP TABLE IF EXISTS `tbl_maintenance_schedule`;
 CREATE TABLE `tbl_maintenance_schedule` (
   `Bowser_ID` int(11) NOT NULL,
   `User_ID` int(11) NOT NULL,
+  `Report_Type_ID` varchar(11) NOT NULL,
   `Description` varchar(100) NOT NULL,
   `Status` varchar(100) NOT NULL,
   `Date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   KEY `Bowser_ID` (`Bowser_ID`),
   KEY `User_ID` (`User_ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+/*Table structure for table `tbl_report_type` */
+
+DROP TABLE IF EXISTS `tbl_report_type`;
+
+CREATE TABLE `tbl_report_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(30) NOT NULL,
+  `is_bowser` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 /*Table structure for table `tbl_reports` */
 
