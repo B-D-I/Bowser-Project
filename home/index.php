@@ -46,7 +46,7 @@ include '../include/config.php';
             </div>
 
             <div class="nav-link-wrapper active-nav-link">
-                <a class="text-focus-in" href="../maintenance/maintenance.html">Maintenance</a>
+                <a class="text-focus-in" href="../maintenance/maintenance.php">Maintenance</a>
             </div>
 
             <div class="nav-link-wrapper active-nav-link">
@@ -77,10 +77,18 @@ include '../include/config.php';
                                     <div class="col">
                                         <div class="select">
                                             <select name="Report_Type" id="select" onchange="reportTypeCheck(this);">
-                                                <option id="1" value="1">Water Refill</option>
-                                                <option id="2" value="2">Faults / Damage</option>
-                                                <option id="3" value="3">Complaint</option>
-                                                <option id="4" value="4">Something Else</option>
+											<?php 
+												$connection = OpenConnection();
+												echo "Connection OK";
+    											$result = mysqli_query($connection, "SELECT id, description, is_bowser FROM tbl_report_type order by id asc;");
+												echo "<option value='-1' disabled selected>---</option>";
+												if (mysqli_num_rows($result) > 0){
+													while($row = mysqli_fetch_assoc($result)) {
+														echo "<option id='".$row['is_bowser']."' value='".$row['id']."'>".$row['description']."</option>";
+													}
+												}
+												CloseConnection($connection);
+											?>
                                             </select>
                                         </div>
                                     </div>
@@ -102,7 +110,7 @@ include '../include/config.php';
 												echo "<option value='-1' disabled selected>---</option>";
 												if (mysqli_num_rows($result) > 0){
 													while($row = mysqli_fetch_assoc($result)) {
-														echo "<option value='".$row['Bowser_ID']."'>".$row['Bowser_ID']."</option>"; //close your tags!!
+														echo "<option value='".$row['Bowser_ID']."'>".$row['Bowser_ID']."</option>";
 													}
 												}
 												CloseConnection($connection);

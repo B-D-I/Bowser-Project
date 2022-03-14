@@ -3,7 +3,7 @@
 
 function reportTypeCheck(select){
 	var currSelect = select[select.selectedIndex].id;
-	if (currSelect <= 2){
+	if (currSelect == 1){
 		document.getElementById("bowserSelect").style.display = "block";
 	} else {
 		document.getElementById("bowserSelect").style.display = "none";
