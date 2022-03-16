@@ -32,7 +32,7 @@
             </div>
 
             <div class="nav-link-wrapper active-nav-link">
-                <a class="text-focus-in" href="../maintenance/maintenance.html">Maintenance</a>
+                <a class="text-focus-in" href="maintenance.php">Maintenance</a>
             </div>
         </div>
 
@@ -53,45 +53,46 @@
             <div class="row">
                 <div class="col">
 
+                    <h2> Requirements:</h2>
+                    <br />
                     <ul class="maintenance_list">
-                        <h2> Requirements:</h2>
 
                         <br />
-                            <h4>User: Tom Smith 001</h4>
+                        <h4>User: Tom Smith 001</h4>
 
                         <br /><br />
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" >
-                                <label class="form-check-label">
-                                    02/02/2022, Cheltenham - bowser 005 needs refilling
-                                </label>
-                            </div>
-
-                        <br />
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" >
-                                <label class="form-check-label">
-                                    02/02/2022, Cheltenham - bowser 012 has a fault
-                                </label>
-                            </div>
-
-                        <br />
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" >
-                                <label class="form-check-label" >
-                                    02/02/2022, Cheltenham - bowser 011 is leaking
-                                </label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" >
+                            <label class="form-check-label">
+                                02/02/2022, Cheltenham - bowser 005 needs refilling
+                            </label>
                         </div>
 
                         <br />
 
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" >
-                                <label class="form-check-label" >
-                                    02/02/2022, Cheltenham - bowser 004 needs refilling
-                                </label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" >
+                            <label class="form-check-label">
+                                02/02/2022, Cheltenham - bowser 012 has a fault
+                            </label>
+                        </div>
+
+                        <br />
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" >
+                            <label class="form-check-label" >
+                                02/02/2022, Cheltenham - bowser 011 is leaking
+                            </label>
+                        </div>
+
+                        <br />
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" >
+                            <label class="form-check-label" >
+                                02/02/2022, Cheltenham - bowser 004 needs refilling
+                            </label>
 
                             <br />
                     </ul>
@@ -106,7 +107,6 @@
                 <div class="col">
                     <div class="text_area">
                         <h2>Bowser Map</h2>
-                        <br />
                         <br />
                         <!--div to display map--->
                         <div id="map"></div>

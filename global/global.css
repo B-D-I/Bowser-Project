@@ -58,7 +58,7 @@ body {
 /* Navbar effect */
 .text-focus-in {
   -webkit-animation: text-focus-in 0.7s cubic-bezier(0.55, 0.085, 0.68, 0.53)
-    both;
+  both;
   animation: text-focus-in 0.7s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
   animation-delay: 0.7s;
 }
@@ -114,14 +114,14 @@ body {
   border-radius: 5px; /* Border radius has been set to the same as elements within the page to give a rounded effect */
   /* The colours have set to match the theme of the page */
   background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(#656565),
-    to(#bbbbbb)
+          linear,
+          left top,
+          left bottom,
+          from(#656565),
+          to(#bbbbbb)
   );
   box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.25),
-    inset 1px 1px 1px rgba(0, 0, 0, 0.25);
+  inset 1px 1px 1px rgba(0, 0, 0, 0.25);
 }
 ::-webkit-scrollbar-track {
   background-color: #e0e0e0;

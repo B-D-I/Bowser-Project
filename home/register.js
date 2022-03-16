@@ -61,9 +61,12 @@ function checkStrength(formData){
                     data: formData+"&phpFunction=create",
                     success: function(msg){
                         $("#divMessage").html(msg);
+                        window.location="index.php";
+
                     },
                     error: function(msg){
                         console.log(msg);
+                        window.location="index.php";
                     }
                 });
             }

@@ -1,8 +1,8 @@
 <?php
 // connect to database and credentials
 $servername = "localhost"; // server name
-$username = "*********"; // username
-$password = "*********"; // password
+$username = "root"; // username
+$password = ""; // password
 $dbname = "bowser_database"; // database name
 
 // connection variable to hold credentials

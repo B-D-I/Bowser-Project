@@ -43,11 +43,11 @@ include '../include/config.php';
             </div>
 
             <div class="nav-link-wrapper active-nav-link">
-                <a class="text-focus-in" href="../maintenance/maintenance.html">Maintenance</a>
+                <a class="text-focus-in" href="../maintenance/maintenance.php">Maintenance</a>
             </div>
 
             <div class="nav-link-wrapper active-nav-link">
-                <a class="text-focus-in" href="../operations/operations.html">Operations</a>
+                <a class="text-focus-in" href="../operations/operations.php">Operations</a>
             </div>
 
 
@@ -167,8 +167,8 @@ include '../include/config.php';
                                                 </div>
 
                                                 <div id="account_submit_button">
-                                                <button type="submit" id="registerAccountSubmit" class="btn btn-primary">Submit</button>
-                                                <hr>
+                                                    <button type="submit" id="registerAccountSubmit" class="btn btn-primary">Submit</button>
+                                                    <hr>
                                                 </div>
                                             </form>
 
@@ -191,8 +191,9 @@ include '../include/config.php';
             <div class="row">
                 <div class="col">
 
+                    <h2> Notifications and Alerts</h2>
+
                     <ul class="notification-list">
-                        <h2> Notifications and Alerts</h2>
                         <br /><br />
                         <li> 13.10 - Water bowser 001 now refilled.
                         </li>
@@ -219,7 +220,6 @@ include '../include/config.php';
                 <div class="col">
                     <div class="text_area">
                         <h2>Bowser Map</h2>
-                        <br />
                         <p> Find local bowsers using the map below </p>
                         <br />
 
@@ -231,27 +231,27 @@ include '../include/config.php';
         </div>
 
         <div class="col-md-12 text-center">
-        <a class="text-focus-in" id="FAQLink" href="#FAQModal" data-bs-toggle="modal" >FAQ's</a>
+            <a class="text-focus-in" id="FAQLink" href="#FAQModal" data-bs-toggle="modal" >FAQ's</a>
 
-        <!-- Modal -->
-        <div class="modal fade" id="FAQModal" tabindex="-1" aria-labelledby="FAQModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
+            <!-- Modal -->
+            <div class="modal fade" id="FAQModal" tabindex="-1" aria-labelledby="FAQModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
 
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col">
-                                <h2>FAQ's</h2><br />
-                                <p>- Notifications and alerts of Bowser activity, along with locations, are viewable from the home page.</p>
-                                <br />
-                                <p>- To report an issue, select the REPORT tab and fill the associated report form. (You must be logged in)</p>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h2>FAQ's</h2><br />
+                                    <p>- Notifications and alerts of Bowser activity, along with locations, are viewable from the home page.</p>
+                                    <br />
+                                    <p>- To report an issue, select the REPORT tab and fill the associated report form. (You must be logged in)</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
 

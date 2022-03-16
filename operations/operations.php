@@ -146,8 +146,47 @@
                 <div class="col">
                     <button type="button" class="btn btn-secondary">Open Bowser Spreadsheet</button>
                 </div>
+
                 <div class="col">
-                    <button type="button" class="btn btn-secondary">Add New User</button>
+
+                    <button class="btn btn-secondary" id="registerLink" href="#registerNewUserModal" data-bs-toggle="modal" >Register New User</button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="registerNewUserModal" tabindex="-1" aria-labelledby="registerUserModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="registerUserModalLabel">Register New User</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div class="row">
+                                        <div class="col">
+
+                                            <form method="post" id="formUserRegistration">
+                                                <div class="mb-3">
+                                                    <input type="email" name="email" class="form-control" placeholder="Email" id="registerInputEmail" aria-describedby="emailHelp">
+                                                </div>
+                                                <div class="col">
+                                                    <div class="select">
+                                                        <select name="user_type" id="select">
+                                                            <option value="Mainenance">Maintenance</option>
+                                                            <option value="Operations">Operations</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <br /><br /><br />
+
+                                                <button type="submit" name="registerAccountSubmit" class="btn btn-secondary">Submit</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -162,6 +201,7 @@
 <br />  <br />
 
 <script src="operations.js"></script>
+<script src="adminRegister.js"></script>
 <script src ="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization&callback=initMap" async defer> </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>
