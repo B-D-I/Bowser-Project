@@ -1,6 +1,5 @@
 <?php
 
-
 // get connection from config.php
 include "../include/config.php";
 
@@ -44,7 +43,6 @@ function create() {
 		echo "This email is already registered!";
 		return;
 	}
-
 	// construct query string - insert into db
 	$sql= "insert into tbl_user_account (User_Type, Password, Email, UserLevel, isVerified, Verification_Code) values
 		('Customer','$password','$email', 1,'1','$verificationcode')";
@@ -62,12 +60,10 @@ function create() {
 }
 
 
-
 //verification email function
 function sendEmail($emailTo, $verificationcode) {
 
 	include "../include/config.php";
-
 	// sender
 	$fromserver="<br />FROM: s4008324@glos.ac.uk";
 	// echo from
@@ -80,12 +76,10 @@ function sendEmail($emailTo, $verificationcode) {
 	$link= '<a href="'.$link.'">Click here to activate</a> <br />';
 	$body=$body.$link;
 	echo $body;
-
 }
 
 //verifiy user function
 function verify() {
-
 	// echo the verify information
 	echo password_verify(input, hashedDBPassword);
 
@@ -103,9 +97,7 @@ function verify() {
 	echo $sql;
 
 	if(mysqli_query($connection, $sql)) {
-		// $_SESSION["success"] = "Account created. Please sign in";
 		echo "Account has been verified. <br />";
-
 		// this link to direct to login page
 		echo '<a href="index.php">Click here to login</a> <br />';
 
@@ -116,6 +108,4 @@ function verify() {
 		// return;
 	}
 }
-
-
 ?>

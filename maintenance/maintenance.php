@@ -1,4 +1,13 @@
+<?php
 
+session_start();
+if (isset($_SESSION['email'])){
+    $email = $_SESSION['email'];
+
+    include "../include/config.php";
+
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -10,6 +19,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="../global/global.css" type="text/css">
     <link rel="stylesheet" href="maintenance.css" type="text/css">
+    <link rel="icon" type="image/x-icon" href="../images/logo/bowserLogo.png">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!--jQuery-->
@@ -43,10 +53,16 @@
         <div class="right-side">
             <div class="nav-link-wrapper">
                 <!--right navbar--->
+                <?php
+                if (isset($_SESSION['email'])) {
+                    echo "<div class='nav-link-wrapper' id='logoutTab'>";
+                    echo "<a href='../home/logout.php'>Logout</a>";
+                    echo "</div>";
+                }
+                ?>
             </div>
         </div>
     </div>
-
 
     <div class="upperPage">
         <div class="shadow-sm p-3 mb-5 bg-body rounded">
@@ -69,7 +85,6 @@
                         </div>
 
                         <br />
-
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" >
                             <label class="form-check-label">
@@ -78,7 +93,6 @@
                         </div>
 
                         <br />
-
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" >
                             <label class="form-check-label" >
@@ -87,7 +101,6 @@
                         </div>
 
                         <br />
-
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" >
                             <label class="form-check-label" >
@@ -96,12 +109,10 @@
 
                             <br />
                     </ul>
-
                     <br /><br />
 
                     <button type="button" class="btn btn-primary">Task Complete</button>
                     <br />
-
                 </div>
 
                 <div class="col">
@@ -114,7 +125,6 @@
                 </div>
             </div>
         </div>
-
 
         <br /><br /><br /><br /><br />
 

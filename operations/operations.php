@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+if (isset($_SESSION['email'])){
+    $email = $_SESSION['email'];
+
+    include "../include/config.php";
+
+}
+?>
 
 <!doctype html>
 <html lang="en">
@@ -10,6 +20,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="../global/global.css" type="text/css">
     <link rel="stylesheet" href="operations.css" type="text/css">
+    <link rel="icon" type="image/x-icon" href="../images/logo/bowserLogo.png">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!--jQuery-->
@@ -34,7 +45,6 @@
             <div class="nav-link-wrapper active-nav-link">
                 <a class="text-focus-in" href="../operations/operations.html">Operations</a>
             </div>
-
         </div>
 
         <div class="middle">
@@ -44,6 +54,13 @@
         <div class="right-side">
             <div class="nav-link-wrapper">
                 <!--right navbar--->
+                <?php
+                if (isset($_SESSION['email'])) {
+                    echo "<div class='nav-link-wrapper' id='logoutTab'>";
+                    echo "<a href='../home/logout.php'>Logout</a>";
+                    echo "</div>";
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -111,7 +128,6 @@
                                     <li><a class="dropdown-item" href="#">003</a></li>
                                 </ul>
                             </div>
-
                             <br /><br />
 
                             <div class="dropdown">
@@ -124,16 +140,13 @@
                                     <li><a class="dropdown-item" href="#">Carl</a></li>
                                 </ul>
                             </div>
-
                             <br /><br />
 
                             <label for="">Date:</label>
                             <input type="date" id="" name="">
-
                             <br /><br />
 
                             <button type="button" class="btn btn-primary">ADD</button>
-
                         </form>
                     </div>
                 </div>
@@ -141,14 +154,76 @@
 
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-secondary">Request New Bowser</button>
+
+                    <button class="btn btn-secondary" id="registerLink" href="#requestBowserModal" data-bs-toggle="modal" >Request New Bowser</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="requestBowserModal" tabindex="-1" aria-labelledby="requestBowserModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="requestBowserModalLabel">Request Bowser</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col">
+
+                                            <form method="post" id="formBowserRequest">
+                                                <div class="mb-3">
+
+                                                    <div class="form-floating">
+                                                        <textarea class="form-control" name="Reason" placeholder="Reason for Request"style="height: 100px"></textarea>
+                                                        <label for="floatingTextarea2">Reason for Request</label>
+                                                    </div>
+
+                                                    <label>Organisation</label>
+                                                    <div class="select">
+                                                        <select name="Organisation" id="select">
+                                                            <option value="CompanyA">Company A</option>
+                                                            <option value="CompanyB">Company B</option>
+                                                            <option value="CompanyC">Company C</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="col">
+                                                    <label>Capacity</label>
+                                                    <div class="select">
+                                                        <select name="Capacity" id="select">
+                                                            <option value="1000">1000L</option>
+                                                            <option value="5000">5000L</option>
+                                                            <option value="10000">10,000L</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <br /> <br />
+                                                <div class="col">
+                                                    <label>Priority</label>
+                                                    <div class="select">
+                                                        <select name="Priority" id="select">
+                                                            <option value="3">High</option>
+                                                            <option value="2">Medium</option>
+                                                            <option value="1">Low</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <br /><br /><br />
+
+                                                <button type="submit" name="requestBowserSubmit" class="btn btn-secondary">Submit</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
                 </div>
+
                 <div class="col">
                     <button type="button" class="btn btn-secondary">Open Bowser Spreadsheet</button>
                 </div>
 
                 <div class="col">
-
                     <button class="btn btn-secondary" id="registerLink" href="#registerNewUserModal" data-bs-toggle="modal" >Register New User</button>
 
                     <!-- Modal -->
@@ -160,7 +235,6 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-
                                     <div class="row">
                                         <div class="col">
 
@@ -171,7 +245,7 @@
                                                 <div class="col">
                                                     <div class="select">
                                                         <select name="user_type" id="select">
-                                                            <option value="Mainenance">Maintenance</option>
+                                                            <option value="Maintenance">Maintenance</option>
                                                             <option value="Operations">Operations</option>
                                                         </select>
                                                     </div>
@@ -186,13 +260,13 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <br /><br /><br /><br /><br />
 
@@ -201,7 +275,6 @@
 <br />  <br />
 
 <script src="operations.js"></script>
-<script src="adminRegister.js"></script>
 <script src ="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization&callback=initMap" async defer> </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>

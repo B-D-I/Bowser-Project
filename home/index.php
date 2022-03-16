@@ -3,10 +3,21 @@
 // session start function
 // variable assigned for user email
 session_start();
-//$email =$_SESSION['email'];
-// establish connection
-include '../include/config.php';
+if (isset($_SESSION['email'])){
+    $email = $_SESSION['email'];
+}
 
+include "../include/config.php";
+
+if (isset($_SESSION['email'])) {
+    $sql = "SELECT * FROM tbl_user_account WHERE Email='$email'";
+    $result = $connection->query($sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $userType = $row["User_Type"];
+        }
+    }
+}
 ?>
 
 <!doctype html>
@@ -20,6 +31,7 @@ include '../include/config.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="../global/global.css" type="text/css">
     <link rel="stylesheet" href="home.css" type="text/css">
+    <link rel="icon" type="image/x-icon" href="../images/logo/bowserLogo.png">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!--jQuery-->
@@ -42,15 +54,27 @@ include '../include/config.php';
                 <a class="text-focus-in" href="index.php">Home</a>
             </div>
 
-            <div class="nav-link-wrapper active-nav-link">
-                <a class="text-focus-in" href="../maintenance/maintenance.php">Maintenance</a>
-            </div>
+            <?php
+            if (isset($_SESSION['email']))
+            if ($userType == "Maintenance")
+                echo '
+                 <div class="nav-link-wrapper active-nav-link">
+                    <a class="text-focus-in" href="../maintenance/maintenance.php">Maintenance</a>
+                </div>
+            ';?>
 
-            <div class="nav-link-wrapper active-nav-link">
-                <a class="text-focus-in" href="../operations/operations.php">Operations</a>
-            </div>
+            <?php
+            if (isset($_SESSION['email']))
+            if ($userType == "Operations")
+                echo '
+                  <div class="nav-link-wrapper active-nav-link">
+                    <a class="text-focus-in" href="../operations/operations.php">Operations</a>
+                  </div>
+            ';?>
 
-
+            <?php
+            if (isset($_SESSION['email'])){
+                echo '        
             <div class="nav-link-wrapper">
                 <a class="text-focus-in" id="link" href="#reportModal" data-bs-toggle="modal" >Report</a>
 
@@ -89,7 +113,8 @@ include '../include/config.php';
                             </div>
 
                             <div class="modal-footer">
-                                <p>You must login before sending a report. <br /><br />For assistance please contact us at: example@email.com
+                                <br /><p>For assistance, contact us at:
+                                <a id="link" href="mailto:s4008324@glos.ac.uk">bowser-hub@email.com</a>
                                 </p><br /><br />
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary">Send Report</button>
@@ -98,14 +123,24 @@ include '../include/config.php';
                     </div>
                 </div>
             </div>
+            ';}?>
         </div>
+
 
         <div class="middle">
             <h2 class="text-focus-in">Bowser Hub</h2>
         </div>
 
-        <div class="right-side">
-            <div class="nav-link-wrapper">
+        <div class="right-side" >
+
+            <?php
+            if (isset($_SESSION['email'])){
+                echo "<div class='nav-link-wrapper' id='logoutTab'>";
+                echo "<a href='logout.php'>Logout</a>";
+                echo "</div>";
+            } else {
+                echo '
+            <div class="nav-link-wrapper" id="loginTab">
                 <a class="text-focus-in" id="loginLink" href="#loginModal" data-bs-toggle="modal" >Login</a>
 
                 <!-- Modal -->
@@ -138,7 +173,7 @@ include '../include/config.php';
                     </div>
                 </div>
 
-                <div class="nav-link-wrapper">
+                <div class="nav-link-wrapper" id="registrationTab">
                     <a class="text-focus-in" id="registerLink" href="#registerModal" data-bs-toggle="modal" >Registration</a>
 
                     <!-- Modal -->
@@ -182,7 +217,9 @@ include '../include/config.php';
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>     
+             ';}?>
+            <!--End PHP--->
         </div>
     </div>
 
@@ -192,7 +229,6 @@ include '../include/config.php';
                 <div class="col">
 
                     <h2> Notifications and Alerts</h2>
-
                     <ul class="notification-list">
                         <br /><br />
                         <li> 13.10 - Water bowser 001 now refilled.
@@ -215,7 +251,6 @@ include '../include/config.php';
                     </ul>
                     <br />
                 </div>
-
 
                 <div class="col">
                     <div class="text_area">
@@ -253,11 +288,7 @@ include '../include/config.php';
             </div>
         </div>
 
-
-
         <br />  <br />
-
-
 
         <!-- Link back to top of page -->
         <p><a id="top_link" href="#back_to_top" >RETURN TO TOP</a></p>
@@ -269,7 +300,6 @@ include '../include/config.php';
 
         <script src ="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization&callback=initMap" async defer> </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-
 
 </body>
 
