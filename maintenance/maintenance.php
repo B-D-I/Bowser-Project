@@ -71,10 +71,19 @@ if (isset($_SESSION['email'])){
 
                     <h2> Requirements:</h2>
                     <br />
+
                     <ul class="maintenance_list">
 
                         <br />
-                        <h4>User: Tom Smith 001</h4>
+
+                        <?php
+                        $sql1="SELECT * FROM `tbl_user_account` WHERE email='$email'";
+                        $result = mysqli_query($connection, $sql1);
+                        $rows = mysqli_fetch_array($result);
+                        $userID = $rows["User_ID"];
+
+                        echo "<h4>User: &nbsp;".$email." <br />ID: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$userID."</h4>";
+                        ?>
 
                         <br /><br />
                         <div class="form-check">

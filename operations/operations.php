@@ -106,6 +106,14 @@ if (isset($_SESSION['email'])){
 
                 <div class="col">
                     <div class="row">
+                        <?php
+                        $sql1="SELECT * FROM `tbl_user_account` WHERE email='$email'";
+                        $result = mysqli_query($connection, $sql1);
+                        $rows = mysqli_fetch_array($result);
+                        $userID = $rows["User_ID"];
+
+                        echo "<h4>User: &nbsp;".$email." <br />ID: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$userID."</h4>";
+                        ?>
                         <div class="text_area">
                             <h3>Details</h3>
                             <h4>#TaskID</h4><br />
