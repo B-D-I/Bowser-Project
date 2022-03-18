@@ -38,6 +38,9 @@ if (isset($_SESSION['email'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
     <!--google maps api-->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	<!--report screen functions -->
+	<script type = "text/javascript" src="reportFuncs.js"></script>
+	
     <title>Water Bowser</title>
 
 </head>
@@ -80,6 +83,7 @@ if (isset($_SESSION['email'])) {
 
                 <!-- Modal -->
                 <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+                    <form action="" id="report" method="POST">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -96,19 +100,54 @@ if (isset($_SESSION['email'])) {
 
                                     <div class="col">
                                         <div class="select">
-                                            <select name="Report_Type" id="select">
-                                                <option value="Water Refill">Water Refill</option>
-                                                <option value="Faults / Damage">Faults / Damage</option>
-                                                <option value="Complaint">Complaint</option>
-                                                <option value="Complaint">Something Else</option>
+                                            <select name="Report_Type" id="select" onchange="reportTypeCheck(this);">
+											<?php 
+												$connection = OpenConnection();
+												echo "Connection OK";
+    											$result = mysqli_query($connection, "SELECT id, description, is_bowser FROM tbl_report_type order by id asc;");
+												echo "<option value='-1' disabled selected>---</option>";
+												if (mysqli_num_rows($result) > 0){
+													while($row = mysqli_fetch_assoc($result)) {
+														echo "<option id='".$row['is_bowser']."' value='".$row['id']."'>".$row['description']."</option>";
+													}
+												}
+												CloseConnection($connection);
+											?>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
+							<div class="modal-body" id="bowserSelect">
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Bowser ID: </p>
+                                    </div>
+                                    <div class="col">
+										<div class='select'>
+											<select name='Bowser_ID'>
+											<?php 
+												$connection = OpenConnection();
+												echo "Connection OK";
+    											$result = mysqli_query($connection, "SELECT Bowser_ID FROM tbl_bowser_inuse WHERE Bowser_ID > 0;");
+												echo "<option value='-1' disabled selected>---</option>";
+												if (mysqli_num_rows($result) > 0){
+													while($row = mysqli_fetch_assoc($result)) {
+														echo "<option value='".$row['Bowser_ID']."'>".$row['Bowser_ID']."</option>";
+													}
+												}
+												CloseConnection($connection);
+											?>
+											<option value="0">Bowser Not Listed</option>
+                                        	</select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Description" id="floatingTextarea2" style="height: 100px"></textarea>
+                                <textarea class="form-control" name="Description" placeholder="Description" id="floatingTextarea2" style="height: 100px"></textarea>
                                 <label for="floatingTextarea2">Description</label>
                             </div>
 
@@ -117,10 +156,28 @@ if (isset($_SESSION['email'])) {
                                 <a id="link" href="mailto:s4008324@glos.ac.uk">bowser-hub@email.com</a>
                                 </p><br /><br />
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Send Report</button>
+                               <input type="submit" name="submit" value="Send Report"></input>
+								
+							   	<?php
+									$connection = OpenConnection();
+    								if(isset($_POST["submit"])){
+										$Report_Type = $connection->real_escape_string($_POST['Report_Type']);
+										$Bowser_ID = $connection->real_escape_string($_POST['Bowser_ID']);
+										$Description = $connection->real_escape_string($_POST['Description']);
+										$User_ID = '999';
+        								if($query = mysqli_query($connection,"INSERT INTO tbl_Reports(Report_ID,Report_Type,Bowser_ID,Description,User_ID) VALUES (NULL,$Report_Type,$Bowser_ID,$Description, $User_ID)")){
+            								echo "Success";
+        								} else {
+            								echo "Failure" . mysqli_error($connection);
+        								}
+    								}
+                        		?>
+
                             </div>
                         </div>
                     </div>
+                    </form>
+
                 </div>
             </div>
             ';}?>
