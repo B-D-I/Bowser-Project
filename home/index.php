@@ -79,7 +79,9 @@ if (isset($_SESSION['email'])) {
             if (isset($_SESSION['email'])){
                 echo '
             	<div class="nav-link-wrapper">
-                	<a class="text-focus-in" id="link" href="#reportModal" data-bs-toggle="modal" >Report</a>
+                	<a class="text-focus-in" id="link" href="#reportModal" data-bs-toggle="modal">Report</a>';
+			}
+			?>
                 <!-- Modal -->
                 <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
                     <form action="" id="report" method="POST">
@@ -100,7 +102,7 @@ if (isset($_SESSION['email'])) {
                                     <div class="col">
                                         <div class="select">
                                             <select name="Report_Type" id="select" onchange="reportTypeCheck(this);">';
-				
+			<?php			
 												$connection = OpenConnection();
 												echo "Connection OK";
     											$result = mysqli_query($connection, "SELECT id, description, is_bowser FROM tbl_report_type order by id asc;");
@@ -111,7 +113,7 @@ if (isset($_SESSION['email'])) {
 													}
 												}
 												CloseConnection($connection);
-										echo'
+			?>
                                             </select>
                                         </div>
                                     </div>
@@ -126,7 +128,7 @@ if (isset($_SESSION['email'])) {
                                     <div class="col">
 										<div class="select">
 											<select name="Bowser_ID">';
-
+			<?php
 												$connection = OpenConnection();
 												echo "Connection OK";
     											$result = mysqli_query($connection, "SELECT Bowser_ID FROM tbl_bowser_inuse WHERE Bowser_ID > 0;");
@@ -137,7 +139,7 @@ if (isset($_SESSION['email'])) {
 													}
 												}
 												CloseConnection($connection);
-										echo '
+			?>
 										<option value="0">Bowser Not Listed</option>
                                         	</select>
                                         </div>
@@ -155,8 +157,8 @@ if (isset($_SESSION['email'])) {
                                 <a id="link" href="mailto:s4008324@glos.ac.uk">bowser-hub@email.com</a>
                                 </p><br /><br />
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                               <input type="submit" name="submit" value="Send Report"></input>';
-								}?>
+                               <input type="submit" name="submit" value="Send Report"></input>
+
 							   	<?php
 									$connection = OpenConnection();
     								if(isset($_POST["submit"])){
@@ -196,7 +198,6 @@ if (isset($_SESSION['email'])) {
                 echo '
             <div class="nav-link-wrapper" id="loginTab">
                 <a class="text-focus-in" id="loginLink" href="#loginModal" data-bs-toggle="modal" >Login</a>
-
                 <!-- Modal -->
                 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -226,7 +227,7 @@ if (isset($_SESSION['email'])) {
                         </div>
                     </div>
                 </div>';
-			}?>
+				}?>
                 <div class="nav-link-wrapper" id="registrationTab">
                     <a class="text-focus-in" id="registerLink" href="#registerModal" data-bs-toggle="modal" >Registration</a>
 
