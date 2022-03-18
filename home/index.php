@@ -77,10 +77,9 @@ if (isset($_SESSION['email'])) {
 
             <?php
             if (isset($_SESSION['email'])){
-                echo '        
-            <div class="nav-link-wrapper">
-                <a class="text-focus-in" id="link" href="#reportModal" data-bs-toggle="modal" >Report</a>
-
+                echo '
+            	<div class="nav-link-wrapper">
+                	<a class="text-focus-in" id="link" href="#reportModal" data-bs-toggle="modal" >Report</a>
                 <!-- Modal -->
                 <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
                     <form action="" id="report" method="POST">
@@ -100,8 +99,8 @@ if (isset($_SESSION['email'])) {
 
                                     <div class="col">
                                         <div class="select">
-                                            <select name="Report_Type" id="select" onchange="reportTypeCheck(this);">
-											<?php 
+                                            <select name="Report_Type" id="select" onchange="reportTypeCheck(this);">';
+				
 												$connection = OpenConnection();
 												echo "Connection OK";
     											$result = mysqli_query($connection, "SELECT id, description, is_bowser FROM tbl_report_type order by id asc;");
@@ -112,7 +111,7 @@ if (isset($_SESSION['email'])) {
 													}
 												}
 												CloseConnection($connection);
-											?>
+										echo'
                                             </select>
                                         </div>
                                     </div>
@@ -125,9 +124,9 @@ if (isset($_SESSION['email'])) {
                                         <p>Bowser ID: </p>
                                     </div>
                                     <div class="col">
-										<div class='select'>
-											<select name='Bowser_ID'>
-											<?php 
+										<div class="select">
+											<select name="Bowser_ID">';
+
 												$connection = OpenConnection();
 												echo "Connection OK";
     											$result = mysqli_query($connection, "SELECT Bowser_ID FROM tbl_bowser_inuse WHERE Bowser_ID > 0;");
@@ -138,8 +137,8 @@ if (isset($_SESSION['email'])) {
 													}
 												}
 												CloseConnection($connection);
-											?>
-											<option value="0">Bowser Not Listed</option>
+										echo '
+										<option value="0">Bowser Not Listed</option>
                                         	</select>
                                         </div>
                                     </div>
@@ -156,15 +155,15 @@ if (isset($_SESSION['email'])) {
                                 <a id="link" href="mailto:s4008324@glos.ac.uk">bowser-hub@email.com</a>
                                 </p><br /><br />
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                               <input type="submit" name="submit" value="Send Report"></input>
-								
+                               <input type="submit" name="submit" value="Send Report"></input>';
+								}?>
 							   	<?php
 									$connection = OpenConnection();
     								if(isset($_POST["submit"])){
 										$Report_Type = $connection->real_escape_string($_POST['Report_Type']);
 										$Bowser_ID = $connection->real_escape_string($_POST['Bowser_ID']);
 										$Description = $connection->real_escape_string($_POST['Description']);
-										$User_ID = '999';
+										$User_ID = "999";
         								if($query = mysqli_query($connection,"INSERT INTO tbl_Reports(Report_ID,Report_Type,Bowser_ID,Description,User_ID) VALUES (NULL,$Report_Type,$Bowser_ID,$Description, $User_ID)")){
             								echo "Success";
         								} else {
@@ -180,9 +179,7 @@ if (isset($_SESSION['email'])) {
 
                 </div>
             </div>
-            ';}?>
         </div>
-
 
         <div class="middle">
             <h2 class="text-focus-in">Bowser Hub</h2>
@@ -228,8 +225,8 @@ if (isset($_SESSION['email'])) {
                             </div>
                         </div>
                     </div>
-                </div>
-
+                </div>';
+			}?>
                 <div class="nav-link-wrapper" id="registrationTab">
                     <a class="text-focus-in" id="registerLink" href="#registerModal" data-bs-toggle="modal" >Registration</a>
 
@@ -259,8 +256,8 @@ if (isset($_SESSION['email'])) {
                                                 </div>
 
                                                 <div id="account_submit_button">
-                                                    <button type="submit" id="registerAccountSubmit" class="btn btn-primary">Submit</button>
-                                                    <hr>
+                                                <button type="submit" id="registerAccountSubmit" class="btn btn-primary">Submit</button>
+                                                <hr>
                                                 </div>
                                             </form>
 
@@ -274,9 +271,7 @@ if (isset($_SESSION['email'])) {
                         </div>
                     </div>
                 </div>
-            </div>     
-             ';}?>
-            <!--End PHP--->
+            </div>
         </div>
     </div>
 
@@ -285,8 +280,8 @@ if (isset($_SESSION['email'])) {
             <div class="row">
                 <div class="col">
 
-                    <h2> Notifications and Alerts</h2>
                     <ul class="notification-list">
+                        <h2> Notifications and Alerts</h2>
                         <br /><br />
                         <li> 13.10 - Water bowser 001 now refilled.
                         </li>
@@ -309,9 +304,11 @@ if (isset($_SESSION['email'])) {
                     <br />
                 </div>
 
+
                 <div class="col">
                     <div class="text_area">
                         <h2>Bowser Map</h2>
+                        <br />
                         <p> Find local bowsers using the map below </p>
                         <br />
 
@@ -323,29 +320,33 @@ if (isset($_SESSION['email'])) {
         </div>
 
         <div class="col-md-12 text-center">
-            <a class="text-focus-in" id="FAQLink" href="#FAQModal" data-bs-toggle="modal" >FAQ's</a>
+        <a class="text-focus-in" id="FAQLink" href="#FAQModal" data-bs-toggle="modal" >FAQs</a>
 
-            <!-- Modal -->
-            <div class="modal fade" id="FAQModal" tabindex="-1" aria-labelledby="FAQModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+        <!-- Modal -->
+        <div class="modal fade" id="FAQModal" tabindex="-1" aria-labelledby="FAQModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
 
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col">
-                                    <h2>FAQ's</h2><br />
-                                    <p>- Notifications and alerts of Bowser activity, along with locations, are viewable from the home page.</p>
-                                    <br />
-                                    <p>- To report an issue, select the REPORT tab and fill the associated report form. (You must be logged in)</p>
-                                </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <h2>FAQs</h2><br />
+                                <p>- Notifications and alerts of Bowser activity, along with locations, are viewable from the home page.</p>
+                                <br />
+                                <p>- To report an issue, select the REPORT tab and fill the associated report form. (You must be logged in)</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+
 
         <br />  <br />
+
+
 
         <!-- Link back to top of page -->
         <p><a id="top_link" href="#back_to_top" >RETURN TO TOP</a></p>
@@ -357,6 +358,7 @@ if (isset($_SESSION['email'])) {
 
         <script src ="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization&callback=initMap" async defer> </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
 
 </body>
 
