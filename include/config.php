@@ -19,5 +19,4 @@ return $connection;
 function CloseConnection($connection){
 	$connection -> close();
 }
-
 ?>

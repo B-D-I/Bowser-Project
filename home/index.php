@@ -9,7 +9,6 @@ if (isset($_SESSION['email'])){
     $email = $_SESSION['email'];
 }
 
-
 if (isset($_SESSION['email'])) {
 	$connection = OpenConnection();
     $sql = "SELECT * FROM tbl_user_account WHERE Email='$email'";
@@ -174,12 +173,10 @@ if (isset($_SESSION['email'])) {
         								}
     								}
                         		?>
-
 <!--                            </div>-->
                         </div>
                     </div>
                     </form>
-
                 </div>
             </div>
         </div>
@@ -309,7 +306,6 @@ if (isset($_SESSION['email'])) {
                     <br />
                 </div>
 
-
                 <div class="col">
                     <div class="text_area">
                         <h2>Bowser Map</h2>
@@ -347,11 +343,7 @@ if (isset($_SESSION['email'])) {
         </div>
     </div>
 
-
-
         <br />  <br />
-
-
 
         <!-- Link back to top of page -->
         <p><a id="top_link" href="#back_to_top" >RETURN TO TOP</a></p>
@@ -360,7 +352,6 @@ if (isset($_SESSION['email'])) {
         <script src="home.js"></script>
         <script src="login.js"></script>
         <script src="register.js"></script>
-
         <script src ="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization&callback=initMap" async defer> </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 

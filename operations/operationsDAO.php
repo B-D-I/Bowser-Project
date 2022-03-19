@@ -16,8 +16,6 @@ function create()
     // get connection from config.php
 //    include "../include/config.php";
 
-
-
         $email = strip_tags(trim($_POST['email']));
         $userType = strip_tags(trim($_POST['user_type']));
         $randomPassword = substr(md5(uniqid(rand(), true)), 8, 8);
