@@ -15,7 +15,7 @@ $User_ID = $User['User_ID'];
 $sql = "SELECT * FROM tbl_maintenance_schedule WHERE assignedTo = '$User_ID'";
 $query = mysqli_query($connection, $sql);
 $job = mysqli_fetch_assoc($query);
-CloseConnection($connection);
+// CloseConnection($connection);
 
 ?>
 <!doctype html>
@@ -89,13 +89,34 @@ CloseConnection($connection);
 
                         <br /><br />
                         <?php
-                       echo "<div class='form-check'>";
-                            echo "<input class='form-check-input' type='checkbox' value='' >";
-                             echo "<label class='form-check-label'>";
-                            echo "Bowser ", $job['Bowser_ID']," - " ,$job['Description'];
-                            echo "</label>";
-                        echo "</div>";
-                        echo "<br/>"
+                        // while($row = mysqli_fetch_assoc($query)){
+                        //     if(mysqli_num_rows($query) > 0){
+                        //         echo "NUM ROWS:  ", mysqli_num_rows($query);
+                        //         foreach($query as $row){
+                                    
+                        //                 echo "<div class='form-check'>";
+                        //                 echo "<input class='form-check-input' type='checkbox' value='' >";
+                        //                  echo "<label class='form-check-label'>";
+                        //                 echo "Bowser ", $job['Bowser_ID']," - " ,$job['Description'];
+                        //                 echo "</label>";
+                        //             echo "</div>";
+                        //             echo "<br/>";
+                                    
+                        //         }
+
+                        //     }
+                        // }
+
+
+                        foreach($query as $row){
+                                        echo "<div class='form-check'>";
+                                        echo "<input class='form-check-input' type='checkbox' value='' >";
+                                         echo "<label class='form-check-label'>";
+                                        echo "Bowser ", $row['Bowser_ID']," - " ,$row['Description'];
+                                        echo "</label>";
+                                    echo "</div>";
+                                    echo "<br/>";
+                        }
                         ?>
 
                       
