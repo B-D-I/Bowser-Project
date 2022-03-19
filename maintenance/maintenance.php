@@ -4,6 +4,19 @@ session_start();
 if (isset($_SESSION['email'])){
     $email = $_SESSION['email'];
 }
+// Getting user ID and other user info from DB
+$connection = OpenConnection();
+$User_SQL = "SELECT * from tbl_user_account WHERE Email = '$email'";
+$User_Query = mysqli_query($connection, $User_SQL);
+$User = mysqli_fetch_assoc($User_Query);
+$User_ID = $User['User_ID'];
+
+//Getting Maintenence job info
+$sql = "SELECT * FROM tbl_maintenance_schedule WHERE assignedTo = '$User_ID'";
+$query = mysqli_query($connection, $sql);
+$job = mysqli_fetch_assoc($query);
+CloseConnection($connection);
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -72,6 +85,7 @@ if (isset($_SESSION['email'])){
                     <ul class="maintenance_list">
 
                         <br />
+<<<<<<< Updated upstream
 
                         <?php
 						$connection = OpenConnection();
@@ -84,40 +98,22 @@ if (isset($_SESSION['email'])){
                         echo "<h4>User: &nbsp;".$email." <br />ID: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$userID."</h4>";
                         CloseConnection($connection)
 						?>
+=======
+                        <h4>User: <?php echo $email  ?> </h4>
+>>>>>>> Stashed changes
 
                         <br /><br />
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" >
-                            <label class="form-check-label">
-                                02/02/2022, Cheltenham - bowser 005 needs refilling
-                            </label>
-                        </div>
+                        <?php
+                       echo "<div class='form-check'>";
+                            echo "<input class='form-check-input' type='checkbox' value='' >";
+                             echo "<label class='form-check-label'>";
+                            echo "Bowser ", $job['Bowser_ID']," - " ,$job['Description'];
+                            echo "</label>";
+                        echo "</div>";
+                        echo "<br/>"
+                        ?>
 
-                        <br />
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" >
-                            <label class="form-check-label">
-                                02/02/2022, Cheltenham - bowser 012 has a fault
-                            </label>
-                        </div>
-
-                        <br />
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" >
-                            <label class="form-check-label" >
-                                02/02/2022, Cheltenham - bowser 011 is leaking
-                            </label>
-                        </div>
-
-                        <br />
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" >
-                            <label class="form-check-label" >
-                                02/02/2022, Cheltenham - bowser 004 needs refilling
-                            </label>
-
-                            <br />
-                    </ul>
+                      
                     <br /><br />
 
                     <button type="button" class="btn btn-primary">Task Complete</button>
