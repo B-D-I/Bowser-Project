@@ -1,11 +1,9 @@
 <?php
+include "../include/config.php";
 
 session_start();
 if (isset($_SESSION['email'])){
     $email = $_SESSION['email'];
-
-    include "../include/config.php";
-
 }
 ?>
 
@@ -107,12 +105,14 @@ if (isset($_SESSION['email'])){
                 <div class="col">
                     <div class="row">
                         <?php
+						$connection = OpenConnection();
+						$email = $_SESSION['email'];
                         $sql1="SELECT * FROM `tbl_user_account` WHERE email='$email'";
                         $result = mysqli_query($connection, $sql1);
                         $rows = mysqli_fetch_array($result);
                         $userID = $rows["User_ID"];
-
                         echo "<h4>User: &nbsp;".$email." <br />ID: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$userID."</h4>";
+						CloseConnection();
                         ?>
                         <div class="text_area">
                             <h3>Details</h3>

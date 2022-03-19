@@ -2,19 +2,23 @@
 <?php
 // session start function
 // variable assigned for user email
+include "../include/config.php";
+
 session_start();
 if (isset($_SESSION['email'])){
     $email = $_SESSION['email'];
 }
 
-include "../include/config.php";
+
 
 if (isset($_SESSION['email'])) {
+	$connection = OpenConnection();
     $sql = "SELECT * FROM tbl_user_account WHERE Email='$email'";
-    $result = $connection->query($sql);
+    $result = mysqli_query($connection,"SELECT * FROM tbl_user_account WHERE Email='$email'");
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $userType = $row["User_Type"];
+	CloseConnection();
         }
     }
 }
@@ -130,7 +134,6 @@ if (isset($_SESSION['email'])) {
 											<select name="Bowser_ID">';
 			<?php
 												$connection = OpenConnection();
-												echo "Connection OK";
     											$result = mysqli_query($connection, "SELECT Bowser_ID FROM tbl_bowser_inuse WHERE Bowser_ID > 0;");
 												echo "<option value='-1' disabled selected>---</option>";
 												if (mysqli_num_rows($result) > 0){
