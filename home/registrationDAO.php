@@ -3,7 +3,6 @@
 // get connection from config.php
 include "../include/config.php";
 
-
 // create new user function
 if ($_POST['phpFunction']=='create') {
 	create();
@@ -28,35 +27,34 @@ else if ($_GET['phpFunction']=='verify') {
 
 // insert data into db table tbl_user
 function create() {
-
 	$verificationcode = substr(md5(uniqid(rand(), true)), 16, 16);
-	// get connection from config.php
-	include "../include/config.php";
-
 	$email= strip_tags(trim($_POST['email']));
 	$password= strip_tags(trim($_POST['password']));
-
+	
 	// query to select from database
+	$connection=OpenConnection();
 	$sql="SELECT * FROM `tbl_user_account` WHERE email='$email'";
 	$query = mysqli_query($connection, $sql);
 	if(mysqli_num_rows($query) > 0){
 		echo "This email is already registered!";
 		return;
 	}
+
 	// construct query string - insert into db
-	$sql= "insert into tbl_user_account (User_Type, Password, Email, UserLevel, isVerified, Verification_Code) values
+	$sql2= "insert into tbl_user_account (User_Type, Password, Email, UserLevel, isVerified, Verification_Code) values
 		('Customer','$password','$email', 1,'1','$verificationcode')";
 
 	// connection confirmation
-	if (mysqli_query($connection, $sql)){
+	if (mysqli_query($connection, $sql2)){
 		echo "Successfully registered $email ";
 		echo sendEmail($email, $verificationcode);
+
 		// if an error
-	}else{
+	} else {
 		echo mysqli_error($connection);
 		return;
 	}
-	mysqli_close($connection);
+
 }
 
 
@@ -90,7 +88,7 @@ function verify() {
 	echo $verificationcode;
 
 	// database connection
-	include "../include/config.php";
+	$connection = OpenConnection();
 
 	// query to update is verified
 	$sql = "UPDATE `tbl_user_account` SET IsVerified=1 WHERE email = '$email' AND VerificationCode='$verificationcode'";
@@ -104,7 +102,7 @@ function verify() {
 		// this link to close window
 		echo '<a href="javascript: self.close()">Login</a>';
 	} else {
-		echo mysqli_error($connection);
+		CloseConnection($connection);
 		// return;
 	}
 }

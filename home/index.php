@@ -108,7 +108,6 @@ if (isset($_SESSION['email'])) {
                                             <select name="Report_Type" id="select" onchange="reportTypeCheck(this);">';
 			<?php			
 												$connection = OpenConnection();
-												echo "Connection OK";
     											$result = mysqli_query($connection, "SELECT id, description, is_bowser FROM tbl_report_type order by id asc;");
 												echo "<option value='-1' disabled selected>---</option>";
 												if (mysqli_num_rows($result) > 0){
