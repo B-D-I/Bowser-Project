@@ -85,22 +85,7 @@ CloseConnection($connection);
                     <ul class="maintenance_list">
 
                         <br />
-<<<<<<< Updated upstream
-
-                        <?php
-						$connection = OpenConnection();
-						$email = $_SESSION['email'];
-                        $sql1="SELECT * FROM `tbl_user_account` WHERE email='$email'";
-                        $result = mysqli_query($connection, $sql1);
-                        $rows = mysqli_fetch_array($result);
-                        $userID = $rows["User_ID"];
-
-                        echo "<h4>User: &nbsp;".$email." <br />ID: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$userID."</h4>";
-                        CloseConnection($connection)
-						?>
-=======
                         <h4>User: <?php echo $email  ?> </h4>
->>>>>>> Stashed changes
 
                         <br /><br />
                         <?php
