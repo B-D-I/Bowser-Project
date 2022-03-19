@@ -10,7 +10,6 @@ if (isset($_SESSION['email'])){
 }
 
 
-
 if (isset($_SESSION['email'])) {
 	$connection = OpenConnection();
     $sql = "SELECT * FROM tbl_user_account WHERE Email='$email'";
@@ -83,7 +82,7 @@ if (isset($_SESSION['email'])) {
             if (isset($_SESSION['email'])){
                 echo '
             	<div class="nav-link-wrapper">
-                	<a class="text-focus-in" id="link" href="#reportModal" data-bs-toggle="modal">Report</a>';
+                	<a class="text-focus-in" id="link" href="#reportModal" data-bs-toggle="modal">Report</a></div>';
 			}
 			?>
                 <!-- Modal -->
@@ -176,7 +175,7 @@ if (isset($_SESSION['email'])) {
     								}
                         		?>
 
-                            </div>
+<!--                            </div>-->
                         </div>
                     </div>
                     </form>
@@ -198,8 +197,10 @@ if (isset($_SESSION['email'])) {
                 echo "</div>";
             } else {
                 echo '
+
             <div class="nav-link-wrapper" id="loginTab">
                 <a class="text-focus-in" id="loginLink" href="#loginModal" data-bs-toggle="modal" >Login</a>
+               
                 <!-- Modal -->
                 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -228,8 +229,7 @@ if (isset($_SESSION['email'])) {
                             </div>
                         </div>
                     </div>
-                </div>';
-				}?>
+                </div>
                 <div class="nav-link-wrapper" id="registrationTab">
                     <a class="text-focus-in" id="registerLink" href="#registerModal" data-bs-toggle="modal" >Registration</a>
 
@@ -275,8 +275,10 @@ if (isset($_SESSION['email'])) {
                     </div>
                 </div>
             </div>
+            ';}?>
         </div>
     </div>
+
 
     <div class="upperPage">
         <div class="shadow-sm p-3 mb-5 bg-body rounded">
