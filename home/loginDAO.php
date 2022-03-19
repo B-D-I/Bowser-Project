@@ -29,6 +29,6 @@ function login() {
     } else {
         echo '{"result":"false"}';
     }
-	CloseConnection();
+	CloseConnection($connection);
 }
 ?>

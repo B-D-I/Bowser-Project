@@ -112,7 +112,7 @@ if (isset($_SESSION['email'])){
                         $rows = mysqli_fetch_array($result);
                         $userID = $rows["User_ID"];
                         echo "<h4>User: &nbsp;".$email." <br />ID: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$userID."</h4>";
-						CloseConnection();
+						CloseConnection($connection);
                         ?>
                         <div class="text_area">
                             <h3>Details</h3>
