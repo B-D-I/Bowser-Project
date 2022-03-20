@@ -172,6 +172,7 @@ if (isset($_SESSION['email'])) {
             								echo "Failure" . mysqli_error($connection);
         								}
     								}
+									CloseConnection($connection)
                         		?>
 <!--                            </div>-->
                         </div>
