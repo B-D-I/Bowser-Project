@@ -89,24 +89,6 @@ $job = mysqli_fetch_assoc($query);
 
                         <br /><br />
                         <?php
-                        // while($row = mysqli_fetch_assoc($query)){
-                        //     if(mysqli_num_rows($query) > 0){
-                        //         echo "NUM ROWS:  ", mysqli_num_rows($query);
-                        //         foreach($query as $row){
-                                    
-                        //                 echo "<div class='form-check'>";
-                        //                 echo "<input class='form-check-input' type='checkbox' value='' >";
-                        //                  echo "<label class='form-check-label'>";
-                        //                 echo "Bowser ", $job['Bowser_ID']," - " ,$job['Description'];
-                        //                 echo "</label>";
-                        //             echo "</div>";
-                        //             echo "<br/>";
-                                    
-                        //         }
-
-                        //     }
-                        // }
-
 
                         foreach($query as $row){
                                         echo "<div class='form-check'>";
@@ -114,10 +96,31 @@ $job = mysqli_fetch_assoc($query);
                                          echo "<label class='form-check-label'>";
                                         echo "Bowser ", $row['Bowser_ID']," - " ,$row['Description'];
                                         echo "</label>";
+                                        echo "<button style ='float:right;' id= '$row[Maintenance_ID]' class='btn btn-link' data-toggle='modal' data-target='#myModal'> View Details </button>";
                                     echo "</div>";
                                     echo "<br/>";
                         }
                         ?>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
                       
                     <br /><br />

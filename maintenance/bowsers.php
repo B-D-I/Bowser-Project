@@ -5,7 +5,7 @@ session_start();
 //$email =$_SESSION['email'];
 // establish connection
 include '../include/config.php';
-
+$selBowserID = '';
 ?>
 
 <!doctype html>
@@ -41,7 +41,7 @@ include '../include/config.php';
             </div>
 
             <div class="nav-link-wrapper active-nav-link">
-                <a class="text-focus-in" href="../maintenance/maintenance.php">Maintenance</a>
+                <a class="text-focus-in" href="../maintenance/bowsers.php">Bowsers</a>
             </div>
         </div>
 
@@ -55,45 +55,117 @@ include '../include/config.php';
             </div>
         </div>
     </div>
-
-
     <div class="upperPage">
         <div class="shadow-sm p-3 mb-5 bg-body rounded">
             <div class="row">
-                <div class="col">
-
-                    <div class="maintenance_list">
-                        <h2> Bowser Information</h2>
-
-                        <br />
-                            <h4> 
-							<?php 
-							$connection = OpenConnection();
-							$result = mysqli_query($connection, "SELECT bowser_id, bowser_capacity, bowser_status, bowser_model from tbl_bowser_stock where bowser_id = '1'");
+				<center><h2>Bowser Information</h2></center>
+				<form action="" method="POST">
+					<?php 
+						$connection = OpenConnection();
+						$sql=("select bowser_id, bowser_capacity, bowser_status, bowser_model from tbl_bowser_stock order by bowser_id asc");
+						$result = mysqli_query($connection, $sql);
+							echo "<table style='margin-left: auto; margin-right: auto; width: 40%; border: 1px solid;'>";
+							echo "<tr align='center' bgcolor='lightgrey'>
+								<th></th>
+								<th>ID</th>
+								<th>Model</th>
+								<th>Status</th>
+								<th>Capacity</th>
+								</tr>
+								";
+								
 							while($row = mysqli_fetch_assoc($result)) {
 								if (mysqli_num_rows($result) > 0){
-									echo "Bowser " .$row['bowser_id']. "</h4><br />";
-									echo "Bowser Model: " .$row['bowser_model']. "<br /><br />";
-									echo "Bowser Status: " .$row['bowser_status']. "<br />";
-									echo "Bowser Capacity: " .$row['bowser_capacity']. "<br />";
-									echo "<br /><br />";
+									foreach($result as $row){
+									$row_id = (int)$row['bowser_id'];
+										if($row_id % 2 == 0){
+											echo "<tr bgcolor='lightgrey'>";
+										} else {
+											echo "<tr>";
+										}
+										echo "<td align='center'><input type='radio' name='radio_list[]' value='".$row['bowser_id']."'></td>";
+										echo "<td align='center'>".$row['bowser_id']."</td>";
+										echo "<td align='center'>".$row['bowser_model']."</td>";
+										echo "<td align='center'>".$row['bowser_status']."</td>";
+										echo "<td align='right' style='padding-right: 5%;'>".$row['bowser_capacity']."lts</td></tr>";
+									}
 								}
+								
+								
+								echo "<tr>
+									<td colspan='5'>&nbsp;</td>
+									</tr>
+									<tr>
+										<td colspan='5'>
+											<input type='submit' name='submit' value='View' class='btn btn-primary'></input>
+										</td>
+									</tr>";
+								echo "</table>
+									  <br /><br />";
 							}
-							?>
-							
-                        
-					</div>
-					<br />
-                    <button type="button" class="btn btn-primary">Task Complete</button>
-                    <br /><br />
-					<h4>Maintenance History</h4>
-                </div>
+							CloseConnection($connection);
+							if (isset($_POST['submit']) ) {
+								if(!empty($_POST['radio_list'])){
+									 foreach($_POST['radio_list'] as $selBowserID);
+     							}
+   							}
+					?>
+				</form>
 				
+				<div class="col">
+                    <div class="maintenance_list">
+						<h4>Bowser
+					<?php
+						$connection = OpenConnection();
+						$sql = "SELECT bowser_id, bowser_capacity, bowser_status, bowser_model from tbl_bowser_stock where bowser_id = '$selBowserID'";
+    					$result = mysqli_query($connection,$sql);
+						while($row = mysqli_fetch_assoc($result)) {
+							if (mysqli_num_rows($result) > 0){
+								echo $row['bowser_id']. "</h4><br />";
+								echo "Bowser Model: " .$row['bowser_model']. "<br /><br />";
+								echo "Bowser Status: " .$row['bowser_status']. "<br />";
+								echo "Bowser Capacity: " .$row['bowser_capacity']. "<br />";
+								echo "<br /><br />";
+							}
+						}
+					?>	
+                    <br />
+					<br />
+					</div>
+					<h4>Maintenance History</h4>
+						<?php
+							$connection2 = OpenConnection();
+							$sql2=("SELECT bowser_id, report_type_id, description, status, date from tbl_maintenance_schedule where bowser_id = '$selBowserID' and Date < Now()");
+							echo"<table>";
+							echo"<tr>
+									<th>Date</th>
+									<th>Type</th>
+									<th>Status</th>
+									<th>Description</th>
+								</tr>";
+							$result2 = mysqli_query($connection2, $sql2);
+							while($row2 = mysqli_fetch_assoc($result2)) {
+								if (mysqli_num_rows($result2) > 0){
+									foreach($result2 as $row2){
+									$row_id2 = (int)$row2['bowser_id'];
+										if($row_id2 % 2 == 0){
+											echo "<tr bgcolor='lightgrey'>";
+										} else {
+											echo "<tr>";
+										}
+										echo "<td align='center'>".$row2['date']."</td>";
+										echo "<td align='center'>".$row2['report_type_id']."</td>";
+										echo "<td align='center'>".$row2['status']."</td>";
+										echo "<td align='center'>".$row2['description']."</td></tr>";
+									}
+								}
+							CloseConnection($connection);		
+							}
+						?>
+						</table>
+                </div>
                 <div class="col">
                     <div class="text_area">
-                        <h2>Bowser Location</h2>
-                        <br />
-                        <br />
                         <!--div to display map--->
                         <div id="map"></div>
                     </div>
