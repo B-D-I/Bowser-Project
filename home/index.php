@@ -60,31 +60,30 @@ if (isset($_SESSION['email'])) {
             </div>
 
             <?php
-            if (isset($_SESSION['email']))
+            if (isset($_SESSION['email'])){
             if ($userType == "Maintenance")
                 echo '
                  <div class="nav-link-wrapper active-nav-link">
                     <a class="text-focus-in" href="../maintenance/maintenance.php">Maintenance</a>
                 </div>
-            ';?>
+            ';}?>
 
             <?php
-            if (isset($_SESSION['email']))
+            if (isset($_SESSION['email'])){
             if ($userType == "Operations")
-                echo " ";
+//                echo " ";
                 echo '
                   <div class="nav-link-wrapper active-nav-link">
                     <a class="text-focus-in" href="../operations/operations.php">Operations</a>
                   </div>
-            ';?>
+            ';}?>
 
             <?php
             if (isset($_SESSION['email'])){
                 echo '
             	<div class="nav-link-wrapper">
                 	<a class="text-focus-in" id="link" href="#reportModal" data-bs-toggle="modal">Report</a></div>';
-			}
-			?>
+			}?>
                 <!-- Modal -->
                 <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
                     <form action="" id="report" method="POST">
