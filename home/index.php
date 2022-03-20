@@ -12,11 +12,11 @@ if (isset($_SESSION['email'])){
 if (isset($_SESSION['email'])) {
 	$connection = OpenConnection();
     $sql = "SELECT * FROM tbl_user_account WHERE Email='$email'";
-    $result = mysqli_query($connection,"SELECT * FROM tbl_user_account WHERE Email='$email'");
+    $result = mysqli_query($connection,$sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $userType = $row["User_Type"];
-	CloseConnection($connection);
+	    CloseConnection($connection);
         }
     }
 }
@@ -71,6 +71,7 @@ if (isset($_SESSION['email'])) {
             <?php
             if (isset($_SESSION['email']))
             if ($userType == "Operations")
+                echo " ";
                 echo '
                   <div class="nav-link-wrapper active-nav-link">
                     <a class="text-focus-in" href="../operations/operations.php">Operations</a>

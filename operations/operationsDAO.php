@@ -15,13 +15,11 @@ function create()
 {
     // get connection from config.php
 //    include "../include/config.php";
-
         $email = strip_tags(trim($_POST['email']));
         $userType = strip_tags(trim($_POST['user_type']));
         $randomPassword = substr(md5(uniqid(rand(), true)), 8, 8);
 
         $connection = OpenConnection();
-
         // query to select from database
         $sql = "SELECT * FROM `tbl_user_account` WHERE email='$email'";
         $query = mysqli_query($connection, $sql);
@@ -42,7 +40,6 @@ function create()
             return;
         }
         mysqli_close($connection);
-
 }
 
 function requestBowser()
@@ -58,7 +55,6 @@ function requestBowser()
         $priority = strip_tags(trim($_POST['Priority']));
 
         $connection = OpenConnection();
-
         // fetch user id
         $sql1="SELECT * FROM `tbl_user_account` WHERE email='$email'";
         $result = mysqli_query($connection, $sql1);
@@ -71,6 +67,7 @@ function requestBowser()
 // connection confirmation
         if (mysqli_query($connection, $sql)) {
             echo "success";
+            header("Location: ../operations/operations.php");
         } else {
             echo mysqli_error($connection);
             return;
@@ -78,4 +75,5 @@ function requestBowser()
         mysqli_close($connection);
     }
 }
+
 ?>

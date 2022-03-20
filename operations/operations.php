@@ -41,7 +41,7 @@ if (isset($_SESSION['email'])){
             </div>
 
             <div class="nav-link-wrapper active-nav-link">
-                <a class="text-focus-in" href="../operations/operations.html">Operations</a>
+                <a class="text-focus-in" href="operations.html">Operations</a>
             </div>
         </div>
 
@@ -122,43 +122,65 @@ if (isset($_SESSION['email'])){
                         </div>
                     </div>
                     <br /><br />
+
+                    <!--Allocate Tasks--->
                     <div class="row" id="new_tasks">
                         <h3>Allocate New Maintenance Task</h3>
                         <br /><br />
-                        <form action="">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Bowser ID
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">001</a></li>
-                                    <li><a class="dropdown-item" href="#">002</a></li>
-                                    <li><a class="dropdown-item" href="#">003</a></li>
-                                </ul>
+                        <!--method="post"-->
+                        <!---action="allocateTask.php"--->
+                        <form method="post" action="allocateTaskDAO.php" id="formAllocateTask">
+
+                            <div class="select">
+                                <select name="bowserID" id="select">
+                                    <option value='-1' disabled selected>---</option>
+                                    <option value="001">001</option>
+                                    <option value="002">002</option>
+                                    <option value="003">003</option>
+                                    <option value="004">004</option>
+                                </select>
                             </div>
                             <br /><br />
 
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Worker
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                    <li><a class="dropdown-item" href="#">Tom</a></li>
-                                    <li><a class="dropdown-item" href="#">Mary</a></li>
-                                    <li><a class="dropdown-item" href="#">Carl</a></li>
-                                </ul>
+                            <div class="col">
+                                <div class="select">
+                                    <select name="workerID" id="select">
+                                        <?php
+                                        $connection = OpenConnection();
+                                        $sql ="SELECT * FROM `tbl_user_account` WHERE User_Type='Maintenance'";
+                                        $result = mysqli_query($connection, $sql);
+                                        $rows = mysqli_fetch_array($result);
+
+                                        echo "<option value='-1' disabled selected>---</option>";
+                                        if ($result->num_rows > 0) {
+                                            while ($rows = $result->fetch_assoc()) {
+                                                echo "<option value='".$rows['User_ID']."'>".$rows['Email']."</option>";
+                                            }
+                                        }
+                                        CloseConnection($connection);
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <br /><br />
+
+                            <div class="form-floating">
+                                <textarea class="form-control" name="description" placeholder="description"style="height: 100px"></textarea>
+                                <label for="floatingTextarea2">Description</label>
                             </div>
                             <br /><br />
 
                             <label for="">Date:</label>
-                            <input type="date" id="" name="">
+                            <input type="date" id="dateID" name="date">
                             <br /><br />
 
-                            <button type="button" class="btn btn-primary">ADD</button>
+                            <button type="submit" name="allocateTaskSubmit" class="btn btn-primary">ADD</button>
                         </form>
                     </div>
                 </div>
             </div>
+            <br /><br />
 
             <div class="row">
                 <div class="col">
