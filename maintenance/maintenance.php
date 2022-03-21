@@ -17,6 +17,8 @@ $query = mysqli_query($connection, $sql);
 $job = mysqli_fetch_assoc($query);
 // CloseConnection($connection);
 
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -91,6 +93,12 @@ $job = mysqli_fetch_assoc($query);
                         <?php
 
                         foreach($query as $row){
+                                        // Getting details for detail view based on button ID
+                                        $maintID = $row['Maintenance_ID'];
+                                        $getDetailIDSQL = "SELECT * FROM tbl_maintenance_schedule WHERE Maintenance_ID = '$maintID'";
+                                        $detailQuery = mysqli_query($connection, $getDetailIDSQL);
+                                        $detailJob = mysqli_fetch_assoc($detailQuery);
+
                                         echo "<div class='form-check'>";
                                         echo "<input class='form-check-input' type='checkbox' value='' >";
                                          echo "<label class='form-check-label'>";
@@ -112,8 +120,8 @@ $job = mysqli_fetch_assoc($query);
         </button>
       </div>
       <div class="modal-body">
-        <p>Bowser: </p>
-        <p>Description: </p>
+        <p>Bowser: <?php echo $detailJob['Bowser_ID'] ?> </p>
+        <p>Description: <?php echo $detailJob['Description'] ?></p>
         <p>Date: </p>
         <p>Area: </p>
         <p>Status: </p>
