@@ -17,7 +17,7 @@ function login() {
 
     // query to check if email and password match, and if user verified
 	$connection = OpenConnection();
-	$sql = "SELECT Email, Password, User_Type FROM tbl_User_Account WHERE Email='".$email."' AND Password='".$pass."' AND IsVerified='1'";
+	$sql = "SELECT Email, Password, User_Type FROM tbl_user_account WHERE Email='".$email."' AND Password='".$pass."' AND IsVerified='1'";
     // result confirm
     $res = mysqli_query($connection, $sql);
     $num_row = mysqli_num_rows($res);
