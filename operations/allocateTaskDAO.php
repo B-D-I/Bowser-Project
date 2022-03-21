@@ -3,6 +3,17 @@ session_start();
 include "../include/config.php";
 if (isset($_SESSION['email'])) {
 
+    $email = $_SESSION['email'];
+    $connection = OpenConnection();
+    $sql = "SELECT User_ID FROM tbl_user_account WHERE Email='$email'";
+    $result = mysqli_query($connection,$sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $userID = $row["User_ID"];
+            CloseConnection($connection);
+        }
+    }
+
     $bowserID = strip_tags(trim($_POST['bowserID']));
     $workerID = strip_tags(trim($_POST['workerID']));
     $description = strip_tags(trim($_POST['description']));
@@ -11,7 +22,7 @@ if (isset($_SESSION['email'])) {
     $connection = OpenConnection();
 
     $sql = "insert into tbl_maintenance_schedule (Bowser_ID, User_ID, Description, Date, assignedTo) values
-		('$bowserID', '$workerID','$description','$date','$workerID')";
+		('$bowserID', '$userID','$description','$date','$workerID')";
 
 // connection confirmation
     if (mysqli_query($connection, $sql)) {
