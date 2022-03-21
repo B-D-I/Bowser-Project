@@ -12,7 +12,7 @@
       <paths name="bowser_application">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="grp20224-ct5038.uogs.co.uk" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

@@ -1,9 +1,7 @@
 <?php
 
-
 // get connection from config.php
 include "../include/config.php";
-
 
 // create new user function
 if ($_POST['phpFunction']=='create') {
@@ -29,15 +27,12 @@ else if ($_GET['phpFunction']=='verify') {
 
 // insert data into db table tbl_user
 function create() {
-
 	$verificationcode = substr(md5(uniqid(rand(), true)), 16, 16);
-	// get connection from config.php
-	include "../include/config.php";
-
 	$email= strip_tags(trim($_POST['email']));
 	$password= strip_tags(trim($_POST['password']));
-
+	
 	// query to select from database
+	$connection=OpenConnection();
 	$sql="SELECT * FROM `tbl_user_account` WHERE email='$email'";
 	$query = mysqli_query($connection, $sql);
 	if(mysqli_num_rows($query) > 0){
@@ -46,28 +41,27 @@ function create() {
 	}
 
 	// construct query string - insert into db
-	$sql= "insert into tbl_user_account (User_Type, Password, Email, UserLevel, isVerified, Verification_Code) values
+	$sql2= "insert into tbl_user_account (User_Type, Password, Email, UserLevel, isVerified, Verification_Code) values
 		('Customer','$password','$email', 1,'1','$verificationcode')";
 
 	// connection confirmation
-	if (mysqli_query($connection, $sql)){
+	if (mysqli_query($connection, $sql2)){
 		echo "Successfully registered $email ";
 		echo sendEmail($email, $verificationcode);
+
 		// if an error
-	}else{
+	} else {
 		echo mysqli_error($connection);
 		return;
 	}
-	mysqli_close($connection);
-}
 
+}
 
 
 //verification email function
 function sendEmail($emailTo, $verificationcode) {
 
 	include "../include/config.php";
-
 	// sender
 	$fromserver="<br />FROM: s4008324@glos.ac.uk";
 	// echo from
@@ -80,12 +74,10 @@ function sendEmail($emailTo, $verificationcode) {
 	$link= '<a href="'.$link.'">Click here to activate</a> <br />';
 	$body=$body.$link;
 	echo $body;
-
 }
 
 //verifiy user function
 function verify() {
-
 	// echo the verify information
 	echo password_verify(input, hashedDBPassword);
 
@@ -96,26 +88,22 @@ function verify() {
 	echo $verificationcode;
 
 	// database connection
-	include "../include/config.php";
+	$connection = OpenConnection();
 
 	// query to update is verified
 	$sql = "UPDATE `tbl_user_account` SET IsVerified=1 WHERE email = '$email' AND VerificationCode='$verificationcode'";
 	echo $sql;
 
 	if(mysqli_query($connection, $sql)) {
-		// $_SESSION["success"] = "Account created. Please sign in";
 		echo "Account has been verified. <br />";
-
 		// this link to direct to login page
 		echo '<a href="index.php">Click here to login</a> <br />';
 
 		// this link to close window
 		echo '<a href="javascript: self.close()">Login</a>';
 	} else {
-		echo mysqli_error($connection);
+		CloseConnection($connection);
 		// return;
 	}
 }
-
-
 ?>

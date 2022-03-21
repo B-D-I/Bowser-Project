@@ -1,5 +1,5 @@
 // JavaScript Document
-//This is the callback fucntion provided to google to upload the map.
+//This is the callback function provided to google to upload the map.
 function initMap(){
     var map=new google.maps.Map(document.getElementById('map'),{
         zoom:14,
@@ -35,3 +35,9 @@ function initMap(){
         }
     );
 }
+
+// Creating a detail view modal
+$('#detailModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+  })
+  

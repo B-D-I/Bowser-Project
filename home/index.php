@@ -2,11 +2,24 @@
 <?php
 // session start function
 // variable assigned for user email
-session_start();
-//$email =$_SESSION['email'];
-// establish connection
-include '../include/config.php';
+include "../include/config.php";
 
+session_start();
+if (isset($_SESSION['email'])){
+    $email = $_SESSION['email'];
+}
+
+if (isset($_SESSION['email'])) {
+	$connection = OpenConnection();
+    $sql = "SELECT * FROM tbl_user_account WHERE Email='$email'";
+    $result = mysqli_query($connection,$sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $userType = $row["User_Type"];
+	    CloseConnection($connection);
+        }
+    }
+}
 ?>
 
 <!doctype html>
@@ -20,12 +33,16 @@ include '../include/config.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="../global/global.css" type="text/css">
     <link rel="stylesheet" href="home.css" type="text/css">
+    <link rel="icon" type="image/x-icon" href="../images/logo/bowserLogo.png">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!--jQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
     <!--google maps api-->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	<!--report screen functions -->
+	<script type = "text/javascript" src="reportFuncs.js"></script>
+	
     <title>Water Bowser</title>
 
 </head>
@@ -42,20 +59,34 @@ include '../include/config.php';
                 <a class="text-focus-in" href="index.php">Home</a>
             </div>
 
-            <div class="nav-link-wrapper active-nav-link">
-                <a class="text-focus-in" href="../maintenance/maintenance.php">Maintenance</a>
-            </div>
+            <?php
+            if (isset($_SESSION['email'])){
+            if ($userType == "Maintenance")
+                echo '
+                 <div class="nav-link-wrapper active-nav-link">
+                    <a class="text-focus-in" href="../maintenance/maintenance.php">Maintenance</a>
+                </div>
+            ';}?>
 
-            <div class="nav-link-wrapper active-nav-link">
-                <a class="text-focus-in" href="../operations/operations.php">Operations</a>
-            </div>
+            <?php
+            if (isset($_SESSION['email'])){
+            if ($userType == "Operations")
+//                echo " ";
+                echo '
+                  <div class="nav-link-wrapper active-nav-link">
+                    <a class="text-focus-in" href="../operations/operations.php">Operations</a>
+                  </div>
+            ';}?>
 
-
-            <div class="nav-link-wrapper">
-                <a class="text-focus-in" id="link" href="#reportModal" data-bs-toggle="modal" >Report</a>
-
+            <?php
+            if (isset($_SESSION['email'])){
+                echo '
+            	<div class="nav-link-wrapper">
+                	<a class="text-focus-in" id="link" href="#reportModal" data-bs-toggle="modal">Report</a></div>';
+			}?>
                 <!-- Modal -->
                 <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+                    <form action="" id="report" method="POST">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -72,30 +103,81 @@ include '../include/config.php';
 
                                     <div class="col">
                                         <div class="select">
-                                            <select name="Report_Type" id="select">
-                                                <option value="Water Refill">Water Refill</option>
-                                                <option value="Faults / Damage">Faults / Damage</option>
-                                                <option value="Complaint">Complaint</option>
-                                                <option value="Complaint">Something Else</option>
+                                            <select name="Report_Type" id="select" onchange="reportTypeCheck(this);">';
+			<?php			
+												$connection = OpenConnection();
+    											$result = mysqli_query($connection, "SELECT id, description, is_bowser FROM tbl_report_type order by id asc;");
+												echo "<option value='-1' disabled selected>---</option>";
+												if (mysqli_num_rows($result) > 0){
+													while($row = mysqli_fetch_assoc($result)) {
+														echo "<option id='".$row['is_bowser']."' value='".$row['id']."'>".$row['description']."</option>";
+													}
+												}
+												CloseConnection($connection);
+			?>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
+							<div class="modal-body" id="bowserSelect">
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Bowser ID: </p>
+                                    </div>
+                                    <div class="col">
+										<div class="select">
+											<select name="Bowser_ID">';
+			<?php
+												$connection = OpenConnection();
+    											$result = mysqli_query($connection, "SELECT Bowser_ID FROM tbl_bowser_inuse WHERE Bowser_ID > 0;");
+												echo "<option value='-1' disabled selected>---</option>";
+												if (mysqli_num_rows($result) > 0){
+													while($row = mysqli_fetch_assoc($result)) {
+														echo "<option value='".$row['Bowser_ID']."'>".$row['Bowser_ID']."</option>";
+													}
+												}
+												CloseConnection($connection);
+			?>
+										<option value="0">Bowser Not Listed</option>
+                                        	</select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Description" id="floatingTextarea2" style="height: 100px"></textarea>
+                                <textarea class="form-control" name="Description" placeholder="Description" id="floatingTextarea2" style="height: 100px"></textarea>
                                 <label for="floatingTextarea2">Description</label>
                             </div>
 
                             <div class="modal-footer">
-                                <p>You must login before sending a report. <br /><br />For assistance please contact us at: example@email.com
+                                <br /><p>For assistance, contact us at:
+                                <a id="link" href="mailto:s4008324@glos.ac.uk">bowser-hub@email.com</a>
                                 </p><br /><br />
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Send Report</button>
-                            </div>
+                               <input type="submit" name="submit" value="Send Report"></input>
+
+							   	<?php
+									$connection = OpenConnection();
+    								if(isset($_POST["submit"])){
+										$Report_Type = $connection->real_escape_string($_POST['Report_Type']);
+										$Bowser_ID = $connection->real_escape_string($_POST['Bowser_ID']);
+										$Description = $connection->real_escape_string($_POST['Description']);
+										$User_ID = "999";
+        								if($query = mysqli_query($connection,"INSERT INTO tbl_Reports(Report_ID,Report_Type,Bowser_ID,Description,User_ID) VALUES (NULL,$Report_Type,$Bowser_ID,$Description, $User_ID)")){
+            								echo "Success";
+        								} else {
+            								echo "Failure" . mysqli_error($connection);
+        								}
+    								}
+									CloseConnection($connection)
+                        		?>
+<!--                            </div>-->
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -104,10 +186,19 @@ include '../include/config.php';
             <h2 class="text-focus-in">Bowser Hub</h2>
         </div>
 
-        <div class="right-side">
-            <div class="nav-link-wrapper">
-                <a class="text-focus-in" id="loginLink" href="#loginModal" data-bs-toggle="modal" >Login</a>
+        <div class="right-side" >
 
+            <?php
+            if (isset($_SESSION['email'])){
+                echo "<div class='nav-link-wrapper' id='logoutTab'>";
+                echo "<a href='logout.php'>Logout</a>";
+                echo "</div>";
+            } else {
+                echo '
+
+            <div class="nav-link-wrapper" id="loginTab">
+                <a class="text-focus-in" id="loginLink" href="#loginModal" data-bs-toggle="modal" >Login</a>
+               
                 <!-- Modal -->
                 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -137,8 +228,7 @@ include '../include/config.php';
                         </div>
                     </div>
                 </div>
-
-                <div class="nav-link-wrapper">
+                <div class="nav-link-wrapper" id="registrationTab">
                     <a class="text-focus-in" id="registerLink" href="#registerModal" data-bs-toggle="modal" >Registration</a>
 
                     <!-- Modal -->
@@ -167,8 +257,8 @@ include '../include/config.php';
                                                 </div>
 
                                                 <div id="account_submit_button">
-                                                    <button type="submit" id="registerAccountSubmit" class="btn btn-primary">Submit</button>
-                                                    <hr>
+                                                <button type="submit" id="registerAccountSubmit" class="btn btn-primary">Submit</button>
+                                                <hr>
                                                 </div>
                                             </form>
 
@@ -183,17 +273,18 @@ include '../include/config.php';
                     </div>
                 </div>
             </div>
+            ';}?>
         </div>
     </div>
+
 
     <div class="upperPage">
         <div class="shadow-sm p-3 mb-5 bg-body rounded">
             <div class="row">
                 <div class="col">
 
-                    <h2> Notifications and Alerts</h2>
-
                     <ul class="notification-list">
+                        <h2> Notifications and Alerts</h2>
                         <br /><br />
                         <li> 13.10 - Water bowser 001 now refilled.
                         </li>
@@ -216,10 +307,10 @@ include '../include/config.php';
                     <br />
                 </div>
 
-
                 <div class="col">
                     <div class="text_area">
                         <h2>Bowser Map</h2>
+                        <br />
                         <p> Find local bowsers using the map below </p>
                         <br />
 
@@ -231,33 +322,29 @@ include '../include/config.php';
         </div>
 
         <div class="col-md-12 text-center">
-            <a class="text-focus-in" id="FAQLink" href="#FAQModal" data-bs-toggle="modal" >FAQ's</a>
+        <a class="text-focus-in" id="FAQLink" href="#FAQModal" data-bs-toggle="modal" >FAQs</a>
 
-            <!-- Modal -->
-            <div class="modal fade" id="FAQModal" tabindex="-1" aria-labelledby="FAQModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+        <!-- Modal -->
+        <div class="modal fade" id="FAQModal" tabindex="-1" aria-labelledby="FAQModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
 
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col">
-                                    <h2>FAQ's</h2><br />
-                                    <p>- Notifications and alerts of Bowser activity, along with locations, are viewable from the home page.</p>
-                                    <br />
-                                    <p>- To report an issue, select the REPORT tab and fill the associated report form. (You must be logged in)</p>
-                                </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+                                <h2>FAQs</h2><br />
+                                <p>- Notifications and alerts of Bowser activity, along with locations, are viewable from the home page.</p>
+                                <br />
+                                <p>- To report an issue, select the REPORT tab and fill the associated report form. (You must be logged in)</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
+    </div>
 
         <br />  <br />
-
-
 
         <!-- Link back to top of page -->
         <p><a id="top_link" href="#back_to_top" >RETURN TO TOP</a></p>
@@ -266,7 +353,6 @@ include '../include/config.php';
         <script src="home.js"></script>
         <script src="login.js"></script>
         <script src="register.js"></script>
-
         <script src ="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization&callback=initMap" async defer> </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 
