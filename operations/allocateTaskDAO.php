@@ -21,8 +21,8 @@ if (isset($_SESSION['email'])) {
 
     $connection = OpenConnection();
 
-    $sql = "insert into tbl_maintenance_schedule (Bowser_ID, User_ID, Description, Date, assignedTo) values
-		('$bowserID', '$userID','$description','$date','$workerID')";
+    $sql = "insert into tbl_maintenance_schedule (Bowser_ID, User_ID, Description, Status, Date, assignedTo) values
+		('$bowserID', '$userID','$description','Incomplete', '$date','$workerID')";
 
 // connection confirmation
     if (mysqli_query($connection, $sql)) {
