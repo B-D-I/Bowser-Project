@@ -40,3 +40,4 @@ function initMap(){
 $('#detailModal').on('shown.bs.modal', function () {
     $('#myInput').trigger('focus')
   })
+  

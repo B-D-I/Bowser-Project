@@ -96,29 +96,34 @@ $job = mysqli_fetch_assoc($query);
                                          echo "<label class='form-check-label'>";
                                         echo "Bowser ", $row['Bowser_ID']," - " ,$row['Description'];
                                         echo "</label>";
-                                        echo "<button style ='float:right;' id= '$row[Maintenance_ID]' class='btn btn-link' data-toggle='modal' data-target='#myModal'> View Details </button>";
+                                        echo "<button id= '$row[Maintenance_ID]' class='btn btn-link' data-bs-toggle='modal' href='#myModal' style ='float:right;'> View Details </button>";
                                     echo "</div>";
                                     echo "<br/>";
                         }
                         ?>
 
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
+<div class="modal" id="myModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
+        <h5 class="modal-title">Task: </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
-        <p>Some text in the modal.</p>
+        <p>Bowser: </p>
+        <p>Description: </p>
+        <p>Date: </p>
+        <p>Area: </p>
+        <p>Status: </p>
+        <p>Submitted by: </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
-
   </div>
 </div>
 
