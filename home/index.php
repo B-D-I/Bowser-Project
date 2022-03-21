@@ -307,6 +307,7 @@ if (isset($_SESSION['email'])) {
                     <br />
                 </div>
 
+
                 <div class="col">
                     <div class="text_area">
                         <h2>Bowser Map</h2>
@@ -344,7 +345,11 @@ if (isset($_SESSION['email'])) {
         </div>
     </div>
 
+
+
         <br />  <br />
+
+
 
         <!-- Link back to top of page -->
         <p><a id="top_link" href="#back_to_top" >RETURN TO TOP</a></p>
