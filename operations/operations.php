@@ -41,7 +41,7 @@ if (isset($_SESSION['email'])){
             </div>
 
             <div class="nav-link-wrapper active-nav-link">
-                <a class="text-focus-in" href="operations.html">Operations</a>
+                <a class="text-focus-in" href="operations.php">Operations</a>
             </div>
         </div>
 
@@ -97,31 +97,28 @@ if (isset($_SESSION['email'])){
                             #TaskID - GL51 1DG <br />
                             -- Maintenance <br />
                             -- Not Allocated</li>
-                        <br />
+                        <br /><br />
                     </ul>
                     <br />
                 </div>
 
                 <div class="col">
                     <div class="row">
-                        <?php
-						$connection = OpenConnection();
-						$email = $_SESSION['email'];
-                        $sql1="SELECT * FROM `tbl_user_account` WHERE email='$email'";
-                        $result = mysqli_query($connection, $sql1);
-                        $rows = mysqli_fetch_array($result);
-                        $userID = $rows["User_ID"];
-                        echo "<h4>User: &nbsp;".$email." <br />ID: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$userID."</h4>";
-						CloseConnection($connection);
-                        ?>
+
                         <div class="text_area">
-                            <h3>Details</h3>
-                            <h4>#TaskID</h4><br />
-                            <h4>-- Maintenance <br />
-                                -- Allocated: Rando Mando</h4>
+                            <?php
+                            $connection = OpenConnection();
+                            $email = $_SESSION['email'];
+                            $sql1="SELECT * FROM `tbl_user_account` WHERE email='$email'";
+                            $result = mysqli_query($connection, $sql1);
+                            $rows = mysqli_fetch_array($result);
+                            $userID = $rows["User_ID"];
+                            echo "<h4>User: &nbsp;".$email." <br />ID: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$userID."</h4>";
+                            CloseConnection($connection);
+                            ?>
                         </div>
                     </div>
-                    <br /><br />
+                    <br />
 
                     <!--Allocate Tasks--->
                     <div class="row" id="new_tasks">
@@ -131,6 +128,8 @@ if (isset($_SESSION['email'])){
                         <!---action="allocateTask.php"--->
                         <form method="post" action="allocateTaskDAO.php" id="formAllocateTask">
 
+                            <label>Bowser ID:</label>
+                            <br />
                             <div class="select">
                                 <select name="bowserID" id="select">
                                     <option value='-1' disabled selected>---</option>
@@ -143,6 +142,8 @@ if (isset($_SESSION['email'])){
                             <br /><br />
 
                             <div class="col">
+                                <label>Maintenance Worker:</label>
+                                <br />
                                 <div class="select">
                                     <select name="workerID" id="select">
                                         <?php
@@ -180,7 +181,7 @@ if (isset($_SESSION['email'])){
                     </div>
                 </div>
             </div>
-            <br /><br />
+
 
             <div class="row">
                 <div class="col">
