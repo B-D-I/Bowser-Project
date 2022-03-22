@@ -12,7 +12,7 @@ $User = mysqli_fetch_assoc($User_Query);
 $User_ID = $User['User_ID'];
 
 //Getting Maintenence job info
-$sql = "SELECT * FROM tbl_maintenance_schedule WHERE assignedTo = '$User_ID'";
+$sql = "SELECT * FROM tbl_maintenance_schedule WHERE Assigned_To = '$User_ID'";
 $query = mysqli_query($connection, $sql);
 $job = mysqli_fetch_assoc($query);
 // CloseConnection($connection);
@@ -60,6 +60,9 @@ $job = mysqli_fetch_assoc($query);
 
         <div class="middle">
             <h2 class="text-focus-in">Bowser Hub</h2>
+            <div id="logo">
+                <img id="logo_image" src="../images/logo/bowserLogo.png" alt="" width="100" height="100">
+            </div>
         </div>
 
         <div class="right-side">

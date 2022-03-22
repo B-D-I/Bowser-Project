@@ -48,6 +48,9 @@ if (isset($_SESSION['email'])){
 
         <div class="middle">
             <h2 class="text-focus-in">Bowser Hub</h2>
+            <div id="logo">
+            <img id="logo_image" src="../images/logo/bowserLogo.png" alt="" width="100" height="100">
+            </div>
         </div>
 
         <div class="right-side">
@@ -87,36 +90,6 @@ if (isset($_SESSION['email'])){
                         <br />
                         <?php
                         $connection = OpenConnection();
-//                        if(isset($GET['search'])){
-//                            $filtervalues = $_GET['search'];
-//                            $query = "SELECT * FROM tbl_maintenance_schedule WHERE CONCAT(assignedTo,Area_ID,Status) LIKE '%$filtervalues%' ";
-//                            $query_run = mysqli_query($connection, $query);
-//
-//                            if(mysqli_num_rows($query_run) > 0)
-//                            {
-//                                foreach($query_run as $items)
-//                                {
-//                                    ?>
-<!--                                    <tr>-->
-<!--                                        <td>--><?//= $items['Date']; ?><!--</td>-->
-<!--                                        <td>--><?//= $items['assignedTo']; ?><!--</td>-->
-<!--                                        <td>--><?//= $items['Area_ID']; ?><!--</td>-->
-<!--                                        <td>--><?//= $items['Status']; ?><!--</td>-->
-<!--                                    </tr>-->
-<!--                                    --><?php
-//                                }
-//                            }
-//                            else
-//                            {
-//                                ?>
-<!--                                <tr>-->
-<!--                                    <td colspan="4">No Record Found</td>-->
-<!--                                </tr>-->
-<!--                                --><?php
-//                            }
-//                        }
-
-
 
                         $sql="SELECT * FROM tbl_maintenance_schedule ORDER BY Date DESC ";
                         $result = mysqli_query($connection, $sql);
@@ -124,7 +97,7 @@ if (isset($_SESSION['email'])){
 
                         while($row = mysqli_fetch_assoc($result)) {
                             echo "<li id='listItem'" .$row['Date'] ."<br />";
-                            echo "User: ".$row['assignedTo']."&nbsp"."Area: ".$row['Area_ID']."<br />";
+                            echo "User: ".$row['Assigned_To']."&nbsp"."Area: ".$row['Area_ID']."<br />";
                             echo "Status: ". $row['Status'];
                             echo "<br /><a href='#' data-toggle='popover' title='".$row['Description']."' data-content='test'>Description</a> ";
                             echo "<br /><br /></li>";
@@ -148,10 +121,11 @@ if (isset($_SESSION['email'])){
                             $connection = OpenConnection();
                             $email = $_SESSION['email'];
                             $sql1="SELECT * FROM `tbl_user_account` WHERE email='$email'";
+                            $username = current(explode('@', $email));
                             $result = mysqli_query($connection, $sql1);
                             $rows = mysqli_fetch_array($result);
                             $userID = $rows["User_ID"];
-                            echo "<h4>User&nbsp;".$userID.":&nbsp;&nbsp;&nbsp;".$email."</h4>";
+                            echo "<h4>User&nbsp;".$userID.":&nbsp;&nbsp;&nbsp;".$username."</h4>";
                             CloseConnection($connection);
                             ?>
                             <br />
@@ -182,7 +156,6 @@ if (isset($_SESSION['email'])){
                             <div class="select">
                                 <select name="bowserID" id="select">
 
-<!--                                    <input type="text" id="bowserIDs" name="bowser_name">-->
                                     <?php
                                     $connection = OpenConnection();
                                     $sql ="SELECT * FROM `tbl_bowser_stock` WHERE Bowser_Status='Stock'";
@@ -230,7 +203,7 @@ if (isset($_SESSION['email'])){
                             <div id="taskID">
                             <label>Task Type</label>
                             <div id="taskType" class="select">
-                                <select name="Task" id="select">
+                                <select name="task" id="select">
                                     <option value='-1' disabled selected>---</option>
                                     <option value="Refill">Refill</option>
                                     <option value="Repair">Repair</option>
@@ -246,7 +219,7 @@ if (isset($_SESSION['email'])){
                             <div id="priorityID">
                             <label>Priority</label>
                             <div id="priorityMenu" class="select">
-                                <select name="Priority" id="select">
+                                <select name="priority" id="select">
                                     <option value='-1' disabled selected>---</option>
                                     <option value="3">High</option>
                                     <option value="2">Medium</option>
@@ -287,7 +260,7 @@ if (isset($_SESSION['email'])){
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="requestBowserModalLabel">Request Bowser</h5>
+                                    <h5 class="modal-title" id="requestBowserModalLabel">Bowser Loaning & Lending</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -297,43 +270,63 @@ if (isset($_SESSION['email'])){
                                             <form method="post" id="formBowserRequest">
                                                 <div class="mb-3">
 
-                                                    <div class="form-floating">
-                                                        <textarea class="form-control" name="Reason" placeholder="Reason for Request"style="height: 100px"></textarea>
-                                                        <label for="floatingTextarea2">Reason for Request</label>
+                                                    <div id="transactionID">
+                                                        <label>Transaction Type</label>
+                                                        <div class="select">
+                                                            <select name="Transaction" id="select">
+                                                                <option value='-1' disabled selected>---</option>
+                                                                <option value="Lend">Lend</option>
+                                                                <option value="Loan">Loan</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
+                                                    <br />
 
+                                                    <div id="organisationID">
                                                     <label>Organisation</label>
                                                     <div class="select">
                                                         <select name="Organisation" id="select">
+                                                            <option value='-1' disabled selected>---</option>
                                                             <option value="CompanyA">Company A</option>
                                                             <option value="CompanyB">Company B</option>
                                                             <option value="CompanyC">Company C</option>
                                                         </select>
                                                     </div>
                                                 </div>
+                                                </div>
                                                 <br />
-                                                <div class="col">
+
+                                                <div id="capacityID">
                                                     <label>Capacity</label>
                                                     <div class="select">
                                                         <select name="Capacity" id="select">
+                                                            <option value='-1' disabled selected>---</option>
                                                             <option value="1000">1000L</option>
                                                             <option value="5000">5000L</option>
                                                             <option value="10000">10,000L</option>
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <br /> <br />
-                                                <div class="col">
+                                                <br />
+
+                                                <div id="loanPriorityID">
                                                     <label>Priority</label>
                                                     <div class="select">
                                                         <select name="Priority" id="select">
+                                                            <option value='-1' disabled selected>---</option>
                                                             <option value="3">High</option>
                                                             <option value="2">Medium</option>
                                                             <option value="1">Low</option>
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <br /><br /><br />
+
+                                                <br />
+                                                <div class="form-floating">
+                                                    <textarea class="form-control" name="Reason" placeholder="Reason for Request"style="height: 100px"></textarea>
+                                                    <label for="floatingTextarea2">Reason for Request</label>
+                                                </div>
+                                                <br /><br />
 
                                                 <button type="submit" name="requestBowserSubmit" class="btn btn-secondary">Submit</button>
                                             </form>

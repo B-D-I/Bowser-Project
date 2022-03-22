@@ -1,3 +1,14 @@
+.left-side{
+  margin-left: 5px;
+}
+#logo{
+  margin-right: -250px;
+}
+#logo_image{
+  margin-top: -75px;
+  margin-left: 250px;
+}
+
 body {
   font-family: "Comfortaa", cursive;
   margin: 0px;
@@ -217,14 +228,20 @@ select::-ms-expand {
   transition: 0.25s all ease;
 }
 
-
-/*	@media used to enable modifications when screen size changes */
 @media only screen and (max-width: 1200px) {
   .middle {
     margin-left: 50px;
-    /*display: none;*/
   }
-  /*.task_manager {*/
-  /*  margin-left: 10px;*/
-  /*}*/
 }
+@media only screen and (max-width: 1100px) {
+  .middle {
+    margin-left: 50px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  #logo_image{
+    display: none;
+  }
+}
+

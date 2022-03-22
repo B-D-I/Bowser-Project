@@ -49,6 +49,7 @@ function requestBowser()
 //        include "../include/config.php";
 
         $reason = $_POST['Reason'];
+        $transaction = strip_tags(trim($_POST['Transaction']));
         $organisation = strip_tags(trim($_POST['Organisation']));
         $capacity = strip_tags(trim($_POST['Capacity']));
         $priority = strip_tags(trim($_POST['Priority']));
@@ -60,13 +61,19 @@ function requestBowser()
         $rows = mysqli_fetch_array($result);
         $userID = $rows["User_ID"];
 
-        $sql = "insert into tbl_bowser_requests (UserID, Organisation_Name, Bowser_Capacity, Priority, Request_Reason) values
-		('$userID', '$organisation','$capacity','$priority','$reason')";
-
+        if ($transaction == 'Loan') {
+            $sql = "insert into tbl_bowser_loaned (UserID, Organisation_Name, Bowser_Capacity, Priority, Request_Reason) values
+		    ('$userID', '$organisation','$capacity','$priority','$reason')";
+        }
+        if ($transaction == 'Lend'){
+            $sql = "insert into tbl_bowser_lent (UserID, Organisation_Name, Bowser_Capacity, Priority, Request_Reason) values
+		    ('$userID', '$organisation','$capacity','$priority','$reason')";
+        }
 // connection confirmation
         if (mysqli_query($connection, $sql)) {
             echo "success";
             header("Location: ../operations/operations.php");
+            CloseConnection($connection);
         } else {
             echo mysqli_error($connection);
             return;

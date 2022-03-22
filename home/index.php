@@ -182,9 +182,12 @@ if (isset($_SESSION['email'])) {
             </div>
         </div>
 
-        <div class="middle">
-            <h2 class="text-focus-in">Bowser Hub</h2>
+    <div class="middle">
+        <h2 class="text-focus-in">Bowser Hub</h2>
+        <div id="logo">
+            <img id="logo_image" src="../images/logo/bowserLogo.png" alt="" width="100" height="100">
         </div>
+    </div>
 
         <div class="right-side" >
 
