@@ -126,13 +126,19 @@ if (isset($_SESSION['email'])){
                             echo "<li id='listItem'" .$row['Date'] ."<br />";
                             echo "User: ".$row['assignedTo']."&nbsp"."Area: ".$row['Area_ID']."<br />";
                             echo "Status: ". $row['Status'];
+                            echo "<br /><a href='#' data-toggle='popover' title='".$row['Description']."' data-content='test'>Description</a> ";
                             echo "<br /><br /></li>";
                         }
-//                        ?>
-
+                        ?>
+                        <script>
+                            $(document).ready(function(){
+                                $('[data-toggle="popover"]').popover();
+                            });
+                        </script>
                         <br /><br />
                     </ul>
                     <br />
+
                 </div>
 
                 <div class="col">
