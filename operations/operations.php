@@ -71,32 +71,37 @@ if (isset($_SESSION['email'])){
                     <ul class="operations-list">
                         <h3> Upcoming Maintenance Scheduled</h3>
                         <br />
-                        <div class="mb-3">
-                            <input type="search" class="form-control" placeholder="Search" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            <button type="button" class="btn btn-primary btn-sm">OK</button>
-                            <button type="button" class="btn btn-secondary btn-sm">Filters</button>
-                        </div>
+<!--                        <div class="mb-3">-->
+<!--                            <input type="search" class="form-control" placeholder="Search" id="exampleInputEmail1" aria-describedby="emailHelp">-->
+<!--                            <button type="button" class="btn btn-primary btn-sm">OK</button>-->
+<!--                            <button type="button" class="btn btn-secondary btn-sm">Filters</button>-->
+<!--                        </div>-->
+                        <form action="" method="GET">
+                            <div class="input-group mb-3">
+                                <input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control" placeholder="Search data">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </form>
                         <br />
-                        <li id="rando"> 02/02/2022 <br />
-                            #TaskID - GL51 1EP <br />
-                            -- Maintenance <br />
-                            -- Allocated: Rando Mando
-                        </li>
-                        <br />
-                        <li> 02/02/2022 <br />
-                            #TaskID - GL51 1DG <br />
-                            -- Refill <br />
-                            -- Not Allocated</li>
-                        <br />
-                        <li> 03/02/2022 <br />
-                            #TaskID - GL51 1DG <br />
-                            -- Maintenance <br />
-                            -- Not Allocated</li>
-                        <br />
-                        <li> 03/02/2022 <br />
-                            #TaskID - GL51 1DG <br />
-                            -- Maintenance <br />
-                            -- Not Allocated</li>
+                        <?php
+                        $connection = OpenConnection();
+                        if(isset($GET['search'])){
+                            $filtervalues = $_GET['search'];
+
+                        }
+                        // ORDER BY Date DESC
+                        $sql="SELECT * FROM tbl_maintenance_schedule  ";
+                        $result = mysqli_query($connection, $sql);
+                        $row = mysqli_fetch_array($result);
+
+                        while($row = mysqli_fetch_assoc($result)) {
+                            echo "<li id='listItem'" .$row['Date'] ."<br />";
+                            echo "User: ".$row['assignedTo']."&nbsp"."Area: ".$row['Area_ID']."<br />";
+                            echo "Status: ". $row['Status'];
+                            echo "<br /><br /></li>";
+                        }
+                        ?>
+
                         <br /><br />
                     </ul>
                     <br />
@@ -113,7 +118,7 @@ if (isset($_SESSION['email'])){
                             $result = mysqli_query($connection, $sql1);
                             $rows = mysqli_fetch_array($result);
                             $userID = $rows["User_ID"];
-                            echo "<h4>User: &nbsp;".$email." <br />ID: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$userID."</h4>";
+                            echo "<h4>ID:&nbsp;".$userID."</h4><br /><h4>".$email."</h4>";
                             CloseConnection($connection);
                             ?>
                         </div>
@@ -132,14 +137,26 @@ if (isset($_SESSION['email'])){
                             <br />
                             <div class="select">
                                 <select name="bowserID" id="select">
-                                    <option value='-1' disabled selected>---</option>
-                                    <option value="001">001</option>
-                                    <option value="002">002</option>
-                                    <option value="003">003</option>
-                                    <option value="004">004</option>
+
+<!--                                    <input type="text" id="bowserIDs" name="bowser_name">-->
+                                    <?php
+                                    $connection = OpenConnection();
+                                    $sql ="SELECT * FROM `tbl_bowser_stock` WHERE Bowser_Status='Stock'";
+                                    $result = mysqli_query($connection, $sql);
+                                    $rows = mysqli_fetch_array($result);
+
+                                    echo "<option value='-1' disabled selected>---</option>";
+                                    if ($result->num_rows > 0) {
+                                        while ($rows = $result->fetch_assoc()) {
+                                            echo "<option value='".$rows['Bowser_ID']."'>".$rows['Bowser_ID']."</option>";
+                                        }
+                                    }
+                                    CloseConnection($connection);
+                                    ?>
+
                                 </select>
                             </div>
-                            <br /><br />
+                            <br />
 
                             <div class="col">
                                 <label>Maintenance Worker:</label>
@@ -164,6 +181,18 @@ if (isset($_SESSION['email'])){
                                 </div>
                             </div>
 
+                            <br />
+
+                            <label>Priority</label>
+                            <div id="priorityMenu" class="select">
+                                <select name="Priority" id="select">
+                                    <option value='-1' disabled selected>---</option>
+                                    <option value="3">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="1">Low</option>
+                                </select>
+                            </div>
+
                             <br /><br />
 
                             <div class="form-floating">
@@ -174,6 +203,7 @@ if (isset($_SESSION['email'])){
 
                             <label for="">Date:</label>
                             <input type="date" id="dateID" name="date">
+
                             <br /><br />
 
                             <button type="submit" name="allocateTaskSubmit" class="btn btn-primary">ADD</button>
@@ -182,6 +212,7 @@ if (isset($_SESSION['email'])){
                 </div>
             </div>
 
+            <br />
 
             <div class="row">
                 <div class="col">

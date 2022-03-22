@@ -10,7 +10,6 @@ else if ($_POST['phpFunction']=='requestBowser') {
     requestBowser();
 }
 
-
 function create()
 {
     // get connection from config.php
@@ -75,5 +74,4 @@ function requestBowser()
         mysqli_close($connection);
     }
 }
-
 ?>
