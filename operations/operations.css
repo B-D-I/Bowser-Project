@@ -6,10 +6,16 @@
 .operations-list {
   padding: 30px;
   background-color: #a4c3fd;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 .text_area {
   padding: 30px;
   background-color: #fddea4;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 #rando {
   background-color: #fddea4;
@@ -18,10 +24,22 @@
 #new_tasks {
   padding: 30px;
   background-color: #a4c3fd;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
 }
 #viewReports {
   padding: 30px;
   background-color: lightblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#maintDiv{
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 .select {
   width: 150px;

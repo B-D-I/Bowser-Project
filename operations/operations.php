@@ -69,8 +69,8 @@ if (isset($_SESSION['email'])){
             <div class="row">
                 <div class="col">
 
-                    <h3> Upcoming Maintenance Scheduled</h3>
                     <ul class="operations-list">
+                        <h3 class="text-focus-in"> Upcoming Maintenance Scheduled</h3>
 
                         <br />
 <!--                        <div class="mb-3">-->
@@ -143,7 +143,6 @@ if (isset($_SESSION['email'])){
 
                 <div class="col">
                     <div class="row">
-
                         <div class="text_area">
                             <?php
                             $connection = OpenConnection();
