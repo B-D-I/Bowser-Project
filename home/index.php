@@ -334,9 +334,12 @@ if (isset($_SESSION['email'])) {
                         <div class="row">
                             <div class="col">
                                 <h2>FAQs</h2><br />
-                                <p>- Notifications and alerts of Bowser activity, along with locations, are viewable from the home page.</p>
-                                <br />
-                                <p>- To report an issue, select the REPORT tab and fill the associated report form. (You must be logged in)</p>
+                                <p style="color: dodgerblue">HOW DO I VIEW NOTIFICATIONS AND ALERTS: </p><br />
+                                <p>Check the notification news feed</p><br /><br />
+                                <p style="color: dodgerblue">HOW DO I REPORT AN ISSUE: </p><br />
+                                <p>Click the reports tab and send us a query</p><br /><br />
+                                <p style="color: dodgerblue">HOW DO ........: </p><br />
+                                <p>.............. example</p><br /><br />
                             </div>
                         </div>
                     </div>
