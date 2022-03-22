@@ -26,3 +26,24 @@
 .select {
   width: 150px;
 }
+
+
+#bowserID{
+
+}
+#maintenanceID{
+  margin-left: 280px;
+  margin-top: -95px;
+}
+#taskID{
+}
+#priorityID{
+  margin-left: 280px;
+  margin-top: -95px;
+
+}
+#dateID{
+
+}
+#formID{}
+#allocateSubmitID{}

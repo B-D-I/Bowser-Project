@@ -170,7 +170,8 @@ if (isset($_SESSION['email'])){
                         <br /><br />
 
                         <form method="post" action="allocateTaskDAO.php" id="formAllocateTask">
-
+                            <br />
+                            <div id="bowserID">
                             <label>Bowser ID:</label>
                             <br />
                             <div class="select">
@@ -194,9 +195,10 @@ if (isset($_SESSION['email'])){
 
                                 </select>
                             </div>
+                            </div>
                             <br />
 
-                            <div class="col">
+                            <div id="maintenanceID">
                                 <label>Maintenance Worker:</label>
                                 <br />
                                 <div class="select">
@@ -218,9 +220,25 @@ if (isset($_SESSION['email'])){
                                     </select>
                                 </div>
                             </div>
-
                             <br />
 
+                            <div id="taskID">
+                            <label>Task Type</label>
+                            <div id="taskType" class="select">
+                                <select name="Task" id="select">
+                                    <option value='-1' disabled selected>---</option>
+                                    <option value="Refill">Refill</option>
+                                    <option value="Repair">Repair</option>
+                                    <option value="Service">Service</option>
+                                    <option value="Deliver">Deliver</option>
+                                    <option value="Collect">Collect</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            </div>
+                            <br />
+
+                            <div id="priorityID">
                             <label>Priority</label>
                             <div id="priorityMenu" class="select">
                                 <select name="Priority" id="select">
@@ -230,21 +248,25 @@ if (isset($_SESSION['email'])){
                                     <option value="1">Low</option>
                                 </select>
                             </div>
+                            </div>
+                            <br />
 
-                            <br /><br />
+                            <div id="dateID">
+                                <label>Date:</label>
+                                <br />
+                                <input type="date" id="dateID" name="date">
+                            </div>
+                            <br />
 
-                            <div class="form-floating">
+                            <div class="form-floating" id="formID">
                                 <textarea class="form-control" name="description" placeholder="description"style="height: 100px"></textarea>
                                 <label for="floatingTextarea2">Description</label>
                             </div>
                             <br /><br />
 
-                            <label for="">Date:</label>
-                            <input type="date" id="dateID" name="date">
-
-                            <br /><br />
-
+                            <div id="allocateSubmitID">
                             <button type="submit" name="allocateTaskSubmit" class="btn btn-primary">ADD</button>
+                            </div>
                         </form>
                     </div>
                 </div>
