@@ -39,17 +39,29 @@ $('#formBowserRequest').submit(function(event) {
     });
 });
 
-function search_tasks(){
-    let input = document.getElementById('search_bar').value
-    input = input.toLowerCase();
-    let x = document.getElementById('db_div');
 
-    for (i = 0; i < x.length; i++){
-        if (!x[i].innerHTML.toLowerCase().includes(input)){
-            x[i].style.display="none";
-        }
-        else {
-            x[i].style.display="div";
-        }
-    }
+//				    POP UP WINDOW
+var taskWindow;                       // function allows for url, window name, width and height to be defined within the html
+function popUpWindow(URL, windowName, windowWidth, windowHeight) {
+    var centerLeft = (screen.width/3)-(windowWidth/3); // window dimensions
+    var centerTop = (screen.height/3)-(windowHeight/3);
+    var windowFeatures = 'toolbar=no, location=no, directories=no, status=no, menubar=no, titlebar=no, scrollbars=no, resizable=no,'; // remove toolbar, scrollbar etc..
+    return window.open(URL, windowName, windowFeatures +' width='+ windowWidth +', height='+ windowHeight +', top='+ centerTop +', left='+ centerLeft); // open the defined window
 }
+
+
+
+// function search_tasks(){
+//     let input = document.getElementById('search_bar').value
+//     input = input.toLowerCase();
+//     let x = document.getElementById('db_div');
+//
+//     for (i = 0; i < x.length; i++){
+//         if (!x[i].innerHTML.toLowerCase().includes(input)){
+//             x[i].style.display="none";
+//         }
+//         else {
+//             x[i].style.display="div";
+//         }
+//     }
+// }

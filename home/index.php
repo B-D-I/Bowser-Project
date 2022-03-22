@@ -282,9 +282,9 @@ if (isset($_SESSION['email'])) {
         <div class="shadow-sm p-3 mb-5 bg-body rounded">
             <div class="row">
                 <div class="col">
-
+                    <h2> Notifications and Alerts</h2>
                     <ul class="notification-list">
-                        <h2> Notifications and Alerts</h2>
+
                         <br /><br />
                         <li> 13.10 - Water bowser 001 now refilled.
                         </li>

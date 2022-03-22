@@ -43,6 +43,7 @@ if (isset($_SESSION['email'])){
             <div class="nav-link-wrapper active-nav-link">
                 <a class="text-focus-in" href="operations.php">Operations</a>
             </div>
+
         </div>
 
         <div class="middle">
@@ -68,8 +69,9 @@ if (isset($_SESSION['email'])){
             <div class="row">
                 <div class="col">
 
+                    <h3> Upcoming Maintenance Scheduled</h3>
                     <ul class="operations-list">
-                        <h3> Upcoming Maintenance Scheduled</h3>
+
                         <br />
 <!--                        <div class="mb-3">-->
 <!--                            <input type="search" class="form-control" placeholder="Search" id="exampleInputEmail1" aria-describedby="emailHelp">-->
@@ -85,12 +87,38 @@ if (isset($_SESSION['email'])){
                         <br />
                         <?php
                         $connection = OpenConnection();
-                        if(isset($GET['search'])){
-                            $filtervalues = $_GET['search'];
+//                        if(isset($GET['search'])){
+//                            $filtervalues = $_GET['search'];
+//                            $query = "SELECT * FROM tbl_maintenance_schedule WHERE CONCAT(assignedTo,Area_ID,Status) LIKE '%$filtervalues%' ";
+//                            $query_run = mysqli_query($connection, $query);
+//
+//                            if(mysqli_num_rows($query_run) > 0)
+//                            {
+//                                foreach($query_run as $items)
+//                                {
+//                                    ?>
+<!--                                    <tr>-->
+<!--                                        <td>--><?//= $items['Date']; ?><!--</td>-->
+<!--                                        <td>--><?//= $items['assignedTo']; ?><!--</td>-->
+<!--                                        <td>--><?//= $items['Area_ID']; ?><!--</td>-->
+<!--                                        <td>--><?//= $items['Status']; ?><!--</td>-->
+<!--                                    </tr>-->
+<!--                                    --><?php
+//                                }
+//                            }
+//                            else
+//                            {
+//                                ?>
+<!--                                <tr>-->
+<!--                                    <td colspan="4">No Record Found</td>-->
+<!--                                </tr>-->
+<!--                                --><?php
+//                            }
+//                        }
 
-                        }
-                        // ORDER BY Date DESC
-                        $sql="SELECT * FROM tbl_maintenance_schedule  ";
+
+
+                        $sql="SELECT * FROM tbl_maintenance_schedule ORDER BY Date DESC ";
                         $result = mysqli_query($connection, $sql);
                         $row = mysqli_fetch_array($result);
 
@@ -100,7 +128,7 @@ if (isset($_SESSION['email'])){
                             echo "Status: ". $row['Status'];
                             echo "<br /><br /></li>";
                         }
-                        ?>
+//                        ?>
 
                         <br /><br />
                     </ul>
@@ -125,12 +153,16 @@ if (isset($_SESSION['email'])){
                     </div>
                     <br />
 
+                    <div class="d-grid gap-2" id="viewReports">
+                        <a class="text-focus-in"  href="javascript:popUpWindow('../reportFeed/reportFeed.php','reports','630','480')" class="remove_outline"><h3>View Reports</h3></a>
+                    </div>
+                    <br />
+
                     <!--Allocate Tasks--->
                     <div class="row" id="new_tasks">
                         <h3>Allocate New Maintenance Task</h3>
                         <br /><br />
-                        <!--method="post"-->
-                        <!---action="allocateTask.php"--->
+
                         <form method="post" action="allocateTaskDAO.php" id="formAllocateTask">
 
                             <label>Bowser ID:</label>

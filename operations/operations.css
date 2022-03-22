@@ -19,11 +19,10 @@
   padding: 30px;
   background-color: #a4c3fd;
 }
-
-#priorityMenu{
-
+#viewReports {
+  padding: 30px;
+  background-color: lightblue;
 }
-
 .select {
   width: 150px;
 }
