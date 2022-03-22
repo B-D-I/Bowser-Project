@@ -143,7 +143,7 @@ if (isset($_SESSION['email'])){
 
                 <div class="col">
                     <div class="row">
-                        <div class="text_area">
+                        <div id="text_area">
                             <?php
                             $connection = OpenConnection();
                             $email = $_SESSION['email'];
@@ -151,15 +151,21 @@ if (isset($_SESSION['email'])){
                             $result = mysqli_query($connection, $sql1);
                             $rows = mysqli_fetch_array($result);
                             $userID = $rows["User_ID"];
-                            echo "<h4>ID:&nbsp;".$userID."</h4><br /><h4>".$email."</h4>";
+                            echo "<h4>User&nbsp;".$userID.":&nbsp;&nbsp;&nbsp;".$email."</h4>";
                             CloseConnection($connection);
                             ?>
+                            <br />
+                            <button class="btn btn-primary" id="registerLink" href="#registerNewUserModal" data-bs-toggle="modal" >Register New User</button>
+                            <button class="btn btn-primary" id="loanLink" href="#requestBowserModal" data-bs-toggle="modal" >Loan Bowser</button>
+                            <button class="btn btn-primary" id="bowserLink">Bowser Information</button>
                         </div>
                     </div>
-                    <br />
 
-                    <div class="d-grid gap-2" id="viewReports">
-                        <a class="text-focus-in"  href="javascript:popUpWindow('../reportFeed/reportFeed.php','reports','630','480')" class="remove_outline"><h3>View Reports</h3></a>
+                    <br />
+                    <div class="vibrate-2">
+                    <div class="d-grid gap-2" id="viewReports" >
+                        <a class="text-focus-in"  href="javascript:popUpWindow('../reportFeed/reportFeed.php','reports','630','480')" class="remove_outline"><h3 id="reportTxt">View Reports</h3></a>
+                    </div>
                     </div>
                     <br />
 
@@ -276,7 +282,6 @@ if (isset($_SESSION['email'])){
             <div class="row">
                 <div class="col">
 
-                    <button class="btn btn-secondary" id="registerLink" href="#requestBowserModal" data-bs-toggle="modal" >Request New Bowser</button>
                     <!-- Modal -->
                     <div class="modal fade" id="requestBowserModal" tabindex="-1" aria-labelledby="requestBowserModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -341,11 +346,6 @@ if (isset($_SESSION['email'])){
                 </div>
 
                 <div class="col">
-                    <button type="button" class="btn btn-secondary">Open Bowser Spreadsheet</button>
-                </div>
-
-                <div class="col">
-                    <button class="btn btn-secondary" id="registerLink" href="#registerNewUserModal" data-bs-toggle="modal" >Register New User</button>
 
                     <!-- Modal -->
                     <div class="modal fade" id="registerNewUserModal" tabindex="-1" aria-labelledby="registerUserModalLabel" aria-hidden="true">
@@ -366,12 +366,12 @@ if (isset($_SESSION['email'])){
                                                 <div class="col">
                                                     <div class="select">
                                                         <select name="user_type" id="select">
+                                                            <option value='-1' disabled selected>---</option>
                                                             <option value="Maintenance">Maintenance</option>
                                                             <option value="Operations">Operations</option>
                                                         </select>
                                                     </div>
                                                 </div>
-
                                                 <br /><br /><br />
 
                                                 <button type="submit" name="registerAccountSubmit" class="btn btn-secondary">Submit</button>

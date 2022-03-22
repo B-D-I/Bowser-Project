@@ -1,35 +1,45 @@
-#new_tasks {
-  border: #727272;
-  border-radius: 5px;
-}
+/*#new_tasks {*/
+/*  border: #727272;*/
+/*  border-radius: 5px;*/
+/*}*/
 
 .operations-list {
   padding: 30px;
-  background-color: #a4c3fd;
+  background-color: lightblue;
   border: 0;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-.text_area {
+#text_area {
   padding: 30px;
-  background-color: #fddea4;
+  background-color: lightblue;
   border: 0;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-#rando {
-  background-color: #fddea4;
+#registerLink{
+  margin-left: -10px;
 }
-
-#new_tasks {
-  padding: 30px;
-  background-color: #a4c3fd;
-  border: 0;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-
+#loanLink{
+  margin-left: 40px;
+}
+#bowserLink{
+  margin-top: -60px;
+  margin-left: 380px;
+}
+#reportTxt{
+  color: whitesmoke;
+  text-align: center;
 }
 #viewReports {
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: dodgerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#new_tasks {
   padding: 30px;
   background-color: lightblue;
   border: 0;
@@ -43,11 +53,14 @@
 }
 .select {
   width: 150px;
+  color: whitesmoke;
+}
+select{
+  background: cornflowerblue;
 }
 
 
 #bowserID{
-
 }
 #maintenanceID{
   margin-left: 280px;
@@ -61,7 +74,65 @@
 
 }
 #dateID{
-
 }
 #formID{}
-#allocateSubmitID{}
+#allocateSubmitID{
+text-align: center;
+}
+
+.vibrate-2 {
+  -webkit-animation: vibrate-2 0.3s linear infinite both;
+  animation: vibrate-2 0.3s linear infinite both;
+}
+@-webkit-keyframes vibrate-2 {
+  0% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+  20% {
+    -webkit-transform: translate(2px, -2px);
+    transform: translate(2px, -2px);
+  }
+  40% {
+    -webkit-transform: translate(2px, 2px);
+    transform: translate(2px, 2px);
+  }
+  60% {
+    -webkit-transform: translate(-2px, 2px);
+    transform: translate(-2px, 2px);
+  }
+  80% {
+    -webkit-transform: translate(-2px, -2px);
+    transform: translate(-2px, -2px);
+  }
+  100% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+}
+@keyframes vibrate-2 {
+  0% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+  20% {
+    -webkit-transform: translate(2px, -2px);
+    transform: translate(2px, -2px);
+  }
+  40% {
+    -webkit-transform: translate(2px, 2px);
+    transform: translate(2px, 2px);
+  }
+  60% {
+    -webkit-transform: translate(-2px, 2px);
+    transform: translate(-2px, 2px);
+  }
+  80% {
+    -webkit-transform: translate(-2px, -2px);
+    transform: translate(-2px, -2px);
+  }
+  100% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+}
