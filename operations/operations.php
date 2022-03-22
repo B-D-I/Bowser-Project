@@ -73,7 +73,7 @@ if (isset($_SESSION['email'])){
                 <div class="col">
 
                     <ul class="operations-list">
-                        <h3 class="text-focus-in"> Upcoming Maintenance Scheduled</h3>
+                        <h3 class="text-focus-in"> Maintenance Schedule</h3>
 
                         <br />
 <!--                        <div class="mb-3">-->
@@ -83,7 +83,7 @@ if (isset($_SESSION['email'])){
 <!--                        </div>-->
                         <form action="" method="GET">
                             <div class="input-group mb-3">
-                                <input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control" placeholder="Search data">
+                                <input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control" placeholder="Search Tasks">
                                 <button type="submit" class="btn btn-primary">Search</button>
                             </div>
                         </form>
@@ -301,9 +301,11 @@ if (isset($_SESSION['email'])){
                                                     <div class="select">
                                                         <select name="Capacity" id="select">
                                                             <option value='-1' disabled selected>---</option>
+                                                            <option value="1000">500L</option>
                                                             <option value="1000">1000L</option>
                                                             <option value="5000">5000L</option>
                                                             <option value="10000">10,000L</option>
+                                                            <option value="15000">15,000L</option>
                                                         </select>
                                                     </div>
                                                 </div>

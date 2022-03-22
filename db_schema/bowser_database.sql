@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2022 at 05:06 PM
+-- Generation Time: Mar 22, 2022 at 09:04 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -45,6 +45,31 @@ INSERT INTO `tbl_area` (`Area_ID`, `Area_Name`, `Area_Mains_Status`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_bowser_borrowed`
+--
+
+CREATE TABLE `tbl_bowser_borrowed` (
+  `TransactionID` int(11) NOT NULL,
+  `UserID` int(11) NOT NULL,
+  `BowserID` int(11) NOT NULL,
+  `Bowser_Capacity` int(11) NOT NULL,
+  `Organisation_Name` varchar(100) NOT NULL,
+  `Priority` int(11) NOT NULL,
+  `Status` varchar(100) NOT NULL,
+  `Request_Reason` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_bowser_borrowed`
+--
+
+INSERT INTO `tbl_bowser_borrowed` (`TransactionID`, `UserID`, `BowserID`, `Bowser_Capacity`, `Organisation_Name`, `Priority`, `Status`, `Request_Reason`) VALUES
+(1, 7, 9, 5000, 'CompanyC', 2, '', 'testing loaned 001'),
+(2, 7, 10, 1000, 'CompanyB', 3, '', 'test loan 1000L');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_bowser_inuse`
 --
 
@@ -62,33 +87,25 @@ CREATE TABLE `tbl_bowser_inuse` (
 --
 
 CREATE TABLE `tbl_bowser_lent` (
-  `Bowser_ID` int(11) NOT NULL,
-  `Organisation_Name` varchar(100) NOT NULL,
-  `Hire_or_Loan` varchar(100) NOT NULL,
-  `Invoice_Number` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_bowser_loaned`
---
-
-CREATE TABLE `tbl_bowser_loaned` (
+  `TransactionID` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
-  `Organisation_Name` varchar(100) NOT NULL,
+  `BowserID` int(11) NOT NULL,
   `Bowser_Capacity` int(11) NOT NULL,
+  `Organisation_Name` varchar(100) NOT NULL,
   `Priority` int(11) NOT NULL,
   `Status` varchar(100) NOT NULL,
-  `Request_Reason` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `Request_Reason` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbl_bowser_loaned`
+-- Dumping data for table `tbl_bowser_lent`
 --
 
-INSERT INTO `tbl_bowser_loaned` (`UserID`, `Organisation_Name`, `Bowser_Capacity`, `Priority`, `Status`, `Request_Reason`) VALUES
-(2, 'CompanyB', 1000, 3, '', 'lllll');
+INSERT INTO `tbl_bowser_lent` (`TransactionID`, `UserID`, `BowserID`, `Bowser_Capacity`, `Organisation_Name`, `Priority`, `Status`, `Request_Reason`) VALUES
+(1, 7, 5, 10000, 'CompanyB', 2, '', 'test lend'),
+(3, 7, 6, 1000, 'CompanyB', 2, '', 'test lend '),
+(5, 7, 7, 10000, 'CompanyC', 3, '', 'test lend 10000L'),
+(6, 7, 8, 5000, 'CompanyB', 2, '', 'test lend 5000L');
 
 -- --------------------------------------------------------
 
@@ -104,6 +121,22 @@ CREATE TABLE `tbl_bowser_stock` (
   `Bowser_Model` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `tbl_bowser_stock`
+--
+
+INSERT INTO `tbl_bowser_stock` (`Bowser_ID`, `Bowser_Capacity`, `Bowser_Status`, `Bowser_Quantity`, `Bowser_Model`) VALUES
+(1, 5000, 'Stock', 1, 'Medium'),
+(2, 1000, 'Stock', 1, 'Small'),
+(3, 10000, 'Stock', 1, 'Large'),
+(4, 10000, 'Stock', 1, 'Large'),
+(11, 5000, 'Stock', 1, 'Medium'),
+(12, 5000, 'Stock', 1, 'Medium'),
+(13, 5000, 'Stock', 1, 'Medium'),
+(14, 5000, 'Stock', 1, 'Medium'),
+(15, 5000, 'Stock', 1, 'Medium'),
+(16, 5000, 'Stock', 1, 'Medium');
+
 -- --------------------------------------------------------
 
 --
@@ -114,7 +147,11 @@ CREATE TABLE `tbl_invoices` (
   `Invoice_Number` int(11) NOT NULL,
   `Status` varchar(100) NOT NULL,
   `Invoice_Date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `Invoice_Price` int(11) NOT NULL
+  `Invoice_Price` int(11) NOT NULL,
+  `TransactionID` int(11) NOT NULL,
+  `TransactionType` varchar(100) NOT NULL,
+  `BowserID` int(11) NOT NULL,
+  `Organisation_Name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -148,7 +185,8 @@ INSERT INTO `tbl_maintenance_schedule` (`Maintenance_ID`, `Bowser_ID`, `User_ID`
 (12, 4, 6, 'Leaking', 'Incomplete', '2022-03-22 15:58:26', 6, 5, 3, 'Repair'),
 (13, 3, 5, 'Broken tap', 'Incomplete', '2022-03-22 15:58:32', 5, 7, 2, 'Repair'),
 (14, 1, 7, 'Loose fitting', 'Incomplete', '2022-03-22 15:58:36', 6, 2, 1, 'Repair'),
-(15, 2, 7, 'Broken nozzel', 'Incomplete', '2022-03-22 15:58:41', 5, 3, 3, 'Repair');
+(15, 2, 7, 'Broken nozzel', 'Incomplete', '2022-03-22 15:58:41', 5, 3, 3, 'Repair'),
+(19, 3, 7, 'Bowser requires service', 'Incomplete', '2022-03-24 00:00:00', 5, 0, 1, 'Service');
 
 -- --------------------------------------------------------
 
@@ -212,7 +250,7 @@ CREATE TABLE `tbl_user_account` (
 --
 
 INSERT INTO `tbl_user_account` (`User_ID`, `User_Type`, `Password`, `Email`, `UserLevel`, `IsVerified`, `Verification_Code`) VALUES
-(2, 'Operations\r\n', '!1Ppaaaaaa', 'testOpsOld@email.com', '1', 1, '4e1293771cba81ae'),
+(2, 'Operations\r\n', '!1Ppaaaaaa', 'testop@email.com', '1', 1, '4e1293771cba81ae'),
 (3, 'Customer', '!1Ppaaaaaa', 'testUser@email.com', '1', 1, '97e7fd08f1483816'),
 (4, 'Maintenance', '!1Ppaaaaaa', 'testMain2@email.com', '1', 1, ''),
 (5, 'Maintenance', '414cd476', 'testMain3@email.com', '1', 1, ''),
@@ -230,6 +268,12 @@ ALTER TABLE `tbl_area`
   ADD PRIMARY KEY (`Area_ID`);
 
 --
+-- Indexes for table `tbl_bowser_borrowed`
+--
+ALTER TABLE `tbl_bowser_borrowed`
+  ADD PRIMARY KEY (`TransactionID`);
+
+--
 -- Indexes for table `tbl_bowser_inuse`
 --
 ALTER TABLE `tbl_bowser_inuse`
@@ -239,21 +283,20 @@ ALTER TABLE `tbl_bowser_inuse`
 -- Indexes for table `tbl_bowser_lent`
 --
 ALTER TABLE `tbl_bowser_lent`
-  ADD KEY `Bowser_ID` (`Bowser_ID`),
-  ADD KEY `Invoice_Number` (`Invoice_Number`),
-  ADD KEY `Organisation_Name` (`Organisation_Name`);
-
---
--- Indexes for table `tbl_bowser_loaned`
---
-ALTER TABLE `tbl_bowser_loaned`
-  ADD KEY `UserID` (`UserID`);
+  ADD PRIMARY KEY (`TransactionID`);
 
 --
 -- Indexes for table `tbl_bowser_stock`
 --
 ALTER TABLE `tbl_bowser_stock`
-  ADD UNIQUE KEY `Bowser_ID` (`Bowser_ID`);
+  ADD UNIQUE KEY `Bowser_ID` (`Bowser_ID`),
+  ADD UNIQUE KEY `Bowser_ID_2` (`Bowser_ID`);
+
+--
+-- Indexes for table `tbl_invoices`
+--
+ALTER TABLE `tbl_invoices`
+  ADD PRIMARY KEY (`Invoice_Number`);
 
 --
 -- Indexes for table `tbl_maintenance_schedule`
@@ -300,10 +343,34 @@ ALTER TABLE `tbl_area`
   MODIFY `Area_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `tbl_bowser_borrowed`
+--
+ALTER TABLE `tbl_bowser_borrowed`
+  MODIFY `TransactionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbl_bowser_lent`
+--
+ALTER TABLE `tbl_bowser_lent`
+  MODIFY `TransactionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `tbl_bowser_stock`
+--
+ALTER TABLE `tbl_bowser_stock`
+  MODIFY `Bowser_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `tbl_invoices`
+--
+ALTER TABLE `tbl_invoices`
+  MODIFY `Invoice_Number` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tbl_maintenance_schedule`
 --
 ALTER TABLE `tbl_maintenance_schedule`
-  MODIFY `Maintenance_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `Maintenance_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tbl_notifications`
@@ -332,12 +399,6 @@ ALTER TABLE `tbl_user_account`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `tbl_bowser_loaned`
---
-ALTER TABLE `tbl_bowser_loaned`
-  ADD CONSTRAINT `tbl_Bowser_Requests_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `tbl_user_account` (`User_ID`);
 
 --
 -- Constraints for table `tbl_notifications`

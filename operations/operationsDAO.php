@@ -41,6 +41,45 @@ function create()
         mysqli_close($connection);
 }
 
+function bowserDelete($bowser){
+    $connection = OpenConnection();
+    $sql =  "DELETE FROM tbl_bowser_stock WHERE BOWSER_ID = '$bowser'";
+    // connection confirmation
+    if (mysqli_query($connection, $sql)) {
+        echo "success";
+    } else {
+        echo mysqli_error($connection);
+        return;
+    }
+    mysqli_close($connection);
+}
+
+function createInvoice($transationType, $bowserID){
+    $connection = OpenConnection();
+    $sqlQ = null;
+    if ($transationType == "Lend"){
+        $sqlQ =  "SELECT * FROM `tbl_bowser_lent` WHERE BowserID";
+    } else if ($transationType == "Loan"){
+        $sqlQ = "SELECT * FROM `tbl_bowser_borrowed` WHERE BowserID";
+    } $results = mysqli_query($connection, $sqlQ);
+    if ($results->num_rows > 0) {
+        while ($rows = $results->fetch_assoc()) {
+            $transactionID = $rows['TransactionID'];
+            $organisation = $rows['Organisation_Name'];
+            $sql = "INSERT INTO `tbl_invoices` (TransactionID, TransactionType, BowserID, Organisation_Name) 
+            VALUES ('$transactionID', '$transationType', '$bowserID', '$organisation')";
+            // connection confirmation
+            if (mysqli_query($connection, $sql)) {
+                echo "success";
+            } else {
+                echo mysqli_error($connection);
+                return;
+            }
+            mysqli_close($connection);
+        }
+    }
+}
+
 function requestBowser()
 {
     session_start();
@@ -61,12 +100,23 @@ function requestBowser()
         $rows = mysqli_fetch_array($result);
         $userID = $rows["User_ID"];
 
-        if ($transaction == 'Loan') {
-            $sql = "insert into tbl_bowser_loaned (UserID, Organisation_Name, Bowser_Capacity, Priority, Request_Reason) values
-		    ('$userID', '$organisation','$capacity','$priority','$reason')";
+        if ($transaction == 'Lend') {
+            $sql2 = "SELECT * FROM `tbl_bowser_stock` WHERE Bowser_Capacity = '$capacity' LIMIT 1";
+            $results = mysqli_query($connection, $sql2);
+            if ($results->num_rows > 0) {
+                while ($rows = $results->fetch_assoc()) {
+                    $bowserID = $rows['Bowser_ID'];
+                    $sql = "insert into tbl_bowser_lent (UserID, Organisation_Name, BowserID, Bowser_Capacity, Priority, Request_Reason) values
+		    ('$userID', '$organisation', '$bowserID','$capacity','$priority','$reason')";
+                    bowserDelete($bowserID);
+                    createInvoice($transaction, $bowserID);
+                }
+            } else {
+                echo "<script>alert('No bowser of that size available')</script>";
+            }
         }
-        if ($transaction == 'Lend'){
-            $sql = "insert into tbl_bowser_lent (UserID, Organisation_Name, Bowser_Capacity, Priority, Request_Reason) values
+        if ($transaction == 'Loan'){
+            $sql = "insert into tbl_bowser_borrowed (UserID, Organisation_Name, Bowser_Capacity, Priority, Request_Reason) values
 		    ('$userID', '$organisation','$capacity','$priority','$reason')";
         }
 // connection confirmation
