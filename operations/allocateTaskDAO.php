@@ -22,7 +22,6 @@ if (isset($_SESSION['email'])) {
     $date = strip_tags(trim($_POST['date']));
 
     $connection = OpenConnection();
-
     $sql = "insert into tbl_maintenance_schedule (Bowser_ID, User_ID, Description, Status, Date, Assigned_To, Priority, Task_Type) values
 		('$bowserID', '$userID','$description','Incomplete', '$date','$workerID', '$priority', '$task')";
 

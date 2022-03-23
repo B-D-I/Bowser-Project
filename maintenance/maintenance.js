@@ -36,6 +36,7 @@ function initMap(){
     );
 }
 
+
 // Creating a detail view modal
 $('#detailModal').on('shown.bs.modal', function () {
     $('#myInput').trigger('focus')

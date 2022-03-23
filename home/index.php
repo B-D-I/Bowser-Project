@@ -341,8 +341,10 @@ if (isset($_SESSION['email'])) {
                                 <p>Check the notification news feed</p><br /><br />
                                 <p style="color: dodgerblue">HOW DO I REPORT AN ISSUE: </p><br />
                                 <p>Click the reports tab and send us a query</p><br /><br />
-                                <p style="color: dodgerblue">HOW DO ........: </p><br />
-                                <p>.............. example</p><br /><br />
+                                <p style="color: dodgerblue">HOW DO I CONTACT YOU WITHOUT CREATING AN ACCOUNT: </p><br />
+                                <p>For assistance, contact us at:
+                                    <a id="link" href="mailto:s4008324@glos.ac.uk">bowser-hub@email.com</a>
+                                </p><br /><br />
                             </div>
                         </div>
                     </div>

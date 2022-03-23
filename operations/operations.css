@@ -1,4 +1,7 @@
-
+.left-side{
+  margin-left: 5px;
+}
+/*Maintenance Schedule*/
 .operations-list {
   padding: 30px;
   background-color: lightblue;
@@ -6,6 +9,7 @@
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+/*User details and buttons*/
 #text_area {
   padding: 30px;
   background-color: lightblue;
@@ -13,19 +17,21 @@
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+/*Register new user button*/
 #registerLink{
   margin-left: -10px;
 }
+#submitRegiser{
+  text-align: center;
+}
+/*loan + lend bowser button*/
 #loanLink{
   margin-left: 40px;
 }
+/*bowser info button*/
 #bowserLink{
-  margin-top: -60px;
+  margin-top: -65px;
   margin-left: 380px;
-}
-#reportTxt{
-  color: whitesmoke;
-  text-align: center;
 }
 /*Loan and Lend Modal*/
 #transactionID{}
@@ -39,7 +45,11 @@
   margin-left: 240px;
 }
 
-
+/*report button */
+#reportTxt{
+  color: whitesmoke;
+  text-align: center;
+}
 #viewReports {
   padding: 30px;
   font-stretch: expanded;
@@ -48,6 +58,64 @@
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+#viewInvoice{
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: cornflowerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);}
+#viewMap{
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: lightblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#viewAllocateTask{
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: dodgerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#viewLoanBowser{
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: cornflowerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#viewBowserInfo{
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: dodgerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#viewAddBowser{
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: cornflowerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#viewRegisterUser{
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: dodgerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+/*Allocate Tasks*/
 #new_tasks {
   padding: 30px;
   background-color: lightblue;
@@ -67,8 +135,6 @@
 select{
   background: cornflowerblue;
 }
-
-
 #bowserID{
 }
 #maintenanceID{
@@ -89,6 +155,9 @@ select{
 text-align: center;
 }
 
+
+
+/*Button vibrate*/
 .vibrate-2 {
   -webkit-animation: vibrate-2 2s linear infinite both;
   animation: vibrate-2 2s linear infinite both;

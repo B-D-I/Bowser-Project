@@ -74,13 +74,7 @@ if (isset($_SESSION['email'])){
 
                     <ul class="operations-list">
                         <h3 class="text-focus-in"> Maintenance Schedule</h3>
-
                         <br />
-<!--                        <div class="mb-3">-->
-<!--                            <input type="search" class="form-control" placeholder="Search" id="exampleInputEmail1" aria-describedby="emailHelp">-->
-<!--                            <button type="button" class="btn btn-primary btn-sm">OK</button>-->
-<!--                            <button type="button" class="btn btn-secondary btn-sm">Filters</button>-->
-<!--                        </div>-->
                         <form action="" method="GET">
                             <div class="input-group mb-3">
                                 <input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control" placeholder="Search Tasks">
@@ -111,7 +105,6 @@ if (isset($_SESSION['email'])){
                         <br /><br />
                     </ul>
                     <br />
-
                 </div>
 
                 <div class="col">
@@ -128,134 +121,72 @@ if (isset($_SESSION['email'])){
                             echo "<h4>User&nbsp;".$userID.":&nbsp;&nbsp;&nbsp;".$username."</h4>";
                             CloseConnection($connection);
                             ?>
-                            <br />
-                            <button class="btn btn-primary" id="registerLink" href="#registerNewUserModal" data-bs-toggle="modal" >Register New User</button>
-                            <button class="btn btn-primary" id="loanLink" href="#requestBowserModal" data-bs-toggle="modal" >Loan Bowser</button>
-                            <button class="btn btn-primary" id="bowserLink">Bowser Information</button>
+
                         </div>
                     </div>
 
                     <br />
                     <div class="vibrate-2">
                     <div class="d-grid gap-2" id="viewReports" >
-                        <a class="text-focus-in"  href="javascript:popUpWindow('../reportFeed/reportFeed.php','reports','630','480')" class="remove_outline"><h3 id="reportTxt">View Reports</h3></a>
+<!--                        href="javascript:popUpWindow('../reportFeed/reportFeed.php','reports','630','480')"-->
+                        <a class="text-focus-in" href="#viewReportModal" data-bs-toggle="modal" class="remove_outline"><h3 id="reportTxt">View Reports</h3></a>
                     </div>
                     </div>
                     <br />
 
-                    <!--Allocate Tasks--->
-                    <div class="row" id="new_tasks">
-                        <h3>Allocate New Maintenance Task</h3>
-                        <br /><br />
-
-                        <form method="post" action="allocateTaskDAO.php" id="formAllocateTask">
-                            <br />
-                            <div id="bowserID">
-                            <label>Bowser ID:</label>
-                            <br />
-                            <div class="select">
-                                <select name="bowserID" id="select">
-
-                                    <?php
-                                    $connection = OpenConnection();
-                                    $sql ="SELECT * FROM `tbl_bowser_stock` WHERE Bowser_Status='Stock'";
-                                    $result = mysqli_query($connection, $sql);
-                                    $rows = mysqli_fetch_array($result);
-
-                                    echo "<option value='-1' disabled selected>---</option>";
-                                    if ($result->num_rows > 0) {
-                                        while ($rows = $result->fetch_assoc()) {
-                                            echo "<option value='".$rows['Bowser_ID']."'>".$rows['Bowser_ID']."</option>";
-                                        }
-                                    }
-                                    CloseConnection($connection);
-                                    ?>
-
-                                </select>
-                            </div>
-                            </div>
-                            <br />
-
-                            <div id="maintenanceID">
-                                <label>Maintenance Worker:</label>
-                                <br />
-                                <div class="select">
-                                    <select name="workerID" id="select">
-                                        <?php
-                                        $connection = OpenConnection();
-                                        $sql ="SELECT * FROM `tbl_user_account` WHERE User_Type='Maintenance'";
-                                        $result = mysqli_query($connection, $sql);
-                                        $rows = mysqli_fetch_array($result);
-
-                                        echo "<option value='-1' disabled selected>---</option>";
-                                        if ($result->num_rows > 0) {
-                                            while ($rows = $result->fetch_assoc()) {
-                                                echo "<option value='".$rows['User_ID']."'>".$rows['Email']."</option>";
-                                            }
-                                        }
-                                        CloseConnection($connection);
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <br />
-
-                            <div id="taskID">
-                            <label>Task Type</label>
-                            <div id="taskType" class="select">
-                                <select name="task" id="select">
-                                    <option value='-1' disabled selected>---</option>
-                                    <option value="Refill">Refill</option>
-                                    <option value="Repair">Repair</option>
-                                    <option value="Service">Service</option>
-                                    <option value="Deliver">Deliver</option>
-                                    <option value="Collect">Collect</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-                            </div>
-                            <br />
-
-                            <div id="priorityID">
-                            <label>Priority</label>
-                            <div id="priorityMenu" class="select">
-                                <select name="priority" id="select">
-                                    <option value='-1' disabled selected>---</option>
-                                    <option value="3">High</option>
-                                    <option value="2">Medium</option>
-                                    <option value="1">Low</option>
-                                </select>
-                            </div>
-                            </div>
-                            <br />
-
-                            <div id="dateID">
-                                <label>Date:</label>
-                                <br />
-                                <input type="date" id="dateID" name="date">
-                            </div>
-                            <br />
-
-                            <div class="form-floating" id="formID">
-                                <textarea class="form-control" name="description" placeholder="description"style="height: 100px"></textarea>
-                                <label for="floatingTextarea2">Description</label>
-                            </div>
-                            <br /><br />
-
-                            <div id="allocateSubmitID">
-                            <button type="submit" name="allocateTaskSubmit" class="btn btn-primary">ADD</button>
-                            </div>
-                        </form>
+                    <div class="vibrate-2">
+                        <div class="d-grid gap-2" id="viewInvoice" >
+                            <a class="text-focus-in" href="#viewInvoiceModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">View Invoices</h3></a>
+                        </div>
                     </div>
-                </div>
-            </div>
+                    <br />
 
-            <br />
+                    <!--div to display map--->
+                    <div class="d-grid gap-2" id="viewMap">
+                    <div id="map"></div>
+                    </div>
+                    <br />
+
+                    <div class="vibrate-2">
+                        <div class="d-grid gap-2" id="viewAllocateTask" >
+                            <a class="text-focus-in" href="#allocateTaskModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Allocate New Task</h3></a>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="vibrate-2">
+                        <div class="d-grid gap-2" id="viewLoanBowser" >
+                            <a class="text-focus-in" href="#requestBowserModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Loan Bowser</h3></a>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="vibrate-2">
+                        <div class="d-grid gap-2" id="viewBowserInfo" >
+                            <a class="text-focus-in" href="#" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Bowser Information</h3></a>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="vibrate-2">
+                        <div class="d-grid gap-2" id="viewAddBowser" >
+                            <a class="text-focus-in" href="#addBowserModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Add New Bowser</h3></a>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="vibrate-2">
+                        <div class="d-grid gap-2" id="viewRegisterUser" >
+                            <a class="text-focus-in" href="#registerNewUserModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Register New User</h3></a>
+                        </div>
+                    </div>
+                    <br />
+
 
             <div class="row">
                 <div class="col">
 
-                    <!-- Modal -->
+                    <!-- Request Bowser Modal -->
                     <div class="modal fade" id="requestBowserModal" tabindex="-1" aria-labelledby="requestBowserModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -269,7 +200,6 @@ if (isset($_SESSION['email'])){
 
                                             <form method="post" id="formBowserRequest">
                                                 <div class="mb-3">
-
                                                     <div id="transactionID">
                                                         <label>Transaction Type</label>
                                                         <div class="select">
@@ -281,7 +211,6 @@ if (isset($_SESSION['email'])){
                                                         </div>
                                                     </div>
                                                     <br />
-
                                                     <div id="organisationID">
                                                     <label>Organisation</label>
                                                     <div class="select">
@@ -295,7 +224,6 @@ if (isset($_SESSION['email'])){
                                                 </div>
                                                 </div>
                                                 <br />
-
                                                 <div id="capacityID">
                                                     <label>Capacity</label>
                                                     <div class="select">
@@ -310,7 +238,6 @@ if (isset($_SESSION['email'])){
                                                     </div>
                                                 </div>
                                                 <br />
-
                                                 <div id="loanPriorityID">
                                                     <label>Priority</label>
                                                     <div class="select">
@@ -322,15 +249,15 @@ if (isset($_SESSION['email'])){
                                                         </select>
                                                     </div>
                                                 </div>
-
                                                 <br />
                                                 <div class="form-floating">
                                                     <textarea class="form-control" name="Reason" placeholder="Reason for Request"style="height: 100px"></textarea>
                                                     <label for="floatingTextarea2">Reason for Request</label>
                                                 </div>
                                                 <br /><br />
-
+                                                <div id="submitRegiser">
                                                 <button type="submit" name="requestBowserSubmit" class="btn btn-secondary">Submit</button>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
@@ -340,9 +267,7 @@ if (isset($_SESSION['email'])){
                     </div>
                 </div>
 
-                <div class="col">
-
-                    <!-- Modal -->
+                    <!-- Register User Modal -->
                     <div class="modal fade" id="registerNewUserModal" tabindex="-1" aria-labelledby="registerUserModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -367,16 +292,16 @@ if (isset($_SESSION['email'])){
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <br /><br /><br />
-
+                                                <br /><br />
+                                                <div id="submitRegiser">
                                                 <button type="submit" name="registerAccountSubmit" class="btn btn-secondary">Submit</button>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -384,7 +309,287 @@ if (isset($_SESSION['email'])){
     </div>
 </div>
 
-<br /><br /><br /><br /><br />
+<!--View Report Modal--->
+<div class="modal fade" id="viewReportModal" tabindex="-1" aria-labelledby="viewReportModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerUserModalLabel">View Reports</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <ul class="report-list">
+                            <h3> Received Reports</h3>
+                            <br />
+                            <form action="" method="GET">
+                                <div class="input-group mb-3">
+                                    <input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control" placeholder="Search data">
+                                    <button type="submit" class="btn btn-primary">Search</button>
+                                </div>
+                            </form>
+                            <br />
+                            <?php
+                            // get reports
+                            ?>
+                            <p>Example report: 001 // Repair ..</p>
+                            <br />
+                            <p>Example report: 002 // Refill ..</p>
+                            <br />
+                            <p>Example report: 0013 // Repair ..</p>
+                            <br />
+                            <p>Example report: 004 // Refill ..</p>
+                            <br />
+                            <p>Example report: 001 // Repair ..</p>
+                            <br />
+                            <p>Example report: 002 // Refill ..</p>
+                            <br />
+                            <p>Example report: 0013 // Repair ..</p>
+                            <br />
+                            <p>Example report: 004 // Refill ..</p>
+                            <br />
+                            <p>Example report: 001 // Repair ..</p>
+                            <br />
+                            <p>Example report: 002 // Refill ..</p>
+                            <br />
+                            <p>Example report: 0013 // Repair ..</p>
+                            <br />
+                            <p>Example report: 004 // Refill ..</p>
+                            <br />
+                            <p>Example report: 001 // Repair ..</p>
+                            <br />
+                            <p>Example report: 002 // Refill ..</p>
+                            <br />
+                            <p>Example report: 0013 // Repair ..</p>
+                            <br />
+                            <p>Example report: 004 // Refill ..</p>
+                            <br />
+                        </ul>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <!-- Allocate Task Modal -->
+        <div class="modal fade" id="allocateTaskModal" tabindex="-1" aria-labelledby="allocateTaskModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="allocateTaskModalLabel"><h3>Allocate Maintenance Task</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col">
+
+                                <form method="post" action="allocateTaskDAO.php" id="formAllocateTask">
+                                    <br />
+                                    <div id="bowserID">
+                                        <label>Bowser ID:</label>
+                                        <br />
+                                        <div class="select">
+                                            <select name="bowserID" id="select">
+                                                <?php
+                                                $connection = OpenConnection();
+                                                $sql ="SELECT * FROM `tbl_bowsers`";
+                                                $result = mysqli_query($connection, $sql);
+                                                $rows = mysqli_fetch_array($result);
+
+                                                echo "<option value='-1' disabled selected>---</option>";
+                                                if ($result->num_rows > 0) {
+                                                    while ($rows = $result->fetch_assoc()) {
+                                                        echo "<option value='".$rows['BowserID']."'>".$rows['BowserID']."</option>";
+                                                    }
+                                                }
+                                                CloseConnection($connection);
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div id="maintenanceID">
+                                        <label>Maintenance Worker:</label>
+                                        <br />
+                                        <div class="select">
+                                            <select name="workerID" id="select">
+                                                <?php
+                                                $connection = OpenConnection();
+                                                $sql ="SELECT * FROM `tbl_user_account` WHERE User_Type='Maintenance'";
+                                                $result = mysqli_query($connection, $sql);
+                                                $rows = mysqli_fetch_array($result);
+
+                                                echo "<option value='-1' disabled selected>---</option>";
+                                                if ($result->num_rows > 0) {
+                                                    while ($rows = $result->fetch_assoc()) {
+                                                        echo "<option value='".$rows['User_ID']."'>".$rows['Email']."</option>";
+                                                    }
+                                                }
+                                                CloseConnection($connection);
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div id="taskID">
+                                        <label>Task Type</label>
+                                        <div id="taskType" class="select">
+                                            <select name="task" id="select">
+                                                <option value='-1' disabled selected>---</option>
+                                                <option value="Refill">Refill</option>
+                                                <option value="Repair">Repair</option>
+                                                <option value="Service">Service</option>
+                                                <option value="Deliver">Deliver</option>
+                                                <option value="Collect">Collect</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div id="priorityID">
+                                        <label>Priority</label>
+                                        <div id="priorityMenu" class="select">
+                                            <select name="priority" id="select">
+                                                <option value='-1' disabled selected>---</option>
+                                                <option value="3">High</option>
+                                                <option value="2">Medium</option>
+                                                <option value="1">Low</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div id="dateID">
+                                        <label>Date:</label>
+                                        <br />
+                                        <input type="date" id="dateID" name="date">
+                                    </div>
+                                    <br />
+                                    <div class="form-floating" id="formID">
+                                        <textarea class="form-control" name="description" placeholder="description"style="height: 100px"></textarea>
+                                        <label for="floatingTextarea2">Description</label>
+                                    </div>
+                                    <br /><br />
+                                    <div id="allocateSubmitID">
+                                        <button type="submit" name="allocateTaskSubmit" class="btn btn-primary">ADD</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <!--viewInvoice Modal--->
+    <div class="modal fade" id="viewInvoiceModal" tabindex="-1" aria-labelledby="viewInvoiceModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewInvoiceModalLabel">View Invoices</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <ul class="report-list">
+                                <h3> Invoices </h3>
+                                <br />
+                                <form action="" method="GET">
+                                    <div class="input-group mb-3">
+                                        <input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control" placeholder="Search data">
+                                        <button type="submit" class="btn btn-primary">Search</button>
+                                    </div>
+                                </form>
+                                <br />
+                                <table>
+                                    <tr>
+                                        <th>&nbsp;&nbsp;&nbsp;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th>Transaction&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th>Created By&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th>Bowser ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th>Organisation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                        <th>Charge (£)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                    </tr>
+                                    <?php
+                                    $connection = OpenConnection();
+
+                                    $sql ="SELECT * FROM `tbl_bowser_invoices`";
+                                    $result = mysqli_query($connection, $sql);
+                                    $rows = mysqli_fetch_array($result);
+
+                                    if ($result->num_rows > 0) {
+                                        while ($rows = $result->fetch_assoc()) {
+                                            $invoiceID = $rows['InvoiceID'];
+                                            $transaction = $rows['Transaction_Type'];
+                                            $user = $rows['UserID'];
+                                            $bowser = $rows['BowserID'];
+                                            $organisation = $rows['Organisation_Name'];
+                                            $price = $rows['Price'];
+                                            echo "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$rows['InvoiceID']."</td><td>".$rows['Transaction_Type']."</td>
+                                            <td>".$rows['UserID']."</td><td>".$rows['BowserID']."</td><td>"
+                                                .$rows['Organisation_Name']."</td><td>".$rows['Price']."</td></tr><br />";
+                                        }
+                                    }
+                                    CloseConnection($connection);
+                                    ?>
+                                </table>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Request Bowser Modal -->
+    <div class="modal fade" id="addBowserModal" tabindex="-1" aria-labelledby="addBowserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addBowserModalLabel">Add Bowser</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+
+                            <form method="post" action="addBowsersDAO.php">
+                                <div class="mb-3">
+                                <div id="capacityID">
+                                    <label>Capacity</label>
+                                    <div class="select">
+                                        <select name="Capacity" id="select">
+                                            <option value='-1' disabled selected>---</option>
+                                            <option value="500">500L</option>
+                                            <option value="1000">1000L</option>
+                                            <option value="5000">5000L</option>
+                                            <option value="10000">10,000L</option>
+                                            <option value="15000">15,000L</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br />
+                                <br /><br />
+                                <div id="submitRegiser">
+                                    <button type="submit" name="newBowserSubmit" class="btn btn-secondary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <br /><br />
+
 
 <!-- Link back to top of page -->
 <p><a id="top_link" href="#back_to_top" >RETURN TO TOP</a></p>

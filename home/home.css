@@ -1,4 +1,6 @@
-
+.left-side{
+  margin-left: 5px;
+}
 .notification-list{
   padding: 30px;
   background-color: lightblue;
