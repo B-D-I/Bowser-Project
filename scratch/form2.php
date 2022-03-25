@@ -1,6 +1,6 @@
 <?php
 session_start();
-$term = '';
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -21,8 +21,7 @@ $term = '';
 </head>
 <body> 
 <?php
-	$_SESSION['query'] = (string)"SELECT * FROM tbl_bowser_stock WHERE Bowser_Serial LIKE '$term%' LIMIT 25";
-	$query = $_SESSION['query'];
+	$_SESSION['query'] = 'SELECT * FROM tbl_bowser_stock WHERE Bowser_Serial LIKE "%{TERM}%" LIMIT 25';
 ?>
 <div class="container">
   <div class="row">
