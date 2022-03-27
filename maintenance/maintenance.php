@@ -93,6 +93,7 @@ $job = mysqli_fetch_assoc($query);
                         <h4>User: <?php echo $email  ?> </h4>
 
                         <br /><br />
+                        <script>$('[data-toggle="popover"]').popover();</script>
                         <?php
 
                         foreach($query as $row){
@@ -103,11 +104,12 @@ $job = mysqli_fetch_assoc($query);
                                         $detailJob = mysqli_fetch_assoc($detailQuery);
 
                                         echo "<div class='form-check'>";
-                                        echo "<input class='form-check-input' type='checkbox' value='' >";
+                                        // echo "<input class='form-check-input' type='checkbox' value='' >";
                                          echo "<label class='form-check-label'>";
                                         echo "Bowser ", $row['Bowser_ID']," - " ,$row['Description'];
                                         echo "</label>";
-                                        echo "<button id= '$row[Maintenance_ID]' class='btn btn-link' data-bs-toggle='modal' href='#myModal' style ='float:right;'> View Details </button>";
+                                        echo "<button type='button' class='btn btn-link' data-toggle='popover' title='Popover title' data-content='And here is some amazing content. It is very engaging. Right?' style='float:right;'>View Details</button>";
+                                       echo "<button type='button' class='btn btn-primary' style='float:right position:fixed;';>Task Complete</button>";
                                     echo "</div>";
                                     echo "<br/>";
                         }
@@ -141,8 +143,8 @@ $job = mysqli_fetch_assoc($query);
                       
                     <br /><br />
 
-                    <button type="button" class="btn btn-primary">Task Complete</button>
-                    <br />
+                    
+               
                 </div>
 
                 <div class="col">

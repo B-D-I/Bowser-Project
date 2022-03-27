@@ -42,3 +42,5 @@ $('#detailModal').on('shown.bs.modal', function () {
     $('#myInput').trigger('focus')
   })
   
+//   Popovers
+$("[data-toggle=popover]").popover();
