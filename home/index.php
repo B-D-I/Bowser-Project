@@ -165,7 +165,7 @@ if (isset($_SESSION['email'])) {
 										$Report_Type = $connection->real_escape_string($_POST['Report_Type']);
 										$Bowser_ID = $connection->real_escape_string($_POST['Bowser_ID']);
 										$Description = $connection->real_escape_string($_POST['Description']);
-										$User_ID = "999";
+										$User_ID = $_SESSION[''];
         								if($query = mysqli_query($connection,"INSERT INTO tbl_Reports(Report_ID,Report_Type,Bowser_ID,Description,User_ID) VALUES (NULL,$Report_Type,$Bowser_ID,$Description, $User_ID)")){
             								echo "Success";
         								} else {
