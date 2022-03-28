@@ -78,7 +78,7 @@ $selBowserID = '';
 					<h2>Bowser Information</h2>
 						<form action="" method="POST">
      					<?php
-							$_SESSION['query'] = 'SELECT * FROM tbl_bowser_stock WHERE Bowser_Serial LIKE "%{TERM}%" LIMIT 25';
+							$_SESSION['query'] = 'SELECT * FROM tbl_bowsers WHERE BowserID LIKE "%{TERM}%" LIMIT 25';
 						?>
 					   	<input type="text" name="term" id="term" placeholder="Enter Bowser Serial Number...." class="form-control">
 						<script type="text/javascript">
@@ -95,7 +95,7 @@ $selBowserID = '';
 						if (isset($_POST['submit']) ) {
 								if(!empty($_POST['term'])){
 									$connection = OpenConnection();
-									$sql = "select bowser_serial from tbl_bowser_stock where bowser_serial ='".$_POST['term']."'";
+									$sql = "select bowserID from tbl_bowsers where bowserID ='".$_POST['term']."'";
     								$result = mysqli_query($connection,$sql);
 									while($row = mysqli_fetch_assoc($result)) {
 										if (mysqli_num_rows($result) > 0){
@@ -114,22 +114,24 @@ $selBowserID = '';
 					<h4>Bowser
 					<?php
 						$connection = OpenConnection();
-						$sql = "SELECT bowser_id, bowser_serial, bowser_capacity, bowser_status, bowser_model from tbl_bowser_stock where bowser_serial = '$selBowserID'";
+						$sql = "SELECT bowserID, bowser_capacity, status, bowser_description, location, bowser_cost from tbl_bowsers where bowserID = '$selBowserID'";
     					$result = mysqli_query($connection,$sql);
 						while($row = mysqli_fetch_assoc($result)) {
 							if (mysqli_num_rows($result) > 0){
-								echo $row['bowser_serial']. "</h4><br />";
-								echo "Bowser Model: " .$row['bowser_model']. "<br /><br />";
-								echo "Bowser Status: " .$row['bowser_status']. "<br />";
+								echo $row['bowserID']. "</h4><br />";
+								echo "Bowser Description: " .$row['bowser_description']. "<br />";
 								echo "Bowser Capacity: " .$row['bowser_capacity']. "<br />";
+								echo "Bowser Cost: " .$row['bowser_cost']. "<br />";
+								echo "<br />";
+								echo "Bowser Status: " .$row['status']. "<br />";
+								echo "Bowser Location ID: " .$row['location']. "<br />";
 								echo "<br /><br />";
-								$row_bowserID = $row['bowser_id'];
-								$row_bowserSerial = $row['bowser_serial'];
-								$row_bowserModel = $row['bowser_model'];
+								$row_bowserID = $row['bowserID'];
+								$row_bowserDescription = $row['bowser_description'];
 								$row_bowserCapacity = $row['bowser_capacity'];
-								$row_bowserLocationX = '';
-								$row_bowserLocationY = '';
-								$row_bowserStatus = $row['bowser_status'];
+								$row_bowserLocation = $row['location'];
+								$row_bowserCost = $row['bowser_cost'];
+								$row_bowserStatus = $row['status'];
 							}
 						}
 					?>
@@ -138,7 +140,7 @@ $selBowserID = '';
 					<h4>Maintenance History</h4>
 						<?php
 							$connection = OpenConnection();
-							$sql2=("SELECT bowser_id, report_type_id, description, status, date from tbl_maintenance_schedule where bowser_id = (select bowser_id from tbl_bowser_stock where bowser_serial = '$selBowserID') and Date < Now()");
+							$sql2=("SELECT bowser_id, description, status, date from tbl_maintenance_schedule where bowser_id = '$selBowserID' and Date < Now()");
 							echo"<table style='width: 100%;'>";
 							echo"<tr>
 									<th>Date</th>
@@ -157,7 +159,6 @@ $selBowserID = '';
 											echo "<tr>";
 										}
 										echo "<td align='center'>".$row2['date']."</td>";
-										echo "<td align='center'>".$row2['report_type_id']."</td>";
 										echo "<td align='center'>".$row2['status']."</td>";
 										echo "<td align='center'>".$row2['description']."</td></tr>";
 									}
@@ -181,12 +182,17 @@ $selBowserID = '';
 											<h2>Bowser Details</h2>
             	            			    <div class="col">
   												<form method="POST">
-													<label for="serial">Bowser Serial: </label>
-														<input type="text" name="serial" class="form-control" required></input>
-													<label for="model">Bowser Model: </label>
-														<input type="text" name="model" class="form-control" required></input>
+													<label for="serial">Bowser Description: </label>
+														<input type="text" name="description" class="form-control" required></input>
 													<label for="cap">Bowser Capacity: </label>
 														<input type="number" name="cap" class="form-control" required></input>
+													<label for="model">Bowser Status: </label>
+														<input type="text" name="status" class="form-control" required></input>
+													<label for="cap">Bowser Cost: </label>
+														<input type="number" name="cost" class="form-control" required></input>
+													<label for="model">Bowser Location: </label>
+														<input type="text" name="location" class="form-control" required></input>
+													
 													<br />
 													<input class="btn btn-primary" type="submit" name="addBowser" value="Add Bowser"/>
 													<button id='closeModal' type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
@@ -194,10 +200,12 @@ $selBowserID = '';
 														set_exception_handler('ex_handler');
 														$connection = OpenConnection();
 														if(isset($_POST['addBowser'])) {
-															$Bowser_Serial = $_POST["serial"];
-															$Bowser_Model = $_POST["model"];
+															$Bowser_Serial = $_POST["description"];
 															$Bowser_Capacity = $_POST["cap"];
-															$sql3 = "INSERT INTO tbl_bowser_stock(Bowser_ID,Bowser_Serial,Bowser_Model,Bowser_Capacity) VALUES (NULL,'$Bowser_Serial','$Bowser_Model', '$Bowser_Capacity')";
+															$Bowser_Model = $_POST["status"];
+															$Bowser_Model = $_POST["cost"];
+															$Bowser_Model = $_POST["location"];
+															$sql3 = "INSERT INTO tbl_bowsers(bowserID,Bowser_Description,Bowser_Capacity,status,cost,location) VALUES (NULL,'$Bowser_Serial','$Bowser_Model', '$Bowser_Capacity')";
 															if($query = mysqli_query($connection, $sql3)) {
 																echo "<script>alert('Is Done is Good')</script>";
 																echo "<meta http-equiv='refresh' content='0'>";
@@ -233,18 +241,21 @@ $selBowserID = '';
 											<h2>Bowser Details</h2>
             	            			    <div class="col">
   												<form method="POST">
-													<label for="bowser_id">Bowser ID: </label>
-														<input type="text" name="bowser_id" class="form-control" value="<?php echo $row_bowserID; ?>" readonly></input>
-													<label for="serial">Bowser Serial: </label>
-														<input type="text" name="serial" class="form-control" value="<?php echo $row_bowserSerial; ?>" required></input>
-													<label for="model">Bowser Model: </label>
-														<input type="text" name="model" class="form-control" value="<?php echo $row_bowserModel; ?>" required></input>
+													<label for="bowserID">Bowser ID: </label>
+														<input type="text" name="bowserID" class="form-control" value="<?php echo $row_bowserID; ?>" readonly></input>
+													<label for="serial">Bowser Description: </label>
+														<input type="text" name="description" class="form-control" value="<?php echo $row_bowserDescription; ?>" required></input>
 													<label for="cap">Bowser Capacity: </label>
 														<input type="number" name="cap" class="form-control" value="<?php echo $row_bowserCapacity; ?>" required></input>
 													<label for="status">Bowser Status: </label>
 														<select select="<?php echo $row_bowserStatus; ?>" name="status" class="form-control" required>
 															<option selected><?php echo $row_bowserStatus; ?></option>
-															</select>
+														</select>
+													<label for="cost">Bowser Cost: </label>
+														<input type="text" name="cost" class="form-control" value="<?php echo $row_bowserCost; ?>" required></input>
+													<label for="location">Bowser Location: </label>
+														<input type="text" name="location" class="form-control" value="<?php echo $row_bowserLocation; ?>" required></input>
+																							
 													<br />
 													<input class="btn btn-primary" type="submit" name="editBowser" value="Edit Bowser"/>
 													<button class="btn btn-secondary">Decommission</button>
@@ -254,17 +265,18 @@ $selBowserID = '';
 														$connection = OpenConnection();
 														
 														if(isset($_POST['editBowser'])) {
-															$Bowser_ID = $_POST["bowser_id"];
-															$Bowser_Serial = $_POST["serial"];
-															$Bowser_Model = $_POST["model"];
+															$bowserID = $_POST["bowserID"];
+															$Bowser_Description = $_POST["description"];
 															$Bowser_Capacity = $_POST["cap"];
 															$Bowser_Status = $_POST["status"];
+															$Bowser_Cost = $_POST["cost"];
+															$Bowser_Location = $_POST["location"];
 															
 															
 															
-															$sql4 = "UPDATE tbl_bowser_stock SET Bowser_Serial = '$Bowser_Serial', Bowser_Model = '$Bowser_Model', Bowser_Capacity = '$Bowser_Capacity', Bowser_Status = '$Bowser_Status' WHERE Bowser_ID = '$Bowser_ID'";
+															$sql4 = "UPDATE tbl_bowsers SET Bowser_Description = '$Bowser_Description', Bowser_Capacity = '$Bowser_Capacity',  Status = '$Bowser_Status', Bowser_Cost = '$Bowser_Cost', Location = '$Bowser_Location' WHERE bowserID = '$bowserID'";
 															if($query = mysqli_query($connection, $sql4)) {
-																echo "<script>alert('Is Done is Good $Bowser_ID')</script>";
+																echo "<script>alert('Is Done is Good')</script>";
 																echo "<meta http-equiv='refresh' content='0'>";
 																header("Location: ./bowsers.php");
 															} else {
