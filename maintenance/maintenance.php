@@ -93,7 +93,11 @@ $job = mysqli_fetch_assoc($query);
                         <h4>User: <?php echo $email  ?> </h4>
 
                         <br /><br />
-                        <script>$('[data-toggle="popover"]').popover();</script>
+                        <script>
+                            $(document).ready(function(){
+                                $('[data-toggle="popover"]').popover();
+                            });
+                        </script>
                         <?php
 
                         foreach($query as $row){
@@ -108,7 +112,12 @@ $job = mysqli_fetch_assoc($query);
                                          echo "<label class='form-check-label'>";
                                         echo "Bowser ", $row['Bowser_ID']," - " ,$row['Description'];
                                         echo "</label>";
-                                        echo "<button type='button' class='btn btn-link' data-toggle='popover' title='Popover title' data-content='And here is some amazing content. It is very engaging. Right?' style='float:right;'>View Details</button>";
+
+                                        echo "<button type='button' class='btn btn-link' data-toggle='popover' data-html = 'true' 
+                                        title= 'Maintenance ID: $row[Maintenance_ID]  Bowser ID: $row[Bowser_ID] User ID: $row[User_ID] Description: $row[Description] Status: $row[Status]
+                                         Date: $row[Date] Assigned To: $row[Assigned_To] Area ID: $row[Area_ID] Priority $row[Priority] Task Type: $row[Task_Type]'  
+                                        style='float:right;'>View Details</button>";
+
                                        echo "<button type='button' class='btn btn-primary' style='float:right position:fixed;';>Task Complete</button>";
                                     echo "</div>";
                                     echo "<br/>";
