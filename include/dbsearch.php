@@ -11,12 +11,10 @@ if (isset($_GET['term'])) {
 	$query = str_replace('{TERM}', $term, $query);
 	$result = mysqli_query($connection, $query);
  	if (mysqli_num_rows($result) > 0) {
-     while ($row = mysqli_fetch_array($result)) {
-      $res[] = $row['Bowser_Serial'];
-     }
-    } else {
-      $res = array();
-    }
+    	while ($row = mysqli_fetch_array($result)) {
+		$res[]=$row[0];
+    	}
+	}
     //return json res
     echo json_encode($res);
 	return json_encode($res);
