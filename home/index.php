@@ -37,7 +37,12 @@ if (isset($_SESSION['email'])) {
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!--jQuery-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>	
+	
+	<!-- jQuery UI -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	
     <!--google maps api-->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 	<!--report screen functions -->
@@ -48,7 +53,11 @@ if (isset($_SESSION['email'])) {
 </head>
 
 <body>
-
+<script>
+	$('#reportModal').on('hidden.bs.modal', function (e) {
+		$('#report').find("input[type=text], textarea").val("");
+	})
+</script>
 <!---html anchor to return to top of page-->
 <p id="back_to_top"></p>
 
@@ -75,17 +84,13 @@ if (isset($_SESSION['email'])) {
                 echo '
                   <div class="nav-link-wrapper active-nav-link">
                     <a class="text-focus-in" href="../operations/operations.php">Operations</a>
-                  </div>
-            ';}?>
-
-            <?php
-            if (isset($_SESSION['email'])){
-                echo '
+                  </div>';
+			}
+			?>
+			
             	<div class="nav-link-wrapper">
-                	<a class="text-focus-in" id="link" href="#reportModal" data-bs-toggle="modal">Report</a></div>';
-			}?>
-                <!-- Modal -->
-                <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+                	<a class="text-focus-in" id="link" href="#reportModal" data-bs-toggle="modal">Report</a></div>
+			    <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
                     <form action="" id="report" method="POST">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -106,7 +111,7 @@ if (isset($_SESSION['email'])) {
                                             <select name="Report_Type" id="select" onchange="reportTypeCheck(this);">';
 			<?php			
 												$connection = OpenConnection();
-    											$result = mysqli_query($connection, "SELECT id, description, is_bowser FROM tbl_report_type order by id asc;");
+												$result = mysqli_query($connection, "SELECT id, description, is_bowser FROM tbl_report_type order by id asc;");
 												echo "<option value='-1' disabled selected>---</option>";
 												if (mysqli_num_rows($result) > 0){
 													while($row = mysqli_fetch_assoc($result)) {
@@ -119,34 +124,27 @@ if (isset($_SESSION['email'])) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-							<div class="modal-body" id="bowserSelect">
-                                <div class="row">
+                               <div class="row">
                                     <div class="col">
                                         <p>Bowser ID: </p>
-                                    </div>
-                                    <div class="col">
-										<div class="select">
-											<select name="Bowser_ID">';
-			<?php
-												$connection = OpenConnection();
-    											$result = mysqli_query($connection, "SELECT Bowser_ID FROM tbl_bowser_inuse WHERE Bowser_ID > 0;");
-												echo "<option value='-1' disabled selected>---</option>";
-												if (mysqli_num_rows($result) > 0){
-													while($row = mysqli_fetch_assoc($result)) {
-														echo "<option value='".$row['Bowser_ID']."'>".$row['Bowser_ID']."</option>";
-													}
-												}
-												CloseConnection($connection);
-			?>
-										<option value="0">Bowser Not Listed</option>
-                                        	</select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+     								<?php
+										$_SESSION['query'] = 'SELECT * FROM tbl_bowser_inuse WHERE Bowser_ID LIKE "%{TERM}%" LIMIT 25';
+									?>
+					   				<input type="text" name="term" id="term" placeholder="Enter Bowser Serial Number...." class="form-control">
+									<script type="text/javascript">
+  									$(function() {
+										$( "#term" ).autocomplete({
+											appendTo: reportModal,
+											source: '../include/dbsearch.php'
 
+										});
+									});
+									</script>
+										<br />
+									</div>
+                                </div>
+							</div>
                             <div class="form-floating">
                                 <textarea class="form-control" name="Description" placeholder="Description" id="floatingTextarea2" style="height: 100px"></textarea>
                                 <label for="floatingTextarea2">Description</label>
