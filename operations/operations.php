@@ -5,6 +5,9 @@ session_start();
 if (isset($_SESSION['email'])){
     $email = $_SESSION['email'];
 }
+include '../include/handler.php';
+$selBowserID = '';
+$selMaintID = '';
 ?>
 
 <!doctype html>
@@ -25,10 +28,19 @@ if (isset($_SESSION['email'])){
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!--google maps api-->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <title>Water Bowser</title>
 </head>
 
 <body>
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
 
 <!---html anchor to return to top of page-->
 <p id="back_to_top"></p>
@@ -75,17 +87,67 @@ if (isset($_SESSION['email'])){
                     <ul class="operations-list">
                         <h3 class="text-focus-in"> Maintenance Schedule</h3>
                         <br />
-                        <form action="" method="GET">
+                        <form action="" method="POST">
                             <div class="input-group mb-3">
-                                <input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control" placeholder="Search Tasks">
-                                <button type="submit" class="btn btn-primary">Search</button>
+                                <?php
+                                $_SESSION['query'] = 'SELECT * FROM tbl_maintenance_schedule WHERE Maintenance_ID LIKE "%{TERM}%" LIMIT 25';
+                                ?>
+                                <input type="text" name="term" id="term" class="form-control" placeholder="Search Tasks">
+                                <script type="text/javascript">
+                                    $(function() {
+                                        $( "#term" ).autocomplete({
+                                            source: '../include/dbsearch.php',
+                                        });
+                                    });
+                                </script>
+                                <button type="submit" name="submit" class="btn btn-primary">Search</button>
+
                             </div>
+                            <?php
+
+                            if (isset($_POST['submit']) ) {
+                                if(!empty($_POST['term'])){
+                                    $connection = OpenConnection();
+                                    $sql = "SELECT * FROM tbl_maintenance_schedule WHERE Maintenance_ID ='".$_POST['term']."'";
+                                    $result = mysqli_query($connection,$sql);
+                                    while($row = mysqli_fetch_assoc($result)) {
+                                        if (mysqli_num_rows($result) > 0){
+                                            $selMaintID = $_POST['term'];
+                                        } else {
+                                            $selMaintID = '0';
+
+                                        }
+                                    } CloseConnection($connection);
+                                }
+
+                            }
+                            ?>
                         </form>
+
+                        <div id="searchedTask">
+                            <?php
+						$connection = OpenConnection();
+                        $sql="SELECT * FROM tbl_maintenance_schedule WHERE Maintenance_ID = '$selMaintID'";
+    					$result = mysqli_query($connection,$sql);
+						while($row = mysqli_fetch_assoc($result)) {
+                            if (mysqli_num_rows($result) > 0){
+                                echo "<h4>Maintenance ID: " .$row['Maintenance_ID']. "</h4><br />";
+                                echo $row['Task_Type']. "<br />";
+                                echo "Description: " .$row['Description']. "<br />";
+                                echo "Status: " .$row['Status']. "<br />";
+                                echo "Date: " .$row['Date']. "<br />";
+                                echo "<br />";
+                                echo "Assigned: " .$row['Assigned_To']. "<br />";
+                                echo "Area: " .$row['Area_ID']. "<br />";
+                            }
+						}
+                        ?>
+                        </div>
                         <br />
                         <?php
                         $connection = OpenConnection();
 
-                        $sql="SELECT * FROM tbl_maintenance_schedule ORDER BY Date DESC ";
+                        $sql="SELECT * FROM tbl_maintenance_schedule ORDER BY Date DESC LIMIT 10 ";
                         $result = mysqli_query($connection, $sql);
                         $row = mysqli_fetch_array($result);
 
@@ -105,6 +167,28 @@ if (isset($_SESSION['email'])){
                         <br /><br />
                     </ul>
                     <br />
+                    <!--Buttons for Bowser Funcs--->
+                    <div class="vibrate-2">
+                        <div class="d-grid gap-2" id="viewLoanBowser" >
+                            <a class="text-focus-in" href="#requestBowserModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Loan Bowser</h3></a>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="vibrate-2">
+                        <div class="d-grid gap-2" id="viewBowserInfo" >
+                            <a class="text-focus-in" class="remove_outline" href="javascript:popUpWindow('../bowsers/bowsers.php','bowsers','900','500')"><h3 id="reportTxt">Bowser Information</h3></a>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="vibrate-2">
+                        <div class="d-grid gap-2" id="viewAddBowser" >
+                            <a class="text-focus-in" href="#addBowserModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Add New Bowser</h3></a>
+                        </div>
+                    </div>
+                    <br />
+
                 </div>
 
                 <div class="col">
@@ -118,22 +202,29 @@ if (isset($_SESSION['email'])){
                             $result = mysqli_query($connection, $sql1);
                             $rows = mysqli_fetch_array($result);
                             $userID = $rows["User_ID"];
-                            echo "<h4>User&nbsp;".$userID.":&nbsp;&nbsp;&nbsp;".$username."</h4>";
+                            echo "<h4>User&nbsp;".$username."</h4>";
+                            echo "<h4>ID:&nbsp;".$userID."</h4>";
                             CloseConnection($connection);
                             ?>
 
                         </div>
+
+                        <!---TESTING AUTO FORM FOR BOWSER--->
+
+<!--                        --><?php
+//                        $_SESSION['query'] = 'SELECT * FROM tbl_bowsers WHERE BowserID LIKE "%{bowserTerm}%" LIMIT 25';
+//                        ?>
+<!--                        <input type="text" name="bowserTerm" id="bowserIDSearch" placeholder="BowsTest" class="form-control">-->
+<!--                        <script type="text/javascript">-->
+<!--                            $(function() {-->
+<!--                                $( "#bowserTerm" ).autocomplete({-->
+<!--                                    source: '../include/dbsearch.php',-->
+<!--                                });-->
+<!--                            });-->
+<!--                        </script>-->
                     </div>
 
                     <br />
-                    <div class="vibrate-2">
-                    <div class="d-grid gap-2" id="viewReports" >
-<!--                        href="javascript:popUpWindow('../reportFeed/reportFeed.php','reports','630','480')"-->
-                        <a class="text-focus-in" href="#viewReportModal" data-bs-toggle="modal" class="remove_outline"><h3 id="reportTxt">View Reports</h3></a>
-                    </div>
-                    </div>
-                    <br />
-
                     <div class="vibrate-2">
                         <div class="d-grid gap-2" id="viewInvoice" >
                             <a class="text-focus-in" href="#viewInvoiceModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">View Invoices</h3></a>
@@ -141,39 +232,124 @@ if (isset($_SESSION['email'])){
                     </div>
                     <br />
 
+                    <div class="vibrate-2">
+                    <div class="d-grid gap-2" id="viewReports" >
+                        <a class="text-focus-in" href="#viewReportModal" data-bs-toggle="modal" class="remove_outline"><h3 id="reportTxt">View Reports</h3></a>
+                    </div>
+                    </div>
+                    <br />
+
+                    <form method="post" action="allocateTaskDAO.php" id="formAllocateTask">
                     <!--div to display map--->
                     <div class="d-grid gap-2" id="viewMap">
                     <div id="map"></div>
+
+                        <br />
+                            <div id="bowserID">
+                                <label>Bowser ID:</label>
+                                <br />
+                                <div class="select">
+                                    <select name="bowserID" id="select">
+                                        <?php
+                                        $connection = OpenConnection();
+                                        $sql ="SELECT * FROM `tbl_bowsers`";
+                                        $result = mysqli_query($connection, $sql);
+                                        $rows = mysqli_fetch_array($result);
+
+                                        echo "<option value='-1' disabled selected>---</option>";
+                                        if ($result->num_rows > 0) {
+                                            while ($rows = $result->fetch_assoc()) {
+                                                echo "<option value='".$rows['BowserID']."'>".$rows['BowserID']."</option>";
+                                            }
+                                        }
+                                        CloseConnection($connection);
+                                        ?>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <br />
+                            <div id="maintenanceID">
+                                <label>Maintenance Worker:</label>
+                                <br />
+                                <div class="select">
+                                    <select name="workerID" id="select">
+                                        <?php
+                                        $connection = OpenConnection();
+                                        $sql ="SELECT * FROM `tbl_user_account` WHERE User_Type='Maintenance'";
+                                        $result = mysqli_query($connection, $sql);
+                                        $rows = mysqli_fetch_array($result);
+
+                                        echo "<option value='-1' disabled selected>---</option>";
+                                        if ($result->num_rows > 0) {
+                                            while ($rows = $result->fetch_assoc()) {
+                                                echo "<option value='".$rows['User_ID']."'>".$rows['Email']."</option>";
+                                            }
+                                        }
+                                        CloseConnection($connection);
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <div id="taskID">
+                                <label>Task Type</label>
+                                <div id="taskType" class="select">
+                                    <select name="task" id="select">
+                                        <option value='-1' disabled selected>---</option>
+                                        <option value="Refill">Refill</option>
+                                        <option value="Repair">Repair</option>
+                                        <option value="Service">Service</option>
+                                        <option value="Deliver">Deliver</option>
+                                        <option value="Collect">Collect</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <div id="priorityID">
+                                <label>Priority</label>
+                                <div id="priorityMenu" class="select">
+                                    <select name="priority" id="select">
+                                        <option value='-1' disabled selected>---</option>
+                                        <option value="3">High</option>
+                                        <option value="2">Medium</option>
+                                        <option value="1">Low</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <div id="dateID">
+                                <label>Date:</label>
+                                <br />
+                                <input type="date" id="dateID" name="date">
+                            </div>
+                            <br />
+                            <div class="form-floating" id="formID">
+                                <textarea class="form-control" name="description" placeholder="description"style="height: 100px"></textarea>
+                                <label for="floatingTextarea2">Description</label>
+                            </div>
+                            <br /><br />
+                            <div id="allocateSubmitID">
+                                <button type="submit" name="allocateTaskSubmit" class="btn btn-primary">ADD</button>
+                            </div>
+                        </form>
                     </div>
                     <br />
 
-                    <div class="vibrate-2">
-                        <div class="d-grid gap-2" id="viewAllocateTask" >
-                            <a class="text-focus-in" href="#allocateTaskModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Allocate New Task</h3></a>
-                        </div>
-                    </div>
-                    <br />
+<!--                    <div class="vibrate-2">-->
+<!--                        <div class="d-grid gap-2" id="viewAllocateTask" >-->
+<!--                            <a class="text-focus-in" href="#allocateTaskModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Allocate New Task</h3></a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <br />-->
 
-                    <div class="vibrate-2">
-                        <div class="d-grid gap-2" id="viewLoanBowser" >
-                            <a class="text-focus-in" href="#requestBowserModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Loan Bowser</h3></a>
-                        </div>
-                    </div>
-                    <br />
-
-                    <div class="vibrate-2">
-                        <div class="d-grid gap-2" id="viewBowserInfo" >
-                            <a class="text-focus-in" href="#" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Bowser Information</h3></a>
-                        </div>
-                    </div>
-                    <br />
-
-                    <div class="vibrate-2">
-                        <div class="d-grid gap-2" id="viewAddBowser" >
-                            <a class="text-focus-in" href="#addBowserModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Add New Bowser</h3></a>
-                        </div>
-                    </div>
-                    <br />
+<!--                    <div class="vibrate-2">-->
+<!--                        <div class="d-grid gap-2" id="viewBowserInfo" >-->
+<!--                            <a class="text-focus-in" href="#" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Bowser Information</h3></a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <br />-->
 
                     <div class="vibrate-2">
                         <div class="d-grid gap-2" id="viewRegisterUser" >
@@ -311,7 +487,7 @@ if (isset($_SESSION['email'])){
 
 <!--View Report Modal--->
 <div class="modal fade" id="viewReportModal" tabindex="-1" aria-labelledby="viewReportModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="registerUserModalLabel">View Reports</h5>
@@ -330,6 +506,7 @@ if (isset($_SESSION['email'])){
                                 </div>
                             </form>
                             <br />
+
                             <?php
                             // get reports
                             ?>
@@ -373,117 +550,6 @@ if (isset($_SESSION['email'])){
         </div>
     </div>
 </div>
-
-
-        <!-- Allocate Task Modal -->
-        <div class="modal fade" id="allocateTaskModal" tabindex="-1" aria-labelledby="allocateTaskModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="allocateTaskModalLabel"><h3>Allocate Maintenance Task</h3>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col">
-
-                                <form method="post" action="allocateTaskDAO.php" id="formAllocateTask">
-                                    <br />
-                                    <div id="bowserID">
-                                        <label>Bowser ID:</label>
-                                        <br />
-                                        <div class="select">
-                                            <select name="bowserID" id="select">
-                                                <?php
-                                                $connection = OpenConnection();
-                                                $sql ="SELECT * FROM `tbl_bowsers`";
-                                                $result = mysqli_query($connection, $sql);
-                                                $rows = mysqli_fetch_array($result);
-
-                                                echo "<option value='-1' disabled selected>---</option>";
-                                                if ($result->num_rows > 0) {
-                                                    while ($rows = $result->fetch_assoc()) {
-                                                        echo "<option value='".$rows['BowserID']."'>".$rows['BowserID']."</option>";
-                                                    }
-                                                }
-                                                CloseConnection($connection);
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <div id="maintenanceID">
-                                        <label>Maintenance Worker:</label>
-                                        <br />
-                                        <div class="select">
-                                            <select name="workerID" id="select">
-                                                <?php
-                                                $connection = OpenConnection();
-                                                $sql ="SELECT * FROM `tbl_user_account` WHERE User_Type='Maintenance'";
-                                                $result = mysqli_query($connection, $sql);
-                                                $rows = mysqli_fetch_array($result);
-
-                                                echo "<option value='-1' disabled selected>---</option>";
-                                                if ($result->num_rows > 0) {
-                                                    while ($rows = $result->fetch_assoc()) {
-                                                        echo "<option value='".$rows['User_ID']."'>".$rows['Email']."</option>";
-                                                    }
-                                                }
-                                                CloseConnection($connection);
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <div id="taskID">
-                                        <label>Task Type</label>
-                                        <div id="taskType" class="select">
-                                            <select name="task" id="select">
-                                                <option value='-1' disabled selected>---</option>
-                                                <option value="Refill">Refill</option>
-                                                <option value="Repair">Repair</option>
-                                                <option value="Service">Service</option>
-                                                <option value="Deliver">Deliver</option>
-                                                <option value="Collect">Collect</option>
-                                                <option value="Other">Other</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <div id="priorityID">
-                                        <label>Priority</label>
-                                        <div id="priorityMenu" class="select">
-                                            <select name="priority" id="select">
-                                                <option value='-1' disabled selected>---</option>
-                                                <option value="3">High</option>
-                                                <option value="2">Medium</option>
-                                                <option value="1">Low</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <div id="dateID">
-                                        <label>Date:</label>
-                                        <br />
-                                        <input type="date" id="dateID" name="date">
-                                    </div>
-                                    <br />
-                                    <div class="form-floating" id="formID">
-                                        <textarea class="form-control" name="description" placeholder="description"style="height: 100px"></textarea>
-                                        <label for="floatingTextarea2">Description</label>
-                                    </div>
-                                    <br /><br />
-                                    <div id="allocateSubmitID">
-                                        <button type="submit" name="allocateTaskSubmit" class="btn btn-primary">ADD</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 
     <!--viewInvoice Modal--->
     <div class="modal fade" id="viewInvoiceModal" tabindex="-1" aria-labelledby="viewInvoiceModalLabel" aria-hidden="true">

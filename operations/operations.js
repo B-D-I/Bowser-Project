@@ -45,7 +45,8 @@ var taskWindow;                       // function allows for url, window name, w
 function popUpWindow(URL, windowName, windowWidth, windowHeight) {
     var centerLeft = (screen.width/3)-(windowWidth/3); // window dimensions
     var centerTop = (screen.height/3)-(windowHeight/3);
-    var windowFeatures = 'toolbar=no, location=no, directories=no, status=no, menubar=no, titlebar=no, scrollbars=no, resizable=no,'; // remove toolbar, scrollbar etc..
+    //scrollbars=no,
+    var windowFeatures = 'toolbar=no, location=no, directories=no, status=no, menubar=no, titlebar=no, resizable=no,'; // remove toolbar, scrollbar etc..
     return window.open(URL, windowName, windowFeatures +' width='+ windowWidth +', height='+ windowHeight +', top='+ centerTop +', left='+ centerLeft); // open the defined window
 }
 

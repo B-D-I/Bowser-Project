@@ -37,12 +37,17 @@ function initMap(){
 }
 
 
-// //				    POP UP WINDOW
-//
-// var taskWindow;                       // function allows for url, window name, width and height to be defined within the html
-// function popUpWindow(URL, windowName, windowWidth, windowHeight) {
-//     var centerLeft = (screen.width/3)-(windowWidth/3); // window dimensions
-//     var centerTop = (screen.height/3)-(windowHeight/3);
-//     var windowFeatures = 'toolbar=no, location=no, directories=no, status=no, menubar=no, titlebar=no, scrollbars=no, resizable=no,'; // remove toolbar, scrollbar etc..
-//     return window.open(URL, windowName, windowFeatures +' width='+ windowWidth +', height='+ windowHeight +', top='+ centerTop +', left='+ centerLeft); // open the defined window
-// }
+//				    POP UP WINDOW
+var taskWindow;                       // function allows for url, window name, width and height to be defined within the html
+function popUpWindow(URL, windowName, windowWidth, windowHeight) {
+    var centerLeft = (screen.width/3)-(windowWidth/3); // window dimensions
+    var centerTop = (screen.height/3)-(windowHeight/3);
+    //scrollbars=no,
+    var windowFeatures = 'toolbar=no, location=no, directories=no, status=no, menubar=no, titlebar=no, resizable=no,'; // remove toolbar, scrollbar etc..
+    return window.open(URL, windowName, windowFeatures +' width='+ windowWidth +', height='+ windowHeight +', top='+ centerTop +', left='+ centerLeft); // open the defined window
+}
+
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+    return new bootstrap.Popover(popoverTriggerEl)
+})

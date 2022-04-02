@@ -2,11 +2,26 @@
 // session start function
 // variable assigned for user email
 session_start();
-//$email =$_SESSION['email'];
-// establish connection
+
 include '../include/config.php';
 include '../include/handler.php';
 $selBowserID = '';
+
+if (isset($_SESSION['email'])){
+    $email = $_SESSION['email'];
+}
+
+if (isset($_SESSION['email'])) {
+    $connection = OpenConnection();
+    $sql = "SELECT * FROM tbl_user_account WHERE Email='$email'";
+    $result = mysqli_query($connection,$sql);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $userType = $row["User_Type"];
+            CloseConnection($connection);
+        }
+    }
+}
 ?>
 
 <!doctype html>
@@ -45,28 +60,7 @@ $selBowserID = '';
 </script>
 <!---html anchor to return to top of page-->
 <p id="back_to_top"></p>
-<div class="container">
-    <div class="nav-wrapper">
-        <div class="left-side">
-            <div class="nav-link-wrapper active-nav-link">
-                <a class="text-focus-in" href="../home/index.php">Home</a>
-            </div>
 
-            <div class="nav-link-wrapper active-nav-link">
-                <a class="text-focus-in" href="../maintenance/bowsers.php">Bowsers</a>
-            </div>
-        </div>
-
-        <div class="middle">
-            <h2 class="text-focus-in">Bowser Hub</h2>
-        </div>
-
-        <div class="right-side">
-            <div class="nav-link-wrapper">
-                <!--right navbar--->
-            </div>
-        </div>
-    </div>
     <div class="upperPage">
         <div class="shadow-sm p-3 mb-5 bg-body rounded">
             <div class="row">
@@ -102,23 +96,20 @@ $selBowserID = '';
 											$selBowserID = $_POST['term'];
 										} else {
 											$selBowserID = '0';
-											
 										}
 									} CloseConnection($connection);
 								}
-								
 							}
 						?>
 					</form>
 					<br />
-					<h4>Bowser
 					<?php
 						$connection = OpenConnection();
 						$sql = "SELECT bowserID, bowser_capacity, status, bowser_description, location, bowser_cost from tbl_bowsers where bowserID = '$selBowserID'";
     					$result = mysqli_query($connection,$sql);
 						while($row = mysqli_fetch_assoc($result)) {
 							if (mysqli_num_rows($result) > 0){
-								echo $row['bowserID']. "</h4><br />";
+								echo "<h4>Bowser" .$row['bowserID']. "</h4><br />";
 								echo "Bowser Description: " .$row['bowser_description']. "<br />";
 								echo "Bowser Capacity: " .$row['bowser_capacity']. "<br />";
 								echo "Bowser Cost: " .$row['bowser_cost']. "<br />";
@@ -137,8 +128,15 @@ $selBowserID = '';
 					?>
 					</div>
 					<br />
+<?php
+if (isset($_SESSION['email'])){
+    if ($userType == "Operations")
+        echo '
 					<h4>Maintenance History</h4>
+					';}?>
 						<?php
+                        if (isset($_SESSION['email'])) {
+                        if ($userType == "Operations")
 							$connection = OpenConnection();
 							$sql2=("SELECT bowser_id, description, status, date from tbl_maintenance_schedule where bowser_id = '$selBowserID' and Date < Now()");
 							echo"<table style='width: 100%;'>";
@@ -150,29 +148,38 @@ $selBowserID = '';
 								</tr>";
 							$result2 = mysqli_query($connection, $sql2);
 							while($row2 = mysqli_fetch_assoc($result2)) {
-								if (mysqli_num_rows($result2) > 0){
-									foreach($result2 as $row2){
-									$row_id2 = (int)$row2['bowser_id'];
-										if($row_id2 % 2 == 0){
-											echo "<tr bgcolor='lightgrey'>";
-										} else {
-											echo "<tr>";
-										}
-										echo "<td align='center'>".$row2['date']."</td>";
-										echo "<td align='center'>".$row2['status']."</td>";
-										echo "<td align='center'>".$row2['description']."</td></tr>";
-									}
-								} CloseConnection($connection);
-							
+                                if (mysqli_num_rows($result2) > 0) {
+                                    foreach ($result2 as $row2) {
+                                        $row_id2 = (int)$row2['bowser_id'];
+                                        if ($row_id2 % 2 == 0) {
+                                            echo "<tr bgcolor='lightgrey'>";
+                                        } else {
+                                            echo "<tr>";
+                                        }
+                                        echo "<td align='center'>" . $row2['date'] . "</td>";
+                                        echo "<td align='center'>" . $row2['status'] . "</td>";
+                                        echo "<td align='center'>" . $row2['description'] . "</td></tr>";
+                                    }
+                                }
+                                CloseConnection($connection);
+                            }
 							}
 						?>
 						</table>
                 </div>
+
+                <?php
+                if (isset($_SESSION['email'])){
+                    if ($userType == "Operations")
+                        echo '
+
                 <div class="col">
 					<div class="maintenance_list">
 						<h2>Add & Edit Bowsers</h2>
-						
+ 
+
 						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Add New Bowser</button>
+						';}?>
         				<!-- Modal -->
 						<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
@@ -196,6 +203,7 @@ $selBowserID = '';
 													<br />
 													<input class="btn btn-primary" type="submit" name="addBowser" value="Add Bowser"/>
 													<button id='closeModal' type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+
 													<?php
 														set_exception_handler('ex_handler');
 														$connection = OpenConnection();
@@ -215,9 +223,7 @@ $selBowserID = '';
 																echo "<meta http-equiv='refresh' content='0'>";
 															}
 														}
-													
 													?>
-
 												</form>	
 					            			</div>
                     	    			</div>
@@ -226,9 +232,12 @@ $selBowserID = '';
     	        			</div>
         				</div>
 						<?php
-							if ($selBowserID > '0'){
-								echo '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">Edit Bowser ' .$selBowserID. '</button>';
-							}
+                        if (isset($_SESSION['email'])) {
+                            if ($userType == "Operations")
+                                if ($selBowserID > '0') {
+                                    echo '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">Edit Bowser ' . $selBowserID . '</button>';
+                                }
+                        }
 						?>
 						
 
@@ -257,9 +266,17 @@ $selBowserID = '';
 														<input type="text" name="location" class="form-control" value="<?php echo $row_bowserLocation; ?>" required></input>
 																							
 													<br />
+
+                                                <?php
+                                                if (isset($_SESSION['email'])){
+                                                    if ($userType == "Operations")
+                                                        echo '
+                                                    
 													<input class="btn btn-primary" type="submit" name="editBowser" value="Edit Bowser"/>
 													<button class="btn btn-secondary">Decommission</button>
+													   ';}?>
 													<button id='closeModal' type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+
 													<?php
 														set_exception_handler('ex_handler');
 														$connection = OpenConnection();
@@ -271,9 +288,7 @@ $selBowserID = '';
 															$Bowser_Status = $_POST["status"];
 															$Bowser_Cost = $_POST["cost"];
 															$Bowser_Location = $_POST["location"];
-															
-															
-															
+
 															$sql4 = "UPDATE tbl_bowsers SET Bowser_Description = '$Bowser_Description', Bowser_Capacity = '$Bowser_Capacity',  Status = '$Bowser_Status', Bowser_Cost = '$Bowser_Cost', Location = '$Bowser_Location' WHERE bowserID = '$bowserID'";
 															if($query = mysqli_query($connection, $sql4)) {
 																echo "<script>alert('Is Done is Good')</script>";
@@ -297,11 +312,14 @@ $selBowserID = '';
 
 						<br /><br />
 						<?php
-							if ($selBowserID > '0'){
-								echo "<h2>Current Location of ".$selBowserID."</h2>";
-							} else {
-								echo "<h2>Select Bowser to Show Location</h2>";
-							}
+                        if (isset($_SESSION['email'])) {
+                            if ($userType == "Operations")
+                                if ($selBowserID > '0') {
+                                    echo "<h2>Current Location of " . $selBowserID . "</h2>";
+                                } else {
+                                    echo "<h2>Select Bowser to Show Location</h2>";
+                                }
+                        }
 						?>
 						</center>
 					</div>

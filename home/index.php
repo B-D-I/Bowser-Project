@@ -308,6 +308,13 @@ if (isset($_SESSION['email'])) {
                         <br />
                     </ul>
                     <br />
+
+                    <div class="vibrate-2">
+                        <div class="d-grid gap-2" id="viewBowserInfo" >
+                            <a class="text-focus-in" class="remove_outline" href="javascript:popUpWindow('../bowsers/bowsers.php','bowsers','900','500')"><h3 id="reportTxt">View Bowser Information</h3></a>
+                        </div>
+                    </div>
+
                 </div>
 
 

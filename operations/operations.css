@@ -9,6 +9,13 @@
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+#searchedTask{
+  padding: 30px;
+  border: 0 cornflowerblue;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
 /*User details and buttons*/
 #text_area {
   padding: 30px;
@@ -61,7 +68,7 @@
 #viewInvoice{
   padding: 30px;
   font-stretch: expanded;
-  background-color: cornflowerblue;
+  background-color: dodgerblue;
   border: 0;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);}
@@ -84,7 +91,7 @@
 #viewLoanBowser{
   padding: 30px;
   font-stretch: expanded;
-  background-color: cornflowerblue;
+  background-color: dodgerblue;
   border: 0;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -100,7 +107,7 @@
 #viewAddBowser{
   padding: 30px;
   font-stretch: expanded;
-  background-color: cornflowerblue;
+  background-color: dodgerblue;
   border: 0;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -135,17 +142,18 @@
 select{
   background: cornflowerblue;
 }
-#bowserID{
+#bowserIDSearch{
+  width: 150px;
 }
 #maintenanceID{
   margin-left: 280px;
-  margin-top: -95px;
+  margin-top: -115px;
 }
 #taskID{
 }
 #priorityID{
   margin-left: 280px;
-  margin-top: -95px;
+  margin-top: -115px;
 
 }
 #dateID{
@@ -214,5 +222,4 @@ text-align: center;
     transform: translate(0);
   }
 }
-
 
