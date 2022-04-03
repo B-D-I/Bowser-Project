@@ -81,23 +81,25 @@ if (empty($filter)){
 				<div class="col">
 					<div class="maintenance_list">
 					<h2>Bowser Information</h2>
-						<form action="" method="POST">
+						<form action="" id="bowser" method="POST">
      					  <p>
-     					    <input type="text" name="term" id="term" placeholder="Enter Bowser Serial Number...." class="form-control">
-     					    <br />
-							<form  action="test.php" method="post">
-							<input type="checkbox" name="filter"  value="filter" onchange="this.form.submit()" <?php if(!empty($_SESSION["filter"])){echo "checked";} ?>>Show Deployed Bowsers Only
-							</form>
-							<script>  
+     					    <input type="text" name="term" id="term" form="bowser" placeholder="Enter Bowser Serial Number...." class="form-control">
+     					    
+							<input type="checkbox" name="filter"  value="filter" form="filter" onchange="this.form.submit()" <?php if(!empty($_SESSION["filter"])){echo "checked";} ?>> Show Deployed Bowsers Only
+							<br /><br />
+							<input type='submit' name='submit' form="bowser" value='View' class='btn btn-primary'>
+     					    </input>
+						</form>  
+						<form action="bowsers.php" id="filter" method="post">
+						</form>
+						<br />
+						<script>  
   							$(function() {
      							$( "#term" ).autocomplete({
        								source: '../include/dbsearch.php',
      							});
   							});
 							</script>
-     					    <br />
-							<input type='submit' name='submit' value='View' class='btn btn-primary'>
-     					    </input>
      					    <?php
 							
 						if (isset($_POST['submit']) ) {
@@ -117,6 +119,7 @@ if (empty($filter)){
 						?>
 						
 						</form>
+							
 					<br />
 					<?php
 						$connection = OpenConnection();
@@ -124,7 +127,7 @@ if (empty($filter)){
     					$result = mysqli_query($connection,$sql);
 						while($row = mysqli_fetch_assoc($result)) {
 							if (mysqli_num_rows($result) > 0){
-								echo "<h4>Bowser" .$row['bowserID']. "</h4><br />";
+								echo "<h4>Bowser " .$row['bowserID']. "</h4><br />";
 								echo "Bowser Description: " .$row['bowser_description']. "<br />";
 								echo "Bowser Capacity: " .$row['bowser_capacity']. "<br />";
 								echo "Bowser Cost: " .$row['bowser_cost']. "<br />";
