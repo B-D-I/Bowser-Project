@@ -22,6 +22,16 @@ if (isset($_SESSION['email'])) {
         }
     }
 }
+
+$filter = NULL;
+if(!empty($_POST['filter']))
+$filter = $_POST['filter'];
+$_SESSION["filter"] = $filter;
+if (empty($filter)){
+   $_SESSION['query'] = 'SELECT * FROM tbl_bowsers WHERE BowserID LIKE "%{TERM}%"';
+} else {
+	$_SESSION['query'] = 'SELECT * FROM tbl_bowsers WHERE BowserID LIKE "%{TERM}%" and BowserID in (select Bowser_ID from tbl_bowser_inuse) LIMIT 25';
+}
 ?>
 
 <!doctype html>
@@ -34,6 +44,7 @@ if (isset($_SESSION['email'])) {
     <link rel="stylesheet" href="../maintenance/maintenance.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!--jQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -70,22 +81,27 @@ if (isset($_SESSION['email'])) {
 				<div class="col">
 					<div class="maintenance_list">
 					<h2>Bowser Information</h2>
-						<form action="" method="POST">
-     					<?php
-							$_SESSION['query'] = 'SELECT * FROM tbl_bowsers WHERE BowserID LIKE "%{TERM}%" LIMIT 25';
-						?>
-					   	<input type="text" name="term" id="term" placeholder="Enter Bowser Serial Number...." class="form-control">
-						<script type="text/javascript">
-  						$(function() {
-     						$( "#term" ).autocomplete({
-       							source: '../include/dbsearch.php',
-     						});
-  						});
-						</script>
+						<form action="" id="bowser" method="POST">
+     					  <p>
+     					    <input type="text" name="term" id="term" form="bowser" placeholder="Enter Bowser Serial Number...." class="form-control">
+     					    
+							<input type="checkbox" name="filter"  value="filter" form="filter" onchange="this.form.submit()" <?php if(!empty($_SESSION["filter"])){echo "checked";} ?>> Show Deployed Bowsers Only
+							<br /><br />
+							<input type='submit' name='submit' form="bowser" value='View' class='btn btn-primary'>
+     					    </input>
+						</form>  
+						<form action="bowsers.php" id="filter" method="post">
+						</form>
 						<br />
-						<input type='submit' name='submit' value='View' class='btn btn-primary'></input>
-						<?php
-						
+						<script>  
+  							$(function() {
+     							$( "#term" ).autocomplete({
+       								source: '../include/dbsearch.php',
+     							});
+  							});
+							</script>
+     					    <?php
+							
 						if (isset($_POST['submit']) ) {
 								if(!empty($_POST['term'])){
 									$connection = OpenConnection();
@@ -101,7 +117,9 @@ if (isset($_SESSION['email'])) {
 								}
 							}
 						?>
-					</form>
+						
+						</form>
+							
 					<br />
 					<?php
 						$connection = OpenConnection();
@@ -109,7 +127,7 @@ if (isset($_SESSION['email'])) {
     					$result = mysqli_query($connection,$sql);
 						while($row = mysqli_fetch_assoc($result)) {
 							if (mysqli_num_rows($result) > 0){
-								echo "<h4>Bowser" .$row['bowserID']. "</h4><br />";
+								echo "<h4>Bowser " .$row['bowserID']. "</h4><br />";
 								echo "Bowser Description: " .$row['bowser_description']. "<br />";
 								echo "Bowser Capacity: " .$row['bowser_capacity']. "<br />";
 								echo "Bowser Cost: " .$row['bowser_cost']. "<br />";
