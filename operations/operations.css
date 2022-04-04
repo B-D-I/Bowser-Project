@@ -18,6 +18,14 @@
 
 /*User details and buttons*/
 #text_area {
+  height: 100px;
+  padding: 20px;
+  background-color: lightblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#requestAlerts{
   padding: 30px;
   background-color: lightblue;
   border: 0;
@@ -58,6 +66,16 @@
   text-align: center;
 }
 #viewReports {
+  height: 85px;
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: dodgerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#viewBowserRequests{
+  height: 85px;
   padding: 30px;
   font-stretch: expanded;
   background-color: dodgerblue;
@@ -66,6 +84,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 #viewInvoice{
+  height: 85px;
   padding: 30px;
   font-stretch: expanded;
   background-color: dodgerblue;
@@ -80,15 +99,9 @@
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-#viewAllocateTask{
-  padding: 30px;
-  font-stretch: expanded;
-  background-color: dodgerblue;
-  border: 0;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
+
 #viewLoanBowser{
+  height: 85px;
   padding: 30px;
   font-stretch: expanded;
   background-color: dodgerblue;
@@ -97,6 +110,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 #viewBowserInfo{
+  height: 85px;
   padding: 30px;
   font-stretch: expanded;
   background-color: dodgerblue;
@@ -105,6 +119,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 #viewAddBowser{
+  height: 85px;
   padding: 30px;
   font-stretch: expanded;
   background-color: dodgerblue;
@@ -113,6 +128,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 #viewRegisterUser{
+  height: 85px;
   padding: 30px;
   font-stretch: expanded;
   background-color: dodgerblue;
@@ -123,6 +139,15 @@
 
 
 /*Allocate Tasks*/
+#viewAllocateTask{
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: dodgerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+/* Allocate Task options */
 #new_tasks {
   padding: 30px;
   background-color: lightblue;
@@ -150,6 +175,7 @@ select{
   margin-top: -115px;
 }
 #taskID{
+  margin-top: -50px;
 }
 #priorityID{
   margin-left: 280px;
@@ -157,10 +183,12 @@ select{
 
 }
 #dateID{
+  margin-top: -35px;
 }
 #formID{}
 #allocateSubmitID{
-text-align: center;
+  margin-top: -20px;
+  text-align: center;
 }
 
 

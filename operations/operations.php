@@ -167,6 +167,67 @@ $selMaintID = '';
                         <br /><br />
                     </ul>
                     <br />
+
+<!--                    <form method="post" action="addBowsersDAO.php">-->
+<!--                        <div class="mb-3">-->
+<!--                            <div id="capacityID">-->
+<!--                                <label>Capacity</label>-->
+<!--                                <div class="select">-->
+<!--                                    <select name="Capacity" id="select">-->
+<!--                                        <option value='-1' disabled selected>---</option>-->
+<!--                                        <option value="500">500L</option>-->
+<!--                                        <option value="1000">1000L</option>-->
+<!--                                        <option value="5000">5000L</option>-->
+<!--                                        <option value="10000">10,000L</option>-->
+<!--                                        <option value="15000">15,000L</option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <br />
+                            <br /><br />
+                            <div id="submitRegiser">
+                                <button type="submit" name="newBowserSubmit" class="btn btn-secondary">Submit</button>
+                            </div>
+                    </form>
+
+                    <div id="requestAlerts">
+                    <h4>Externally Requested Bowsers:</h4>
+
+                    <br />
+                        <?php
+                        $connection = OpenConnection();
+                        $sql = "SELECT Organisation_Name FROM tbl_company_representative WHERE Email = '$email'";
+                        $result = mysqli_query($connection,$sql);
+                        $rows = mysqli_fetch_array($result);
+                        $company = $rows["Organisation_Name"];
+
+                        $sql2 = "SELECT * FROM tbl_bowser_requests WHERE Organisation_Name = '$company'";
+                        $result2 = mysqli_query($connection, $sql2);
+                        $row2 = mysqli_fetch_array($result2);
+                        while($row2 = mysqli_fetch_assoc($result2)) {
+
+                            echo "<h5>Organisation: ".$row2['Organisation_Name']."</h5><br />";
+                            echo $row2['Bowser_Capacity']."L Bowser<br />";
+                            echo "Level: ".$row2['Priority']." Priority<br />";
+                            echo "Request Reason: ".$row2['Request_Reason']."<br />";
+                            echo '<form method="post" action="bowserRequestDAO.php" >';
+                            echo '    <br />
+                                
+                                   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                      <button class="btn btn-success me-md-2" type="button">Accept</button>
+                                      <button class="btn btn-danger" type="button">Deny</button>
+                                    </div>
+                                    
+                                  
+                            ';
+                            echo "<br />";
+                            echo "</form>";
+                        }
+                        ?>
+
+                    </div>
+
+                    <br />
                     <!--Buttons for Bowser Funcs--->
                     <div class="vibrate-2">
                         <div class="d-grid gap-2" id="viewLoanBowser" >
@@ -189,6 +250,13 @@ $selMaintID = '';
                     </div>
                     <br />
 
+<!--                    <div class="vibrate-2">-->
+<!--                        <div class="d-grid gap-2" id="viewBowserRequests" >-->
+<!--                            <a class="text-focus-in" href="#viewRequestBowserModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">View Bowser Requests</h3></a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <br />-->
+
                 </div>
 
                 <div class="col">
@@ -209,18 +277,6 @@ $selMaintID = '';
 
                         </div>
 
-                        <!---TESTING AUTO FORM FOR BOWSER--->
-<!--                        --><?php
-//                        $_SESSION['query'] = 'SELECT * FROM tbl_bowsers WHERE BowserID LIKE "%{bowserTerm}%" LIMIT 25';
-//                        ?>
-<!--                        <input type="text" name="bowserTerm" id="bowserIDSearch" placeholder="BowsTest" class="form-control">-->
-<!--                        <script type="text/javascript">-->
-<!--                            $(function() {-->
-<!--                                $( "#bowserTerm" ).autocomplete({-->
-<!--                                    source: '../include/dbsearch.php',-->
-<!--                                });-->
-<!--                            });-->
-<!--                        </script>-->
                     </div>
 
                     <br />
@@ -335,20 +391,6 @@ $selMaintID = '';
                         </form>
                     </div>
                     <br />
-
-<!--                    <div class="vibrate-2">-->
-<!--                        <div class="d-grid gap-2" id="viewAllocateTask" >-->
-<!--                            <a class="text-focus-in" href="#allocateTaskModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Allocate New Task</h3></a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <br />-->
-
-<!--                    <div class="vibrate-2">-->
-<!--                        <div class="d-grid gap-2" id="viewBowserInfo" >-->
-<!--                            <a class="text-focus-in" href="#" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Bowser Information</h3></a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <br />-->
 
                     <div class="vibrate-2">
                         <div class="d-grid gap-2" id="viewRegisterUser" >
@@ -652,6 +694,70 @@ $selMaintID = '';
         </div>
     </div>
 </div>
+
+
+
+<!-- Add Bowser Modal -->
+<!--<div class="modal fade" id="viewRequestBowserModal" tabindex="-1" aria-labelledby="viewRequestBowserModalLabel" aria-hidden="true">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="viewRequestBowserModalLabel">Externally Requested Bowsers:</h5>-->
+<!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <div class="row">-->
+<!--                                <div class="col">-->
+<!--            <div id="requestAlerts">-->
+<!---->
+<!--                <form method="post" action="bowserRequestDAO.php">-->
+<!--                    <br />-->
+<!--                    --><?php
+//                    $connection = OpenConnection();
+//                    $sql = "SELECT Organisation_Name FROM tbl_company_representative WHERE Email = '$email'";
+//                    $result = mysqli_query($connection,$sql);
+//                    $rows = mysqli_fetch_array($result);
+//                    $company = $rows["Organisation_Name"];
+//
+//                    $sql2 = "SELECT * FROM tbl_bowser_requests WHERE Organisation_Name = '$company'";
+//                    $result2 = mysqli_query($connection, $sql2);
+//                    $row2 = mysqli_fetch_array($result2);
+//                    while($row2 = mysqli_fetch_assoc($result2)) {
+//
+//                        echo "<h5>Organisation: ".$row2['Organisation_Name']."</h5><br />";
+//                        echo $row2['Bowser_Capacity']."L Bowser<br />";
+//                        echo "Level: ".$row2['Priority']." Priority<br />";
+//                        echo "Request Reason: ".$row2['Request_Reason']."<br />";
+//                        echo '    <br />
+//
+//                                                <div class="form-check">
+//                                                  <input class="form-check-input" type="radio" name="requestCheckBox" id="flexRadioDefault1">
+//                                                  <label class="form-check-label" for="flexRadioDefault1">
+//                                                    Accept
+//                                                  </label>
+//                                                </div>
+//
+//                                                <div class="form-check">
+//                                                  <input class="form-check-input" type="radio" name="requestCheckBox" id="flexRadioDefault2">
+//                                                  <label class="form-check-label" for="flexRadioDefault2">
+//                                                    Deny
+//                                                  </label>
+//                                                </div>
+//
+//                                        ';
+//                        echo "<br />";
+//                    }
+//                    ?>
+<!--                    <div id="requestSubmit" class="d-grid gap-2 d-md-flex justify-content-md-end">-->
+<!--                        <button name="requestButton" class="btn btn-danger" type="button">Update</button>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--                </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
 
     <br /><br />
 

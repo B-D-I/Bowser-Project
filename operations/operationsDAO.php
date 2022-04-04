@@ -107,8 +107,8 @@ function createInvoice($transaction, $userID, $bowserID, $organisation, $bowserC
 // FUNCTION TO SEND A BOWSER REQUEST
 function bowserRequest($userID, $capacity, $organisation, $priority, $reason){
     $connection = OpenConnection();
-    $sql = "INSERT INTO `tbl_bowser_requests` (UserID, Bowser_Capacity, Organisation_Name, Priority, Request_Reason) VALUES
-		    ('$userID','$capacity', '$organisation' ,'$priority','$reason')";
+    $sql = "INSERT INTO `tbl_bowser_requests` (UserID, Bowser_Capacity, Organisation_Name, Priority, Status, Request_Reason) VALUES
+		    ('$userID','$capacity', '$organisation' ,'$priority', 'Pending', '$reason')";
     if (mysqli_query($connection, $sql)) {
         echo "success";
     } else {

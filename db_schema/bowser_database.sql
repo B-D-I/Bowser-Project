@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2022 at 12:44 PM
+-- Generation Time: Apr 04, 2022 at 05:26 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -193,20 +193,18 @@ CREATE TABLE `tbl_bowser_requests` (
 --
 
 INSERT INTO `tbl_bowser_requests` (`RequestID`, `UserID`, `Bowser_Capacity`, `Organisation_Name`, `Priority`, `Status`, `Request_Reason`) VALUES
-(1, 7, 1000, 'CompanyA', 3, '', 'test loan '),
-(2, 7, 10000, 'CompanyB', 3, '', 'test loan 2'),
-(3, 7, 15000, 'CompanyC', 1, '', 'test 3'),
-(4, 7, 10000, 'CompanyA', 3, '', 'test Loan'),
-(5, 7, 1000, 'CompanyC', 2, '', 'testing123'),
-(6, 7, 1000, 'CompanyA', 3, '', 'loan 1000l '),
-(7, 7, 1000, 'CompanyA', 3, '', 'test'),
-(8, 7, 1000, 'CompanyA', 3, '', 'loan 500'),
-(9, 7, 1000, 'CompanyB', 1, '', 'loaning 500'),
-(10, 7, 1000, 'CompanyB', 2, '', 'request'),
-(11, 7, 1000, 'CompanyA', 3, '', 'requesting 1000 from company a'),
-(12, 7, 1000, 'CompanyB', 3, '', 'requesting 1000l from company b'),
-(13, 7, 15000, 'CompanyA', 3, '', '15,000'),
-(14, 7, 500, 'CompanyB', 2, '', '500l');
+(1, 7, 1000, 'CompanyA', 3, 'on', 'test loan '),
+(2, 7, 10000, 'CompanyB', 3, 'on', 'test loan 2'),
+(3, 7, 15000, 'CompanyC', 1, 'on', 'test 3'),
+(4, 7, 10000, 'CompanyA', 1, 'on', 'test Loan'),
+(5, 7, 1000, 'CompanyC', 2, 'on', 'testing123'),
+(6, 7, 1000, 'CompanyA', 3, 'on', 'loan 1000l '),
+(7, 7, 1000, 'CompanyA', 3, 'on', 'test'),
+(9, 7, 1000, 'CompanyB', 1, 'on', 'loaning 500'),
+(10, 7, 1000, 'CompanyB', 2, 'on', 'request'),
+(12, 7, 1000, 'CompanyB', 3, 'on', 'requesting 1000l from company b'),
+(14, 7, 500, 'CompanyB', 2, 'on', '500l'),
+(15, 7, 10000, 'CompanyC', 1, 'on', 'loan 10000l');
 
 -- --------------------------------------------------------
 
@@ -229,6 +227,27 @@ INSERT INTO `tbl_bowser_stock` (`Bowser_Capacity`, `Stock`) VALUES
 (5000, 4),
 (10000, 4),
 (15000, 8);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_company_representative`
+--
+
+CREATE TABLE `tbl_company_representative` (
+  `UserID` int(11) NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  `Organisation_Name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_company_representative`
+--
+
+INSERT INTO `tbl_company_representative` (`UserID`, `Email`, `Organisation_Name`) VALUES
+(7, 'testOps@email.com', 'CompanyA'),
+(11, 'CompanyB_ops@email.com', 'CompanyB'),
+(12, 'CompanyC_ops@email.com', 'CompanyC');
 
 -- --------------------------------------------------------
 
@@ -334,7 +353,9 @@ INSERT INTO `tbl_user_account` (`User_ID`, `User_Type`, `Password`, `Email`, `Us
 (7, 'Operations', '!1Ppaaaaaa', 'testOps@email.com', '1', 1, ''),
 (8, 'Maintenance', '!1Ppaaaaaa', 'testMain3@email.com', '1', 1, ''),
 (9, 'Maintenance', '!1Ppaaaaaa', 'testMain4@email.com', '1', 1, ''),
-(10, 'Maintenance', '!1Ppaaaaaa', 'testMain5@email.com', '1', 1, '');
+(10, 'Maintenance', '!1Ppaaaaaa', 'testMain5@email.com', '1', 1, ''),
+(11, 'Operations', '!1Ppaaaaaa', 'CompanyB_ops@email.com', '1', 1, '02f016efe'),
+(12, 'Operations', '!1Ppaaaaaa', 'CompanyC_ops@email.com', '1', 1, '35492f4f9');
 
 --
 -- Indexes for dumped tables
@@ -430,7 +451,7 @@ ALTER TABLE `tbl_bowser_invoices`
 -- AUTO_INCREMENT for table `tbl_bowser_requests`
 --
 ALTER TABLE `tbl_bowser_requests`
-  MODIFY `RequestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `RequestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tbl_maintenance_schedule`
@@ -460,7 +481,7 @@ ALTER TABLE `tbl_report_type`
 -- AUTO_INCREMENT for table `tbl_user_account`
 --
 ALTER TABLE `tbl_user_account`
-  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
