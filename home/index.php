@@ -126,12 +126,12 @@ if (isset($_SESSION['email'])) {
                                 </div>
 
                                <div class="row">
-                                    <div class="col">
+                                    <div class="col" id="bowserSelect">
                                         <p>Bowser ID: </p>
-     								<?php
+									<?php
 										$_SESSION['query'] = 'SELECT * FROM tbl_bowser_inuse WHERE Bowser_ID LIKE "%{TERM}%" LIMIT 25';
 									?>
-					   				<input type="text" name="term" id="term" placeholder="Enter Bowser Serial Number...." class="form-control">
+					   				<input type="text" name="Bowser_ID" id="term" placeholder="Enter Bowser Serial Number...." class="form-control">
 									<script type="text/javascript">
   									$(function() {
 										$( "#term" ).autocomplete({
@@ -160,15 +160,13 @@ if (isset($_SESSION['email'])) {
 							   	<?php
 									$connection = OpenConnection();
     								if(isset($_POST["submit"])){
+										if (empty($Bowser_ID)){
+											$Bowser_ID = "0";
+										}
 										$Report_Type = $connection->real_escape_string($_POST['Report_Type']);
 										$Bowser_ID = $connection->real_escape_string($_POST['Bowser_ID']);
 										$Description = $connection->real_escape_string($_POST['Description']);
-										$User_ID = $_SESSION[''];
-        								if($query = mysqli_query($connection,"INSERT INTO tbl_Reports(Report_ID,Report_Type,Bowser_ID,Description,User_ID) VALUES (NULL,$Report_Type,$Bowser_ID,$Description, $User_ID)")){
-            								echo "Success";
-        								} else {
-            								echo "Failure" . mysqli_error($connection);
-        								}
+        								if($query = mysqli_query($connection,"INSERT INTO tbl_Reports(Report_ID,Report_Type,Bowser_ID,Description) VALUES (NULL,'$Report_Type','$Bowser_ID','$Description')"));
     								}
 									CloseConnection($connection)
                         		?>
@@ -178,7 +176,10 @@ if (isset($_SESSION['email'])) {
                     </form>
                 </div>
             </div>
+		<div class="nav-link-wrapper active-nav-link">
+        	<a class="text-focus-in" href="../bowsers/bowsers.php">Bowser Info</a>
         </div>
+	</div>
 
     <div class="middle">
         <h2 class="text-focus-in">Bowser Hub</h2>

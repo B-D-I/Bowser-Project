@@ -8,6 +8,17 @@ if (isset($_SESSION['email'])){
 include '../include/handler.php';
 $selBowserID = '';
 $selMaintID = '';
+
+$filter = NULL;
+if(!empty($_POST['filter']))
+$filter = $_POST['filter'];
+$_SESSION["filter"] = $filter;
+if (empty($filter)){
+   $boweser_query = "SELECT * FROM `tbl_bowsers` where bowserid";
+} else {
+	$boweser_query = "SELECT * FROM `tbl_bowsers` where bowserid in (select bowser_id from tbl_bowser_inuse)";
+}
+
 ?>
 
 <!doctype html>
@@ -304,12 +315,15 @@ $selMaintID = '';
                                 <label>Bowser ID:</label>
                                 <br />
                                 <div class="select">
+                                  <p>
                                     <select name="bowserID" id="select">
-                                        <?php
+                                      
+                                      <?php
                                         $connection = OpenConnection();
-                                        $sql ="SELECT * FROM `tbl_bowsers`";
+                                        $sql = $boweser_query;
                                         $result = mysqli_query($connection, $sql);
                                         $rows = mysqli_fetch_array($result);
+										
 
                                         echo "<option value='-1' disabled selected>---</option>";
                                         if ($result->num_rows > 0) {
@@ -320,8 +334,11 @@ $selMaintID = '';
                                         CloseConnection($connection);
                                         ?>
                                     </select>
+									
                                 </div>
-
+									  
+									<label for="filter">Show Only Deployed Bowsers</label>
+                                    <input type="checkbox" name="filter" form="Filter" value="filter" onchange="this.form.submit()" <?php if(!empty($_SESSION["filter"])){echo "checked";} ?>></input>
                             </div>
                             <br />
                             <div id="maintenanceID">
@@ -389,6 +406,8 @@ $selMaintID = '';
                                 <button type="submit" name="allocateTaskSubmit" class="btn btn-primary">ADD</button>
                             </div>
                         </form>
+						<form action="operations.php" method="post" id="Filter">
+						</form>
                     </div>
                     <br />
 
