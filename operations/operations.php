@@ -179,27 +179,6 @@ if (empty($filter)){
                     </ul>
                     <br />
 
-<!--                    <form method="post" action="addBowsersDAO.php">-->
-<!--                        <div class="mb-3">-->
-<!--                            <div id="capacityID">-->
-<!--                                <label>Capacity</label>-->
-<!--                                <div class="select">-->
-<!--                                    <select name="Capacity" id="select">-->
-<!--                                        <option value='-1' disabled selected>---</option>-->
-<!--                                        <option value="500">500L</option>-->
-<!--                                        <option value="1000">1000L</option>-->
-<!--                                        <option value="5000">5000L</option>-->
-<!--                                        <option value="10000">10,000L</option>-->
-<!--                                        <option value="15000">15,000L</option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                            </div>-->
-                            <br />
-                            <br /><br />
-                            <div id="submitRegiser">
-                                <button type="submit" name="newBowserSubmit" class="btn btn-secondary">Submit</button>
-                            </div>
-                    </form>
 
                     <div id="requestAlerts">
                     <h4>Externally Requested Bowsers:</h4>

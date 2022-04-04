@@ -176,9 +176,6 @@ if (isset($_SESSION['email'])) {
                     </form>
                 </div>
             </div>
-		<div class="nav-link-wrapper active-nav-link">
-        	<a class="text-focus-in" href="../bowsers/bowsers.php">Bowser Info</a>
-        </div>
 	</div>
 
     <div class="middle">

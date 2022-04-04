@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2022 at 05:26 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.2
+-- Generation Time: Apr 04, 2022 at 06:50 PM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 7.3.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -67,7 +67,7 @@ INSERT INTO `tbl_bowsers` (`BowserID`, `Bowser_Capacity`, `Bowser_Cost`, `Bowser
 (1, 500, 500, '15kg new shape model', 'Lent', 0.000000, 0.000000, ''),
 (2, 500, 500, '', 'Lent', 0.000000, 0.000000, ''),
 (3, 500, 500, '', 'Stock', 0.000000, 0.000000, ''),
-(4, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
+(4, 1000, 1000, '', 'Deployed', 0.000000, 0.000000, ''),
 (5, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
 (6, 5000, 5000, '', 'Deployed', 0.000000, 0.000000, ''),
 (7, 5000, 5000, '', 'Lent', 0.000000, 0.000000, ''),
@@ -137,7 +137,11 @@ INSERT INTO `tbl_bowser_inuse` (`Bowser_ID`, `Bowser_Longitude`, `Bowser_Latitud
 (100, 22.000000, 22.000000, 2),
 (101, 22.000000, 22.000000, 3),
 (102, 22.000000, 22.000000, 2),
-(103, 22.000000, 22.000000, 5);
+(103, 22.000000, 22.000000, 5),
+(4, 22.000000, 22.000000, 2),
+(6, 22.000000, 22.000000, 3),
+(19, 22.000000, 22.000000, 2),
+(20, 22.000000, 22.000000, 5);
 
 -- --------------------------------------------------------
 
@@ -324,6 +328,16 @@ CREATE TABLE `tbl_report_type` (
   `description` varchar(30) NOT NULL,
   `is_bowser` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_report_type`
+--
+
+INSERT INTO `tbl_report_type` (`id`, `description`, `is_bowser`) VALUES
+(1, 'Refill', 1),
+(2, 'Damaged', 1),
+(3, 'Complaint', 0),
+(4, 'Other Issue', 0);
 
 -- --------------------------------------------------------
 
