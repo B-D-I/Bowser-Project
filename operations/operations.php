@@ -210,7 +210,6 @@ $selMaintID = '';
                         </div>
 
                         <!---TESTING AUTO FORM FOR BOWSER--->
-
 <!--                        --><?php
 //                        $_SESSION['query'] = 'SELECT * FROM tbl_bowsers WHERE BowserID LIKE "%{bowserTerm}%" LIMIT 25';
 //                        ?>
@@ -405,7 +404,7 @@ $selMaintID = '';
                                                     <div class="select">
                                                         <select name="Capacity" id="select">
                                                             <option value='-1' disabled selected>---</option>
-                                                            <option value="1000">500L</option>
+                                                            <option value="500">500L</option>
                                                             <option value="1000">1000L</option>
                                                             <option value="5000">5000L</option>
                                                             <option value="10000">10,000L</option>
@@ -613,7 +612,7 @@ $selMaintID = '';
     </div>
 
 
-    <!-- Request Bowser Modal -->
+    <!-- Add Bowser Modal -->
     <div class="modal fade" id="addBowserModal" tabindex="-1" aria-labelledby="addBowserModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

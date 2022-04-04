@@ -1,8 +1,33 @@
 <?php
 session_start();
 include "../include/config.php";
-if (isset($_SESSION['email'])) {
 
+// FUNCTION TO ADD NEW BOWSER TO TABLE
+function addBowser($capacity){
+    $connection = OpenConnection();
+    $sql = "INSERT INTO `tbl_bowsers` (Bowser_Capacity, Bowser_Cost, Status) VALUES
+		('$capacity', '$capacity', 'Stock')
+		";
+    if (mysqli_query($connection, $sql)) {
+        echo "success";
+    } else {
+        echo "error";
+    } CloseConnection($connection);
+}
+
+// FUNCTION TO UPDATE A BOWSER STATUS
+function updateBowserStatus($stock, $capacity){
+    $connection = OpenConnection();
+    $sql = "UPDATE `tbl_bowser_stock` SET Stock = '$stock' WHERE Bowser_Capacity = '$capacity' ";
+    if (mysqli_query($connection, $sql)) {
+        echo "success";
+    } else {
+        echo "error";
+    } CloseConnection($connection);
+}
+
+// ADD BOWSER
+if (isset($_SESSION['email'])) {
     $email = $_SESSION['email'];
     $connection = OpenConnection();
 
@@ -13,22 +38,9 @@ if (isset($_SESSION['email'])) {
     $stock = $rows["Stock"];
     $stock += 1;
 
-    $sql = "insert into tbl_bowsers (Bowser_Capacity, Bowser_Cost, Status) values
-		('$capacity', '$capacity', 'Stock')
-		";
-
-// connection confirmation
-    if (mysqli_query($connection, $sql)) {
-        $sql2 = "UPDATE `tbl_bowser_stock` SET Stock = '$stock' WHERE Bowser_Capacity = '$capacity' ";
-        if (mysqli_query($connection, $sql2)) {
-            echo "success";
-            header("Location: ../operations/operations.php");
-        } else {
-            echo mysqli_error($connection);
-            return;
-            header("Location: ../operations/operations.php");
-        }
-        mysqli_close($connection);
-    }
+    addBowser($capacity);
+    updateBowserStatus($stock, $capacity);
+    header("Location: ../operations/operations.php");
+    CloseConnection($connection);
 }
 ?>
