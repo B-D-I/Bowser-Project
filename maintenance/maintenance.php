@@ -33,6 +33,11 @@ $job = mysqli_fetch_assoc($query);
     <link rel="stylesheet" href="maintenanceCSS.php" type="text/css">
     <link rel="icon" type="image/x-icon" href="../images/logo/bowserLogo.png">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&family=Rubik+Puddles&display=swap" rel="stylesheet">
+
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!--jQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -46,7 +51,7 @@ $job = mysqli_fetch_assoc($query);
 <!---html anchor to return to top of page-->
 <p id="back_to_top"></p>
 
-<div class="container">
+<div>
     <div class="nav-wrapper">
         <div class="left-side">
             <div class="nav-link-wrapper active-nav-link">
@@ -59,10 +64,13 @@ $job = mysqli_fetch_assoc($query);
         </div>
 
         <div class="middle">
-            <h2 class="text-focus-in">Bowser Hub</h2>
+            <h2 class="text-focus-in" id="navTitle">Bowser Hub</h2>
             <div id="logo">
                 <img id="logo_image" src="../images/logo/bowserLogo.png" alt="" width="100" height="100">
             </div>
+            <!--WATER DROPS-->
+            <div class="drop"></div>
+            <div class="wave"></div>
         </div>
 
         <div class="right-side">

@@ -27,7 +27,7 @@
 }
 #requestAlerts{
   padding: 30px;
-  background-color: lightblue;
+  background-color: cornflowerblue;
   border: 0;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -91,6 +91,9 @@
   border: 0;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);}
+#invoiceTable{
+  margin-top: -500px;
+}
 #viewMap{
   padding: 30px;
   font-stretch: expanded;
@@ -99,6 +102,7 @@
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+
 
 #viewLoanBowser{
   height: 85px;
@@ -172,14 +176,14 @@ select{
 }
 #maintenanceID{
   margin-left: 280px;
-  margin-top: -115px;
+  margin-top: -135px;
 }
 #taskID{
   margin-top: -50px;
 }
 #priorityID{
   margin-left: 280px;
-  margin-top: -115px;
+  margin-top: -110px;
 
 }
 #dateID{

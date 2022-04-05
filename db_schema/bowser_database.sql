@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2022 at 06:50 PM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 7.3.28
+-- Generation Time: Apr 05, 2022 at 03:19 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -66,34 +66,34 @@ CREATE TABLE `tbl_bowsers` (
 INSERT INTO `tbl_bowsers` (`BowserID`, `Bowser_Capacity`, `Bowser_Cost`, `Bowser_Description`, `Status`, `Longitude`, `Latitude`, `Location`) VALUES
 (1, 500, 500, '15kg new shape model', 'Lent', 0.000000, 0.000000, ''),
 (2, 500, 500, '', 'Lent', 0.000000, 0.000000, ''),
-(3, 500, 500, '', 'Stock', 0.000000, 0.000000, ''),
-(4, 1000, 1000, '', 'Deployed', 0.000000, 0.000000, ''),
-(5, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
+(3, 500, 500, '', 'Lent', 0.000000, 0.000000, ''),
+(4, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
+(5, 1000, 1000, '', 'Deployed', 0.000000, 0.000000, ''),
 (6, 5000, 5000, '', 'Deployed', 0.000000, 0.000000, ''),
-(7, 5000, 5000, '', 'Lent', 0.000000, 0.000000, ''),
-(8, 10000, 10000, '', 'Stock', 0.000000, 0.000000, ''),
+(7, 5000, 5000, '', 'Deployed', 0.000000, 0.000000, ''),
+(8, 10000, 10000, '', 'Deployed', 0.000000, 0.000000, ''),
 (9, 15000, 15000, '', 'Lent', 0.000000, 0.000000, ''),
 (10, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
 (11, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
 (12, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
 (13, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
-(14, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
-(15, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
-(16, 10000, 10000, '', 'Stock', 0.000000, 0.000000, ''),
+(14, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
+(15, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
+(16, 10000, 10000, '', 'Lent', 0.000000, 0.000000, ''),
 (17, 10000, 10000, '', 'Stock', 0.000000, 0.000000, ''),
 (18, 10000, 10000, '', 'Stock', 0.000000, 0.000000, ''),
 (19, 10000, 10000, '', 'Stock', 0.000000, 0.000000, ''),
-(20, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
-(21, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
-(22, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
-(23, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
-(24, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
+(20, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
+(21, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
+(22, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
+(23, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
+(24, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
 (25, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
 (26, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
 (27, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
 (28, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
 (29, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
-(30, 500, 500, '', 'Stock', 0.000000, 0.000000, ''),
+(30, 500, 500, '', 'Lent', 0.000000, 0.000000, ''),
 (31, 500, 500, '', 'Stock', 0.000000, 0.000000, ''),
 (32, 500, 500, '', 'Stock', 0.000000, 0.000000, ''),
 (33, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
@@ -106,15 +106,23 @@ INSERT INTO `tbl_bowsers` (`BowserID`, `Bowser_Capacity`, `Bowser_Cost`, `Bowser
 (40, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
 (41, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
 (42, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
-(43, 15000, 15000, '', 'Stock', 0.000000, 0.000000, ''),
-(44, 15000, 15000, '', 'Stock', 0.000000, 0.000000, ''),
-(45, 15000, 15000, '', 'Stock', 0.000000, 0.000000, ''),
-(46, 15000, 15000, '', 'Stock', 0.000000, 0.000000, ''),
+(43, 15000, 15000, '', 'Lent', 0.000000, 0.000000, ''),
+(44, 15000, 15000, '', 'Lent', 0.000000, 0.000000, ''),
+(45, 15000, 15000, '', 'Lent', 0.000000, 0.000000, ''),
+(46, 15000, 15000, '', 'Lent', 0.000000, 0.000000, ''),
 (47, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
 (48, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
 (49, 15000, 15000, '', 'Stock', 0.000000, 0.000000, ''),
 (50, 15000, 15000, '', 'Stock', 0.000000, 0.000000, ''),
-(51, 1000, 1000, '', 'Stock', 0.000000, 0.000000, '');
+(51, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
+(52, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
+(53, 500, 500, '', 'Stock', 0.000000, 0.000000, ''),
+(54, 5000, 5000, '', 'Stock', 0.000000, 0.000000, ''),
+(55, 10000, 10000, '', 'Stock', 0.000000, 0.000000, ''),
+(56, 15000, 15000, '', 'Stock', 0.000000, 0.000000, ''),
+(57, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
+(58, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
+(59, 1000, 1000, '', 'Stock', 0.000000, 0.000000, '');
 
 -- --------------------------------------------------------
 
@@ -138,10 +146,10 @@ INSERT INTO `tbl_bowser_inuse` (`Bowser_ID`, `Bowser_Longitude`, `Bowser_Latitud
 (101, 22.000000, 22.000000, 3),
 (102, 22.000000, 22.000000, 2),
 (103, 22.000000, 22.000000, 5),
-(4, 22.000000, 22.000000, 2),
+(5, 22.000000, 22.000000, 2),
 (6, 22.000000, 22.000000, 3),
-(19, 22.000000, 22.000000, 2),
-(20, 22.000000, 22.000000, 5);
+(7, 22.000000, 22.000000, 2),
+(8, 22.000000, 22.000000, 5);
 
 -- --------------------------------------------------------
 
@@ -155,6 +163,7 @@ CREATE TABLE `tbl_bowser_invoices` (
   `UserID` int(11) NOT NULL,
   `BowserID` int(11) NOT NULL,
   `Organisation_Name` varchar(100) NOT NULL,
+  `Organisation_From` varchar(100) NOT NULL,
   `Price` int(11) NOT NULL,
   `Date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -163,18 +172,31 @@ CREATE TABLE `tbl_bowser_invoices` (
 -- Dumping data for table `tbl_bowser_invoices`
 --
 
-INSERT INTO `tbl_bowser_invoices` (`InvoiceID`, `Transaction_Type`, `UserID`, `BowserID`, `Organisation_Name`, `Price`, `Date`) VALUES
-(1, 'Lend', 7, 4, 'CompanyA', 1000, '2022-04-03 09:41:06'),
-(5, 'Lend', 7, 7, 'CompanyB', 5000, '2022-04-10 10:40:06'),
-(6, 'Lend', 7, 5, 'CompanyB', 1000, '2022-04-04 10:41:09'),
-(7, 'Lend', 7, 10, 'CompanyB', 1000, '2022-04-04 10:42:05'),
-(8, 'Lend', 7, 11, 'CompanyA', 1000, '2022-04-04 10:45:06'),
-(9, 'Lend', 7, 12, 'CompanyA', 1000, '2022-04-04 10:45:12'),
-(10, 'Lend', 7, 1, 'CompanyA', 500, '2022-04-04 10:46:16'),
-(11, 'Lend', 7, 13, 'CompanyB', 1000, '2022-04-04 11:47:06'),
-(12, 'Lend', 7, 37, 'CompanyA', 5000, '2022-04-04 11:48:22'),
-(13, 'Lend', 7, 9, 'CompanyA', 15000, '2022-04-04 11:49:06'),
-(14, 'Lend', 7, 2, 'CompanyC', 500, '2022-04-04 11:51:22');
+INSERT INTO `tbl_bowser_invoices` (`InvoiceID`, `Transaction_Type`, `UserID`, `BowserID`, `Organisation_Name`, `Organisation_From`, `Price`, `Date`) VALUES
+(1, 'Lend', 7, 4, 'CompanyA', 'CompanyB', 1000, '2022-04-05 10:15:14'),
+(5, 'Lend', 7, 7, 'CompanyB', 'CompanyA', 5000, '2022-04-05 10:14:43'),
+(6, 'Lend', 7, 5, 'CompanyB', 'CompanyA', 1000, '2022-04-05 10:14:47'),
+(7, 'Lend', 7, 10, 'CompanyB', 'CompanyA', 1000, '2022-04-05 10:14:50'),
+(8, 'Lend', 7, 11, 'CompanyA', 'CompanyC', 1000, '2022-04-05 10:15:36'),
+(9, 'Lend', 7, 12, 'CompanyA', 'CompanyC', 1000, '2022-04-05 10:15:41'),
+(10, 'Lend', 7, 1, 'CompanyA', 'CompanyB', 500, '2022-04-05 10:15:49'),
+(11, 'Lend', 7, 13, 'CompanyB', 'CompanyA', 1000, '2022-04-05 10:14:55'),
+(12, 'Lend', 7, 37, 'CompanyA', 'CompanyB', 5000, '2022-04-05 10:15:58'),
+(13, 'Lend', 7, 9, 'CompanyA', 'CompanyC', 15000, '2022-04-05 10:16:06'),
+(14, 'Lend', 7, 2, 'CompanyC', 'CompanyA', 500, '2022-04-05 10:14:58'),
+(15, 'Lend', 7, 14, 'CompanyC', 'CompanyA', 1000, '2022-04-05 10:22:53'),
+(16, 'Lend', 7, 43, 'CompanyB', 'CompanyA', 15000, '2022-04-05 10:23:36'),
+(17, 'Lend', 7, 44, 'CompanyB', 'CompanyA', 15000, '2022-04-05 10:36:00'),
+(18, 'Lend', 7, 45, 'CompanyB', 'CompanyA', 15000, '2022-04-05 10:57:08'),
+(19, 'Lend', 7, 30, 'CompanyB', 'CompanyA', 500, '2022-04-05 10:57:48'),
+(20, 'Lend', 7, 46, 'CompanyB', 'CompanyA', 15000, '2022-04-05 11:01:48'),
+(21, 'Lend', 7, 16, 'CompanyB', 'CompanyA', 10000, '2022-04-05 11:18:20'),
+(22, 'Lend', 7, 15, 'CompanyB', 'CompanyA', 1000, '2022-04-05 11:16:04'),
+(23, 'Lend', 7, 20, 'CompanyC', 'CompanyA', 1000, '2022-04-05 11:18:53'),
+(24, 'Lend', 7, 21, 'CompanyB', 'CompanyA', 1000, '2022-04-05 11:23:41'),
+(25, 'Lend', 7, 22, 'CompanyB', 'CompanyA', 1000, '2022-04-05 11:24:31'),
+(26, 'Lend', 7, 23, 'CompanyB', 'CompanyA', 1000, '2022-04-05 11:26:28'),
+(27, 'Lend', 7, 24, 'CompanyC', 'CompanyA', 1000, '2022-04-05 11:28:56');
 
 -- --------------------------------------------------------
 
@@ -187,6 +209,7 @@ CREATE TABLE `tbl_bowser_requests` (
   `UserID` int(11) NOT NULL,
   `Bowser_Capacity` int(11) NOT NULL,
   `Organisation_Name` varchar(100) NOT NULL,
+  `Organisation_From` varchar(100) NOT NULL,
   `Priority` int(11) NOT NULL,
   `Status` varchar(100) NOT NULL,
   `Request_Reason` varchar(200) NOT NULL
@@ -196,19 +219,23 @@ CREATE TABLE `tbl_bowser_requests` (
 -- Dumping data for table `tbl_bowser_requests`
 --
 
-INSERT INTO `tbl_bowser_requests` (`RequestID`, `UserID`, `Bowser_Capacity`, `Organisation_Name`, `Priority`, `Status`, `Request_Reason`) VALUES
-(1, 7, 1000, 'CompanyA', 3, 'on', 'test loan '),
-(2, 7, 10000, 'CompanyB', 3, 'on', 'test loan 2'),
-(3, 7, 15000, 'CompanyC', 1, 'on', 'test 3'),
-(4, 7, 10000, 'CompanyA', 1, 'on', 'test Loan'),
-(5, 7, 1000, 'CompanyC', 2, 'on', 'testing123'),
-(6, 7, 1000, 'CompanyA', 3, 'on', 'loan 1000l '),
-(7, 7, 1000, 'CompanyA', 3, 'on', 'test'),
-(9, 7, 1000, 'CompanyB', 1, 'on', 'loaning 500'),
-(10, 7, 1000, 'CompanyB', 2, 'on', 'request'),
-(12, 7, 1000, 'CompanyB', 3, 'on', 'requesting 1000l from company b'),
-(14, 7, 500, 'CompanyB', 2, 'on', '500l'),
-(15, 7, 10000, 'CompanyC', 1, 'on', 'loan 10000l');
+INSERT INTO `tbl_bowser_requests` (`RequestID`, `UserID`, `Bowser_Capacity`, `Organisation_Name`, `Organisation_From`, `Priority`, `Status`, `Request_Reason`) VALUES
+(1, 7, 1000, 'CompanyA', 'CompanyB', 3, 'Pending', 'test loan '),
+(2, 7, 10000, 'CompanyB', 'CompanyA', 3, 'Pending', 'test loan 2'),
+(3, 7, 15000, 'CompanyC', 'CompanyA', 1, 'Pending', 'test 3'),
+(4, 7, 10000, 'CompanyA', 'CompanyB', 1, 'Accepted', 'test Loan'),
+(5, 7, 1000, 'CompanyC', 'CompanyA', 2, 'Pending', 'testing123'),
+(6, 7, 1000, 'CompanyA', 'CompanyC', 3, 'Accepted', 'loan 1000l '),
+(7, 7, 1000, 'CompanyA', 'CompanyB', 3, 'Pending', 'test'),
+(9, 7, 1000, 'CompanyB', 'CompanyA', 1, 'Pending', 'loaning 500'),
+(10, 7, 1000, 'CompanyB', 'CompanyA', 2, 'Pending', 'request'),
+(12, 7, 1000, 'CompanyB', 'CompanyA', 3, 'Pending', 'requesting 1000l from company b'),
+(14, 7, 500, 'CompanyB', 'CompanyA', 2, 'Pending', '500l'),
+(15, 7, 10000, 'CompanyC', 'CompanyA', 1, 'Pending', 'loan 10000l'),
+(16, 7, 15000, 'CompanyB', 'CompanyC', 2, 'Pending', 'loan 15000'),
+(17, 7, 15000, 'CompanyC', 'CompanyA', 3, 'Pending', 'loan 15k'),
+(18, 7, 500, 'CompanyB', 'CompanyA', 3, 'Denied', 'loan from B'),
+(19, 7, 1000, 'CompanyE', 'CompanyA', 3, 'Pending', 'company E 1000l');
 
 -- --------------------------------------------------------
 
@@ -227,10 +254,10 @@ CREATE TABLE `tbl_bowser_stock` (
 
 INSERT INTO `tbl_bowser_stock` (`Bowser_Capacity`, `Stock`) VALUES
 (500, 11),
-(1000, 6),
-(5000, 4),
+(1000, 3),
+(5000, 5),
 (10000, 4),
-(15000, 8);
+(15000, 5);
 
 -- --------------------------------------------------------
 
@@ -251,7 +278,9 @@ CREATE TABLE `tbl_company_representative` (
 INSERT INTO `tbl_company_representative` (`UserID`, `Email`, `Organisation_Name`) VALUES
 (7, 'testOps@email.com', 'CompanyA'),
 (11, 'CompanyB_ops@email.com', 'CompanyB'),
-(12, 'CompanyC_ops@email.com', 'CompanyC');
+(12, 'CompanyC_ops@email.com', 'CompanyC'),
+(13, 'CompanyD_ops@email.com', 'CompanyD'),
+(14, 'CompanyE_ops@email.com', 'CompanyE');
 
 -- --------------------------------------------------------
 
@@ -369,7 +398,9 @@ INSERT INTO `tbl_user_account` (`User_ID`, `User_Type`, `Password`, `Email`, `Us
 (9, 'Maintenance', '!1Ppaaaaaa', 'testMain4@email.com', '1', 1, ''),
 (10, 'Maintenance', '!1Ppaaaaaa', 'testMain5@email.com', '1', 1, ''),
 (11, 'Operations', '!1Ppaaaaaa', 'CompanyB_ops@email.com', '1', 1, '02f016efe'),
-(12, 'Operations', '!1Ppaaaaaa', 'CompanyC_ops@email.com', '1', 1, '35492f4f9');
+(12, 'Operations', '!1Ppaaaaaa', 'CompanyC_ops@email.com', '1', 1, '35492f4f9'),
+(13, 'Operations', '!1Ppaaaaaa', 'CompanyD_ops@email.com', '1', 1, '6a23f896b'),
+(14, 'Operations', '!1Ppaaaaaa', 'CompanyE_ops@email.com', '1', 1, '07cad98af');
 
 --
 -- Indexes for dumped tables
@@ -453,19 +484,19 @@ ALTER TABLE `tbl_area`
 -- AUTO_INCREMENT for table `tbl_bowsers`
 --
 ALTER TABLE `tbl_bowsers`
-  MODIFY `BowserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `BowserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `tbl_bowser_invoices`
 --
 ALTER TABLE `tbl_bowser_invoices`
-  MODIFY `InvoiceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `InvoiceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `tbl_bowser_requests`
 --
 ALTER TABLE `tbl_bowser_requests`
-  MODIFY `RequestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `RequestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tbl_maintenance_schedule`
@@ -495,7 +526,7 @@ ALTER TABLE `tbl_report_type`
 -- AUTO_INCREMENT for table `tbl_user_account`
 --
 ALTER TABLE `tbl_user_account`
-  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables

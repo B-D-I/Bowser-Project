@@ -35,6 +35,11 @@ if (isset($_SESSION['email'])) {
     <link rel="stylesheet" href="home.css" type="text/css">
     <link rel="icon" type="image/x-icon" href="../images/logo/bowserLogo.png">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&family=Rubik+Puddles&display=swap" rel="stylesheet">
+
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!--jQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>	
@@ -61,7 +66,7 @@ if (isset($_SESSION['email'])) {
 <!---html anchor to return to top of page-->
 <p id="back_to_top"></p>
 
-<div class="container">
+<div>
     <div class="nav-wrapper">
         <div class="left-side">
             <div class="nav-link-wrapper active-nav-link">
@@ -170,7 +175,6 @@ if (isset($_SESSION['email'])) {
     								}
 									CloseConnection($connection)
                         		?>
-<!--                            </div>-->
                         </div>
                     </div>
                     </form>
@@ -179,11 +183,16 @@ if (isset($_SESSION['email'])) {
 	</div>
 
     <div class="middle">
-        <h2 class="text-focus-in">Bowser Hub</h2>
+        <h2 class="text-focus-in" id="navTitle">Bowser Hub</h2>
         <div id="logo">
             <img id="logo_image" src="../images/logo/bowserLogo.png" alt="" width="100" height="100">
         </div>
+        <!--WATER DROPS-->
+
+        <div class="drop"></div>
+        <div class="wave"></div>
     </div>
+
 
         <div class="right-side" >
 
@@ -303,12 +312,13 @@ if (isset($_SESSION['email'])) {
                         <li> 11.30 - Water bowser 008 out of repaired </li>
                         <br />
                     </ul>
-                    <br />
 
+                    <div class="col">
                     <div class="vibrate-2">
-                        <div class="d-grid gap-2" id="viewBowserInfo" >
+                        <div class="d-grid gap-2" id="viewBowserInformation" >
                             <a class="text-focus-in" class="remove_outline" href="javascript:popUpWindow('../bowsers/bowsers.php','bowsers','900','500')"><h3 id="reportTxt">View Bowser Information</h3></a>
                         </div>
+                    </div>
                     </div>
 
                 </div>

@@ -44,6 +44,7 @@ if (empty($filter)){
     <link rel="stylesheet" href="../maintenance/maintenance.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="icon" type="image/x-icon" href="../images/logo/bowserLogo.png">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!--jQuery-->

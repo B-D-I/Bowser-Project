@@ -34,6 +34,11 @@ if (empty($filter)){
     <link rel="stylesheet" href="operations.css" type="text/css">
     <link rel="icon" type="image/x-icon" href="../images/logo/bowserLogo.png">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&family=Rubik+Puddles&display=swap" rel="stylesheet">
+
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!--jQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -56,7 +61,7 @@ if (empty($filter)){
 <!---html anchor to return to top of page-->
 <p id="back_to_top"></p>
 
-<div class="container">
+<div>
     <div class="nav-wrapper">
         <div class="left-side">
             <div class="nav-link-wrapper active-nav-link">
@@ -70,10 +75,13 @@ if (empty($filter)){
         </div>
 
         <div class="middle">
-            <h2 class="text-focus-in">Bowser Hub</h2>
+            <h2 class="text-focus-in" id="navTitle">Bowser Hub</h2>
             <div id="logo">
-            <img id="logo_image" src="../images/logo/bowserLogo.png" alt="" width="100" height="100">
+                <img id="logo_image" src="../images/logo/bowserLogo.png" alt="" width="100" height="100">
             </div>
+            <!--WATER DROPS-->
+            <div class="drop"></div>
+            <div class="wave"></div>
         </div>
 
         <div class="right-side">
@@ -179,7 +187,6 @@ if (empty($filter)){
                     </ul>
                     <br />
 
-
                     <div id="requestAlerts">
                     <h4>Externally Requested Bowsers:</h4>
 
@@ -191,62 +198,40 @@ if (empty($filter)){
                         $rows = mysqli_fetch_array($result);
                         $company = $rows["Organisation_Name"];
 
-                        $sql2 = "SELECT * FROM tbl_bowser_requests WHERE Organisation_Name = '$company'";
+                        $sql2 = "SELECT * FROM tbl_bowser_requests WHERE Organisation_Name = '$company' AND Status = 'Pending'";
                         $result2 = mysqli_query($connection, $sql2);
                         $row2 = mysqli_fetch_array($result2);
                         while($row2 = mysqli_fetch_assoc($result2)) {
-
-                            echo "<h5>Organisation: ".$row2['Organisation_Name']."</h5><br />";
+                            $requestID = $row2['RequestID'];
+                            $capacity = $row2['Bowser_Capacity'];
+                            $organisation = $row2['Organisation_From'];
+                            echo '<form method="post" action="bowserRequestDAO.php" >';
+                            ?>
+                            <input type='hidden' name='requestID' value='<?php echo "$requestID";?>'/>
+                            <input type='hidden' name='capacity' value='<?php echo "$capacity";?>'/>
+                            <!--CURRENT USER COMPANY--->
+                            <input type='hidden' name='company' value='<?php echo "$company";?>'/>
+                            <!---COMPANY REQUESTED BOWSER-->
+                            <input type='hidden' name='organisation' value='<?php echo "$organisation";?>'/>
+                        <?php
+                            echo "<h5>From: ".$organisation."</h5><br />";
                             echo $row2['Bowser_Capacity']."L Bowser<br />";
                             echo "Level: ".$row2['Priority']." Priority<br />";
                             echo "Request Reason: ".$row2['Request_Reason']."<br />";
-                            echo '<form method="post" action="bowserRequestDAO.php" >';
-                            echo '    <br />
-                                
+                            echo '    <br />                      
                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                      <button class="btn btn-success me-md-2" type="button">Accept</button>
-                                      <button class="btn btn-danger" type="button">Deny</button>
+                                      <button class="btn btn-success me-md-2" type="submit" name="acceptButton" value="Accept">Accept</button>
+                                      <button class="btn btn-danger" type="submit" name="denyButton" value="Deny">Deny</button>
                                     </div>
-                                    
-                                  
                             ';
-                            echo "<br />";
                             echo "</form>";
+                            echo "<br />";
+
                         }
                         ?>
 
                     </div>
-
                     <br />
-                    <!--Buttons for Bowser Funcs--->
-                    <div class="vibrate-2">
-                        <div class="d-grid gap-2" id="viewLoanBowser" >
-                            <a class="text-focus-in" href="#requestBowserModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Loan Bowser</h3></a>
-                        </div>
-                    </div>
-                    <br />
-
-                    <div class="vibrate-2">
-                        <div class="d-grid gap-2" id="viewBowserInfo" >
-                            <a class="text-focus-in" class="remove_outline" href="javascript:popUpWindow('../bowsers/bowsers.php','bowsers','900','500')"><h3 id="reportTxt">Bowser Information</h3></a>
-                        </div>
-                    </div>
-                    <br />
-
-                    <div class="vibrate-2">
-                        <div class="d-grid gap-2" id="viewAddBowser" >
-                            <a class="text-focus-in" href="#addBowserModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Add New Bowser</h3></a>
-                        </div>
-                    </div>
-                    <br />
-
-<!--                    <div class="vibrate-2">-->
-<!--                        <div class="d-grid gap-2" id="viewBowserRequests" >-->
-<!--                            <a class="text-focus-in" href="#viewRequestBowserModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">View Bowser Requests</h3></a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <br />-->
-
                 </div>
 
                 <div class="col">
@@ -390,6 +375,28 @@ if (empty($filter)){
                     </div>
                     <br />
 
+                    <!--Buttons for Bowser Funcs--->
+                    <div class="vibrate-2">
+                        <div class="d-grid gap-2" id="viewLoanBowser" >
+                            <a class="text-focus-in" href="#requestBowserModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Loan Bowser</h3></a>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="vibrate-2">
+                        <div class="d-grid gap-2" id="viewBowserInfo" >
+                            <a class="text-focus-in" class="remove_outline" href="javascript:popUpWindow('../bowsers/bowsers.php','bowsers','900','500')"><h3 id="reportTxt">Bowser Operations</h3></a>
+                        </div>
+                    </div>
+                    <br />
+
+<!--                    <div class="vibrate-2">-->
+<!--                        <div class="d-grid gap-2" id="viewAddBowser" >-->
+<!--                            <a class="text-focus-in" href="#addBowserModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Add New Bowser</h3></a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <br />-->
+
                     <div class="vibrate-2">
                         <div class="d-grid gap-2" id="viewRegisterUser" >
                             <a class="text-focus-in" href="#registerNewUserModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Register New User</h3></a>
@@ -414,6 +421,16 @@ if (empty($filter)){
                                         <div class="col">
 
                                             <form method="post" id="formBowserRequest">
+                                            <?php
+                                                $connection = OpenConnection();
+                                                $sql = "SELECT Organisation_Name FROM tbl_company_representative WHERE Email = '$email'";
+                                                $result = mysqli_query($connection,$sql);
+                                                $rows = mysqli_fetch_array($result);
+                                                $company = $rows["Organisation_Name"];
+                                                ?>
+
+                                                <input type='hidden' name='company' value='<?php echo "$company";?>'/>
+
                                                 <div class="mb-3">
                                                     <div id="transactionID">
                                                         <label>Transaction Type</label>
@@ -430,10 +447,20 @@ if (empty($filter)){
                                                     <label>Organisation</label>
                                                     <div class="select">
                                                         <select name="Organisation" id="select">
-                                                            <option value='-1' disabled selected>---</option>
-                                                            <option value="CompanyA">Company A</option>
-                                                            <option value="CompanyB">Company B</option>
-                                                            <option value="CompanyC">Company C</option>
+                                                            <?php
+                                                            $sql = "SELECT * FROM tbl_company_representative WHERE Email != '$email'";
+                                                            $result = mysqli_query($connection,$sql);
+                                                            $rows = mysqli_fetch_array($result);
+                                                            $company = $rows["Organisation_Name"];
+
+                                                            echo "<option value='-1' disabled selected>---</option>";
+                                                            if ($result->num_rows > 0) {
+                                                                while ($rows = $result->fetch_assoc()) {
+                                                                    echo "<option value='".$rows['Organisation_Name']."'>".$rows['Organisation_Name']."</option>";
+                                                                }
+                                                            }
+                                                            CloseConnection($connection);
+                                                            ?>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -595,23 +622,11 @@ if (empty($filter)){
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="viewInvoiceModalLabel">View Invoices</h5>
+                    <h5 class="modal-title" id="viewInvoiceModalLabel">Invoices</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col">
-                            <ul class="report-list">
-                                <h3> Invoices </h3>
-                                <br />
-                                <form action="" method="GET">
-                                    <div class="input-group mb-3">
-                                        <input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control" placeholder="Search data">
-                                        <button type="submit" class="btn btn-primary">Search</button>
-                                    </div>
-                                </form>
-                                <br />
-                                <table>
+                                <table id="invoiceTable">
                                     <tr>
                                         <th>&nbsp;&nbsp;&nbsp;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                         <th>Transaction&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
@@ -623,7 +638,7 @@ if (empty($filter)){
                                     <?php
                                     $connection = OpenConnection();
 
-                                    $sql ="SELECT * FROM `tbl_bowser_invoices`";
+                                    $sql ="SELECT * FROM `tbl_bowser_invoices`ORDER BY Date DESC LIMIT 25";
                                     $result = mysqli_query($connection, $sql);
                                     $rows = mysqli_fetch_array($result);
 
@@ -644,7 +659,6 @@ if (empty($filter)){
                                     ?>
                                 </table>
                             <br />
-                        </div>
                     </div>
                 </div>
             </div>

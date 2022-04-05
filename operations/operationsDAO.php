@@ -93,10 +93,10 @@ function updateBowserStock($modifiedStock, $capacity){
 }
 
 // FUNCTION TO CREATE AN INVOICE
-function createInvoice($transaction, $userID, $bowserID, $organisation, $bowserCost){
+function createInvoice($transaction, $userID, $bowserID, $organisation, $company, $bowserCost){
     $connection = OpenConnection();
-    $sql = "INSERT INTO `tbl_bowser_invoices` (Transaction_Type, UserID, BowserID, Organisation_Name, Price) 
-                            VALUES ('$transaction', '$userID', '$bowserID', '$organisation', '$bowserCost')";
+    $sql = "INSERT INTO `tbl_bowser_invoices` (Transaction_Type, UserID, BowserID, Organisation_Name, Organisation_From, Price) 
+                            VALUES ('$transaction', '$userID', '$bowserID', '$organisation', '$company', '$bowserCost')";
     if (mysqli_query($connection, $sql)) {
         echo "success";
     } else {
@@ -105,10 +105,10 @@ function createInvoice($transaction, $userID, $bowserID, $organisation, $bowserC
 }
 
 // FUNCTION TO SEND A BOWSER REQUEST
-function bowserRequest($userID, $capacity, $organisation, $priority, $reason){
+function bowserRequest($userID, $capacity, $organisation, $company, $priority, $reason){
     $connection = OpenConnection();
-    $sql = "INSERT INTO `tbl_bowser_requests` (UserID, Bowser_Capacity, Organisation_Name, Priority, Status, Request_Reason) VALUES
-		    ('$userID','$capacity', '$organisation' ,'$priority', 'Pending', '$reason')";
+    $sql = "INSERT INTO `tbl_bowser_requests` (UserID, Bowser_Capacity, Organisation_Name, Organisation_From, Priority, Status, Request_Reason) VALUES
+		    ('$userID','$capacity', '$organisation', '$company' ,'$priority', 'Pending', '$reason')";
     if (mysqli_query($connection, $sql)) {
         echo "success";
     } else {
@@ -117,7 +117,7 @@ function bowserRequest($userID, $capacity, $organisation, $priority, $reason){
 }
 
 // FUNCTION TO SET BOWSER STATUS TO LENT
-function lendBowser($bowserID){
+function updateLentBowser($bowserID){
     $connection = OpenConnection();
     $sql = "UPDATE `tbl_bowsers` SET Status = 'Lent' WHERE BowserID = '$bowserID'";
     if (mysqli_query($connection, $sql)) {
@@ -126,6 +126,20 @@ function lendBowser($bowserID){
         echo "error";
     }
     CloseConnection($connection);
+}
+
+function lendBowser($capacity, $transaction, $organisation, $company){
+    $userID = returnUserID();
+    $stock = returnBowserStock($capacity);
+
+    $modifiedStock = $stock - 1;
+    $bowserID = returnStockedBowser('BowserID', $capacity);
+    $bowserCost = returnStockedBowser('Bowser_Cost', $capacity);
+
+    updateLentBowser($bowserID);
+    createInvoice($transaction, $userID, $bowserID, $organisation, $company, $bowserCost);
+    updateBowserStock($modifiedStock, $capacity);
+    header("Location: ../operations/operations.php");
 }
 
 // FUNCTION TO PERFORM BOWSER TRANSACTIONS
@@ -137,23 +151,15 @@ function bowserTransaction()
     $organisation = strip_tags(trim($_POST['Organisation']));
     $capacity = strip_tags(trim($_POST['Capacity']));
     $priority = strip_tags(trim($_POST['Priority']));
+    $company = $_POST['company'];
 
-    $userID = returnUserID();
-    $stock = returnBowserStock($capacity);
 
     if ($transaction == 'Lend') {
-        // update stock
-        $modifiedStock = $stock - 1;
-        $bowserID = returnStockedBowser('BowserID', $capacity);
-        $bowserCost = returnStockedBowser('Bowser_Cost', $capacity);
-
-        lendBowser($bowserID);
-        createInvoice($transaction, $userID, $bowserID, $organisation, $bowserCost);
-        updateBowserStock($modifiedStock, $capacity);
-        header("Location: ../operations/operations.php");
+        lendBowser($capacity, 'Lend', $organisation, $company);
     }
     if ($transaction == 'Loan') {
-        bowserRequest($userID, $capacity, $organisation, $priority, $reason);
+        $userID = returnUserID();
+        bowserRequest($userID, $capacity, $organisation, $company, $priority, $reason);
         header("Location: ../operations/operations.php");
     }
     CloseConnection($connection);
