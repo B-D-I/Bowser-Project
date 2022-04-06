@@ -1,6 +1,7 @@
 .left-side{
   margin-left: 5px;
 }
+
 /*Maintenance Schedule*/
 .operations-list {
   padding: 30px;
@@ -94,6 +95,7 @@
 #invoiceTable{
   margin-top: -500px;
 }
+
 #viewMap{
   padding: 30px;
   font-stretch: expanded;

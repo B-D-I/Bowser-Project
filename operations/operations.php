@@ -300,7 +300,7 @@ if (empty($filter)){
                                     </select>
 									
                                 </div>
-									  
+
 									<label for="filter">Show Only Deployed Bowsers</label>
                                     <input type="checkbox" name="filter" form="Filter" value="filter" onchange="this.form.submit()" <?php if(!empty($_SESSION["filter"])){echo "checked";} ?>></input>
                             </div>
@@ -389,14 +389,12 @@ if (empty($filter)){
                         </div>
                     </div>
                     <br />
-
 <!--                    <div class="vibrate-2">-->
 <!--                        <div class="d-grid gap-2" id="viewAddBowser" >-->
 <!--                            <a class="text-focus-in" href="#addBowserModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Add New Bowser</h3></a>-->
 <!--                        </div>-->
 <!--                    </div>-->
 <!--                    <br />-->
-
                     <div class="vibrate-2">
                         <div class="d-grid gap-2" id="viewRegisterUser" >
                             <a class="text-focus-in" href="#registerNewUserModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Register New User</h3></a>
@@ -556,59 +554,68 @@ if (empty($filter)){
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="registerUserModalLabel">View Reports</h5>
+                <h5 class="modal-title" id="registerUserModalLabel">Reports</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col">
-                        <ul class="report-list">
-                            <h3> Received Reports</h3>
-                            <br />
-                            <form action="" method="GET">
-                                <div class="input-group mb-3">
-                                    <input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control" placeholder="Search data">
-                                    <button type="submit" class="btn btn-primary">Search</button>
-                                </div>
-                            </form>
                             <br />
 
-                            <?php
-                            // get reports
-                            ?>
-                            <p>Example report: 001 // Repair ..</p>
+
+                <?php
+                $connection = OpenConnection();
+                $sql = "SELECT * FROM `tbl_reports` WHERE Status ='Pending'";
+                $result = mysqli_query($connection, $sql);
+                $rows = mysqli_fetch_array($result);
+
+                while($rows = mysqli_fetch_assoc($result)) {
+                    $reportType = $rows['Report_Type'];
+                    $reportID = $rows['Report_ID'];
+                    $bowserID = $rows['Bowser_ID'];
+                    $description = $rows['Description'];
+                    $date = $rows['Date'];
+                    // trim date to 10 characters, removing time
+                    $date = substr($date, 0,-8);
+
+                    switch($reportType){
+                    case 1:
+                        $reportString = "Refill";
+                        break;
+                    case 2:
+                        $reportString = "Repair";
+                        break;
+                    case 3:
+                        $reportString = "Complaint";
+                        break;
+                    case 4:
+                        $reportString = "Other";
+                        break;
+                }
+
+                    echo '<form method="post" action="actionReportsDAO.php" >';
+                    ?>
+                    <!--POST VARIABLES--->
+                    <input type='hidden' name='reportType' value='<?php echo "$reportType";?>'/>
+                    <input type='hidden' name='reportString' value='<?php echo "$reportString";?>'/>
+                    <input type='hidden' name='reportID' value='<?php echo "$reportID";?>'/>
+                    <input type='hidden' name='bowserID' value='<?php echo "$bowserID";?>'/>
+                    <input type='hidden' name='description' value='<?php echo "$description";?>'/>
+                    <input type='hidden' name='date' value='<?php echo "$date";?>'/>
+                    <?php
+                    echo "<h5>Reported: ".$reportString."</h5><br />";
+                    echo $date;
+                    echo "<br />Bowser: ".$bowserID;
+                    echo "<br />Description: <br />".$description;
+                    echo '    <br />                      
+                       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                          <button class="btn btn-success me-md-2" type="submit" name="acceptButton" value="Accept">Action</button>
+                          <button class="btn btn-danger" type="submit" name="denyButton" value="Deny">Ignore</button>
+                        </div>
+                ';
+                    echo "</form>";
+                    echo "<br />";
+                }
+                ?>
                             <br />
-                            <p>Example report: 002 // Refill ..</p>
-                            <br />
-                            <p>Example report: 0013 // Repair ..</p>
-                            <br />
-                            <p>Example report: 004 // Refill ..</p>
-                            <br />
-                            <p>Example report: 001 // Repair ..</p>
-                            <br />
-                            <p>Example report: 002 // Refill ..</p>
-                            <br />
-                            <p>Example report: 0013 // Repair ..</p>
-                            <br />
-                            <p>Example report: 004 // Refill ..</p>
-                            <br />
-                            <p>Example report: 001 // Repair ..</p>
-                            <br />
-                            <p>Example report: 002 // Refill ..</p>
-                            <br />
-                            <p>Example report: 0013 // Repair ..</p>
-                            <br />
-                            <p>Example report: 004 // Refill ..</p>
-                            <br />
-                            <p>Example report: 001 // Repair ..</p>
-                            <br />
-                            <p>Example report: 002 // Refill ..</p>
-                            <br />
-                            <p>Example report: 0013 // Repair ..</p>
-                            <br />
-                            <p>Example report: 004 // Refill ..</p>
-                            <br />
-                        </ul>
                         <br />
                     </div>
                 </div>

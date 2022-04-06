@@ -69,6 +69,7 @@ if (isset($_SESSION['email'])) {
 <div>
     <div class="nav-wrapper">
         <div class="left-side">
+
             <div class="nav-link-wrapper active-nav-link">
                 <a class="text-focus-in" href="index.php">Home</a>
             </div>
@@ -171,7 +172,7 @@ if (isset($_SESSION['email'])) {
 										$Report_Type = $connection->real_escape_string($_POST['Report_Type']);
 										$Bowser_ID = $connection->real_escape_string($_POST['Bowser_ID']);
 										$Description = $connection->real_escape_string($_POST['Description']);
-        								if($query = mysqli_query($connection,"INSERT INTO tbl_Reports(Report_ID,Report_Type,Bowser_ID,Description) VALUES (NULL,'$Report_Type','$Bowser_ID','$Description')"));
+        								if($query = mysqli_query($connection,"INSERT INTO tbl_Reports(Report_ID,Report_Type,Bowser_ID,Description, Status) VALUES (NULL,'$Report_Type','$Bowser_ID','$Description', 'Pending')"));
     								}
 									CloseConnection($connection)
                         		?>
@@ -180,6 +181,7 @@ if (isset($_SESSION['email'])) {
                     </form>
                 </div>
             </div>
+
 	</div>
 
     <div class="middle">
@@ -285,92 +287,95 @@ if (isset($_SESSION['email'])) {
         </div>
     </div>
 
-
+<!--The main section of page--->
     <div class="upperPage">
-        <div class="shadow-sm p-3 mb-5 bg-body rounded">
-            <div class="row">
-                <div class="col">
-                    <h2> Notifications and Alerts</h2>
-                    <ul class="notification-list">
-
-                        <br /><br />
-                        <li> 13.10 - Water bowser 001 now refilled.
-                        </li>
-                        <br />
-                        <li> 13.00 - Current maintenance work at water bowser 010 </li>
-                        <br />
-                        <li> 12.25 - Water bowser 009 out of order </li>
-                        <br />
-                        <li> 12.20 - Water bowser 001 empty </li>
-                        <br />
-                        <li> 12.00 - Water bowser 006 repaired </li>
-                        <br />
-                        <li> 11.40 - Water bowser 006 out of order </li>
-                        <br />
-                        <li> 11.30 - Water bowser 007 out of repaired </li>
-                        <br />
-                        <li> 11.30 - Water bowser 008 out of repaired </li>
-                        <br />
-                    </ul>
-
-                    <div class="col">
-                    <div class="vibrate-2">
-                        <div class="d-grid gap-2" id="viewBowserInformation" >
-                            <a class="text-focus-in" class="remove_outline" href="javascript:popUpWindow('../bowsers/bowsers.php','bowsers','900','500')"><h3 id="reportTxt">View Bowser Information</h3></a>
-                        </div>
-                    </div>
-                    </div>
-
-                </div>
-
-
-                <div class="col">
-                    <div class="text_area">
-                        <h2>Bowser Map</h2>
-                        <br />
-                        <p> Find local bowsers using the map below </p>
-                        <br />
-
-                        <!--div to display map--->
-                        <div id="map"></div>
-                    </div>
+        <!---row for bowser info and faq buttons--->
+        <div class="row">
+            <!---bowser info--->
+            <div class="col">
+                <div class="vibrate-2" id="viewBowserInformation" >
+                    <a class="text-focus-in" class="remove_outline" href="javascript:popUpWindow('../bowsers/bowsers.php','bowsers','900','500')"><h3 id="reportTxt">Bowser Info</h3></a>
                 </div>
             </div>
+            <!---faqs-->
+            <div class="col">
+                <div class="vibrate-2" id="viewFAQ" >
+                    <a class="text-focus-in" href="#FAQModal" data-bs-toggle="modal" ><h3 id="reportTxt">FAQs</h3></a>
+                </div>
+            </div>
+            <!---additonal columns for spacing--->
+            <div class="col"></div>
+            <div class="col"></div>
         </div>
 
-        <div class="col-md-12 text-center">
-        <a class="text-focus-in" id="FAQLink" href="#FAQModal" data-bs-toggle="modal" >FAQs</a>
+        <div class="shadow-sm p-3 mb-5 bg-body rounded">
+            <!---row for notifications and map--->
+            <div class="row">
+                    <div class="col">
+                        <h2> Notifications and Alerts</h2>
+                        <ul class="notification-list">
+                            <?php
+                            $connection = OpenConnection();
+                            $sql = "SELECT * FROM `tbl_notifications` ORDER BY Date DESC LIMIT 10 ";
+                            $result = mysqli_query($connection, $sql);
+                            $rows = mysqli_fetch_array($result);
 
-        <!-- Modal -->
-        <div class="modal fade" id="FAQModal" tabindex="-1" aria-labelledby="FAQModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
+                            while($rows = mysqli_fetch_assoc($result)) {
+                                $notification = $rows['Notice_Text'];
+                                echo "<br />";
+                                echo $notification."<br /><br />";
+                            }
+                            ?>
+                        </ul>
+                    </div>
 
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col">
-                                <h2>FAQs</h2><br />
-                                <p style="color: dodgerblue">HOW DO I VIEW NOTIFICATIONS AND ALERTS: </p><br />
-                                <p>Check the notification news feed</p><br /><br />
-                                <p style="color: dodgerblue">HOW DO I REPORT AN ISSUE: </p><br />
-                                <p>Click the reports tab and send us a query</p><br /><br />
-                                <p style="color: dodgerblue">HOW DO I CONTACT YOU WITHOUT CREATING AN ACCOUNT: </p><br />
-                                <p>For assistance, contact us at:
-                                    <a id="link" href="mailto:s4008324@glos.ac.uk">bowser-hub@email.com</a>
-                                </p><br /><br />
+                    <div class="col">
+                        <div class="text_area">
+                            <h2>Bowser Map</h2>
+                            <br />
+                            <p> Find local bowsers using the map below </p>
+                            <br />
+                            <!--div to display map--->
+                            <div id="map">
                             </div>
                         </div>
                     </div>
-                </div>
+
+
+
+
+
             </div>
         </div>
     </div>
 
 
+                    <!-- Modal -->
+                    <div class="modal fade" id="FAQModal" tabindex="-1" aria-labelledby="FAQModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h2>FAQs</h2><br />
+                                            <p style="color: dodgerblue">HOW DO I VIEW NOTIFICATIONS AND ALERTS: </p><br />
+                                            <p>Check the notification news feed</p><br /><br />
+                                            <p style="color: dodgerblue">HOW DO I REPORT AN ISSUE: </p><br />
+                                            <p>Click the reports tab and send us a query</p><br /><br />
+                                            <p style="color: dodgerblue">HOW DO I CONTACT YOU WITHOUT CREATING AN ACCOUNT: </p><br />
+                                            <p>For assistance, contact us at:
+                                                <a id="link" href="mailto:s4008324@glos.ac.uk">bowser-hub@email.com</a>
+                                            </p><br /><br />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
         <br />  <br />
-
-
 
         <!-- Link back to top of page -->
         <p><a id="top_link" href="#back_to_top" >RETURN TO TOP</a></p>

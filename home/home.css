@@ -10,27 +10,36 @@
 }
 
 #viewBowserInformation{
-  padding: 30px;
+  padding: 10px;
+  height: 50px;
   font-stretch: expanded;
-  background-color: cornflowerblue;
+  background-color: dodgerblue;
   border: 0;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  margin-left: 50pc;
+  width: 15pc;
 }
+#viewFAQ{
+  padding: 10px;
+  height: 50px;
+  font-stretch: expanded;
+  background-color: dodgerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 15pc;
+}
+
 #reportTxt{
   color: whitesmoke;
   text-align: center;
-}
-#FAQLink{
-  font-size: 60px;
 }
 
 
 /*Button vibrate*/
 .vibrate-2 {
-  -webkit-animation: vibrate-2 0.5s linear infinite both;
-  animation: vibrate-2 0.5s linear infinite both;
+  -webkit-animation: vibrate-2 1s linear infinite both;
+  animation: vibrate-2 1s linear infinite both;
 }
 @-webkit-keyframes vibrate-2 {
   0% {
