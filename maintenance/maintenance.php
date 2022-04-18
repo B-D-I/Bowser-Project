@@ -12,10 +12,17 @@ $User = mysqli_fetch_assoc($User_Query);
 $User_ID = $User['User_ID'];
 
 //Getting Maintenence job info
-$sql = "SELECT * FROM tbl_maintenance_schedule WHERE Assigned_To = '$User_ID' AND Status <> 'Complete'";
+$sql = "SELECT * FROM tbl_maintenance_schedule WHERE Assigned_To = '$User_ID' AND Status <> 'Completed'";
 $query = mysqli_query($connection, $sql);
 $job = mysqli_fetch_assoc($query);
 // CloseConnection($connection);
+
+
+// url parameters
+if(isset($_GET['id'])){
+    $id= $_GET['id'];
+}
+
 
 
 
@@ -106,15 +113,17 @@ $job = mysqli_fetch_assoc($query);
                                 $('[data-toggle="popover"]').popover();
                             });
                         </script>
+
                         <?php
-
+                        
                         foreach($query as $row){
+                            
 
-                                        $status = $row['Status'];
+                                        $jobStatus = $row['Status'];
 
                                         echo "<div class='form-check'>";
                                          echo "<label class='form-check-label'>";
-                                        echo "Bowser ", $row['Bowser_ID']," - " ,$row['Date'], " ", "<span class = status>",$status,"</span>";
+                                        echo "Bowser ", $row['Bowser_ID']," - " ,$row['Date'], " ", "<span class = status>",$jobStatus,"</span>";
                                         echo "</label>";
 
                                         echo "<button type='button' class='btn btn-link' data-toggle='popover' data-html = 'true' 
@@ -123,6 +132,9 @@ $job = mysqli_fetch_assoc($query);
 
                                         echo "<br/><br/>";
                                        echo "<button type='button' class='btn btn-primary' style='float:right position:fixed; id='initialSubmit'>Task Complete</button>";
+
+                                    //    In progress
+                                       echo "<button type='button' class='btn btn-secondary' style='float:right position:fixed; id='taskInProgress'>Task In Progress</button>";
 
 
                                     //    Alerts for each task
@@ -133,7 +145,12 @@ $job = mysqli_fetch_assoc($query);
                                        echo  "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
                                        echo "Are you sure you want to submit task $row[Maintenance_ID]?";
                                        echo "<br/><br/>";
-                                       echo "<button class = 'btn btn-secondary'> Yes, submit </button> ";
+
+                                    //    Setting url parameter for submitting task
+                                       echo "<form action='maintenance.php?id=$row[Maintenance_ID]' method='post'>";
+                                       echo "<button class = 'btn btn-secondary' type='submit' name='submit' value='Submit'> Yes, submit </button> ";
+                                       echo "</form>";
+
                                        echo "</div>";
                                     
                                     //    Closing tags and underline styling for tasks
@@ -141,37 +158,15 @@ $job = mysqli_fetch_assoc($query);
                                     echo "</div>";
                                     echo "<br/>";
                         }
-                        ?>
 
-<div class="modal" id="myModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Task: </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Bowser: <?php echo $detailJob['Bowser_ID'] ?> </p>
-        <p>Description: <?php echo $detailJob['Description'] ?></p>
-        <p>Date: </p>
-        <p>Area: </p>
-        <p>Status: </p>
-        <p>Submitted by: </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+                                    //    Submitting task if url parameter is set
+                                    if(isset($id)){
+                                        $submitSQL = "UPDATE tbl_maintenance_schedule SET Status = 'Completed' WHERE maintenance_ID='$id'";
+                                        mysqli_query($connection, $submitSQL);                                
+                                        
+                                    }
 
-                      
-                    <br /><br />
-
-                    
+                        ?>       
                
                 </div>
 
