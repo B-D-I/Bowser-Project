@@ -10,6 +10,11 @@
 .left-side{
 margin-left: 5px;
 }
+@media only screen and (max-width: 415px) {
+#navTitle{
+margin-left: -250px;
+font-size: 25px;
+}
 
 .alert{
     display: none;

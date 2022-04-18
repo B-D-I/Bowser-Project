@@ -230,7 +230,7 @@ if (isset($_SESSION['email'])) {
                                                 <label for="loginInputPassword1" class="form-label">Password</label>
                                                 <input type="password" name="password" class="form-control" id="loginInputPassword1">
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" id="loginSubmit" class="btn btn-primary">Submit</button>
                                         </form>
                                     </div>
                                 </div>
@@ -340,9 +340,6 @@ if (isset($_SESSION['email'])) {
                             </div>
                         </div>
                     </div>
-
-
-
 
 
             </div>

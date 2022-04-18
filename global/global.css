@@ -241,10 +241,10 @@ select::-ms-expand {
 
 @media only screen and (max-width: 1200px) {
   .middle {
-    margin-left: 50px;
+    margin-left: -50px;
   }
   #navTitle{
-    margin-left: 50px;
+    margin-left: -50px;
     font-size: 70px;
   }
   #logo_image{
@@ -253,16 +253,28 @@ select::-ms-expand {
 }
 @media only screen and (max-width: 1100px) {
   .middle {
-    margin-left: 50px;
+    margin-left: -50px;
   }
   #navTitle{
-    margin-left: 50px;
+    margin-left: -50px;
     font-size: 50px;
   }
   #logo_image{
     display: none;
   }
+}
+@media only screen and (max-width: 920px) {
 
+  #navTitle{
+    margin-top: 50px;
+    font-size: 45px;
+  }
+  .drop{
+    display: none;
+  }
+  .wave{
+    display: none;
+  }
 }
 @media only screen and (max-width: 700px) {
   #navTitle{
@@ -270,6 +282,17 @@ select::-ms-expand {
     font-size: 30px;
   }
 }
+@media only screen and (max-width: 415px) {
+  #navTitle{
+    margin-left: -300px;
+    font-size: 25px;
+  }
+  #logoutTab{
+    margin-top: 50px;
+    margin-left: -50px;
+  }
+}
+
 
 
 
