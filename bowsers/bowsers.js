@@ -1,5 +1,5 @@
 // JavaScript Document
-//This is the callback fucntion provided to google to upload the map.
+//This is the callback function provided to google to upload the map.
 function initMap(){
     var map=new google.maps.Map(document.getElementById('map'),{
         zoom:14,
@@ -37,17 +37,8 @@ function initMap(){
 }
 
 
-//				    POP UP WINDOW
-var taskWindow;                       // function allows for url, window name, width and height to be defined within the html
-function popUpWindow(URL, windowName, windowWidth, windowHeight) {
-    var centerLeft = (screen.width/3)-(windowWidth/3); // window dimensions
-    var centerTop = (screen.height/3)-(windowHeight/3);
-    //scrollbars=no,
-    var windowFeatures = 'toolbar=no, location=no, directories=no, status=no, menubar=no, titlebar=no, resizable=no,'; // remove toolbar, scrollbar etc..
-    return window.open(URL, windowName, windowFeatures +' width='+ windowWidth +', height='+ windowHeight +', top='+ centerTop +', left='+ centerLeft); // open the defined window
-}
-
-var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-    return new bootstrap.Popover(popoverTriggerEl)
-})
+// Creating a detail view modal
+$('#detailModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+  })
+  

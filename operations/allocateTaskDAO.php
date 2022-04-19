@@ -17,13 +17,13 @@ if (isset($_SESSION['email'])) {
     $bowserID = strip_tags(trim($_POST['bowserID']));
     $workerID = strip_tags(trim($_POST['workerID']));
     $description = strip_tags(trim($_POST['description']));
+    $task = strip_tags(trim($_POST['task']));
+    $priority = strip_tags(trim($_POST['priority']));
     $date = strip_tags(trim($_POST['date']));
 
     $connection = OpenConnection();
-
-    $sql = "insert into tbl_maintenance_schedule (Bowser_ID, User_ID, Description, Status, Date, assignedTo) values
-		('$bowserID', '$userID','$description','Incomplete', '$date','$workerID')";
-
+    $sql = "insert into tbl_maintenance_schedule (Bowser_ID, User_ID, Description, Status, Date, Assigned_To, Priority, Task_Type) values
+		('$bowserID', '$userID','$description','Incomplete', '$date','$workerID', '$priority', '$task')";
 // connection confirmation
     if (mysqli_query($connection, $sql)) {
         echo "success";

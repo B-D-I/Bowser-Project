@@ -1,21 +1,265 @@
-#new_tasks {
-  border: #727272;
-  border-radius: 5px;
+.left-side{
+  margin-left: 5px;
 }
 
+/*Maintenance Schedule*/
 .operations-list {
   padding: 30px;
-  background-color: #a4c3fd;
+  background-color: lightblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-.text_area {
+#searchedTask{
   padding: 30px;
-  background-color: #fddea4;
-}
-#rando {
-  background-color: #fddea4;
+  border: 0 cornflowerblue;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+/*User details and buttons*/
+#text_area {
+  height: 100px;
+  padding: 20px;
+  background-color: lightblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#requestAlerts{
+  padding: 30px;
+  background-color: cornflowerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+/*Register new user button*/
+#registerLink{
+  margin-left: -10px;
+}
+#submitRegiser{
+  text-align: center;
+}
+/*loan + lend bowser button*/
+#loanLink{
+  margin-left: 40px;
+}
+/*bowser info button*/
+#bowserLink{
+  margin-top: -65px;
+  margin-left: 380px;
+}
+/*Loan and Lend Modal*/
+#transactionID{}
+#organisationID{
+  margin-top: -95px;
+  margin-left: 240px;
+}
+#capacityID{}
+#loanPriorityID{
+  margin-top: -95px;
+  margin-left: 240px;
+}
+
+/*report button */
+#reportTxt{
+  color: whitesmoke;
+  text-align: center;
+}
+#viewReports {
+  height: 85px;
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: dodgerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#viewBowserRequests{
+  height: 85px;
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: dodgerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#viewInvoice{
+  height: 85px;
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: dodgerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);}
+#invoiceTable{
+  margin-top: -500px;
+}
+
+#viewMap{
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: lightblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+#viewLoanBowser{
+  height: 85px;
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: dodgerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#viewBowserInfo{
+  height: 85px;
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: dodgerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#viewAddBowser{
+  height: 85px;
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: dodgerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#viewRegisterUser{
+  height: 85px;
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: dodgerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+/*Allocate Tasks*/
+#viewAllocateTask{
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: dodgerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+/* Allocate Task options */
 #new_tasks {
   padding: 30px;
-  background-color: #a4c3fd;
+  background-color: lightblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#maintDiv{
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.select {
+  width: 150px;
+  color: whitesmoke;
+}
+select{
+  background: cornflowerblue;
+}
+#bowserIDSearch{
+  width: 150px;
+}
+#maintenanceID{
+  margin-left: 280px;
+  margin-top: -135px;
+}
+#taskID{
+  margin-top: -50px;
+}
+#priorityID{
+  margin-left: 280px;
+  margin-top: -110px;
+
+}
+#dateID{
+  margin-top: -35px;
+}
+#formID{}
+#allocateSubmitID{
+  margin-top: -20px;
+  text-align: center;
+}
+
+
+
+/*Button vibrate*/
+.vibrate-2 {
+  -webkit-animation: vibrate-2 2s linear infinite both;
+  animation: vibrate-2 2s linear infinite both;
+}
+@-webkit-keyframes vibrate-2 {
+  0% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+  20% {
+    -webkit-transform: translate(2px, -2px);
+    transform: translate(2px, -2px);
+  }
+  40% {
+    -webkit-transform: translate(2px, 2px);
+    transform: translate(2px, 2px);
+  }
+  60% {
+    -webkit-transform: translate(-2px, 2px);
+    transform: translate(-2px, 2px);
+  }
+  80% {
+    -webkit-transform: translate(-2px, -2px);
+    transform: translate(-2px, -2px);
+  }
+  100% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+}
+@keyframes vibrate-2 {
+  0% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+  20% {
+    -webkit-transform: translate(2px, -2px);
+    transform: translate(2px, -2px);
+  }
+  40% {
+    -webkit-transform: translate(2px, 2px);
+    transform: translate(2px, 2px);
+  }
+  60% {
+    -webkit-transform: translate(-2px, 2px);
+    transform: translate(-2px, 2px);
+  }
+  80% {
+    -webkit-transform: translate(-2px, -2px);
+    transform: translate(-2px, -2px);
+  }
+  100% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+}
+
+@media only screen and (max-width: 415px) {
+  #navTitle {
+    margin-left: -250px;
+    font-size: 25px;
+  }
 }

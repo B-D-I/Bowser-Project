@@ -12,10 +12,17 @@ $User = mysqli_fetch_assoc($User_Query);
 $User_ID = $User['User_ID'];
 
 //Getting Maintenence job info
-$sql = "SELECT * FROM tbl_maintenance_schedule WHERE assignedTo = '$User_ID'";
+$sql = "SELECT * FROM tbl_maintenance_schedule WHERE Assigned_To = '$User_ID' AND Status <> 'Completed'";
 $query = mysqli_query($connection, $sql);
 $job = mysqli_fetch_assoc($query);
 // CloseConnection($connection);
+
+
+// url parameters
+if(isset($_GET['id'])){
+    $id= $_GET['id'];
+}
+
 
 
 
@@ -30,9 +37,14 @@ $job = mysqli_fetch_assoc($query);
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="../global/global.css" type="text/css">
-    <link rel="stylesheet" href="maintenance.css" type="text/css">
+    <link rel="stylesheet" href="maintenanceCSS.php" type="text/css">
     <link rel="icon" type="image/x-icon" href="../images/logo/bowserLogo.png">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&family=Rubik+Puddles&display=swap" rel="stylesheet">
+
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!--jQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -46,7 +58,7 @@ $job = mysqli_fetch_assoc($query);
 <!---html anchor to return to top of page-->
 <p id="back_to_top"></p>
 
-<div class="container">
+<div>
     <div class="nav-wrapper">
         <div class="left-side">
             <div class="nav-link-wrapper active-nav-link">
@@ -59,7 +71,13 @@ $job = mysqli_fetch_assoc($query);
         </div>
 
         <div class="middle">
-            <h2 class="text-focus-in">Bowser Hub</h2>
+            <h2 class="text-focus-in" id="navTitle">Bowser Hub</h2>
+            <div id="logo">
+                <img id="logo_image" src="../images/logo/bowserLogo.png" alt="" width="100" height="100">
+            </div>
+            <!--WATER DROPS-->
+            <div class="drop"></div>
+            <div class="wave"></div>
         </div>
 
         <div class="right-side">
@@ -90,56 +108,66 @@ $job = mysqli_fetch_assoc($query);
                         <h4>User: <?php echo $email  ?> </h4>
 
                         <br /><br />
-                        <?php
+                        <script>
+                            $(document).ready(function(){
+                                $('[data-toggle="popover"]').popover();
+                            });
+                        </script>
 
+                        <?php
+                        
                         foreach($query as $row){
-                                        // Getting details for detail view based on button ID
-                                        $maintID = $row['Maintenance_ID'];
-                                        $getDetailIDSQL = "SELECT * FROM tbl_maintenance_schedule WHERE Maintenance_ID = '$maintID'";
-                                        $detailQuery = mysqli_query($connection, $getDetailIDSQL);
-                                        $detailJob = mysqli_fetch_assoc($detailQuery);
+                            
+
+                                        $jobStatus = $row['Status'];
 
                                         echo "<div class='form-check'>";
-                                        echo "<input class='form-check-input' type='checkbox' value='' >";
                                          echo "<label class='form-check-label'>";
-                                        echo "Bowser ", $row['Bowser_ID']," - " ,$row['Description'];
+                                        echo "Bowser ", $row['Bowser_ID']," - " ,$row['Date'], " ", "<span class = status>",$jobStatus,"</span>";
                                         echo "</label>";
-                                        echo "<button id= '$row[Maintenance_ID]' class='btn btn-link' data-bs-toggle='modal' href='#myModal' style ='float:right;'> View Details </button>";
+
+                                        echo "<button type='button' class='btn btn-link' data-toggle='popover' data-html = 'true' 
+                                        title= 'Description: $row[Description]  Area ID: $row[Area_ID] <span> Priority $row[Priority] Task Type: $row[Task_Type]'  
+                                        style='float:right;'>View Details</button>";
+
+                                        echo "<br/><br/>";
+                                       echo "<button type='button' class='btn btn-primary' style='float:right position:fixed; id='initialSubmit'>Task Complete</button>";
+
+                                    //    In progress
+                                       echo "<button type='button' class='btn btn-secondary' style='float:right position:fixed; id='taskInProgress'>Task In Progress</button>";
+
+
+                                    //    Alerts for each task
+                                       echo "<div class = 'alert alert-primary alert-dismissible'>";
+                                       echo"<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' class='bi bi-exclamation-triangle-fill flex-shrink-0 me-2' viewBox='0 0 16 16' role='img' aria-label='Warning:'>
+                                    <path d='M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z'/>
+                                    </svg>";
+                                       echo  "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
+                                       echo "Are you sure you want to submit task $row[Maintenance_ID]?";
+                                       echo "<br/><br/>";
+
+                                    //    Setting url parameter for submitting task
+                                       echo "<form action='maintenance.php?id=$row[Maintenance_ID]' method='post'>";
+                                       echo "<button class = 'btn btn-secondary' type='submit' name='submit' value='Submit'> Yes, submit </button> ";
+                                       echo "</form>";
+
+                                       echo "</div>";
+                                    
+                                    //    Closing tags and underline styling for tasks
+                                       echo "<hr>";
                                     echo "</div>";
                                     echo "<br/>";
                         }
-                        ?>
 
-<div class="modal" id="myModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Task: </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Bowser: <?php echo $detailJob['Bowser_ID'] ?> </p>
-        <p>Description: <?php echo $detailJob['Description'] ?></p>
-        <p>Date: </p>
-        <p>Area: </p>
-        <p>Status: </p>
-        <p>Submitted by: </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+                                    //    Submitting task if url parameter is set
+                                    if(isset($id)){
+                                        $submitSQL = "UPDATE tbl_maintenance_schedule SET Status = 'Completed' WHERE maintenance_ID='$id'";
+                                        mysqli_query($connection, $submitSQL);                                
+                                        
+                                    }
 
-                      
-                    <br /><br />
-
-                    <button type="button" class="btn btn-primary">Task Complete</button>
-                    <br />
+                        ?>       
+               
                 </div>
 
                 <div class="col">

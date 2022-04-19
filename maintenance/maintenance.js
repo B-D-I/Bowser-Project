@@ -36,8 +36,22 @@ function initMap(){
     );
 }
 
+
 // Creating a detail view modal
 $('#detailModal').on('shown.bs.modal', function () {
     $('#myInput').trigger('focus')
   })
   
+//   Popovers
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+    return new bootstrap.Popover(popoverTriggerEl)
+})
+
+
+// Alerts
+$(document).ready(function(){
+    $('button').click(function(){
+        $('.alert').show()
+    }) 
+});
