@@ -8,6 +8,24 @@
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+#notificationFault{
+  padding: 20px;
+  background-color: indianred;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  font-size: larger;
+  color: white;
+}
+#notificationFix{
+  padding: 20px;
+  background-color: mediumseagreen;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  font-size: larger;
+  color: white;
+}
 
 #viewBowserInformation{
   padding: 10px;

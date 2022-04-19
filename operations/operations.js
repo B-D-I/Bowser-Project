@@ -57,22 +57,74 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
 
 
 
-// function search_tasks(){
-//     let input = document.getElementById('search_bar').value
-//     input = input.toLowerCase();
-//     let x = document.getElementById('db_div');
+//                GOOGLE MAPS DIV
+
+// // map location set at cheltneham park campus
+// var mapCenter = new google.maps.LatLng(51.88599,-2.09019);   // Location set at The Park Campus
+// var geocoder = new google.maps.Geocoder();
+// var infowindow = new google.maps.InfoWindow();   // display content
 //
-//     for (i = 0; i < x.length; i++){
-//         if (!x[i].innerHTML.toLowerCase().includes(input)){
-//             x[i].style.display="none";
-//         }
-//         else {
-//             x[i].style.display="div";
+//
+// function initialize(){       // function for map options
+//     var mapOptions = {
+//         zoom: 14,            // Zoom set to 14 as div containig map is small, so gives the user an initial high overview of location
+//         center: mapCenter,
+//         mapTypeId: "hybrid"    // Hybrid has been used to give both road and satellite imgaging
+//     };
+//
+//     myMap = new google.maps.Map(document.getElementById("mapInput"), mapOptions); // calls mapInput id
+//
+//     marker = new google.maps.Marker({    // A marker has been included into the map
+//         map: myMap,
+//         position: mapCenter,     // Positined in the centre of map
+//         draggable: true,         // Marker has been made moveable
+//     });
+//
+//     // Event listener for the dragged marker location
+//     google.maps.event.addListener(marker, 'dragend', markerDragged);
+//
+//     function markerDragged() {   // Function to record Latitude and Longetitude information
+//         var selectedPos = {'latLng': marker.getPosition()};
+//         geocoder.geocode(selectedPos, showAddressInInfoWindow);
+//         //  console.log(selectedPos);
+//     }
+//     // function to show address information
+//     function showAddressInInfoWindow(results) {
+//         if (results[0]) {
+//             infowindow.setContent(results[0].formatted_address);
+//             infowindow.open(myMap, marker);
+//             // console.log();
 //         }
 //     }
 // }
+//
+// google.maps.event.addDomListener(window, 'load', initialize);
+//
+//
+//
+// // function to store the map marker location
+// function markerLocation() {
+//
+//     var eventLat = marker.getPosition().lat();  // latitude information
+//     var eventLng = marker.getPosition().lng();  // longitude
+//
+//
+//     // store the location data to variable
+//     document.getElementById('locationLng').value = eventLng;
+//
+//     document.getElementById('locationLat').value = eventLat;
+//
+//     document.getElementById('locationComb').value = eventLat + ", " + eventLng;
+//
+//     // check correct
+//     console.log(eventLng, eventLat);
+//
+// }
 
 
+
+
+// STATIC MAP
 
 // JavaScript Document
 //This is the callback fucntion provided to google to upload the map.

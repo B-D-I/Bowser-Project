@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2022 at 12:45 PM
+-- Generation Time: Apr 19, 2022 at 08:26 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -65,16 +65,16 @@ CREATE TABLE `tbl_bowsers` (
 
 INSERT INTO `tbl_bowsers` (`BowserID`, `Bowser_Capacity`, `Bowser_Cost`, `Bowser_Description`, `Status`, `Longitude`, `Latitude`, `Location`) VALUES
 (1, 500, 500, '15kg new shape model', 'Lent', 0.000000, 0.000000, ''),
-(2, 500, 500, '', 'Lent', 0.000000, 0.000000, ''),
+(2, 500, 500, '', 'Stock', 0.000000, 0.000000, ''),
 (3, 500, 500, '', 'Lent', 0.000000, 0.000000, ''),
-(4, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
+(4, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
 (5, 1000, 1000, '', 'Deployed', 0.000000, 0.000000, ''),
 (6, 5000, 5000, '', 'Deployed', 0.000000, 0.000000, ''),
 (7, 5000, 5000, '', 'Deployed', 0.000000, 0.000000, ''),
 (8, 10000, 10000, '', 'Deployed', 0.000000, 0.000000, ''),
 (9, 15000, 15000, '', 'Lent', 0.000000, 0.000000, ''),
 (10, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
-(11, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
+(11, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
 (12, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
 (13, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
 (14, 1000, 1000, '', 'Lent', 0.000000, 0.000000, ''),
@@ -242,7 +242,15 @@ INSERT INTO `tbl_bowser_requests` (`RequestID`, `UserID`, `Bowser_Capacity`, `Or
 (16, 7, 15000, 'CompanyB', 'CompanyC', 2, 'Pending', 'loan 15000'),
 (17, 7, 15000, 'CompanyC', 'CompanyA', 3, 'Pending', 'loan 15k'),
 (18, 7, 500, 'CompanyB', 'CompanyA', 3, 'Denied', 'loan from B'),
-(19, 7, 1000, 'CompanyE', 'CompanyA', 3, 'Pending', 'company E 1000l');
+(19, 7, 1000, 'CompanyE', 'CompanyA', 3, 'Pending', 'company E 1000l'),
+(20, 12, 5000, 'CompanyA', 'CompanyB', 2, 'Pending', 'Need bowser'),
+(21, 13, 1000, 'CompanyA', 'CompanyC', 2, 'Pending', 'Requirement for a bowser'),
+(22, 12, 5000, 'CompanyA', 'CompanyB', 2, 'Pending', 'Need 5000 L bowser'),
+(23, 13, 1000, 'CompanyA', 'CompanyC', 2, 'Pending', 'Requirement for bowser'),
+(24, 13, 10000, 'CompanyA', 'CompanyD', 2, 'Pending', 'CompanyD need 10,000 bowser'),
+(25, 14, 5000, 'CompanyA', 'CompanyE', 2, 'Pending', 'CompanyE needs bowser'),
+(26, 13, 10000, 'CompanyA', 'CompanyD', 2, 'Pending', 'CompanyD needs bowser'),
+(27, 14, 5000, 'CompanyA', 'CompanyE', 2, 'Pending', 'CompanyE need 5000L bowser');
 
 -- --------------------------------------------------------
 
@@ -318,11 +326,11 @@ INSERT INTO `tbl_maintenance_schedule` (`Maintenance_ID`, `Bowser_ID`, `User_ID`
 (1, 1, 1, 'Refill required', 'Incomplete', '2022-03-22 15:58:18', 1, 1, 2, 'Refill'),
 (11, 3, 6, 'Faulty tap', 'Incomplete', '2022-03-22 15:58:22', 4, 2, 1, 'Repair'),
 (12, 4, 6, 'Leaking', 'Incomplete', '2022-03-22 15:58:26', 6, 5, 3, 'Repair'),
-(13, 3, 5, 'Broken tap', 'Incomplete', '2022-03-22 15:58:32', 5, 7, 2, 'Repair'),
-(14, 1, 7, 'Loose fitting', 'Incomplete', '2022-03-22 15:58:36', 6, 2, 1, 'Repair'),
-(15, 2, 7, 'Broken nozzel', 'Incomplete', '2022-03-22 15:58:41', 5, 3, 3, 'Repair'),
-(19, 3, 7, 'Bowser requires service', 'Incomplete', '2022-04-03 10:08:43', 5, 2, 1, 'Service'),
-(22, 10, 7, 'repair of bowser 10', 'Incomplete', '2022-04-03 10:08:46', 5, 2, 1, 'Repair');
+(13, 15, 5, 'Broken tap', 'Incomplete', '2022-04-19 18:15:22', 5, 7, 2, 'Repair'),
+(14, 1, 7, 'Loose fitting', 'Completed', '2022-04-19 18:14:38', 5, 2, 1, 'Repair'),
+(15, 2, 7, 'Broken nozzel', 'Incomplete', '2022-04-19 18:11:02', 5, 3, 3, 'Repair'),
+(19, 16, 7, 'Bowser requires service', 'Incomplete', '2022-04-19 18:15:29', 5, 2, 1, 'Service'),
+(22, 10, 7, 'repair of bowser 10', 'Completed', '2022-04-19 18:14:12', 5, 2, 1, 'Repair');
 
 -- --------------------------------------------------------
 
@@ -334,29 +342,34 @@ CREATE TABLE `tbl_notifications` (
   `Notice_ID` int(11) NOT NULL,
   `Notice_Text` varchar(250) NOT NULL,
   `Area_ID` int(11) NOT NULL,
-  `Date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `Date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `Type` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_notifications`
 --
 
-INSERT INTO `tbl_notifications` (`Notice_ID`, `Notice_Text`, `Area_ID`, `Date`) VALUES
-(1, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 102&nbsp;will be undergoing a Repair', 2, '2022-04-06 10:10:42'),
-(3, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Refill', 2, '2022-04-06 10:11:42'),
-(4, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 102&nbsp;will be undergoing a Repair', 2, '2022-04-06 10:12:42'),
-(5, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 100&nbsp;will be undergoing a Refill', 2, '2022-04-06 10:13:42'),
-(6, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Repair', 2, '2022-04-06 10:14:42'),
-(7, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 102&nbsp;will be undergoing a Refill', 2, '2022-04-06 10:15:42'),
-(8, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Repair', 2, '2022-04-06 10:16:42'),
-(9, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 100&nbsp;will be undergoing a Refill', 2, '2022-04-06 10:17:42'),
-(10, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 100&nbsp;will be undergoing a Refill', 2, '2022-04-06 10:18:42'),
-(11, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 101&nbsp;will be undergoing a Repair', 2, '2022-04-06 10:19:42'),
-(12, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Repair', 2, '2022-04-06 10:20:42'),
-(13, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 100&nbsp;will be undergoing a Refill', 2, '2022-04-06 10:21:42'),
-(14, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Repair', 2, '2022-04-06 10:22:42'),
-(15, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Repair', 2, '2022-04-06 10:23:42'),
-(16, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 2&nbsp;will be undergoing a Repair', 2, '2022-04-06 10:23:42');
+INSERT INTO `tbl_notifications` (`Notice_ID`, `Notice_Text`, `Area_ID`, `Date`, `Type`) VALUES
+(1, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 102&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:04:35', 1),
+(3, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Refill', 2, '2022-04-19 17:04:41', 1),
+(4, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 102&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:04:43', 1),
+(5, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 100&nbsp;will be undergoing a Refill', 2, '2022-04-19 17:04:47', 1),
+(6, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:04:51', 1),
+(7, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 102&nbsp;will be undergoing a Refill', 2, '2022-04-19 17:04:55', 1),
+(8, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:04:59', 1),
+(9, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 100&nbsp;will be undergoing a Refill', 2, '2022-04-19 17:05:02', 1),
+(10, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 100&nbsp;will be undergoing a Refill', 2, '2022-04-19 17:05:04', 1),
+(11, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 101&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:05:07', 1),
+(12, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:05:10', 1),
+(13, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 100&nbsp;will be undergoing a Refill', 2, '2022-04-19 17:05:12', 1),
+(14, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:05:14', 1),
+(15, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:05:17', 1),
+(16, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 2&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:05:20', 1),
+(17, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 55&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:22:06', 1),
+(20, 'On 2022-04-03 11:08:43&nbsp;&nbsp;Bowser: 3&nbsp;has undertaken a Service', 2, '2022-04-19 18:03:01', 2),
+(22, 'On 2022-04-19 19:11:13&nbsp;&nbsp;Bowser: 10&nbsp;has undertaken a Repair', 2, '2022-04-19 18:14:12', 2),
+(23, 'On 2022-04-19 19:11:09&nbsp;&nbsp;Bowser: 3&nbsp;has undertaken a Service', 2, '2022-04-19 18:14:38', 2);
 
 -- --------------------------------------------------------
 
@@ -395,7 +408,13 @@ INSERT INTO `tbl_reports` (`Report_ID`, `Report_Type`, `Bowser_ID`, `Description
 (17, 1, 100, 'needs refill', NULL, '2022-04-06 10:34:36', 'Actioned'),
 (18, 2, 103, 'broken', NULL, '2022-04-06 10:34:38', 'Actioned'),
 (19, 2, 103, 'not working', NULL, '2022-04-06 10:34:40', 'Actioned'),
-(20, 2, 2, 'broken tap', NULL, '2022-04-06 10:40:50', 'Actioned');
+(20, 2, 2, 'broken tap', NULL, '2022-04-06 10:40:50', 'Actioned'),
+(21, 2, 55, 'broken tap !!!', NULL, '2022-04-19 18:19:59', 'Actioned'),
+(22, 1, 102, 'need refill immediately ', NULL, '2022-04-19 18:20:25', 'Pending'),
+(23, 2, 10, 'damaged nozzle!!!', NULL, '2022-04-19 18:19:53', 'Pending'),
+(24, 1, 10, 'refill the bowser !', NULL, '2022-04-19 18:19:41', 'Pending'),
+(25, 2, 100, 'damaged - needs fixing!!!', NULL, '2022-04-19 18:19:35', 'Pending'),
+(26, 2, 103, 'damage to the side of bowser', NULL, '2022-04-19 18:20:36', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -547,7 +566,7 @@ ALTER TABLE `tbl_bowser_invoices`
 -- AUTO_INCREMENT for table `tbl_bowser_requests`
 --
 ALTER TABLE `tbl_bowser_requests`
-  MODIFY `RequestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `RequestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `tbl_maintenance_schedule`
@@ -559,13 +578,13 @@ ALTER TABLE `tbl_maintenance_schedule`
 -- AUTO_INCREMENT for table `tbl_notifications`
 --
 ALTER TABLE `tbl_notifications`
-  MODIFY `Notice_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `Notice_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `tbl_reports`
 --
 ALTER TABLE `tbl_reports`
-  MODIFY `Report_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `Report_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `tbl_report_type`
@@ -577,7 +596,7 @@ ALTER TABLE `tbl_report_type`
 -- AUTO_INCREMENT for table `tbl_user_account`
 --
 ALTER TABLE `tbl_user_account`
-  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables

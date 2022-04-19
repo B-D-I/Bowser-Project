@@ -48,7 +48,7 @@ if (empty($filter)){
     <!-- jQuery UI -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <title>Water Bowser</title>
+    <title>Water Bowser Operations</title>
 </head>
 
 <body>
@@ -65,7 +65,7 @@ if (empty($filter)){
     <div class="nav-wrapper">
         <div class="left-side">
             <div class="nav-link-wrapper active-nav-link">
-                <a class="text-focus-in" href="../home/index.php">Home</a>
+                <a class="text-focus-in" id="homeLink" href="../home/index.php">Home</a>
             </div>
 
             <div class="nav-link-wrapper active-nav-link">
@@ -80,8 +80,8 @@ if (empty($filter)){
                 <img id="logo_image" src="../images/logo/bowserLogo.png" alt="" width="100" height="100">
             </div>
             <!--WATER DROPS-->
-            <div class="drop"></div>
-            <div class="wave"></div>
+<!--            <div class="drop"></div>-->
+<!--            <div class="wave"></div>-->
         </div>
 
         <div class="right-side">
@@ -134,11 +134,9 @@ if (empty($filter)){
                                             $selMaintID = $_POST['term'];
                                         } else {
                                             $selMaintID = '0';
-
                                         }
                                     } CloseConnection($connection);
                                 }
-
                             }
                             ?>
                         </form>
@@ -226,10 +224,8 @@ if (empty($filter)){
                             ';
                             echo "</form>";
                             echo "<br />";
-
                         }
                         ?>
-
                     </div>
                     <br />
                 </div>
@@ -251,7 +247,6 @@ if (empty($filter)){
                             ?>
 
                         </div>
-
                     </div>
 
                     <br />
@@ -269,11 +264,58 @@ if (empty($filter)){
                     </div>
                     <br />
 
-                    <form method="post" action="allocateTaskDAO.php" id="formAllocateTask">
                     <!--div to display map--->
                     <div class="d-grid gap-2" id="viewMap">
-                    <div id="map"></div>
 
+                    <form id="formInsertEvent" method="post" enctype="multipart/form-data" >
+                        <h5>Deploy Bowser</h5><br />
+
+<!--                        <div class="location_tab" id="mapInput" name="maps" onClick="markerLocation()"></div>-->
+                        <div id="map"></div>
+
+                        <label>Bowser ID:</label>
+                        <br />
+                        <div id="bowserInsertion">
+                        <div class="select">
+                                <select name="bowserForInsert" id="select">
+                                    <?php
+                                    $connection = OpenConnection();
+                                    $sql = "SELECT * FROM `tbl_bowsers` WHERE Status='Stock'";
+                                    $result = mysqli_query($connection, $sql);
+                                    $rows = mysqli_fetch_array($result);
+                                    echo "<option value='-1' disabled selected>---</option>";
+                                    if ($result->num_rows > 0) {
+                                        while ($rows = $result->fetch_assoc()) {
+                                            echo "<option value='".$rows['BowserID']."'>".$rows['BowserID']."</option>";
+                                        }
+                                    }
+                                    CloseConnection($connection);
+                                    ?>
+                                </select>
+                        </div>
+                        </div>
+
+                        <div class="Coordinates">
+                            <input type="text" id="locationLat" name="Llat" hidden>
+
+                            <input type="text" id="locationLng" name="Llng" hidden>
+
+                            <input type="text" id="locationComb" class="remove_outline" hidden>
+                        </div>
+
+
+                        <div id="insertButton">
+                            <button type="submit" name="submitBowser" class="btn btn-primary ">Add Bowser</button>
+                        </div>
+
+                    </form>
+                    </div>
+
+                        <br /><br />
+                        <div id="taskAllocation">
+
+                        <div method="post" action="allocateTaskDAO.php" id="formAllocateTask">
+                            <h5>Assign Maintenance Task</h5>
                         <br />
                             <div id="bowserID">
                                 <label>Bowser ID:</label>
@@ -287,7 +329,6 @@ if (empty($filter)){
                                         $sql = $boweser_query;
                                         $result = mysqli_query($connection, $sql);
                                         $rows = mysqli_fetch_array($result);
-										
 
                                         echo "<option value='-1' disabled selected>---</option>";
                                         if ($result->num_rows > 0) {
@@ -298,7 +339,6 @@ if (empty($filter)){
                                         CloseConnection($connection);
                                         ?>
                                     </select>
-									
                                 </div>
 
 									<label for="filter">Show Only Deployed Bowsers</label>
@@ -354,6 +394,7 @@ if (empty($filter)){
                                     </select>
                                 </div>
                             </div>
+
                             <br />
                             <div id="dateID">
                                 <label>Date:</label>
@@ -367,11 +408,12 @@ if (empty($filter)){
                             </div>
                             <br /><br />
                             <div id="allocateSubmitID">
-                                <button type="submit" name="allocateTaskSubmit" class="btn btn-primary">ADD</button>
+                                <button type="submit" name="allocateTaskSubmit" class="btn btn-primary">Assign Task</button>
                             </div>
                         </form>
 						<form action="operations.php" method="post" id="Filter">
 						</form>
+                    </div>
                     </div>
                     <br />
 
@@ -401,7 +443,7 @@ if (empty($filter)){
                         </div>
                     </div>
                     <br />
-
+                </div>
 
             <div class="row">
                 <div class="col">

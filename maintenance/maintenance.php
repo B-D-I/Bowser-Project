@@ -24,8 +24,6 @@ if(isset($_GET['id'])){
 }
 
 
-
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -54,7 +52,6 @@ if(isset($_GET['id'])){
 </head>
 
 <body>
-
 <!---html anchor to return to top of page-->
 <p id="back_to_top"></p>
 
@@ -103,7 +100,6 @@ if(isset($_GET['id'])){
                     <br />
 
                     <ul class="maintenance_list">
-
                         <br />
                         <h4>User: <?php echo $email  ?> </h4>
 
@@ -113,25 +109,23 @@ if(isset($_GET['id'])){
                                 $('[data-toggle="popover"]').popover();
                             });
                         </script>
-
                         <?php
                         
                         foreach($query as $row){
-                            
 
                                         $jobStatus = $row['Status'];
 
                                         echo "<div class='form-check'>";
-                                         echo "<label class='form-check-label'>";
+                                        echo "<label class='form-check-label'>";
                                         echo "Bowser ", $row['Bowser_ID']," - " ,$row['Date'], " ", "<span class = status>",$jobStatus,"</span>";
                                         echo "</label>";
 
                                         echo "<button type='button' class='btn btn-link' data-toggle='popover' data-html = 'true' 
-                                        title= 'Description: $row[Description]  Area ID: $row[Area_ID] <span> Priority $row[Priority] Task Type: $row[Task_Type]'  
+                                        title= 'Description: $row[Description]  Area ID: $row[Area_ID] Priority $row[Priority] Task Type: $row[Task_Type]'  
                                         style='float:right;'>View Details</button>";
 
                                         echo "<br/><br/>";
-                                       echo "<button type='button' class='btn btn-primary' style='float:right position:fixed; id='initialSubmit'>Task Complete</button>";
+                                        echo "<button type='button' class='btn btn-primary' style='float:right position:fixed; id='initialSubmit'>Task Complete</button>";
 
                                     //    In progress
                                        echo "<button type='button' class='btn btn-secondary' style='float:right position:fixed; id='taskInProgress'>Task In Progress</button>";
@@ -162,12 +156,25 @@ if(isset($_GET['id'])){
                                     //    Submitting task if url parameter is set
                                     if(isset($id)){
                                         $submitSQL = "UPDATE tbl_maintenance_schedule SET Status = 'Completed' WHERE maintenance_ID='$id'";
-                                        mysqli_query($connection, $submitSQL);                                
-                                        
-                                    }
+                                        mysqli_query($connection, $submitSQL);
 
-                        ?>       
-               
+                                        $date = $row['Date'];
+                                        $bowserID = $row['Bowser_ID'];
+                                        $type = $row['Task_Type'];
+                                        $area = $row['Area_ID'];
+                                        $fixNoticeText = "On ".$date."&nbsp;&nbsp;Bowser: ".$bowserID."&nbsp;has undertaken a ".$type;
+
+                                        $sql = "INSERT INTO `tbl_notifications` (Notice_Text, Area_ID, Type) VALUES ('$fixNoticeText', '$area', 2) ";
+                                        $connection = OpenConnection();
+                                        if (mysqli_query($connection, $sql)) {
+//                                            echo "success";
+//                                            header("Location: ../maintenance/maintenance.php");
+                                        } else {
+                                            echo mysqli_error($connection);
+                                        }
+                                        mysqli_close($connection);
+                                    }
+                        ?>
                 </div>
 
                 <div class="col">

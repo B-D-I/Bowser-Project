@@ -22,6 +22,7 @@ $('#login_form').submit(function(event) {
             if (dataJson['result']=='false') {
                 $("#divmessage").html("wrong username or password");
                 alert("Incorrect Login");
+                window.location="../home/index.php";
                 // else set session storage, alert and redirect to index page
             } else {
                 email = dataJson['Email'];

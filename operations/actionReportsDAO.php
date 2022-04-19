@@ -19,10 +19,15 @@ function updateReportStatus($status, $reportID){
     queryClose($sql);
 }
 
-function updateNotifications($noticeText, $areaID){
-    $sql = "INSERT INTO `tbl_notifications` (Notice_Text, Area_ID) VALUES ('$noticeText', '$areaID') ";
+function updateNotifications($noticeText, $areaID, $type){
+    $sql = "INSERT INTO `tbl_notifications` (Notice_Text, Area_ID, Type) VALUES ('$noticeText', '$areaID', '$type') ";
     queryClose($sql);
 }
+//function updateFixNotificationa($fixNoticeText, $areaID, $type){
+//
+//    $sql = "INSERT INTO `tbl_notifications` (Notice_Text, Area_ID, Type) VALUES ('$fixNoticeText', '$areaID', '$type') ";
+//    queryClose($sql);
+//}
 
 $reportID = $_POST['reportID'];
 $reportType = $_POST['reportType'];
@@ -35,9 +40,8 @@ $noticeText = "From ".$date."&nbsp;&nbsp;Bowser: ".$bowserID."&nbsp;will be unde
 
 
 if (isset($_POST['acceptButton'])) {
-    updateNotifications($noticeText, 2);
+    updateNotifications($noticeText, 2, 1);
     updateReportStatus('Actioned', $reportID);
-
 }
 if (isset($_POST['denyButton'])) {
     updateReportStatus('Ignored', $reportID);

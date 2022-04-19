@@ -72,7 +72,7 @@ function checkStrength(formData){
             }
             // else if statements to display why password not allowed
             else if (strengthValue.special === true && strengthValue.caps === true && strengthValue.numbers === true && strengthValue.small === true && strengthValue.length === true && passwordEntered !== passwordConfirm){
-                message = "Password is strong like rhino, but passwords do NOT match!\n\n";
+                message = "Password is strong, but passwords do NOT match!\n\n";
             }
             else if (strengthValue.special === true && strengthValue.caps === true && strengthValue.numbers === true && strengthValue.small === true && strengthValue.length === false && passwordEntered === passwordConfirm){
                 message = "Passwords match, but NOT strong enough! \n\nMust contain upper and lowercase letters, numbers and symbols\n";
@@ -80,7 +80,7 @@ function checkStrength(formData){
             else if (strengthValue.special === false || strengthValue.caps === false || strengthValue.numbers === false || strengthValue.small === false || strengthValue.length === false && passwordEntered !== passwordConfirm){
                 message = "Passwords do NOT match and is NOT strong enough! \n\nMust contain upper and lowercase letters, numbers and symbols\n";
             }
-            // display message notifyin password too weak
+            // display message notifying password too weak
             else {
                 message = "Password too weak. \n\nMust contain upper and lowercase letters, numbers and symbols\n";
             }

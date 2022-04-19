@@ -207,7 +207,7 @@ if (isset($_SESSION['email'])) {
                 echo '
 
             <div class="nav-link-wrapper" id="loginTab">
-                <a class="text-focus-in" id="loginLink" href="#loginModal" data-bs-toggle="modal" >Login</a>
+                <a class="" id="loginLink" href="#loginModal" data-bs-toggle="modal" >Login</a>
                
                 <!-- Modal -->
                 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -239,7 +239,7 @@ if (isset($_SESSION['email'])) {
                     </div>
                 </div>
                 <div class="nav-link-wrapper" id="registrationTab">
-                    <a class="text-focus-in" id="registerLink" href="#registerModal" data-bs-toggle="modal" >Registration</a>
+                    <a class="" id="registerLink" href="#registerModal" data-bs-toggle="modal" >Registration</a>
 
                     <!-- Modal -->
                     <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
@@ -247,7 +247,7 @@ if (isset($_SESSION['email'])) {
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="registerModalLabel">Registration</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" id="registerModalClose" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <div class="row">
@@ -311,6 +311,7 @@ if (isset($_SESSION['email'])) {
         <div class="shadow-sm p-3 mb-5 bg-body rounded">
             <!---row for notifications and map--->
             <div class="row">
+
                     <div class="col">
                         <h2> Notifications and Alerts</h2>
                         <ul class="notification-list">
@@ -321,13 +322,23 @@ if (isset($_SESSION['email'])) {
                             $rows = mysqli_fetch_array($result);
 
                             while($rows = mysqli_fetch_assoc($result)) {
+                                $notificationType = $rows['Type'];
+                                switch($notificationType){
+                                    case 1:
+                                        $notificationDiv = "notificationFault";
+                                        break;
+                                    case 2:
+                                        $notificationDiv = "notificationFix";
+                                        break;
+                                }
                                 $notification = $rows['Notice_Text'];
                                 echo "<br />";
-                                echo $notification."<br /><br />";
+                                echo "<div id='$notificationDiv'>".$notification."</div>";
                             }
                             ?>
                         </ul>
                     </div>
+
 
                     <div class="col">
                         <div class="text_area">
