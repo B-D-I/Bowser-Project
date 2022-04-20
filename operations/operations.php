@@ -270,8 +270,7 @@ if (empty($filter)){
                     <form id="formInsertEvent" method="post" enctype="multipart/form-data" >
                         <h5>Deploy Bowser</h5><br />
 
-<!--                        <div class="location_tab" id="mapInput" name="maps" onClick="markerLocation()"></div>-->
-                        <div id="map"></div>
+                        <div id="map" name="maps" onClick="markerLocation()"> </div>
 
                         <label>Bowser ID:</label>
                         <br />

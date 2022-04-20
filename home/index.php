@@ -313,7 +313,8 @@ if (isset($_SESSION['email'])) {
             <div class="row">
 
                     <div class="col">
-                        <h2> Notifications and Alerts</h2>
+                        <div>
+                        <h2> Notifications and Alerts</h2><span id="clock">clock</span></div>
                         <ul class="notification-list">
                             <?php
                             $connection = OpenConnection();
