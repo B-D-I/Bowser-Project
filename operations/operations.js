@@ -1,9 +1,7 @@
 $('#formUserRegistration').submit(function(event) {
     formData = $('#formUserRegistration').serialize();
-
     // prevents the form submission
     event.preventDefault();
-
     $.ajax({
         type: "POST",
         url: "operationsDAO.php",
@@ -21,9 +19,7 @@ $('#formUserRegistration').submit(function(event) {
 
 $('#formBowserRequest').submit(function(event) {
     formData2 = $('#formBowserRequest').serialize();
-
     event.preventDefault();
-
     $.ajax({
         type: "POST",
         url: "operationsDAO.php",
@@ -49,12 +45,10 @@ function popUpWindow(URL, windowName, windowWidth, windowHeight) {
     var windowFeatures = 'toolbar=no, location=no, directories=no, status=no, menubar=no, titlebar=no, resizable=no,'; // remove toolbar, scrollbar etc..
     return window.open(URL, windowName, windowFeatures +' width='+ windowWidth +', height='+ windowHeight +', top='+ centerTop +', left='+ centerLeft); // open the defined window
 }
-
 var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
     return new bootstrap.Popover(popoverTriggerEl)
 })
-
 
 
 
@@ -91,7 +85,6 @@ function initialize(){       // function for map options
         icon: image,
         draggable: true,         // Marker has been made movable
     });
-
     // Event listener for the dragged marker location
     google.maps.event.addListener(marker, 'dragend', markerDragged);
 
@@ -140,24 +133,12 @@ $('#formInsertEvent').submit(function(event) {
 
         eventLat = returnMarkerLat();
         eventLng = returnMarkerLng();
-
+    // confirm data
         console.log(formData);
-        // confirm data
         console.log(eventLng, eventLat);
 
         var bowserID = $("[name=bowserForInsert]").val();
         console.log(bowserID);
-
-        // var locationLng =$("locationLng").val();
-        // var locationLat =$("locationLat").val();
-        // formData.append("Llng", locationLng);
-        // formData.append("Llat", locationLat);
-
-        // formData.append("bowserID", bowserID);
-        // console.log(formData.serialize);
-
-        // AJAX used to send data to php page / url to send data / method used (POST)
-        // data type / if stored in cache / alert if successful
         $.ajax({
             url: "deployBowserDAO.php",
             method:"POST",

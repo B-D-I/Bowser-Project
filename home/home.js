@@ -15,7 +15,6 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
 })
 
 
-
 // Google map with geolocation
 let map, infoWindow;
 
@@ -26,19 +25,11 @@ function initMap() {
     });
 
     infoWindow = new google.maps.InfoWindow();
-
     const locationButton = document.createElement("button");
 
     locationButton.textContent = "Pan to Current Location";
     locationButton.classList.add("custom-map-control-button");
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-
-    // const image = {
-    //     url: "/Bowser-Project/images/logo/bowserLogo.png",
-    //     scaledSize: new google.maps.Size(50, 50),
-    //     origin: new google.maps.Point(0,0),
-    //     anchor: new google.maps.Point(0, 0)
-    // }
 
     var lat, lng, locObj ;
     var locations=[];
@@ -58,15 +49,12 @@ function initMap() {
         //debug locations
         //console.log(locations);
     },"json");
-
-
     var map = new google.maps.visualization.HeatmapLayer(
         {
             data:locations,
             map:map
         }
     );
-
     locationButton.addEventListener("click", () => {
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
@@ -101,12 +89,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     );
     infoWindow.open(map);
 }
-
-
 window.initMap = initMap;
-
-
-
 
 
 

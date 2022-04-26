@@ -41,6 +41,4 @@ $userID = returnUserID();
 
 updateBowserLocation($postLng, $postLat, 'Deployed', $bowserID);
 updateBowserInUse($bowserID, $postLat, $postLng, $userID);
-
-
 ?>
