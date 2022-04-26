@@ -12,11 +12,8 @@ $('#login_form').submit(function(event) {
         data: formData+"&phpFunction=login",
         datatype: 'json',
         success: function(msg){
-
             dataJson = JSON.parse(msg);
             console.log(dataJson);
-
-            // need if statement for isAdmin
 
             // if incorrect data - display message
             if (dataJson['result']=='false') {

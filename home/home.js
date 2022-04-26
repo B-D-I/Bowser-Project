@@ -24,6 +24,7 @@ function initMap() {
         zoom:14,
         center:{lat:51.8979988098144, lng:-2.0838599205017}
     });
+
     infoWindow = new google.maps.InfoWindow();
 
     const locationButton = document.createElement("button");
@@ -31,6 +32,41 @@ function initMap() {
     locationButton.textContent = "Pan to Current Location";
     locationButton.classList.add("custom-map-control-button");
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+
+    // const image = {
+    //     url: "/Bowser-Project/images/logo/bowserLogo.png",
+    //     scaledSize: new google.maps.Size(50, 50),
+    //     origin: new google.maps.Point(0,0),
+    //     anchor: new google.maps.Point(0, 0)
+    // }
+
+    var lat, lng, locObj ;
+    var locations=[];
+    $.post("bowserLocations.php","",function(data){
+        //our json data is inside data variable
+        console.log(data);
+        $.each(data, function(key,value){
+            //Iterating the json object
+            console.log(value.Lat);
+            //store the lattitude and longitude in lat and lng
+            lat=value.Lat;
+            lng=value.Lng;
+            //create LatLng object using lat nad lng variables
+            locObj=new google.maps.LatLng(lat,lng);
+            locations.push(locObj);
+        });
+        //debug locations
+        //console.log(locations);
+    },"json");
+
+
+    var map = new google.maps.visualization.HeatmapLayer(
+        {
+            data:locations,
+            map:map
+        }
+    );
+
     locationButton.addEventListener("click", () => {
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
@@ -56,7 +92,6 @@ function initMap() {
         }
     });
 }
-
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
     infoWindow.setContent(
@@ -66,6 +101,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     );
     infoWindow.open(map);
 }
+
 
 window.initMap = initMap;
 

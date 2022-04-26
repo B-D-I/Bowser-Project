@@ -15,7 +15,17 @@ function returnUserID(){
 }
 function updateBowserLocation($postLng, $postLat, $status, $bowserID){
     $connection = OpenConnection();
-    $sql = "UPDATE `tbl_bowsers` SET Longitude ='$postLng' AND Latitude ='$postLat' AND Status = '$status' WHERE BowserID = '$bowserID'";
+    $sql = "UPDATE `tbl_bowsers` SET Lat ='$postLat', Lng ='$postLng', Status = '$status' WHERE BowserID = '$bowserID'";
+    if (mysqli_query($connection, $sql)) {
+        echo "success";
+    } else {
+        echo "error";
+    } CloseConnection($connection);
+}
+function updateBowserInUse($bowserID, $postLat, $postLng, $userID){
+    $connection = OpenConnection();
+    $sql = "INSERT INTO `tbl_bowser_inuse` (Bowser_ID, Lat, Lng, User_ID)
+    VALUES ('$bowserID', '$postLat', '$postLng', '$userID') ON DUPLICATE KEY UPDATE Lat='$postLat', Lng='$postLng'";
     if (mysqli_query($connection, $sql)) {
         echo "success";
     } else {
@@ -26,22 +36,11 @@ function updateBowserLocation($postLng, $postLat, $status, $bowserID){
 $bowserID=$_POST['bowserID'];
 $postLng=$_POST['locationLng'];
 $postLat=$_POST['locationLat'];
-//$postLoc=$_POST['locationComb'];
-
 $email = $_SESSION['email'];
 $userID = returnUserID();
 
+updateBowserLocation($postLng, $postLat, 'Deployed', $bowserID);
+updateBowserInUse($bowserID, $postLat, $postLng, $userID);
 
-// '$bowserID',
-$sql = "INSERT INTO `tbl_bowser_inuse` (Bowser_ID, Bowser_Longitude, Bowser_Latitude, User_ID)
-    VALUES ('$bowserID', '$postLng', '$postLat', '$userID')";
 
-// $bowserID
-updateBowserLocation($postLng, $postLat, 'Deployed', 4);
-
-if (mysqli_query($connection, $sql)) {
-    echo "success";
-} else {
-    echo "error";
-} CloseConnection($connection);
 ?>
