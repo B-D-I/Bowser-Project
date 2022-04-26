@@ -16,6 +16,7 @@ if (isset($_SESSION['email'])) {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $userType = $row["User_Type"];
+            $userLocation = $row["Location"];
 	    CloseConnection($connection);
         }
     }
@@ -49,7 +50,7 @@ if (isset($_SESSION['email'])) {
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 	
     <!--google maps api-->
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<!--    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>-->
 	<!--report screen functions -->
 	<script type = "text/javascript" src="reportFuncs.js"></script>
 	
@@ -204,6 +205,7 @@ if (isset($_SESSION['email'])) {
                 echo "<a href='logout.php'>Logout</a>";
                 echo "</div>";
             } else {
+                $connection = OpenConnection();
                 echo '
 
             <div class="nav-link-wrapper" id="loginTab">
@@ -265,6 +267,22 @@ if (isset($_SESSION['email'])) {
                                                 <div class="mb-3">
                                                     <input type="password" name="re_password" class="form-control" placeholder="Repeat Password" id="password_confirm">
                                                 </div>
+                                                
+                                                <div class="select">
+                                                    <select name="userLocation" id="select">                                         
+                                                       <option value="-1" disabled selected>---</option>';
+                                                        $sql = "SELECT * FROM `tbl_area` ";
+                                                        $result = mysqli_query($connection, $sql);
+                                                        $rows = mysqli_fetch_array($result);
+                                                        if ($result->num_rows > 0) {
+                                                            while ($rows = $result->fetch_assoc()) {
+                                                                $areaName = $rows['Area_Name'];
+                                                                echo "<option value='".$areaName."'>".$areaName."</option>";
+                                                            }
+                                                        }
+                                                        echo'                                                      
+                                                    </select>
+                                                </div>
 
                                                 <div id="account_submit_button">
                                                 <button type="submit" id="registerAccountSubmit" class="btn btn-primary">Submit</button>
@@ -318,12 +336,21 @@ if (isset($_SESSION['email'])) {
                         <ul class="notification-list">
                             <?php
                             $connection = OpenConnection();
-                            $sql = "SELECT * FROM `tbl_notifications` ORDER BY Date DESC LIMIT 10 ";
-                            $result = mysqli_query($connection, $sql);
-                            $rows = mysqli_fetch_array($result);
 
-                            while($rows = mysqli_fetch_assoc($result)) {
-                                $notificationType = $rows['Type'];
+                            if (isset($_SESSION['email'])) {
+                                if ($userType == "Operations" OR "Maintenance")
+                                $sql2 = "SELECT * FROM `tbl_notifications` ORDER BY Date DESC LIMIT 10 ";
+                                if ($userType == "Customer")
+                                    $sql2 = "SELECT * FROM `tbl_notifications` WHERE Area_ID = '$userLocation' ORDER BY Date DESC LIMIT 10 ";
+                            } else {
+                                $sql2 = "SELECT * FROM `tbl_notifications` ORDER BY Date DESC LIMIT 10 ";
+                            }
+                            $result2 = mysqli_query($connection, $sql2);
+                            $rows2 = mysqli_fetch_array($result);
+
+
+                            while($rows2 = mysqli_fetch_assoc($result2)) {
+                                $notificationType = $rows2['Type'];
                                 switch($notificationType){
                                     case 1:
                                         $notificationDiv = "notificationFault";
@@ -332,7 +359,7 @@ if (isset($_SESSION['email'])) {
                                         $notificationDiv = "notificationFix";
                                         break;
                                 }
-                                $notification = $rows['Notice_Text'];
+                                $notification = $rows2['Notice_Text'];
                                 echo "<br />";
                                 echo "<div id='$notificationDiv'>".$notification."</div>";
                             }

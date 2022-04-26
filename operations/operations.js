@@ -162,6 +162,7 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
 //                GOOGLE MAPS DIV
 
 // map location set at cheltneham park campus
+// var mapCenter = new google.maps.LatLng(51.8979988098144,-2.0838599205017);
 var geocoder = new google.maps.Geocoder();
 var infowindow = new google.maps.InfoWindow();   // display content
 
@@ -170,6 +171,7 @@ function initialize(){       // function for map options
     var mapOptions = {
         zoom: 12,            // Zoom set to 14 as div containig map is small, so gives the user an initial high overview of location
         center:{lat:51.8979988098144, lng:-2.0838599205017},
+        // center: mapCenter,
         mapTypeId: "hybrid"    // Hybrid has been used to give both road and satellite imgaging
     };
 
@@ -177,6 +179,7 @@ function initialize(){       // function for map options
 
     marker = new google.maps.Marker({    // A marker has been included into the map
         map: myMap,
+        // position: mapCenter,
         position: {lat:51.8979988098144, lng:-2.0838599205017},     // Positined in the centre of map
         draggable: true,         // Marker has been made moveable
     });
@@ -252,7 +255,6 @@ function markerLocation(){
                 alert("Bowser Deployed");
             }
         });
-
     });
 }
 

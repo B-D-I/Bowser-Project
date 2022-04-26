@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2022 at 08:26 PM
+-- Generation Time: Apr 26, 2022 at 01:51 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -40,7 +40,12 @@ CREATE TABLE `tbl_area` (
 INSERT INTO `tbl_area` (`Area_ID`, `Area_Name`, `Area_Mains_Status`) VALUES
 (1, 'Cheltenham', 'Operational'),
 (2, 'Oxford', 'Operational'),
-(3, 'Gloucester', 'Operational');
+(3, 'Gloucester', 'Operational'),
+(4, 'Evesham', 'Operational'),
+(5, 'Stratford Upon Avon', 'Operational'),
+(6, 'Burford', 'Operational'),
+(7, 'Witney', 'Operational'),
+(100, 'National', 'N/A');
 
 -- --------------------------------------------------------
 
@@ -117,7 +122,7 @@ INSERT INTO `tbl_bowsers` (`BowserID`, `Bowser_Capacity`, `Bowser_Cost`, `Bowser
 (51, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
 (52, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
 (53, 500, 500, '', 'Stock', 0.000000, 0.000000, ''),
-(54, 5000, 5000, '', 'Stock', 0.000000, 0.000000, ''),
+(54, 5000, 5000, '', 'Lent', 0.000000, 0.000000, ''),
 (55, 10000, 10000, '', 'Stock', 0.000000, 0.000000, ''),
 (56, 15000, 15000, '', 'Stock', 0.000000, 0.000000, ''),
 (57, 1000, 1000, '', 'Stock', 0.000000, 0.000000, ''),
@@ -134,28 +139,37 @@ CREATE TABLE `tbl_bowser_inuse` (
   `Bowser_ID` int(11) NOT NULL,
   `Bowser_Longitude` float(10,6) DEFAULT NULL,
   `Bowser_Latitude` float(10,6) DEFAULT NULL,
-  `Area_ID` int(11) NOT NULL
+  `Area_ID` int(11) NOT NULL,
+  `User_ID` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tbl_bowser_inuse`
 --
 
-INSERT INTO `tbl_bowser_inuse` (`Bowser_ID`, `Bowser_Longitude`, `Bowser_Latitude`, `Area_ID`) VALUES
-(100, 22.000000, 22.000000, 2),
-(101, 22.000000, 22.000000, 3),
-(102, 22.000000, 22.000000, 2),
-(103, 22.000000, 22.000000, 5),
-(5, 22.000000, 22.000000, 2),
-(6, 22.000000, 22.000000, 3),
-(7, 22.000000, 22.000000, 2),
-(8, 22.000000, 22.000000, 5),
-(10, 22.000000, 22.000000, 2),
-(11, 22.000000, 22.000000, 2),
-(13, 22.000000, 22.000000, 2),
-(14, 22.000000, 22.000000, 2),
-(44, 22.000000, 22.000000, 2),
-(55, 22.000000, 22.000000, 2);
+INSERT INTO `tbl_bowser_inuse` (`Bowser_ID`, `Bowser_Longitude`, `Bowser_Latitude`, `Area_ID`, `User_ID`) VALUES
+(100, 22.000000, 22.000000, 2, 0),
+(101, 22.000000, 22.000000, 3, 0),
+(102, 22.000000, 22.000000, 2, 0),
+(103, 22.000000, 22.000000, 5, 0),
+(5, 22.000000, 22.000000, 2, 0),
+(6, 22.000000, 22.000000, 3, 0),
+(7, 22.000000, 22.000000, 2, 0),
+(8, 22.000000, 22.000000, 5, 0),
+(10, 22.000000, 22.000000, 2, 0),
+(11, 22.000000, 22.000000, 2, 0),
+(13, 22.000000, 22.000000, 2, 0),
+(14, 22.000000, 22.000000, 2, 0),
+(44, 22.000000, 22.000000, 2, 0),
+(55, 22.000000, 22.000000, 2, 0),
+(4, -2.083860, 51.897999, 0, 7),
+(0, -2.083860, 51.897999, 0, 7),
+(4, -2.083860, 51.897999, 0, 7),
+(4, -2.083860, 51.897999, 0, 7),
+(4, -2.083860, 51.897999, 0, 7),
+(0, -2.083860, 51.897999, 0, 7),
+(0, -2.083860, 51.897999, 0, 7),
+(0, -2.083860, 51.897999, 0, 7);
 
 -- --------------------------------------------------------
 
@@ -203,7 +217,8 @@ INSERT INTO `tbl_bowser_invoices` (`InvoiceID`, `Transaction_Type`, `UserID`, `B
 (25, 'Lend', 7, 22, 'CompanyB', 'CompanyA', 1000, '2022-04-05 11:24:31'),
 (26, 'Lend', 7, 23, 'CompanyB', 'CompanyA', 1000, '2022-04-05 11:26:28'),
 (27, 'Lend', 7, 24, 'CompanyC', 'CompanyA', 1000, '2022-04-05 11:28:56'),
-(28, 'Lend', 7, 17, 'CompanyB', 'CompanyA', 10000, '2022-04-05 13:22:45');
+(28, 'Lend', 7, 17, 'CompanyB', 'CompanyA', 10000, '2022-04-05 13:22:45'),
+(29, 'Lend', 7, 54, 'CompanyE', 'CompanyA', 5000, '2022-04-19 18:28:43');
 
 -- --------------------------------------------------------
 
@@ -250,7 +265,7 @@ INSERT INTO `tbl_bowser_requests` (`RequestID`, `UserID`, `Bowser_Capacity`, `Or
 (24, 13, 10000, 'CompanyA', 'CompanyD', 2, 'Pending', 'CompanyD need 10,000 bowser'),
 (25, 14, 5000, 'CompanyA', 'CompanyE', 2, 'Pending', 'CompanyE needs bowser'),
 (26, 13, 10000, 'CompanyA', 'CompanyD', 2, 'Pending', 'CompanyD needs bowser'),
-(27, 14, 5000, 'CompanyA', 'CompanyE', 2, 'Pending', 'CompanyE need 5000L bowser');
+(27, 14, 5000, 'CompanyA', 'CompanyE', 2, 'Accepted', 'CompanyE need 5000L bowser');
 
 -- --------------------------------------------------------
 
@@ -270,7 +285,7 @@ CREATE TABLE `tbl_bowser_stock` (
 INSERT INTO `tbl_bowser_stock` (`Bowser_Capacity`, `Stock`) VALUES
 (500, 11),
 (1000, 3),
-(5000, 5),
+(5000, 4),
 (10000, 3),
 (15000, 5);
 
@@ -351,22 +366,22 @@ CREATE TABLE `tbl_notifications` (
 --
 
 INSERT INTO `tbl_notifications` (`Notice_ID`, `Notice_Text`, `Area_ID`, `Date`, `Type`) VALUES
-(1, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 102&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:04:35', 1),
-(3, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Refill', 2, '2022-04-19 17:04:41', 1),
-(4, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 102&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:04:43', 1),
-(5, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 100&nbsp;will be undergoing a Refill', 2, '2022-04-19 17:04:47', 1),
-(6, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:04:51', 1),
+(1, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 102&nbsp;will be undergoing a Repair', 1, '2022-04-26 10:06:58', 1),
+(3, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Refill', 1, '2022-04-26 10:07:01', 1),
+(4, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 102&nbsp;will be undergoing a Repair', 1, '2022-04-26 10:07:04', 1),
+(5, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 100&nbsp;will be undergoing a Refill', 1, '2022-04-26 10:07:07', 1),
+(6, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Repair', 1, '2022-04-26 10:08:29', 1),
 (7, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 102&nbsp;will be undergoing a Refill', 2, '2022-04-19 17:04:55', 1),
 (8, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:04:59', 1),
 (9, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 100&nbsp;will be undergoing a Refill', 2, '2022-04-19 17:05:02', 1),
 (10, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 100&nbsp;will be undergoing a Refill', 2, '2022-04-19 17:05:04', 1),
-(11, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 101&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:05:07', 1),
+(11, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 101&nbsp;will be undergoing a Repair', 1, '2022-04-26 10:07:11', 1),
 (12, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:05:10', 1),
-(13, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 100&nbsp;will be undergoing a Refill', 2, '2022-04-19 17:05:12', 1),
+(13, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 100&nbsp;will be undergoing a Refill', 1, '2022-04-26 10:08:33', 1),
 (14, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:05:14', 1),
 (15, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:05:17', 1),
 (16, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 2&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:05:20', 1),
-(17, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 55&nbsp;will be undergoing a Repair', 2, '2022-04-19 17:22:06', 1),
+(17, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 55&nbsp;will be undergoing a Repair', 1, '2022-04-26 10:08:36', 1),
 (20, 'On 2022-04-03 11:08:43&nbsp;&nbsp;Bowser: 3&nbsp;has undertaken a Service', 2, '2022-04-19 18:03:01', 2),
 (22, 'On 2022-04-19 19:11:13&nbsp;&nbsp;Bowser: 10&nbsp;has undertaken a Repair', 2, '2022-04-19 18:14:12', 2),
 (23, 'On 2022-04-19 19:11:09&nbsp;&nbsp;Bowser: 3&nbsp;has undertaken a Service', 2, '2022-04-19 18:14:38', 2);
@@ -451,26 +466,31 @@ CREATE TABLE `tbl_user_account` (
   `Email` varchar(100) NOT NULL,
   `UserLevel` varchar(100) NOT NULL,
   `IsVerified` tinyint(4) DEFAULT NULL,
-  `Verification_Code` varchar(250) NOT NULL
+  `Verification_Code` varchar(250) NOT NULL,
+  `Location` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tbl_user_account`
 --
 
-INSERT INTO `tbl_user_account` (`User_ID`, `User_Type`, `Password`, `Email`, `UserLevel`, `IsVerified`, `Verification_Code`) VALUES
-(2, 'Operations\r\n', '!1Ppaaaaaa', 'testop@email.com', '1', 1, '4e1293771cba81ae'),
-(3, 'Customer', '!1Ppaaaaaa', 'testUser@email.com', '1', 1, '97e7fd08f1483816'),
-(4, 'Maintenance', '!1Ppaaaaaa', 'testMain2@email.com', '1', 1, ''),
-(5, 'Maintenance', '!1Ppaaaaaa', 'testMain@email.com', '1', 1, ''),
-(7, 'Operations', '!1Ppaaaaaa', 'testOps@email.com', '1', 1, ''),
-(8, 'Maintenance', '!1Ppaaaaaa', 'testMain3@email.com', '1', 1, ''),
-(9, 'Maintenance', '!1Ppaaaaaa', 'testMain4@email.com', '1', 1, ''),
-(10, 'Maintenance', '!1Ppaaaaaa', 'testMain5@email.com', '1', 1, ''),
-(11, 'Operations', '!1Ppaaaaaa', 'CompanyB_ops@email.com', '1', 1, '02f016efe'),
-(12, 'Operations', '!1Ppaaaaaa', 'CompanyC_ops@email.com', '1', 1, '35492f4f9'),
-(13, 'Operations', '!1Ppaaaaaa', 'CompanyD_ops@email.com', '1', 1, '6a23f896b'),
-(14, 'Operations', '!1Ppaaaaaa', 'CompanyE_ops@email.com', '1', 1, '07cad98af');
+INSERT INTO `tbl_user_account` (`User_ID`, `User_Type`, `Password`, `Email`, `UserLevel`, `IsVerified`, `Verification_Code`, `Location`) VALUES
+(2, 'Operations\r\n', '!1Ppaaaaaa', 'testop@email.com', '1', 1, '4e1293771cba81ae', 100),
+(3, 'Customer', '!1Ppaaaaaa', 'testUser@email.com', '1', 1, '97e7fd08f1483816', 1),
+(4, 'Maintenance', '!1Ppaaaaaa', 'testMain2@email.com', '1', 1, '', 100),
+(5, 'Maintenance', '!1Ppaaaaaa', 'testMain@email.com', '1', 1, '', 100),
+(7, 'Operations', '!1Ppaaaaaa', 'testOps@email.com', '1', 1, '', 100),
+(8, 'Maintenance', '!1Ppaaaaaa', 'testMain3@email.com', '1', 1, '', 100),
+(9, 'Maintenance', '!1Ppaaaaaa', 'testMain4@email.com', '1', 1, '', 100),
+(10, 'Maintenance', '!1Ppaaaaaa', 'testMain5@email.com', '1', 1, '', 100),
+(11, 'Operations', '!1Ppaaaaaa', 'CompanyB_ops@email.com', '1', 1, '02f016efe', 100),
+(12, 'Operations', '!1Ppaaaaaa', 'CompanyC_ops@email.com', '1', 1, '35492f4f9', 100),
+(13, 'Operations', '!1Ppaaaaaa', 'CompanyD_ops@email.com', '1', 1, '6a23f896b', 100),
+(14, 'Operations', '!1Ppaaaaaa', 'CompanyE_ops@email.com', '1', 1, '07cad98af', 100),
+(17, 'Customer', '!1Ppaaaaaa', 'testUser2@email.com', '1', 1, '84b479a0058e82de', 2),
+(18, 'Customer', '!1Ppaaaaaa', 'testUser3@email.com', '1', 1, '6941b77e04f100c2', 7),
+(19, 'Customer', '!1Ppaaaaaa', 'testUser4@email.com', '1', 1, 'fcca6f28bfe47178', 2),
+(20, 'Customer', '!1Ppaaaaaa', 'testUser5@email.com', '1', 1, 'f711b21917df90ad', 2);
 
 --
 -- Indexes for dumped tables
@@ -548,7 +568,7 @@ ALTER TABLE `tbl_user_account`
 -- AUTO_INCREMENT for table `tbl_area`
 --
 ALTER TABLE `tbl_area`
-  MODIFY `Area_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Area_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT for table `tbl_bowsers`
@@ -560,7 +580,7 @@ ALTER TABLE `tbl_bowsers`
 -- AUTO_INCREMENT for table `tbl_bowser_invoices`
 --
 ALTER TABLE `tbl_bowser_invoices`
-  MODIFY `InvoiceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `InvoiceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `tbl_bowser_requests`
@@ -596,7 +616,7 @@ ALTER TABLE `tbl_report_type`
 -- AUTO_INCREMENT for table `tbl_user_account`
 --
 ALTER TABLE `tbl_user_account`
-  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables

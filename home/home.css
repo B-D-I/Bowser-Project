@@ -53,6 +53,14 @@
   text-align: center;
 }
 
+.select{
+  width: 150px;
+}
+#registerAccountSubmit{
+  margin-left: 320px;
+  margin-top: -75px
+}
+
 
 /*Button vibrate*/
 .vibrate-2 {
