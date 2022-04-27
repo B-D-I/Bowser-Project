@@ -196,7 +196,6 @@ if (isset($_SESSION['email'])) {
         <div class="wave"></div>
     </div>
 
-
         <div class="right-side" >
 
             <?php
@@ -308,24 +307,16 @@ if (isset($_SESSION['email'])) {
 <!--The main section of page--->
     <div class="upperPage">
         <!---row for bowser info and faq buttons--->
-        <div class="row">
-
-            <!---additonal columns for spacing--->
-<!--            <div class="col"></div>-->
-<!--            <div class="col"></div>-->
-        </div>
 
         <div class="shadow-sm p-3 mb-5 bg-body rounded">
             <!---row for notifications and map--->
             <div class="row">
-
                     <div class="col">
                         <div>
                         <h2> Notifications and Alerts</h2><span id="clock">clock</span></div>
                         <ul class="notification-list">
                             <?php
                             $connection = OpenConnection();
-
                             if (isset($_SESSION['email'])) {
                                 if ($userType == "Operations" OR "Maintenance")
                                 $sql2 = "SELECT * FROM `tbl_notifications` ORDER BY Date DESC LIMIT 10 ";
@@ -336,7 +327,6 @@ if (isset($_SESSION['email'])) {
                             }
                             $result2 = mysqli_query($connection, $sql2);
                             $rows2 = mysqli_fetch_array($result);
-
 
                             while($rows2 = mysqli_fetch_assoc($result2)) {
                                 $notificationType = $rows2['Type'];
@@ -349,8 +339,8 @@ if (isset($_SESSION['email'])) {
                                         break;
                                 }
                                 $notification = $rows2['Notice_Text'];
-                                echo "<br />";
                                 echo "<div id='$notificationDiv'>".$notification."</div>";
+                                echo "<br />";
                             }
                             ?>
                         </ul>
@@ -360,29 +350,30 @@ if (isset($_SESSION['email'])) {
                     <div class="col">
                         <div class="text_area">
                             <h2>Bowser Map</h2>
-                            <br />
                             <p> Find local bowsers using the map below </p>
-                            <br />
                             <!--div to display map--->
-                            <div id="map">
-                            </div>
+                            <div class="mapDiv" id="map"></div>
+
                         </div>
 
-                        <br />
-                        <!---bowser info--->
-                        <div class="col">
+
+                        <div class="row" id="bowserButtonDiv">
+                            <!---bowser info--->
                             <div class="vibrate-2" id="viewBowserInformation" >
                                 <a class="text-focus-in" class="remove_outline" href="javascript:popUpWindow('../bowsers/bowsers.php','bowsers','900','500')"><h3 id="reportTxt">Bowser Info</h3></a>
                             </div>
                         </div>
-                        <br />
-                        <!---faqs-->
-                        <div class="col">
+
+                        <div class="row" id="FAQButtonDiv">
+                            <!---faqs-->
                             <div class="vibrate-2" id="viewFAQ" >
                                 <a class="text-focus-in" href="#FAQModal" data-bs-toggle="modal" ><h3 id="reportTxt">FAQs</h3></a>
                             </div>
                         </div>
-                    </div>
+
+                        </div>
+
+
 
 
             </div>

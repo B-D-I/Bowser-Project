@@ -212,7 +212,7 @@ if(isset($_GET['id'])){
                         <h2>Bowser Map</h2>
                         <br />
                         <!--div to display map--->
-                        <div id="map"></div>
+                        <div class="mapDiv"  id="map"></div>
                     </div>
                 </div>
             </div>

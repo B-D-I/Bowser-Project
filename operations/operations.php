@@ -263,12 +263,12 @@ if (empty($filter)){
                     <br />
 
                     <!--div to display map--->
-                    <div class="d-grid gap-2" id="viewMap">
+                    <div id="viewMap">
 
                     <form id="formInsertEvent" method="post" enctype="multipart/form-data" >
                         <h5>Deploy Bowser</h5><br />
 
-                        <div id="map" name="maps" onClick="markerLocation()"> </div>
+                        <div class="mapDiv" id="map" name="maps" onClick="markerLocation()"> </div>
 
                         <label>Bowser ID:</label>
                         <br />
@@ -307,7 +307,7 @@ if (empty($filter)){
                     </form>
                     </div>
 
-                        <br /><br />
+                        <br />
                         <div id="taskAllocation">
 
                         <div method="post" action="allocateTaskDAO.php" id="formAllocateTask">

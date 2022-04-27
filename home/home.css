@@ -2,31 +2,32 @@
   margin-left: 5px;
 }
 .notification-list{
-  padding: 30px;
+  padding: 20px;
   background-color: lightblue;
   border: 0;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 #notificationFault{
-  padding: 20px;
+  padding: 10px;
   background-color: indianred;
   border: 0;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   font-size: larger;
   color: white;
+  height: 50px;
 }
 #notificationFix{
-  padding: 20px;
+  padding: 10px;
   background-color: mediumseagreen;
   border: 0;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   font-size: larger;
   color: white;
+  height: 50px;
 }
-
 #viewBowserInformation{
   padding: 10px;
   height: 50px;
@@ -35,7 +36,10 @@
   border: 0;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  width: 15pc;
+  /*width: 15pc;*/
+}
+#bowserButtonDiv{
+  margin-top: 50px;
 }
 #viewFAQ{
   padding: 10px;
@@ -45,7 +49,10 @@
   border: 0;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  width: 15pc;
+  /*width: 15pc;*/
+}
+#FAQButtonDiv{
+  margin-top: 20px;
 }
 
 #reportTxt{

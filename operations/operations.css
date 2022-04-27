@@ -28,10 +28,11 @@
 }
 #requestAlerts{
   padding: 30px;
-  background-color: cornflowerblue;
+  background-color: cadetblue;
   border: 0;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  color: white;
 }
 /*Register new user button*/
 #registerLink{
@@ -99,19 +100,19 @@
 #viewMap{
   padding: 20px;
   font-stretch: expanded;
-  background-color: lightblue;
-  border: 0;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-#taskAllocation{
-  padding: 30px;
-  font-stretch: expanded;
   background-color: cadetblue;
   border: 0;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   color: white;
+}
+#taskAllocation{
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: lightblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 #insertButton{

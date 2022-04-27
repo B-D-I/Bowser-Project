@@ -59,10 +59,12 @@ function initMap() {
         });
     },"json");
 
-    // marker on click
-    marker.addListener("click", () => {
 
-    });
+    //
+    // // marker on click
+    // marker.addListener("click", () => {
+    //
+    // });
 
 // geo locate button
     var infoWindow = new google.maps.InfoWindow();
