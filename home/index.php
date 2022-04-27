@@ -309,21 +309,10 @@ if (isset($_SESSION['email'])) {
     <div class="upperPage">
         <!---row for bowser info and faq buttons--->
         <div class="row">
-            <!---bowser info--->
-            <div class="col">
-                <div class="vibrate-2" id="viewBowserInformation" >
-                    <a class="text-focus-in" class="remove_outline" href="javascript:popUpWindow('../bowsers/bowsers.php','bowsers','900','500')"><h3 id="reportTxt">Bowser Info</h3></a>
-                </div>
-            </div>
-            <!---faqs-->
-            <div class="col">
-                <div class="vibrate-2" id="viewFAQ" >
-                    <a class="text-focus-in" href="#FAQModal" data-bs-toggle="modal" ><h3 id="reportTxt">FAQs</h3></a>
-                </div>
-            </div>
+
             <!---additonal columns for spacing--->
-            <div class="col"></div>
-            <div class="col"></div>
+<!--            <div class="col"></div>-->
+<!--            <div class="col"></div>-->
         </div>
 
         <div class="shadow-sm p-3 mb-5 bg-body rounded">
@@ -376,6 +365,21 @@ if (isset($_SESSION['email'])) {
                             <br />
                             <!--div to display map--->
                             <div id="map">
+                            </div>
+                        </div>
+
+                        <br />
+                        <!---bowser info--->
+                        <div class="col">
+                            <div class="vibrate-2" id="viewBowserInformation" >
+                                <a class="text-focus-in" class="remove_outline" href="javascript:popUpWindow('../bowsers/bowsers.php','bowsers','900','500')"><h3 id="reportTxt">Bowser Info</h3></a>
+                            </div>
+                        </div>
+                        <br />
+                        <!---faqs-->
+                        <div class="col">
+                            <div class="vibrate-2" id="viewFAQ" >
+                                <a class="text-focus-in" href="#FAQModal" data-bs-toggle="modal" ><h3 id="reportTxt">FAQs</h3></a>
                             </div>
                         </div>
                     </div>
