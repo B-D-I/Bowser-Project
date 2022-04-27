@@ -94,7 +94,7 @@ if(isset($_GET['id'])){
             <div class="row">
                 <div class="col">
 
-                    <h2> Requirements:</h2>
+                    <h2> Tasks:</h2>
                     <br />
                     <ul class="maintenance_list">
                         <br />
@@ -115,6 +115,7 @@ if(isset($_GET['id'])){
                         
                         foreach($query as $row){
 
+                                // Tidying code by assigning row values to variables
                                         $jobStatus = $row['Status'];
                                         $maintenanceID = $row['Maintenance_ID'];
                                         $bowserID = $row['Bowser_ID'];
@@ -126,6 +127,7 @@ if(isset($_GET['id'])){
                                         $priority = $row['Priority'];
                                         $taskType= $row['Task_Type'];
 
+                                        // Changes value of div based on priority from database
                                         switch($priority){
                                             case 1:
                                                 $jobPriorityDiv = "highPriority";
@@ -139,6 +141,8 @@ if(isset($_GET['id'])){
                                                  $jobPriorityDiv = "lowPriority";
                                                   break;
                                         }
+
+                                        // Echoing a row of information, buttonsm, alert etc for each task.
 
                                         echo "<div class='form-check'>";
                                         echo "<label class='form-check-label'>";
@@ -212,7 +216,49 @@ if(isset($_GET['id'])){
                     </div>
                 </div>
             </div>
+
+
+
+<!-- Viewing information about water mains supply -->
+            <h2>  Mains Supply Information:</h2>
+            <div class ="backgroundBox"> 
+
+            <?php  
+            
+            $mainsSQL = "SELECT * FROM tbl_area ORDER BY Last_Modified DESC";
+            $mainsQuery = mysqli_query($connection, $mainsSQL);
+            
+            foreach ($mainsQuery as $area){
+                $areaID = $area['Area_ID'];
+                $areaName = $area['Area_Name'];
+                $areaStatus = $area['Area_Mains_Status'];
+                $areaLastModified = $area['Last_Modified'];
+
+                switch ($areaStatus){
+
+                    case "Operational":
+                        $areaDiv = "operational";
+                        break;
+                    case "Non-Operational":
+                        $areaDiv = "broken";
+                        break;
+
+                }
+
+                echo "<div id = $areaDiv >";
+                echo $areaName," Mains Status: ", $areaStatus," <span style='float:right'> Last Updated: ", $areaLastModified, "</span>","</div> <br/>";
+                echo "";
+            }
+            
+            ?>
+
+            </div>
+
+
+
         </div>
+
+        
 
         <br /><br /><br /><br /><br />
 

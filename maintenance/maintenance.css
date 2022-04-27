@@ -45,3 +45,30 @@ font-size: 25px;
   font-size: medium;
   color: white;
 }
+
+.backgroundBox {
+  width: 30%;
+  padding: 30px;
+  background-color: lightblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+#operational{
+  padding: 15px;
+  background-color: darkcyan ;
+  border: 0;
+  border-radius: 5px;
+  font-size: medium;
+  color: white;
+}
+
+#broken{
+  padding: 15px;
+  background-color: Crimson ;
+  border: 0;
+  border-radius: 5px;
+  font-size: medium;
+  color: white;
+}
