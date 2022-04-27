@@ -19,18 +19,18 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
 let map, infoWindow;
 
 function initMap() {
-    map = new google.maps.Map(document.getElementById("map"), {
+    var map = new google.maps.Map(document.getElementById("map"), {
         zoom:14,
         center:{lat:51.8979988098144, lng:-2.0838599205017}
     });
-
-    infoWindow = new google.maps.InfoWindow();
-    const locationButton = document.createElement("button");
-
-    locationButton.textContent = "Pan to Current Location";
-    locationButton.classList.add("custom-map-control-button");
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-
+    // const image = {
+    //     url: "/Bowser-Project/images/other/water-tank.png",
+    //     scaledSize: new google.maps.Size(20, 20),
+    //     origin: new google.maps.Point(0,0),
+    //     anchor: new google.maps.Point(0, 0)
+    // }
+    // Retrieve data and store in array
+    var marker, i;
     var lat, lng, locObj, bowserID ;
     var locations=[];
     $.post("bowserLocations.php","",function(data){
@@ -44,21 +44,34 @@ function initMap() {
             lat=value.Lat;
             lng=value.Lng;
             bowserID=value.Bowser_ID;
-
             //create LatLng object using lat nad lng variables
             locObj=new google.maps.LatLng(lat,lng);
             locations.push(locObj);
+// create markers for all bowsers
+            for (i = 0; i < locations.length; i++) {
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(lat, lng),
+                    // icon: image,
+                    title: bowserID,
+                    map: map
+                });
+            }
         });
-        //console.log(locations);
     },"json");
 
-    var map = new google.maps.visualization.HeatmapLayer(
-        {
-            data:locations,
-            map:map
-        }
-    );
+    // marker on click
+    marker.addListener("click", () => {
 
+    });
+
+// geo locate button
+    var infoWindow = new google.maps.InfoWindow();
+    const locationButton = document.createElement("button");
+    locationButton.textContent = "Pan to Current Location";
+    locationButton.classList.add("custom-map-control-button");
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+
+// geo locate user
     locationButton.addEventListener("click", () => {
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
@@ -83,6 +96,7 @@ function initMap() {
         }
     });
 }
+// geo locate error
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
     infoWindow.setContent(
