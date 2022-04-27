@@ -54,22 +54,17 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
 
 
 //                GOOGLE MAPS DIV
-
-// map location set at cheltneham park campus
-// var mapCenter = new google.maps.LatLng(51.8979988098144,-2.0838599205017);
 var geocoder = new google.maps.Geocoder();
 var infowindow = new google.maps.InfoWindow();   // display content
 mapCenter = new google.maps.LatLng(51.8979988098144,-2.0838599205017);
 
 function initialize(){       // function for map options
     var mapOptions = {
-        zoom: 12,            // Zoom set to 14 as div containig map is small, so gives the user an initial high overview of location
+        zoom: 12,
         center:{lat:51.8979988098144, lng:-2.0838599205017},
-        // center: new google.maps.LatLng(51.8979988098144,-2.0838599205017),
-        // center: mapCenter,
-        mapTypeId: "hybrid"    // Hybrid has been used to give both road and satellite imgaging
+        mapTypeId: "hybrid"
     };
-    myMap = new google.maps.Map(document.getElementById("map"), mapOptions); // calls mapInput id
+    myMap = new google.maps.Map(document.getElementById("map"), mapOptions);
 
     const image = {
         url: "/Bowser-Project/images/other/water-tank.png",
@@ -77,17 +72,46 @@ function initialize(){       // function for map options
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(0, 0)
     }
-
-    marker = new google.maps.Marker({    // A marker has been included into the map
+    marker = new google.maps.Marker({    // draggable marker for bowser deployment
         map: myMap,
         // position: mapCenter,
         position: {lat:51.8979988098144, lng:-2.0838599205017},     // Positioned in the centre of map
         icon: image,
         draggable: true,         // Marker has been made movable
     });
+
+    // seperate markers for pre-deployed bowsers
+    var markers, i;
+    var lat, lng, locObj, bowserID ;
+    var locations=[];
+    $.post("../home/bowserLocations.php","",function(data){
+        //our json data is inside data variable
+        console.log(data);
+        $.each(data, function(key,value){
+            //Iterating the json object
+            console.log(value.Lat);
+            console.log(value.Bowser_ID);
+            //store the lattitude and longitude in lat and lng
+            lat=value.Lat;
+            lng=value.Lng;
+            bowserID=value.Bowser_ID;
+            //create LatLng object using lat nad lng variables
+            locObj=new google.maps.LatLng(lat,lng);
+            locations.push(locObj);
+// create markers for all bowsers
+            for (i = 0; i < locations.length; i++) {
+                markers = new google.maps.Marker({
+                    position: new google.maps.LatLng(lat, lng),
+                    // icon: image,
+                    title: bowserID,
+                    map: myMap
+                });
+            }
+        });
+    },"json");
+
     // Event listener for the dragged marker location
     google.maps.event.addListener(marker, 'dragend', markerDragged);
-
     function markerDragged() {   // Function to record Latitude and Longitude information
         var selectedPos = {'latLng': marker.getPosition()};
         geocoder.geocode(selectedPos, showAddressInInfoWindow);
@@ -103,6 +127,7 @@ function initialize(){       // function for map options
     }
 }
 google.maps.event.addDomListener(window, 'load', initialize);
+
 
 // function to store the map marker location
 function markerLocation() {
@@ -149,6 +174,7 @@ $('#formInsertEvent').submit(function(event) {
             success:function(msg) {
                 console.log(msg);
                 alert("Bowser Deployed");
+                window.location="operations.php";
             }
         });
     });

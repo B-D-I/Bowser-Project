@@ -23,13 +23,7 @@ function initMap() {
         zoom:14,
         center:{lat:51.8979988098144, lng:-2.0838599205017}
     });
-    // const image = {
-    //     url: "/Bowser-Project/images/other/water-tank.png",
-    //     scaledSize: new google.maps.Size(20, 20),
-    //     origin: new google.maps.Point(0,0),
-    //     anchor: new google.maps.Point(0, 0)
-    // }
-    // Retrieve data and store in array
+
     var marker, i;
     var lat, lng, locObj, bowserID ;
     var locations=[];
@@ -55,16 +49,14 @@ function initMap() {
                     title: bowserID,
                     map: map
                 });
+                // marker on click
+                marker.addListener("click", () => {
+                    alert("Bowser ID: "+bowserID)
+                });
             }
         });
     },"json");
 
-
-    //
-    // // marker on click
-    // marker.addListener("click", () => {
-    //
-    // });
 
 // geo locate button
     var infoWindow = new google.maps.InfoWindow();

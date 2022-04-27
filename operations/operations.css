@@ -68,8 +68,8 @@
   text-align: center;
 }
 #viewReports {
-  height: 85px;
-  padding: 30px;
+  height: 65px;
+  padding: 20px;
   font-stretch: expanded;
   background-color: dodgerblue;
   border: 0;
@@ -77,8 +77,8 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 #viewBowserRequests{
-  height: 85px;
-  padding: 30px;
+  height: 65px;
+  padding: 20px;
   font-stretch: expanded;
   background-color: dodgerblue;
   border: 0;
@@ -86,8 +86,8 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 #viewInvoice{
-  height: 85px;
-  padding: 30px;
+  height: 65px;
+  padding: 20px;
   font-stretch: expanded;
   background-color: dodgerblue;
   border: 0;
@@ -120,8 +120,8 @@
   margin-top: -45px;
 }
 #viewLoanBowser{
-  height: 85px;
-  padding: 30px;
+  height: 65px;
+  padding: 20px;
   font-stretch: expanded;
   background-color: dodgerblue;
   border: 0;
@@ -129,8 +129,8 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 #viewBowserInfo{
-  height: 85px;
-  padding: 30px;
+  height: 65px;
+  padding: 20px;
   font-stretch: expanded;
   background-color: dodgerblue;
   border: 0;
@@ -138,8 +138,8 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 #viewAddBowser{
-  height: 85px;
-  padding: 30px;
+  height: 65px;
+  padding: 20px;
   font-stretch: expanded;
   background-color: dodgerblue;
   border: 0;
@@ -147,8 +147,8 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 #viewRegisterUser{
-  height: 85px;
-  padding: 30px;
+  height: 65px;
+  padding: 20px;
   font-stretch: expanded;
   background-color: dodgerblue;
   border: 0;
