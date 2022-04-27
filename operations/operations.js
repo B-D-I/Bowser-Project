@@ -57,6 +57,7 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
 
 // map location set at cheltneham park campus
 // var mapCenter = new google.maps.LatLng(51.8979988098144,-2.0838599205017);
+
 var geocoder = new google.maps.Geocoder();
 var infowindow = new google.maps.InfoWindow();   // display content
 mapCenter = new google.maps.LatLng(51.8979988098144,-2.0838599205017);
@@ -72,7 +73,7 @@ function initialize(){       // function for map options
     myMap = new google.maps.Map(document.getElementById("map"), mapOptions); // calls mapInput id
 
     const image = {
-        url: "/Bowser-Project/images/logo/bowserLogo.png",
+        url: "/Bowser-Project/images/other/water-tank.png",
         scaledSize: new google.maps.Size(50, 50),
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(0, 0)

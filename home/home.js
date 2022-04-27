@@ -46,15 +46,21 @@ function initMap() {
             locObj=new google.maps.LatLng(lat,lng);
             locations.push(locObj);
         });
+        display()
         //debug locations
         //console.log(locations);
     },"json");
-    var map = new google.maps.visualization.HeatmapLayer(
-        {
-            data:locations,
-            map:map
-        }
-    );
+
+    // map.data.loadGeoJson(locations, {idPropertyName: 'Bowser_ID'});
+
+
+    // var map = new google.maps.visualization.HeatmapLayer(
+    //     {
+    //         data:locations,
+    //         map:map
+    //     }
+    // );
+
     locationButton.addEventListener("click", () => {
         // Try HTML5 geolocation.
         if (navigator.geolocation) {

@@ -74,43 +74,6 @@ $row_bowserLng = -2.088;
 </script>
 <!---html anchor to return to top of page-->
 <p id="back_to_top"></p>
-	<div>
-	    <div class="nav-wrapper">
-        <div class="left-side">
-            <div class="nav-link-wrapper active-nav-link">
-                <a class="text-focus-in" id="homeLink" href="../home/index.php">Home</a>
-            </div>
-
-            <div class="nav-link-wrapper active-nav-link">
-                <a class="text-focus-in" href="operations.php">Operations</a>
-            </div>
-
-        </div>
-
-        <div class="middle">
-            <h2 class="text-focus-in" id="navTitle">Bowser Hub</h2>
-            <div id="logo">
-                <img id="logo_image" src="../images/logo/bowserLogo.png" alt="" width="100" height="100">
-            </div>
-            <!--WATER DROPS-->
-<!--            <div class="drop"></div>-->
-<!--            <div class="wave"></div>-->
-        </div>
-
-        <div class="right-side">
-            <div class="nav-link-wrapper">
-                <!--right navbar--->
-                <?php
-                if (isset($_SESSION['email'])) {
-                    echo "<div class='nav-link-wrapper' id='logoutTab'>";
-                    echo "<a href='../home/logout.php'>Logout</a>";
-                    echo "</div>";
-                }
-                ?>
-            </div>
-        </div>
-    </div>
-
 	
     <div class="upperPage">
         <div class="shadow-sm p-3 mb-5 bg-body rounded">
@@ -157,13 +120,12 @@ $row_bowserLng = -2.088;
 								}
 							}
 						?>
-						
 						</form>
 							
 					<br />
 					<?php
 						$connection = OpenConnection();
-						$sql = "SELECT bowserID, bowser_capacity, status, bowser_description, Latitude, Longitude, bowser_cost from tbl_bowsers where bowserID = '$selBowserID'";
+						$sql = "SELECT bowserID, bowser_capacity, status, bowser_description, Lat, Lng, bowser_cost from tbl_bowsers where bowserID = '$selBowserID'";
     					$result = mysqli_query($connection,$sql);
 						while($row = mysqli_fetch_assoc($result)) {
 							if (mysqli_num_rows($result) > 0){
@@ -179,8 +141,8 @@ $row_bowserLng = -2.088;
 								$row_bowserCapacity = $row['bowser_capacity'];
 								$row_bowserCost = $row['bowser_cost'];
 								$row_bowserStatus = $row['status'];
-								$row_bowserLat = $row['Latitude'];
-								$row_bowserLng = $row['Longitude'];
+								$row_bowserLat = $row['Lat'];
+								$row_bowserLng = $row['Lng'];
 							}
 						}
 					?>
