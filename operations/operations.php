@@ -427,6 +427,12 @@ if (empty($filter)){
                         </div>
                     </div>
                     <br />
+                    <div class="vibrate-2">
+                        <div class="d-grid gap-2" id="viewReportHeatMap" >
+                            <a class="text-focus-in" href="javascript:popUpWindow('heatmap.php','heatmap','900','500')" class="remove_outline" ><h3 id="reportTxt">Reporting Info</h3></a>
+                        </div>
+                    </div>
+                    <br />
 <!--                    <div class="vibrate-2">-->
 <!--                        <div class="d-grid gap-2" id="viewAddBowser" >-->
 <!--                            <a class="text-focus-in" href="#addBowserModal" data-bs-toggle="modal" class="remove_outline" ><h3 id="reportTxt">Add New Bowser</h3></a>-->
@@ -597,8 +603,6 @@ if (empty($filter)){
             </div>
             <div class="modal-body">
                             <br />
-
-
                 <?php
                 $connection = OpenConnection();
                 $sql = "SELECT * FROM `tbl_reports` WHERE Status ='Pending'";
@@ -752,29 +756,6 @@ if (empty($filter)){
     </div>
 </div>
 
-<!-- Button trigger modal -->
-<button type="button" id="modalToolButton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-</button>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <!-- Add Bowser Modal -->
 <!--<div class="modal fade" id="viewRequestBowserModal" tabindex="-1" aria-labelledby="viewRequestBowserModalLabel" aria-hidden="true">-->
@@ -839,14 +820,13 @@ if (empty($filter)){
 
 
     <br /><br />
-
-
 <!-- Link back to top of page -->
 <p><a id="top_link" href="#back_to_top" >RETURN TO TOP</a></p>
 <br />  <br />
 
 <script src="operations.js"></script>
 <script src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv17Pa1iXPZVBV4q4uGYCtESCD2evyHg8&sensor=false&libraries=visualization&callback=initialize" async defer> </script>
+<script src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv17Pa1iXPZVBV4q4uGYCtESCD2evyHg8&sensor=false&libraries=visualization&callback=heatMap" async defer> </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -27,7 +27,7 @@ function initMap() {
     var marker, i;
     var lat, lng, locObj, bowserID ;
     var locations=[];
-    $.post("bowserLocations.php","",function(data){
+    $.post("bowserLocationsDAO.php","",function(data){
         //our json data is inside data variable
         console.log(data);
         $.each(data, function(key,value){

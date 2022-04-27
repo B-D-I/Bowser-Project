@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2022 at 07:14 PM
+-- Generation Time: Apr 27, 2022 at 09:24 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -100,8 +100,8 @@ INSERT INTO `tbl_bowsers` (`BowserID`, `Bowser_Capacity`, `Bowser_Cost`, `Bowser
 (28, 1000, 1000, '', 'Lent', '0.000000', '0.000000', ''),
 (29, 1000, 1000, '', 'Deployed', '51.98838478307235', '-1.723106915131205', ''),
 (30, 500, 500, '', 'Lent', '0.000000', '0.000000', ''),
-(31, 500, 500, '', 'Stock', '0.000000', '0.000000', ''),
-(32, 500, 500, '', 'Stock', '0.000000', '0.000000', ''),
+(31, 500, 500, '', 'Deployed', '51.90160014763651', '-2.032018184661859', ''),
+(32, 500, 500, '', 'Deployed', '51.85592652661462', '-2.1384482383727965', ''),
 (33, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
 (34, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
 (35, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
@@ -166,7 +166,9 @@ INSERT INTO `tbl_bowser_inuse` (`Bowser_ID`, `Lat`, `Lng`, `Area_ID`, `User_ID`)
 (25, '51.98847423617575', '-1.7027716636657653', 0, 7),
 (26, '52.00496235084007', '-1.7292075157165465', 0, 7),
 (27, '51.98445698078115', '-1.7343573570251403', 0, 7),
-(29, '51.98838478307235', '-1.723106915131205', 0, 7);
+(29, '51.98838478307235', '-1.723106915131205', 0, 7),
+(31, '51.90160014763651', '-2.032018184661859', 0, 7),
+(32, '51.85592652661462', '-2.1384482383727965', 0, 7);
 
 -- --------------------------------------------------------
 
@@ -218,7 +220,8 @@ INSERT INTO `tbl_bowser_invoices` (`InvoiceID`, `Transaction_Type`, `UserID`, `B
 (29, 'Lend', 7, 54, 'CompanyE', 'CompanyA', 5000, '2022-04-19 18:28:43'),
 (30, 'Lend', 7, 55, 'CompanyD', 'CompanyA', 10000, '2022-04-27 12:57:44'),
 (31, 'Lend', 7, 0, 'CompanyE', 'CompanyA', 0, '2022-04-27 12:57:49'),
-(32, 'Lend', 7, 28, 'CompanyC', 'CompanyA', 1000, '2022-04-27 12:58:13');
+(32, 'Lend', 7, 28, 'CompanyC', 'CompanyA', 1000, '2022-04-27 12:58:13'),
+(33, 'Lend', 7, 0, 'CompanyB', 'CompanyA', 0, '2022-04-27 17:31:55');
 
 -- --------------------------------------------------------
 
@@ -259,8 +262,8 @@ INSERT INTO `tbl_bowser_requests` (`RequestID`, `UserID`, `Bowser_Capacity`, `Or
 (18, 7, 500, 'CompanyB', 'CompanyA', 3, 'Denied', 'loan from B'),
 (19, 7, 1000, 'CompanyE', 'CompanyA', 3, 'Pending', 'company E 1000l'),
 (20, 12, 5000, 'CompanyA', 'CompanyB', 2, 'Pending', 'Need bowser'),
-(21, 13, 1000, 'CompanyA', 'CompanyC', 2, 'Pending', 'Requirement for a bowser'),
-(22, 12, 5000, 'CompanyA', 'CompanyB', 2, 'Pending', 'Need 5000 L bowser'),
+(21, 13, 1000, 'CompanyA', 'CompanyC', 2, 'Denied', 'Requirement for a bowser'),
+(22, 12, 5000, 'CompanyA', 'CompanyB', 2, 'Accepted', 'Need 5000 L bowser'),
 (23, 13, 1000, 'CompanyA', 'CompanyC', 2, 'Accepted', 'Requirement for bowser'),
 (24, 13, 10000, 'CompanyA', 'CompanyD', 2, 'Denied', 'CompanyD need 10,000 bowser'),
 (25, 14, 5000, 'CompanyA', 'CompanyE', 2, 'Accepted', 'CompanyE needs bowser'),
@@ -285,7 +288,7 @@ CREATE TABLE `tbl_bowser_stock` (
 INSERT INTO `tbl_bowser_stock` (`Bowser_Capacity`, `Stock`) VALUES
 (500, 11),
 (1000, 2),
-(5000, 3),
+(5000, 2),
 (10000, 2),
 (15000, 5);
 
@@ -399,37 +402,56 @@ CREATE TABLE `tbl_reports` (
   `Description` longtext DEFAULT NULL,
   `User_ID` int(11) DEFAULT NULL,
   `Date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `Status` varchar(100) NOT NULL
+  `Status` varchar(100) NOT NULL,
+  `Lat` varchar(30) NOT NULL,
+  `Lng` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_reports`
 --
 
-INSERT INTO `tbl_reports` (`Report_ID`, `Report_Type`, `Bowser_ID`, `Description`, `User_ID`, `Date`, `Status`) VALUES
-(4, 1, 10, 'bowser refill required', NULL, '2022-04-06 09:35:21', 'Pending'),
-(5, 2, 102, '102 damaged', NULL, '2022-04-06 10:20:07', 'Actioned'),
-(6, 3, 0, 'i am angry about bowsers', NULL, '2022-04-06 10:29:34', 'Actioned'),
-(7, 1, 103, 'bowser needs refill', NULL, '2022-04-06 10:29:37', 'Actioned'),
-(8, 2, 102, 'broken', NULL, '2022-04-06 10:29:40', 'Actioned'),
-(9, 1, 100, 'this bowser needs refill', NULL, '2022-04-06 10:29:44', 'Actioned'),
-(10, 2, 103, 'bowser looks damaged', NULL, '2022-04-06 10:29:47', 'Actioned'),
-(11, 1, 102, 'refill', NULL, '2022-04-06 10:29:50', 'Actioned'),
-(12, 2, 103, 'damaged', NULL, '2022-04-06 10:29:53', 'Actioned'),
-(13, 1, 100, 'sort out refill', NULL, '2022-04-06 10:29:55', 'Actioned'),
-(14, 1, 100, 'need refill', NULL, '2022-04-06 10:34:29', 'Actioned'),
-(15, 2, 101, 'looks broken', NULL, '2022-04-06 10:34:31', 'Actioned'),
-(16, 2, 103, 'dodgy tap', NULL, '2022-04-06 10:34:34', 'Actioned'),
-(17, 1, 100, 'needs refill', NULL, '2022-04-06 10:34:36', 'Actioned'),
-(18, 2, 103, 'broken', NULL, '2022-04-06 10:34:38', 'Actioned'),
-(19, 2, 103, 'not working', NULL, '2022-04-06 10:34:40', 'Actioned'),
-(20, 2, 2, 'broken tap', NULL, '2022-04-06 10:40:50', 'Actioned'),
-(21, 2, 55, 'broken tap !!!', NULL, '2022-04-19 18:19:59', 'Actioned'),
-(22, 1, 102, 'need refill immediately ', NULL, '2022-04-19 18:20:25', 'Pending'),
-(23, 2, 10, 'damaged nozzle!!!', NULL, '2022-04-19 18:19:53', 'Pending'),
-(24, 1, 10, 'refill the bowser !', NULL, '2022-04-19 18:19:41', 'Pending'),
-(25, 2, 100, 'damaged - needs fixing!!!', NULL, '2022-04-19 18:19:35', 'Pending'),
-(26, 2, 103, 'damage to the side of bowser', NULL, '2022-04-19 18:20:36', 'Pending');
+INSERT INTO `tbl_reports` (`Report_ID`, `Report_Type`, `Bowser_ID`, `Description`, `User_ID`, `Date`, `Status`, `Lat`, `Lng`) VALUES
+(4, 1, 10, 'bowser refill required', NULL, '2022-04-06 09:35:21', 'Pending', '', ''),
+(5, 2, 102, '102 damaged', NULL, '2022-04-06 10:20:07', 'Actioned', '', ''),
+(6, 3, 0, 'i am angry about bowsers', NULL, '2022-04-06 10:29:34', 'Actioned', '', ''),
+(7, 1, 103, 'bowser needs refill', NULL, '2022-04-06 10:29:37', 'Actioned', '', ''),
+(8, 2, 102, 'broken', NULL, '2022-04-06 10:29:40', 'Actioned', '', ''),
+(9, 1, 100, 'this bowser needs refill', NULL, '2022-04-06 10:29:44', 'Actioned', '', ''),
+(10, 2, 103, 'bowser looks damaged', NULL, '2022-04-06 10:29:47', 'Actioned', '', ''),
+(11, 1, 102, 'refill', NULL, '2022-04-06 10:29:50', 'Actioned', '', ''),
+(12, 2, 103, 'damaged', NULL, '2022-04-06 10:29:53', 'Actioned', '', ''),
+(13, 1, 100, 'sort out refill', NULL, '2022-04-06 10:29:55', 'Actioned', '', ''),
+(14, 1, 100, 'need refill', NULL, '2022-04-06 10:34:29', 'Actioned', '', ''),
+(15, 2, 101, 'looks broken', NULL, '2022-04-06 10:34:31', 'Actioned', '', ''),
+(16, 2, 103, 'dodgy tap', NULL, '2022-04-06 10:34:34', 'Actioned', '', ''),
+(17, 1, 100, 'needs refill', NULL, '2022-04-06 10:34:36', 'Actioned', '', ''),
+(18, 2, 103, 'broken', NULL, '2022-04-06 10:34:38', 'Actioned', '', ''),
+(19, 2, 103, 'not working', NULL, '2022-04-06 10:34:40', 'Actioned', '', ''),
+(20, 2, 2, 'broken tap', NULL, '2022-04-06 10:40:50', 'Actioned', '', ''),
+(21, 2, 55, 'broken tap !!!', NULL, '2022-04-19 18:19:59', 'Actioned', '', ''),
+(22, 1, 102, 'need refill immediately ', NULL, '2022-04-19 18:20:25', 'Pending', '', ''),
+(23, 2, 10, 'damaged nozzle!!!', NULL, '2022-04-19 18:19:53', 'Pending', '', ''),
+(24, 1, 10, 'refill the bowser !', NULL, '2022-04-19 18:19:41', 'Pending', '', ''),
+(25, 2, 100, 'damaged - needs fixing!!!', NULL, '2022-04-19 18:19:35', 'Pending', '', ''),
+(26, 2, 103, 'damage to the side of bowser', NULL, '2022-04-19 18:20:36', 'Pending', '', ''),
+(44, 1, 1, 'Refill', NULL, '2022-04-27 18:58:51', 'Actioned', '51.89797232832006', '-2.0842461585998535'),
+(45, 1, 2, 'Refill', NULL, '2022-04-27 18:58:51', 'Actioned', '51.89666047580352', '-2.0848469734191895'),
+(46, 1, 3, 'Refill', NULL, '2022-04-27 18:58:51', 'Actioned', '51.887616867833856', '-2.0905688835144043'),
+(47, 1, 4, 'Refill', NULL, '2022-04-27 18:58:51', 'Actioned', '51.887351991000344', '-2.0906834602355957'),
+(48, 1, 5, 'Refill', NULL, '2022-04-27 18:58:51', 'Actioned', '51.884351991000344', '-2.08982515335083'),
+(49, 1, 6, 'Refill', NULL, '2022-04-27 18:58:51', 'Actioned', '51.92797399363294', '-2.0335763175971744'),
+(50, 1, 7, 'Refill', NULL, '2022-04-27 18:58:51', 'Actioned', '51.957668776116215', '-1.9809952140785692'),
+(51, 1, 8, 'Refill', NULL, '2022-04-27 18:58:51', 'Actioned', '51.76142438181465', '-2.2685147142037687'),
+(52, 1, 9, 'Repair', NULL, '2022-04-27 18:58:51', 'Actioned', '51.883577275950034', '-2.089782238006592'),
+(53, 1, 10, 'Repair', NULL, '2022-04-27 18:58:51', 'Actioned', '51.8979988098144', '-2.0838599205017'),
+(54, 2, 11, 'Repair', NULL, '2022-04-27 18:58:51', 'Actioned', '51.88678555932836', '-2.073929974110791'),
+(55, 2, 12, 'Repair', NULL, '2022-04-27 18:58:51', 'Actioned', '51.9347482190218', '-2.0411822241730926'),
+(56, 2, 18, 'Repair', NULL, '2022-04-27 18:58:51', 'Actioned', '51.90668389780666', '-2.0000891685485778'),
+(57, 2, 19, 'Repair', NULL, '2022-04-27 18:58:51', 'Actioned', '52.00770977960023', '-1.694188594818109'),
+(58, 2, 25, 'Repair', NULL, '2022-04-27 18:58:51', 'Actioned', '51.98847423617575', '-1.7027716636657653'),
+(59, 2, 26, 'Repair', NULL, '2022-04-27 18:58:51', 'Actioned', '52.00496235084007', '-1.7292075157165465'),
+(60, 2, 27, 'Repair', NULL, '2022-04-27 18:58:51', 'Actioned', '51.98445698078115', '-1.7343573570251403');
 
 -- --------------------------------------------------------
 
@@ -583,7 +605,7 @@ ALTER TABLE `tbl_bowsers`
 -- AUTO_INCREMENT for table `tbl_bowser_invoices`
 --
 ALTER TABLE `tbl_bowser_invoices`
-  MODIFY `InvoiceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `InvoiceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `tbl_bowser_requests`
@@ -607,7 +629,7 @@ ALTER TABLE `tbl_notifications`
 -- AUTO_INCREMENT for table `tbl_reports`
 --
 ALTER TABLE `tbl_reports`
-  MODIFY `Report_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `Report_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `tbl_report_type`
