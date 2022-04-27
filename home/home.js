@@ -53,13 +53,12 @@ function initMap() {
 
     // map.data.loadGeoJson(locations, {idPropertyName: 'Bowser_ID'});
 
-
-    // var map = new google.maps.visualization.HeatmapLayer(
-    //     {
-    //         data:locations,
-    //         map:map
-    //     }
-    // );
+    var map = new google.maps.visualization.HeatmapLayer(
+        {
+            data:locations,
+            map:map
+        }
+    );
 
     locationButton.addEventListener("click", () => {
         // Try HTML5 geolocation.
