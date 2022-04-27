@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2022 at 08:54 PM
+-- Generation Time: Apr 27, 2022 at 05:14 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -86,18 +86,18 @@ INSERT INTO `tbl_bowsers` (`BowserID`, `Bowser_Capacity`, `Bowser_Cost`, `Bowser
 (15, 1000, 1000, '', 'Lent', '0.000000', '0.000000', ''),
 (16, 10000, 10000, '', 'Lent', '0.000000', '0.000000', ''),
 (17, 10000, 10000, '', 'Lent', '0.000000', '0.000000', ''),
-(18, 10000, 10000, '', 'Stock', '0.000000', '0.000000', ''),
-(19, 10000, 10000, '', 'Stock', '0.000000', '0.000000', ''),
+(18, 10000, 10000, '', 'Deployed', '51.90668389780666', '-2.0000891685485778', ''),
+(19, 10000, 10000, '', 'Deployed', '52.00770977960023', '-1.694188594818109', ''),
 (20, 1000, 1000, '', 'Lent', '0.000000', '0.000000', ''),
 (21, 1000, 1000, '', 'Lent', '0.000000', '0.000000', ''),
 (22, 1000, 1000, '', 'Lent', '0.000000', '0.000000', ''),
 (23, 1000, 1000, '', 'Lent', '0.000000', '0.000000', ''),
 (24, 1000, 1000, '', 'Lent', '0.000000', '0.000000', ''),
-(25, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
-(26, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
-(27, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
-(28, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
-(29, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
+(25, 1000, 1000, '', 'Deployed', '51.98847423617575', '-1.7027716636657653', ''),
+(26, 1000, 1000, '', 'Deployed', '52.00496235084007', '-1.7292075157165465', ''),
+(27, 1000, 1000, '', 'Deployed', '51.98445698078115', '-1.7343573570251403', ''),
+(28, 1000, 1000, '', 'Lent', '0.000000', '0.000000', ''),
+(29, 1000, 1000, '', 'Deployed', '51.98838478307235', '-1.723106915131205', ''),
 (30, 500, 500, '', 'Lent', '0.000000', '0.000000', ''),
 (31, 500, 500, '', 'Stock', '0.000000', '0.000000', ''),
 (32, 500, 500, '', 'Stock', '0.000000', '0.000000', ''),
@@ -123,7 +123,7 @@ INSERT INTO `tbl_bowsers` (`BowserID`, `Bowser_Capacity`, `Bowser_Cost`, `Bowser
 (52, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
 (53, 500, 500, '', 'Stock', '0.000000', '0.000000', ''),
 (54, 5000, 5000, '', 'Lent', '0.000000', '0.000000', ''),
-(55, 10000, 10000, '', 'Stock', '0.000000', '0.000000', ''),
+(55, 10000, 10000, '', 'Lent', '0.000000', '0.000000', ''),
 (56, 15000, 15000, '', 'Stock', '0.000000', '0.000000', ''),
 (57, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
 (58, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
@@ -159,7 +159,13 @@ INSERT INTO `tbl_bowser_inuse` (`Bowser_ID`, `Lat`, `Lng`, `Area_ID`, `User_ID`)
 (9, '51.883577275950034', '-2.089782238006592', 0, 7),
 (10, '51.8979988098144', '-2.0838599205017', 0, 7),
 (11, '51.88678555932836', '-2.073929974110791', 0, 7),
-(12, '51.9347482190218', '-2.0411822241730926', 0, 7);
+(12, '51.9347482190218', '-2.0411822241730926', 0, 7),
+(18, '51.90668389780666', '-2.0000891685485778', 0, 7),
+(19, '52.00770977960023', '-1.694188594818109', 0, 7),
+(25, '51.98847423617575', '-1.7027716636657653', 0, 7),
+(26, '52.00496235084007', '-1.7292075157165465', 0, 7),
+(27, '51.98445698078115', '-1.7343573570251403', 0, 7),
+(29, '51.98838478307235', '-1.723106915131205', 0, 7);
 
 -- --------------------------------------------------------
 
@@ -208,7 +214,10 @@ INSERT INTO `tbl_bowser_invoices` (`InvoiceID`, `Transaction_Type`, `UserID`, `B
 (26, 'Lend', 7, 23, 'CompanyB', 'CompanyA', 1000, '2022-04-05 11:26:28'),
 (27, 'Lend', 7, 24, 'CompanyC', 'CompanyA', 1000, '2022-04-05 11:28:56'),
 (28, 'Lend', 7, 17, 'CompanyB', 'CompanyA', 10000, '2022-04-05 13:22:45'),
-(29, 'Lend', 7, 54, 'CompanyE', 'CompanyA', 5000, '2022-04-19 18:28:43');
+(29, 'Lend', 7, 54, 'CompanyE', 'CompanyA', 5000, '2022-04-19 18:28:43'),
+(30, 'Lend', 7, 55, 'CompanyD', 'CompanyA', 10000, '2022-04-27 12:57:44'),
+(31, 'Lend', 7, 0, 'CompanyE', 'CompanyA', 0, '2022-04-27 12:57:49'),
+(32, 'Lend', 7, 28, 'CompanyC', 'CompanyA', 1000, '2022-04-27 12:58:13');
 
 -- --------------------------------------------------------
 
@@ -238,7 +247,7 @@ INSERT INTO `tbl_bowser_requests` (`RequestID`, `UserID`, `Bowser_Capacity`, `Or
 (4, 7, 10000, 'CompanyA', 'CompanyB', 1, 'Accepted', 'test Loan'),
 (5, 7, 1000, 'CompanyC', 'CompanyA', 2, 'Pending', 'testing123'),
 (6, 7, 1000, 'CompanyA', 'CompanyC', 3, 'Pending', 'loan 1000l '),
-(7, 7, 1000, 'CompanyA', 'CompanyB', 3, 'Pending', 'test'),
+(7, 7, 1000, 'CompanyA', 'CompanyB', 3, 'Denied', 'test'),
 (9, 7, 1000, 'CompanyB', 'CompanyA', 1, 'Pending', 'loaning 500'),
 (10, 7, 1000, 'CompanyB', 'CompanyA', 2, 'Pending', 'request'),
 (12, 7, 1000, 'CompanyB', 'CompanyA', 3, 'Pending', 'requesting 1000l from company b'),
@@ -251,10 +260,10 @@ INSERT INTO `tbl_bowser_requests` (`RequestID`, `UserID`, `Bowser_Capacity`, `Or
 (20, 12, 5000, 'CompanyA', 'CompanyB', 2, 'Pending', 'Need bowser'),
 (21, 13, 1000, 'CompanyA', 'CompanyC', 2, 'Pending', 'Requirement for a bowser'),
 (22, 12, 5000, 'CompanyA', 'CompanyB', 2, 'Pending', 'Need 5000 L bowser'),
-(23, 13, 1000, 'CompanyA', 'CompanyC', 2, 'Pending', 'Requirement for bowser'),
-(24, 13, 10000, 'CompanyA', 'CompanyD', 2, 'Pending', 'CompanyD need 10,000 bowser'),
-(25, 14, 5000, 'CompanyA', 'CompanyE', 2, 'Pending', 'CompanyE needs bowser'),
-(26, 13, 10000, 'CompanyA', 'CompanyD', 2, 'Pending', 'CompanyD needs bowser'),
+(23, 13, 1000, 'CompanyA', 'CompanyC', 2, 'Accepted', 'Requirement for bowser'),
+(24, 13, 10000, 'CompanyA', 'CompanyD', 2, 'Denied', 'CompanyD need 10,000 bowser'),
+(25, 14, 5000, 'CompanyA', 'CompanyE', 2, 'Accepted', 'CompanyE needs bowser'),
+(26, 13, 10000, 'CompanyA', 'CompanyD', 2, 'Accepted', 'CompanyD needs bowser'),
 (27, 14, 5000, 'CompanyA', 'CompanyE', 2, 'Accepted', 'CompanyE need 5000L bowser');
 
 -- --------------------------------------------------------
@@ -274,9 +283,9 @@ CREATE TABLE `tbl_bowser_stock` (
 
 INSERT INTO `tbl_bowser_stock` (`Bowser_Capacity`, `Stock`) VALUES
 (500, 11),
-(1000, 3),
-(5000, 4),
-(10000, 3),
+(1000, 2),
+(5000, 3),
+(10000, 2),
 (15000, 5);
 
 -- --------------------------------------------------------
@@ -330,12 +339,12 @@ INSERT INTO `tbl_maintenance_schedule` (`Maintenance_ID`, `Bowser_ID`, `User_ID`
 (2, 1, 1, 'Crack in bowser side', 'Incomplete', '2022-03-22 15:58:13', 1, 1, 3, 'Repair'),
 (1, 1, 1, 'Refill required', 'Incomplete', '2022-03-22 15:58:18', 1, 1, 2, 'Refill'),
 (11, 3, 6, 'Faulty tap', 'Incomplete', '2022-03-22 15:58:22', 4, 2, 1, 'Repair'),
-(12, 4, 6, 'Leaking', 'Incomplete', '2022-03-22 15:58:26', 6, 5, 3, 'Repair'),
-(13, 15, 5, 'Broken tap', 'Incomplete', '2022-04-19 18:15:22', 5, 7, 2, 'Repair'),
+(12, 4, 6, 'Leaking', 'Incomplete', '2022-04-27 12:51:27', 6, 2, 3, 'Repair'),
+(13, 15, 5, 'Broken tap', 'Incomplete', '2022-04-27 12:51:31', 5, 2, 2, 'Repair'),
 (14, 1, 7, 'Loose fitting', 'Completed', '2022-04-19 18:14:38', 5, 2, 1, 'Repair'),
 (15, 2, 7, 'Broken nozzel', 'Incomplete', '2022-04-19 18:11:02', 5, 3, 3, 'Repair'),
-(19, 16, 7, 'Bowser requires service', 'Incomplete', '2022-04-19 18:15:29', 5, 2, 1, 'Service'),
-(22, 10, 7, 'repair of bowser 10', 'Completed', '2022-04-19 18:14:12', 5, 2, 1, 'Repair');
+(19, 16, 7, 'Bowser requires service', 'Incomplete', '2022-04-27 12:51:37', 5, 3, 1, 'Service'),
+(22, 10, 7, 'repair of bowser 10', 'Completed', '2022-04-27 12:51:40', 5, 3, 1, 'Repair');
 
 -- --------------------------------------------------------
 
@@ -478,7 +487,7 @@ INSERT INTO `tbl_user_account` (`User_ID`, `User_Type`, `Password`, `Email`, `Us
 (13, 'Operations', '!1Ppaaaaaa', 'CompanyD_ops@email.com', '1', 1, '6a23f896b', 100),
 (14, 'Operations', '!1Ppaaaaaa', 'CompanyE_ops@email.com', '1', 1, '07cad98af', 100),
 (17, 'Customer', '!1Ppaaaaaa', 'testUser2@email.com', '1', 1, '84b479a0058e82de', 2),
-(18, 'Customer', '!1Ppaaaaaa', 'testUser3@email.com', '1', 1, '6941b77e04f100c2', 7),
+(18, 'Customer', '!1Ppaaaaaa', 'testUser3@email.com', '1', 1, '6941b77e04f100c2', 1),
 (19, 'Customer', '!1Ppaaaaaa', 'testUser4@email.com', '1', 1, 'fcca6f28bfe47178', 2),
 (20, 'Customer', '!1Ppaaaaaa', 'testUser5@email.com', '1', 1, 'f711b21917df90ad', 2);
 
@@ -561,7 +570,7 @@ ALTER TABLE `tbl_user_account`
 -- AUTO_INCREMENT for table `tbl_area`
 --
 ALTER TABLE `tbl_area`
-  MODIFY `Area_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `Area_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `tbl_bowsers`
@@ -573,7 +582,7 @@ ALTER TABLE `tbl_bowsers`
 -- AUTO_INCREMENT for table `tbl_bowser_invoices`
 --
 ALTER TABLE `tbl_bowser_invoices`
-  MODIFY `InvoiceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `InvoiceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `tbl_bowser_requests`
