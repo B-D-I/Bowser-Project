@@ -35,7 +35,7 @@ if(isset($_GET['id'])){
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="../global/global.css" type="text/css">
-    <link rel="stylesheet" href="maintenanceCSS.php" type="text/css">
+    <link rel="stylesheet" href="maintenance.css" type="text/css">
     <link rel="icon" type="image/x-icon" href="../images/logo/bowserLogo.png">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
 
@@ -114,14 +114,39 @@ if(isset($_GET['id'])){
                         foreach($query as $row){
 
                                         $jobStatus = $row['Status'];
+                                        $maintenanceID = $row['Maintenance_ID'];
+                                        $bowserID = $row['Bowser_ID'];
+                                        $userID = $row['User_ID'];
+                                        $description = $row['Description'];
+                                        $date = $row['Date'];
+                                        $assignedTo = $row['Assigned_To'];
+                                        $areaID = $row['Area_ID'];
+                                        $priority = $row['Priority'];
+                                        $taskType= $row['Task_Type'];
+
+                                        switch($priority){
+                                            case 1:
+                                                $jobPriorityDiv = "highPriority";
+                                                break;
+
+                                            case 2:
+                                                 $jobPriorityDiv = "medPriority";
+                                                 break;
+
+                                            case 3:
+                                                 $jobPriorityDiv = "lowPriority";
+                                                  break;
+                                        }
 
                                         echo "<div class='form-check'>";
                                         echo "<label class='form-check-label'>";
-                                        echo "Bowser ", $row['Bowser_ID']," - " ,$row['Date'], " ", "<span class = status>",$jobStatus,"</span>";
+                                        echo "<div id = $jobPriorityDiv> ";
+                                        echo "Bowser ", $bowserID," - " ,$date, " ",$jobStatus;
+                                        echo "</div>";
                                         echo "</label>";
 
                                         echo "<button type='button' class='btn btn-link' data-toggle='popover' data-html = 'true' 
-                                        title= 'Description: $row[Description]  Area ID: $row[Area_ID] Priority $row[Priority] Task Type: $row[Task_Type]'  
+                                        title= 'Description: $description  Area ID: $areaID Priority: $priority Task Type: $taskType'  
                                         style='float:right;'>View Details</button>";
 
                                         echo "<br/><br/>";
@@ -137,11 +162,11 @@ if(isset($_GET['id'])){
                                     <path d='M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z'/>
                                     </svg>";
                                        echo  "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
-                                       echo "Are you sure you want to submit task $row[Maintenance_ID]?";
+                                       echo "Are you sure you want to submit task $maintenanceID?";
                                        echo "<br/><br/>";
 
                                     //    Setting url parameter for submitting task
-                                       echo "<form action='maintenance.php?id=$row[Maintenance_ID]' method='post'>";
+                                       echo "<form action='maintenance.php?id=$maintenanceID' method='post'>";
                                        echo "<button class = 'btn btn-secondary' type='submit' name='submit' value='Submit'> Yes, submit </button> ";
                                        echo "</form>";
 
