@@ -395,14 +395,16 @@ if (isset($_SESSION['email'])) {
                                     <div class="row">
                                         <div class="col">
                                             <h2>FAQs</h2><br />
-                                            <p style="color: dodgerblue">HOW DO I VIEW NOTIFICATIONS AND ALERTS: </p><br />
-                                            <p>Check the notification news feed</p><br /><br />
-                                            <p style="color: dodgerblue">HOW DO I REPORT AN ISSUE: </p><br />
-                                            <p>Click the reports tab and send us a query</p><br /><br />
-                                            <p style="color: dodgerblue">HOW DO I CONTACT YOU WITHOUT CREATING AN ACCOUNT: </p><br />
+                                            <p style="color: dodgerblue">HOW DO I VIEW NOTIFICATIONS AND ALERTS </p>
+                                            <p>Check the notification news feed</p><br />
+                                            <p style="color: dodgerblue">HOW DO I REPORT AN ISSUE? </p>
+                                            <p>Click the reports tab and send us a query</p><br />
+                                            <p style="color: dodgerblue">HOW DO MOVE THE MAP TO MY LOCATION? </p>
+                                            <p>Click the 'Pan to Current Location' button above the map</p><br />
+                                            <p style="color: dodgerblue">HOW DO I CONTACT YOU? </p>
                                             <p>For assistance, contact us at:
                                                 <a id="link" href="mailto:s4008324@glos.ac.uk">bowser-hub@email.com</a>
-                                            </p><br /><br />
+                                            </p><br />
                                         </div>
                                     </div>
                                 </div>

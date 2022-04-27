@@ -31,7 +31,7 @@ function initMap() {
     locationButton.classList.add("custom-map-control-button");
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
 
-    var lat, lng, locObj ;
+    var lat, lng, locObj, bowserID ;
     var locations=[];
     $.post("bowserLocations.php","",function(data){
         //our json data is inside data variable
@@ -39,19 +39,18 @@ function initMap() {
         $.each(data, function(key,value){
             //Iterating the json object
             console.log(value.Lat);
+            console.log(value.Bowser_ID);
             //store the lattitude and longitude in lat and lng
             lat=value.Lat;
             lng=value.Lng;
+            bowserID=value.Bowser_ID;
+
             //create LatLng object using lat nad lng variables
             locObj=new google.maps.LatLng(lat,lng);
             locations.push(locObj);
         });
-        display()
-        //debug locations
         //console.log(locations);
     },"json");
-
-    // map.data.loadGeoJson(locations, {idPropertyName: 'Bowser_ID'});
 
     var map = new google.maps.visualization.HeatmapLayer(
         {
@@ -69,11 +68,10 @@ function initMap() {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude,
                     };
-
                     infoWindow.setPosition(pos);
-                    infoWindow.setContent("Location found");
+                    infoWindow.setContent("Current Location");
                     infoWindow.open(map);
-                    map.setCenter(pos);
+                    // map.setCenter(pos);
                 },
                 () => {
                     handleLocationError(true, infoWindow, map.getCenter());

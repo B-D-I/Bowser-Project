@@ -57,7 +57,6 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
 
 // map location set at cheltneham park campus
 // var mapCenter = new google.maps.LatLng(51.8979988098144,-2.0838599205017);
-
 var geocoder = new google.maps.Geocoder();
 var infowindow = new google.maps.InfoWindow();   // display content
 mapCenter = new google.maps.LatLng(51.8979988098144,-2.0838599205017);

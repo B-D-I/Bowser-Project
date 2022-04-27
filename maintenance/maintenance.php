@@ -17,12 +17,10 @@ $query = mysqli_query($connection, $sql);
 $job = mysqli_fetch_assoc($query);
 // CloseConnection($connection);
 
-
 // url parameters
 if(isset($_GET['id'])){
     $id= $_GET['id'];
 }
-
 
 ?>
 <!doctype html>
@@ -47,7 +45,7 @@ if(isset($_GET['id'])){
     <!--jQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!--google maps api-->
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<!--    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>-->
     <title>Water Bowser</title>
 </head>
 
@@ -98,10 +96,14 @@ if(isset($_GET['id'])){
 
                     <h2> Requirements:</h2>
                     <br />
-
                     <ul class="maintenance_list">
                         <br />
-                        <h4>User: <?php echo $email  ?> </h4>
+
+                        <h4>User: <?php
+                            $username = current(explode('@', $email));
+                            $sql1="SELECT * FROM `tbl_user_account` WHERE email='$email'";
+                            echo $username;
+                            ?> </h4>
 
                         <br /><br />
                         <script>
@@ -154,7 +156,6 @@ if(isset($_GET['id'])){
 
                                     //    In progress
                                        echo "<button type='button' class='btn btn-secondary' style='float:right position:fixed; id='taskInProgress'>Task In Progress</button>";
-
 
                                     //    Alerts for each task
                                        echo "<div class = 'alert alert-primary alert-dismissible'>";
@@ -220,7 +221,7 @@ if(isset($_GET['id'])){
         <br />  <br />
 
         <script src="maintenance.js"></script>
-        <script src ="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization&callback=initMap" async defer> </script>
+        <script src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv17Pa1iXPZVBV4q4uGYCtESCD2evyHg8&sensor=false&libraries=visualization&callback=initMap" async defer> </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>
 </html>
