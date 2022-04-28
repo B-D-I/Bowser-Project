@@ -1,0 +1,34 @@
+.bowserLoan{
+    padding: 10px;
+    border: 0;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#transactionID{}
+#organisationID{
+    margin-top: -97px;
+    margin-left: 400px;
+}
+#capacityID{}
+#loanPriorityID{
+    margin-top: -97px;
+    margin-left: 400px;
+}
+
+.bowserInvoices{
+    padding: 10px;
+    border: 0;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#invoiceTable{
+    margin-top: -550px;
+}
+
+#registerUser{
+    padding: 10px;
+    border: 0;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: lightgray;
+}

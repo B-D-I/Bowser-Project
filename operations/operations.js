@@ -26,11 +26,11 @@ $('#formBowserRequest').submit(function(event) {
         data: formData2+"&phpFunction=requestBowser",
         success: function(msg){
             $("#divMessage").html(msg);
-            window.location="operations.php";
+            window.location="admin.php";
         },
         error: function(msg){
             console.log(msg);
-            window.location="operations.php";
+            window.location="admin.php";
         }
     });
 });

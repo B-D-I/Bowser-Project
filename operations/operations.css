@@ -28,84 +28,38 @@
 }
 #requestAlerts{
   padding: 30px;
-  background-color: cadetblue;
+  background-color: lightblue;
   border: 0;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  color: white;
-}
-/*Register new user button*/
-#registerLink{
-  margin-left: -10px;
-}
-#submitRegiser{
-  text-align: center;
-}
-/*loan + lend bowser button*/
-#loanLink{
-  margin-left: 40px;
-}
-/*bowser info button*/
-#bowserLink{
-  margin-top: -65px;
-  margin-left: 380px;
-}
-/*Loan and Lend Modal*/
-#transactionID{}
-#organisationID{
-  margin-top: -95px;
-  margin-left: 240px;
-}
-#capacityID{}
-#loanPriorityID{
-  margin-top: -95px;
-  margin-left: 240px;
 }
 
-/*report button */
-#reportTxt{
-  color: whitesmoke;
-  text-align: center;
-}
-#viewReports {
-  height: 65px;
-  padding: 20px;
-  font-stretch: expanded;
-  background-color: dodgerblue;
-  border: 0;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-#viewBowserRequests{
-  height: 65px;
-  padding: 20px;
-  font-stretch: expanded;
-  background-color: dodgerblue;
-  border: 0;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-#viewInvoice{
-  height: 65px;
-  padding: 20px;
-  font-stretch: expanded;
-  background-color: dodgerblue;
-  border: 0;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);}
-#invoiceTable{
-  margin-top: -500px;
-}
-
+/*map div*/
 #viewMap{
   padding: 20px;
   font-stretch: expanded;
-  background-color: cadetblue;
+  background-color: lightblue;
   border: 0;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  color: white;
 }
+/*button*/
+#buttonTxt {
+  color: whitesmoke;
+  text-align: center;
+}
+/*modal / pop up window buttons*/
+#modalButton{
+  height: 65px;
+  padding: 20px;
+  font-stretch: expanded;
+  background-color: dodgerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+/*Allocate Tasks*/
 #taskAllocation{
   padding: 30px;
   font-stretch: expanded;
@@ -114,74 +68,9 @@
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-
 #insertButton{
   text-align: right;
   margin-top: -45px;
-}
-#viewLoanBowser{
-  height: 65px;
-  padding: 20px;
-  font-stretch: expanded;
-  background-color: dodgerblue;
-  border: 0;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-#viewBowserInfo{
-  height: 65px;
-  padding: 20px;
-  font-stretch: expanded;
-  background-color: dodgerblue;
-  border: 0;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-#viewAddBowser{
-  height: 65px;
-  padding: 20px;
-  font-stretch: expanded;
-  background-color: dodgerblue;
-  border: 0;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-#viewRegisterUser{
-  height: 65px;
-  padding: 20px;
-  font-stretch: expanded;
-  background-color: dodgerblue;
-  border: 0;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-#viewReportHeatMap{
-  height: 65px;
-  padding: 20px;
-  font-stretch: expanded;
-  background-color: dodgerblue;
-  border: 0;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-
-/*Allocate Tasks*/
-#viewAllocateTask{
-  padding: 30px;
-  font-stretch: expanded;
-  background-color: dodgerblue;
-  border: 0;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-/* Allocate Task options */
-#new_tasks {
-  padding: 30px;
-  background-color: lightblue;
-  border: 0;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 #maintDiv{
   border: 0;

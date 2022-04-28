@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include "../include/config.php";
 
@@ -6,10 +7,10 @@ function queryClose($sql){
     $connection = OpenConnection();
     if (mysqli_query($connection, $sql)) {
         echo "success";
-        header("Location: ../operations/operations.php");
+        header("Location: ../operations/reports.php");
     } else {
         echo mysqli_error($connection);
-        header("Location: ../operations/operations.php");
+        header("Location: ../operations/reports.php");
     }
     mysqli_close($connection);
 }
@@ -23,8 +24,7 @@ function updateNotifications($noticeText, $areaID, $type){
     $sql = "INSERT INTO `tbl_notifications` (Notice_Text, Area_ID, Type) VALUES ('$noticeText', '$areaID', '$type') ";
     queryClose($sql);
 }
-//function updateFixNotificationa($fixNoticeText, $areaID, $type){
-//
+//function updateFixNotifications($fixNoticeText, $areaID, $type){
 //    $sql = "INSERT INTO `tbl_notifications` (Notice_Text, Area_ID, Type) VALUES ('$fixNoticeText', '$areaID', '$type') ";
 //    queryClose($sql);
 //}
@@ -34,10 +34,10 @@ $reportType = $_POST['reportType'];
 $reportString = $_POST['reportString'];
 $bowserID = $_POST['bowserID'];
 $description = $_POST['description'];
-$date = $_POST['date'];
+$reportDate = $_POST['date'];
+$currentDate = date('Y-m-d');
 
-$noticeText = "From ".$date."&nbsp;&nbsp;Bowser: ".$bowserID."&nbsp;will be undergoing a ".$reportString;
-
+$noticeText = "From ".$currentDate."&nbsp;&nbsp;Bowser: ".$bowserID."&nbsp;will be undergoing a ".$reportString;
 
 if (isset($_POST['acceptButton'])) {
     updateNotifications($noticeText, 2, 1);

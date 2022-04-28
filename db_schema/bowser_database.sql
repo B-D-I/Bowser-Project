@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2022 at 09:24 PM
+-- Generation Time: Apr 28, 2022 at 02:18 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -71,7 +71,7 @@ CREATE TABLE `tbl_bowsers` (
 
 INSERT INTO `tbl_bowsers` (`BowserID`, `Bowser_Capacity`, `Bowser_Cost`, `Bowser_Description`, `Status`, `Lat`, `Lng`, `Location`) VALUES
 (1, 500, 500, '15kg new shape model', 'Lent', '0.000000', '0.000000', ''),
-(2, 500, 500, '', 'Stock', '0.000000', '0.000000', ''),
+(2, 500, 500, '', 'Lent', '0.000000', '0.000000', ''),
 (3, 500, 500, '', 'Lent', '0.000000', '0.000000', ''),
 (4, 1000, 1000, '', 'Deployed', '51.8979988098144', '-2.0838599205017', ''),
 (5, 1000, 1000, '', 'Deployed', '51.90999129223681', '-2.0268155164085266', ''),
@@ -102,13 +102,13 @@ INSERT INTO `tbl_bowsers` (`BowserID`, `Bowser_Capacity`, `Bowser_Cost`, `Bowser
 (30, 500, 500, '', 'Lent', '0.000000', '0.000000', ''),
 (31, 500, 500, '', 'Deployed', '51.90160014763651', '-2.032018184661859', ''),
 (32, 500, 500, '', 'Deployed', '51.85592652661462', '-2.1384482383727965', ''),
-(33, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
-(34, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
-(35, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
+(33, 1000, 1000, '', 'Lent', '0.000000', '0.000000', ''),
+(34, 1000, 1000, '', 'Lent', '0.000000', '0.000000', ''),
+(35, 1000, 1000, '', 'Lent', '0.000000', '0.000000', ''),
 (36, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
 (37, 5000, 5000, '', 'Lent', '0.000000', '0.000000', ''),
-(38, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
-(39, 500, 500, '', 'Stock', '0.000000', '0.000000', ''),
+(38, 1000, 1000, '', 'Deployed', '51.90099723381828', '-2.0635246428428156', ''),
+(39, 500, 500, '', 'Lent', '0.000000', '0.000000', ''),
 (40, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
 (41, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
 (42, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
@@ -122,13 +122,22 @@ INSERT INTO `tbl_bowsers` (`BowserID`, `Bowser_Capacity`, `Bowser_Cost`, `Bowser
 (50, 15000, 15000, '', 'Stock', '0.000000', '0.000000', ''),
 (51, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
 (52, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
-(53, 500, 500, '', 'Stock', '0.000000', '0.000000', ''),
+(53, 500, 500, '', 'Lent', '0.000000', '0.000000', ''),
 (54, 5000, 5000, '', 'Lent', '0.000000', '0.000000', ''),
 (55, 10000, 10000, '', 'Lent', '0.000000', '0.000000', ''),
 (56, 15000, 15000, '', 'Stock', '0.000000', '0.000000', ''),
 (57, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
 (58, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
-(59, 1000, 1000, '', 'Stock', '0.000000', '0.000000', '');
+(59, 1000, 1000, '', 'Stock', '0.000000', '0.000000', ''),
+(60, 1000, 1000, '', 'Stock', '', '', ''),
+(61, 1000, 1000, '', 'Stock', '', '', ''),
+(62, 1000, 1000, '', 'Stock', '', '', ''),
+(63, 1000, 1000, '', 'Stock', '', '', ''),
+(64, 1000, 1000, '', 'Stock', '', '', ''),
+(65, 1000, 1000, '', 'Stock', '', '', ''),
+(66, 5000, 5000, '', 'Stock', '', '', ''),
+(67, 5000, 5000, '', 'Stock', '', '', ''),
+(68, 5000, 5000, '', 'Stock', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -168,7 +177,8 @@ INSERT INTO `tbl_bowser_inuse` (`Bowser_ID`, `Lat`, `Lng`, `Area_ID`, `User_ID`)
 (27, '51.98445698078115', '-1.7343573570251403', 0, 7),
 (29, '51.98838478307235', '-1.723106915131205', 0, 7),
 (31, '51.90160014763651', '-2.032018184661859', 0, 7),
-(32, '51.85592652661462', '-2.1384482383727965', 0, 7);
+(32, '51.85592652661462', '-2.1384482383727965', 0, 7),
+(38, '51.90099723381828', '-2.0635246428428156', 0, 7);
 
 -- --------------------------------------------------------
 
@@ -221,7 +231,14 @@ INSERT INTO `tbl_bowser_invoices` (`InvoiceID`, `Transaction_Type`, `UserID`, `B
 (30, 'Lend', 7, 55, 'CompanyD', 'CompanyA', 10000, '2022-04-27 12:57:44'),
 (31, 'Lend', 7, 0, 'CompanyE', 'CompanyA', 0, '2022-04-27 12:57:49'),
 (32, 'Lend', 7, 28, 'CompanyC', 'CompanyA', 1000, '2022-04-27 12:58:13'),
-(33, 'Lend', 7, 0, 'CompanyB', 'CompanyA', 0, '2022-04-27 17:31:55');
+(33, 'Lend', 7, 0, 'CompanyB', 'CompanyA', 0, '2022-04-27 17:31:55'),
+(34, 'Lend', 7, 0, 'CompanyC', 'CompanyA', 0, '2022-04-28 10:57:40'),
+(35, 'Lend', 7, 2, 'CompanyC', 'CompanyA', 500, '2022-04-28 10:58:23'),
+(36, 'Lend', 7, 39, 'CompanyD', 'CompanyA', 500, '2022-04-28 11:00:11'),
+(37, 'Lend', 7, 33, 'CompanyC', 'CompanyA', 1000, '2022-04-28 11:00:37'),
+(38, 'Lend', 7, 53, 'CompanyC', 'CompanyA', 500, '2022-04-28 11:03:38'),
+(39, 'Lend', 7, 34, 'CompanyC', 'CompanyA', 1000, '2022-04-28 11:21:22'),
+(40, 'Lend', 12, 35, 'CompanyA', 'CompanyC', 1000, '2022-04-28 11:27:53');
 
 -- --------------------------------------------------------
 
@@ -249,7 +266,7 @@ INSERT INTO `tbl_bowser_requests` (`RequestID`, `UserID`, `Bowser_Capacity`, `Or
 (2, 7, 10000, 'CompanyB', 'CompanyA', 3, 'Pending', 'test loan 2'),
 (3, 7, 15000, 'CompanyC', 'CompanyA', 1, 'Pending', 'test 3'),
 (4, 7, 10000, 'CompanyA', 'CompanyB', 1, 'Accepted', 'test Loan'),
-(5, 7, 1000, 'CompanyC', 'CompanyA', 2, 'Pending', 'testing123'),
+(5, 7, 1000, 'CompanyC', 'CompanyA', 2, 'Accepted', 'testing123'),
 (6, 7, 1000, 'CompanyA', 'CompanyC', 3, 'Pending', 'loan 1000l '),
 (7, 7, 1000, 'CompanyA', 'CompanyB', 3, 'Denied', 'test'),
 (9, 7, 1000, 'CompanyB', 'CompanyA', 1, 'Pending', 'loaning 500'),
@@ -268,7 +285,8 @@ INSERT INTO `tbl_bowser_requests` (`RequestID`, `UserID`, `Bowser_Capacity`, `Or
 (24, 13, 10000, 'CompanyA', 'CompanyD', 2, 'Denied', 'CompanyD need 10,000 bowser'),
 (25, 14, 5000, 'CompanyA', 'CompanyE', 2, 'Accepted', 'CompanyE needs bowser'),
 (26, 13, 10000, 'CompanyA', 'CompanyD', 2, 'Accepted', 'CompanyD needs bowser'),
-(27, 14, 5000, 'CompanyA', 'CompanyE', 2, 'Accepted', 'CompanyE need 5000L bowser');
+(27, 14, 5000, 'CompanyA', 'CompanyE', 2, 'Accepted', 'CompanyE need 5000L bowser'),
+(28, 7, 1000, 'CompanyD', 'CompanyA', 2, 'Pending', 'loan 1000l');
 
 -- --------------------------------------------------------
 
@@ -286,9 +304,9 @@ CREATE TABLE `tbl_bowser_stock` (
 --
 
 INSERT INTO `tbl_bowser_stock` (`Bowser_Capacity`, `Stock`) VALUES
-(500, 11),
-(1000, 2),
-(5000, 2),
+(500, 8),
+(1000, 5),
+(5000, 4),
 (10000, 2),
 (15000, 5);
 
@@ -387,7 +405,10 @@ INSERT INTO `tbl_notifications` (`Notice_ID`, `Notice_Text`, `Area_ID`, `Date`, 
 (17, 'From 2022-04-06 &nbsp;&nbsp;Bowser: 55&nbsp;will be undergoing a Repair', 1, '2022-04-26 10:08:36', 1),
 (20, 'On 2022-04-03 11:08:43&nbsp;&nbsp;Bowser: 3&nbsp;has undertaken a Service', 2, '2022-04-19 18:03:01', 2),
 (22, 'On 2022-04-19 19:11:13&nbsp;&nbsp;Bowser: 10&nbsp;has undertaken a Repair', 2, '2022-04-19 18:14:12', 2),
-(23, 'On 2022-04-19 19:11:09&nbsp;&nbsp;Bowser: 3&nbsp;has undertaken a Service', 2, '2022-04-19 18:14:38', 2);
+(23, 'On 2022-04-19 19:11:09&nbsp;&nbsp;Bowser: 3&nbsp;has undertaken a Service', 2, '2022-04-19 18:14:38', 2),
+(24, 'From 2022-04-21 &nbsp;&nbsp;Bowser: 10&nbsp;will be undergoing a Repair', 2, '2022-04-28 10:29:49', 1),
+(25, 'From 2022-04-21 &nbsp;&nbsp;Bowser: 103&nbsp;will be undergoing a Repair', 2, '2022-04-28 10:29:54', 1),
+(26, 'From 2022-04-28&nbsp;&nbsp;Bowser: 11&nbsp;will be undergoing a Refill', 2, '2022-04-28 12:13:05', 1);
 
 -- --------------------------------------------------------
 
@@ -431,10 +452,10 @@ INSERT INTO `tbl_reports` (`Report_ID`, `Report_Type`, `Bowser_ID`, `Description
 (20, 2, 2, 'broken tap', NULL, '2022-04-06 10:40:50', 'Actioned', '', ''),
 (21, 2, 55, 'broken tap !!!', NULL, '2022-04-19 18:19:59', 'Actioned', '', ''),
 (22, 1, 102, 'need refill immediately ', NULL, '2022-04-19 18:20:25', 'Pending', '', ''),
-(23, 2, 10, 'damaged nozzle!!!', NULL, '2022-04-19 18:19:53', 'Pending', '', ''),
+(23, 2, 10, 'damaged nozzle!!!', NULL, '2022-04-28 10:20:38', 'Actioned', '', ''),
 (24, 1, 10, 'refill the bowser !', NULL, '2022-04-19 18:19:41', 'Pending', '', ''),
 (25, 2, 100, 'damaged - needs fixing!!!', NULL, '2022-04-19 18:19:35', 'Pending', '', ''),
-(26, 2, 103, 'damage to the side of bowser', NULL, '2022-04-19 18:20:36', 'Pending', '', ''),
+(26, 2, 103, 'damage to the side of bowser', NULL, '2022-04-28 10:21:36', 'Actioned', '', ''),
 (44, 1, 1, 'Refill', NULL, '2022-04-27 18:58:51', 'Actioned', '51.89797232832006', '-2.0842461585998535'),
 (45, 1, 2, 'Refill', NULL, '2022-04-27 18:58:51', 'Actioned', '51.89666047580352', '-2.0848469734191895'),
 (46, 1, 3, 'Refill', NULL, '2022-04-27 18:58:51', 'Actioned', '51.887616867833856', '-2.0905688835144043'),
@@ -451,7 +472,8 @@ INSERT INTO `tbl_reports` (`Report_ID`, `Report_Type`, `Bowser_ID`, `Description
 (57, 2, 19, 'Repair', NULL, '2022-04-27 18:58:51', 'Actioned', '52.00770977960023', '-1.694188594818109'),
 (58, 2, 25, 'Repair', NULL, '2022-04-27 18:58:51', 'Actioned', '51.98847423617575', '-1.7027716636657653'),
 (59, 2, 26, 'Repair', NULL, '2022-04-27 18:58:51', 'Actioned', '52.00496235084007', '-1.7292075157165465'),
-(60, 2, 27, 'Repair', NULL, '2022-04-27 18:58:51', 'Actioned', '51.98445698078115', '-1.7343573570251403');
+(60, 2, 27, 'Repair', NULL, '2022-04-27 18:58:51', 'Actioned', '51.98445698078115', '-1.7343573570251403'),
+(61, 1, 11, 'Bowser 11 needs refill', NULL, '2022-04-28 12:13:05', 'Actioned', '', '');
 
 -- --------------------------------------------------------
 
@@ -599,19 +621,19 @@ ALTER TABLE `tbl_area`
 -- AUTO_INCREMENT for table `tbl_bowsers`
 --
 ALTER TABLE `tbl_bowsers`
-  MODIFY `BowserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `BowserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `tbl_bowser_invoices`
 --
 ALTER TABLE `tbl_bowser_invoices`
-  MODIFY `InvoiceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `InvoiceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `tbl_bowser_requests`
 --
 ALTER TABLE `tbl_bowser_requests`
-  MODIFY `RequestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `RequestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `tbl_maintenance_schedule`
@@ -623,13 +645,13 @@ ALTER TABLE `tbl_maintenance_schedule`
 -- AUTO_INCREMENT for table `tbl_notifications`
 --
 ALTER TABLE `tbl_notifications`
-  MODIFY `Notice_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `Notice_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `tbl_reports`
 --
 ALTER TABLE `tbl_reports`
-  MODIFY `Report_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `Report_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `tbl_report_type`

@@ -319,7 +319,7 @@ if (isset($_SESSION['email'])) {
                             $connection = OpenConnection();
                             if (isset($_SESSION['email'])) {
                                 if ($userType == "Operations" OR "Maintenance")
-                                $sql2 = "SELECT * FROM `tbl_notifications` ORDER BY Date DESC LIMIT 10 ";
+                                $sql2 = "SELECT * FROM `tbl_notifications` ORDER BY Date DESC LIMIT 10  ";
                                 if ($userType == "Customer")
                                     $sql2 = "SELECT * FROM `tbl_notifications` WHERE Area_ID = '$userLocation' ORDER BY Date DESC LIMIT 10 ";
                             } else {
@@ -345,7 +345,6 @@ if (isset($_SESSION['email'])) {
                             ?>
                         </ul>
                     </div>
-
 
                     <div class="col">
                         <div class="text_area">
@@ -374,12 +373,9 @@ if (isset($_SESSION['email'])) {
                         </div>
 
 
-
-
             </div>
         </div>
     </div>
-
 
                     <!-- Modal -->
                     <div class="modal fade" id="FAQModal" tabindex="-1" aria-labelledby="FAQModalLabel" aria-hidden="true">
@@ -417,11 +413,8 @@ if (isset($_SESSION['email'])) {
         <script src="home.js"></script>
         <script src="login.js"></script>
         <script src="register.js"></script>
-<!--js?v=3.exp&sensor=false&libraries=visualization&callback=initMap-->
-<!--js?key=AIzaSyAv17Pa1iXPZVBV4q4uGYCtESCD2evyHg8&sensor=false&libraries=visualization&callback=initMap&v=weekly-->
         <script src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv17Pa1iXPZVBV4q4uGYCtESCD2evyHg8&sensor=false&libraries=visualization&callback=initMap" async defer> </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-
 
 </body>
 

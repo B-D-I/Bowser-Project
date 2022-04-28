@@ -139,7 +139,7 @@ function lendBowser($capacity, $transaction, $organisation, $company){
     updateLentBowser($bowserID);
     createInvoice($transaction, $userID, $bowserID, $organisation, $company, $bowserCost);
     updateBowserStock($modifiedStock, $capacity);
-    header("Location: ../operations/operations.php");
+    header("Location: ../operations/admin.php");
 }
 
 // FUNCTION TO PERFORM BOWSER TRANSACTIONS
@@ -153,14 +153,13 @@ function bowserTransaction()
     $priority = strip_tags(trim($_POST['Priority']));
     $company = $_POST['company'];
 
-
     if ($transaction == 'Lend') {
         lendBowser($capacity, 'Lend', $organisation, $company);
     }
     if ($transaction == 'Loan') {
         $userID = returnUserID();
         bowserRequest($userID, $capacity, $organisation, $company, $priority, $reason);
-        header("Location: ../operations/operations.php");
+        header("Location: ../operations/admin.php");
     }
     CloseConnection($connection);
 }
