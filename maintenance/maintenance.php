@@ -185,7 +185,7 @@ if(isset($_GET['id'])){
 
                                     //    Submitting task if url parameter is set
                                     if(isset($id)){
-                                        $submitSQL = "UPDATE tbl_maintenance_schedule SET Status = 'Completed' WHERE maintenance_ID='$id'";
+                                        $submitSQL = "UPDATE tbl_maintenance_schedule SET Status = 'Completed', Completed_Date = NOW() WHERE maintenance_ID='$id'";
                                         mysqli_query($connection, $submitSQL);
 
                                         $date = $row['Date'];

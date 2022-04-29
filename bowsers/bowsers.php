@@ -151,42 +151,90 @@ $row_bowserLng = -2.088;
 <?php
 if (isset($_SESSION['email'])){
     if ($userType == "Operations")
-        echo '
-					<h4>Maintenance History</h4>
-					';}?>
-						<?php
-                        if (isset($_SESSION['email'])) {
-                        if ($userType == "Operations")
-							$connection = OpenConnection();
-							$sql2=("SELECT bowser_id, description, status, date from tbl_maintenance_schedule where bowser_id = '$selBowserID' and Date < Now()");
-							echo"<table style='width: 100%;'>";
-							echo"<tr>
-									<th>Date</th>
-									<th>Type</th>
-									<th>Status</th>
-									<th>Description</th>
-								</tr>";
-							$result2 = mysqli_query($connection, $sql2);
-							while($row2 = mysqli_fetch_assoc($result2)) {
-                                if (mysqli_num_rows($result2) > 0) {
-                                    foreach ($result2 as $row2) {
-                                        $row_id2 = (int)$row2['bowser_id'];
-                                        if ($row_id2 % 2 == 0) {
-                                            echo "<tr bgcolor='lightgrey'>";
-                                        } else {
-                                            echo "<tr>";
-                                        }
-                                        echo "<td align='center'>" . $row2['date'] . "</td>";
-                                        echo "<td align='center'>" . $row2['status'] . "</td>";
-                                        echo "<td align='center'>" . $row2['description'] . "</td></tr>";
-                                    }
-                                }
-                                CloseConnection($connection);
-                            }
+        echo '<h4>Maintenance History</h4>';
+			if (isset($_SESSION['email'])) {
+            if ($userType == "Operations")
+				$connection = OpenConnection();
+				$sql2=("
+					WITH difference_in_seconds AS (
+						SELECT
+							Bowser_ID,
+    						Maintenance_ID,
+    						Description,
+    						Status,
+    						Date,
+    						Completed_Date,
+    						TIMESTAMPDIFF(SECOND, date, Completed_Date) AS seconds
+  						FROM tbl_maintenance_schedule
+						),
+ 
+ 						differences AS (
+  							SELECT
+								Bowser_ID,
+    							Maintenance_ID,
+    							Description,
+    							Status,
+    							Date,
+    							Completed_Date,
+								seconds,
+    							MOD(seconds, 60) AS seconds_part,
+    							MOD(seconds, 3600) AS minutes_part,
+    							MOD(seconds, 3600 * 24) AS hours_part
+  								FROM difference_in_seconds
+							)
+ 
+ 							SELECT
+								Bowser_ID,
+    							Maintenance_ID,
+    							Description,
+    							DATE_FORMAT(Date, '%m/%d/%y - %T') as Date,
+								Status,
+								CONCAT(
+    								FLOOR(seconds / 3600 / 24), ' days ',
+    								FLOOR(hours_part / 3600), ' hours ',
+    								FLOOR(minutes_part / 60), ' minutes ',
+    								seconds_part, ' seconds'
+  								) AS Difference,
+								FLOOR(seconds / 3600 / 24) as Days
+							FROM differences 
+							WHERE bowser_id = '$selBowserID' and Date < Now()");
+				echo"<table style='width: 100%;'>";
+				echo"<tr align='center'>
+						<th>Maintenance ID</th>
+						<th>Created</td>
+						<th>Status</th>
+						<th>Description</th>
+						<th>Days to Complete</th>
+					</tr>";
+				$result2 = mysqli_query($connection, $sql2);
+				while($row2 = mysqli_fetch_assoc($result2)) {
+                	if (mysqli_num_rows($result2) > 0) {
+                    	foreach ($result2 as $row2) {
+                        	echo "<tr>";
+							echo "<td align='center'>" . $row2['Maintenance_ID'] . "</td>";
+							echo "<td align='center'>" . $row2['Date'] . "</td>";
+                            echo "<td align='center'>" . $row2['Status'] . "</td>";
+                            echo "<td align='center'>" . $row2['Description'] . "</td>";
+							if ($row2['Days'] >= 14){
+								echo "<td align='center' style='background-color: #FF0000'>";
 							}
-						?>
-						</table>
-                </div>
+							if ($row2['Days'] >= 4 and $row2['Days'] <= 13)
+								echo "<td align='center' style='background-color: #FF8800'>";
+							}
+							if ($row2['Days'] > 0 and $row2['Days'] <= 3)
+								echo "<td align='center' style='background-color: #FFFF00'>";
+							} else {
+								echo "<td align='center'>";
+							}
+							echo $row2['Difference'] . "</td>";
+							echo "</tr>";
+						}
+					}
+					CloseConnection($connection);
+}
+?>
+		</table>
+	</div>
 
                 <?php
                 if (isset($_SESSION['email'])){
