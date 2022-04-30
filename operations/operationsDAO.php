@@ -1,5 +1,6 @@
 <?php
-// get connection from config.php
+//use Operations\Transactions;
+
 include "../include/config.php";
 // create new user function
 if ($_POST['phpFunction']=='createUser') {
@@ -131,7 +132,6 @@ function updateLentBowser($bowserID){
 function lendBowser($capacity, $transaction, $organisation, $company){
     $userID = returnUserID();
     $stock = returnBowserStock($capacity);
-
     $modifiedStock = $stock - 1;
     $bowserID = returnStockedBowser('BowserID', $capacity);
     $bowserCost = returnStockedBowser('Bowser_Cost', $capacity);
@@ -139,6 +139,14 @@ function lendBowser($capacity, $transaction, $organisation, $company){
     updateLentBowser($bowserID);
     createInvoice($transaction, $userID, $bowserID, $organisation, $company, $bowserCost);
     updateBowserStock($modifiedStock, $capacity);
+
+    // Object Orientated
+//    $userID= Transactions::returnUsersID();
+//    $stock = Transactions::returnBowsersStock($capacity);
+//    $bowserID = Transactions::returnStockedBowsers('BowserID', $capacity);
+//    $bowserCost = Transactions::returnStockedBowsers('Bowser_Cost', $capacity);
+//    Transactions::updateBowsersStock($modifiedStock, $capacity);
+
     header("Location: ../operations/admin.php");
 }
 
@@ -164,3 +172,4 @@ function bowserTransaction()
     CloseConnection($connection);
 }
 ?>
+

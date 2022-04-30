@@ -102,7 +102,7 @@ function initialize(){       // function for map options
                 markers = new google.maps.Marker({
                     position: new google.maps.LatLng(lat, lng),
                     // icon: image,
-                    title: bowserID,
+                    title: "Bowser ID: "+bowserID,
                     map: myMap
                 });
             }

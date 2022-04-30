@@ -12,8 +12,8 @@ if(isset($_POST['phpFunction'])) {
 }
 // function to check if user information matches database
 function login() {
-    $email = $_POST['email'];	// variable for email
-    $pass = $_POST['password'];	// variable for password
+    $email = strip_tags(trim($_POST['email']));	// variable for email
+    $pass = strip_tags(trim($_POST['password']));	// variable for password
 
     // query to check if email and password match, and if user verified
 	$connection = OpenConnection();

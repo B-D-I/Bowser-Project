@@ -46,7 +46,7 @@ function initMap() {
                 marker = new google.maps.Marker({
                     position: new google.maps.LatLng(lat, lng),
                     // icon: image,
-                    title: bowserID,
+                    title: "Bowser ID: "+bowserID,
                     map: map
                 });
                 // marker on click
