@@ -346,7 +346,7 @@ if (isset($_SESSION['email'])) {
                         <div class="row" id="bowserButtonDiv">
                             <!---bowser info--->
                             <div class="vibrate-2" id="viewBowserInformation" >
-                                <a class="text-focus-in" class="remove_outline" href="javascript:popUpWindow('../bowsers/bowsers.php','bowsers','900','500')"><h3 id="reportTxt">Bowser Info</h3></a>
+                                <a class="text-focus-in" class="remove_outline" href="javascript:popUpWindow('../bowsers/bowsers.php','900','500')"><h3 id="reportTxt">Bowser Info</h3></a>
                             </div>
                         </div>
 
