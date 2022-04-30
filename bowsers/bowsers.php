@@ -278,9 +278,8 @@ if (isset($_SESSION['email'])){
 														if(isset($_POST['addBowser'])) {
 															$Bowser_Serial = $_POST["description"];
 															$Bowser_Capacity = $_POST["cap"];
-															$Bowser_Model = $_POST["status"];
-															$Bowser_Model = $_POST["cost"];
-															$Bowser_Model = $_POST["location"];
+															$Bowser_status = $_POST["status"];
+															$Bowser_cost = $_POST["cost"];
 															$sql3 = "INSERT INTO tbl_bowsers(bowserID,Bowser_Description,Bowser_Capacity,status,cost,location) VALUES (NULL,'$Bowser_Serial','$Bowser_Model', '$Bowser_Capacity')";
 															if($query = mysqli_query($connection, $sql3)) {
 																echo "<script>alert('Is Done is Good')</script>";
@@ -378,15 +377,15 @@ if (isset($_SESSION['email'])){
 
 						<br /><br />
 						<?php
-							if($row_bowserLat = '0.000000'){
-								$row_bowserLat = '51.886';
-							}
-							if($row_bowserLng = '0.000000'){
-								$row_bowserLng = '-2.088';
-							}
+							if($row_bowserLat == "0"){
+								$bowserLat = '51.886';
+							} 
+							if($row_bowserLng == "0"){
+								$bowserLng = '-2.088';
+							} else {
 							$bowserLat = $row_bowserLat;
 							$bowserLng = $row_bowserLng;
-							
+							}
 							if ($selBowserID > '0') {
                             	echo '<h2>Current Location of ' . $selBowserID . '</h2>';
 								echo '<div id="map">';
