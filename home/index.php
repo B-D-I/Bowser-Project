@@ -116,17 +116,17 @@ if (isset($_SESSION['email'])) {
                                     <div class="col">
                                         <div class="select">
                                             <select name="Report_Type" id="select" onchange="reportTypeCheck(this);">';
-			<?php			
+											<?php			
 												$connection = OpenConnection();
 												$result = mysqli_query($connection, "SELECT id, description, is_bowser FROM tbl_report_type order by id asc;");
 												echo "<option value='-1' disabled selected>---</option>";
 												if (mysqli_num_rows($result) > 0){
 													while($row = mysqli_fetch_assoc($result)) {
-														echo "<option id='".$row['is_bowser']."' value='".$row['id']."'>".$row['description']."</option>";
+														echo "<option id='" . $row['is_bowser'] . "' value='".$row['id']."'>".$row['description']."</option>";
 													}
 												}
 												CloseConnection($connection);
-			?>
+											?>
                                             </select>
                                         </div>
                                     </div>
@@ -162,21 +162,8 @@ if (isset($_SESSION['email'])) {
                                 <a id="link" href="mailto:s4008324@glos.ac.uk">bowser-hub@email.com</a>
                                 </p><br /><br />
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                               <input type="submit" name="submit" value="Send Report"></input>
+                                <button type="button" class="btn btn-primary" name="submit" onclick="sendReport()">Send Report</input>
 
-							   	<?php
-									$connection = OpenConnection();
-    								if(isset($_POST["submit"])){
-										if (empty($Bowser_ID)){
-											$Bowser_ID = "0";
-										}
-										$Report_Type = $connection->real_escape_string($_POST['Report_Type']);
-										$Bowser_ID = $connection->real_escape_string($_POST['Bowser_ID']);
-										$Description = $connection->real_escape_string($_POST['Description']);
-        								if($query = mysqli_query($connection,"INSERT INTO tbl_Reports(Report_ID,Report_Type,Bowser_ID,Description, Status) VALUES (NULL,'$Report_Type','$Bowser_ID','$Description', 'Pending')"));
-    								}
-									CloseConnection($connection)
-                        		?>
                         </div>
                     </div>
                     </form>
