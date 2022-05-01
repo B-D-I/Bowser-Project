@@ -286,7 +286,7 @@ if (empty($filter)){
                         <br />
                         <div id="taskAllocation">
 
-                        <div method="post" action="allocateTaskDAO.php" id="formAllocateTask">
+                        <form method="post" action="allocateTaskDAO.php" id="formAllocateTask">
                             <h5>Assign Maintenance Task</h5>
                         <br />
                             <div id="bowserID">
@@ -312,7 +312,6 @@ if (empty($filter)){
                                         ?>
                                     </select>
                                 </div>
-
 									<label for="filter">Show Only Deployed Bowsers</label>
                                     <input type="checkbox" name="filter" form="Filter" value="filter" onchange="this.form.submit()" <?php if(!empty($_SESSION["filter"])){echo "checked";} ?>></input>
                             </div>
@@ -383,9 +382,6 @@ if (empty($filter)){
                                 <button type="submit" name="allocateTaskSubmit" class="btn btn-primary">Assign Task</button>
                             </div>
                         </form>
-						<form action="operations.php" method="post" id="Filter">
-						</form>
-                    </div>
                     </div>
                     <br />
 

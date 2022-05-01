@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2022 at 08:02 PM
+-- Generation Time: May 01, 2022 at 08:20 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -338,7 +338,10 @@ INSERT INTO `tbl_maintenance_schedule` (`Maintenance_ID`, `Bowser_ID`, `User_ID`
 (14, 1, 7, 'Loose fitting', 'Completed', '2022-04-19 18:14:38', 5, 2, 1, 'Repair', NULL),
 (15, 2, 7, 'Broken nozzel', 'Completed', '2022-04-19 10:27:12', 5, 3, 3, 'Repair', '2022-04-29 09:27:12'),
 (19, 16, 7, 'Bowser requires service', 'Completed', '2022-03-22 15:58:13', 5, 2, 1, 'Service', '2022-04-29 09:33:25'),
-(22, 10, 7, 'repair of bowser 10', 'Completed', '2022-04-19 18:14:12', 5, 2, 1, 'Repair', NULL);
+(22, 10, 7, 'repair of bowser 10', 'Completed', '2022-04-19 18:14:12', 5, 2, 1, 'Repair', NULL),
+(24, 2, 7, 'deploy bowser 2 to location', 'Incomplete', '2022-04-30 23:00:00', 5, 0, 3, 'Deliver', NULL),
+(25, 21, 7, 'refill bowser 21', 'Incomplete', '2022-05-01 23:00:00', 5, 0, 2, 'Refill', NULL),
+(26, 7, 7, 'bowser 7 collection', 'Incomplete', '2022-05-01 23:00:00', 5, 0, 1, 'Collect', NULL);
 
 -- --------------------------------------------------------
 
@@ -625,7 +628,7 @@ ALTER TABLE `tbl_bowser_requests`
 -- AUTO_INCREMENT for table `tbl_maintenance_schedule`
 --
 ALTER TABLE `tbl_maintenance_schedule`
-  MODIFY `Maintenance_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `Maintenance_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `tbl_notifications`
