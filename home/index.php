@@ -162,7 +162,7 @@ if (isset($_SESSION['email'])) {
                                 <a id="link" href="mailto:s4008324@glos.ac.uk">bowser-hub@email.com</a>
                                 </p><br /><br />
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" name="submit" onclick="sendReport()">Send Report</input>
+                                <button type="button" class="btn btn-primary" name="submit" onclick="sendReport()">Send Report</button>
 
                         </div>
                     </div>
@@ -346,7 +346,7 @@ if (isset($_SESSION['email'])) {
                         <div class="row" id="bowserButtonDiv">
                             <!---bowser info--->
                             <div class="vibrate-2" id="viewBowserInformation" >
-                                <a class="text-focus-in" class="remove_outline" href="javascript:popUpWindow('../bowsers/bowsers.php','900','500')"><h3 id="reportTxt">Bowser Info</h3></a>
+                                <a class="text-focus-in" class="remove_outline" href="javascript:popUpWindow('../bowsers/bowsers.php','bowsers','900','500')"><h3 id="reportTxt">Bowser Info</h3></a>
                             </div>
                         </div>
 

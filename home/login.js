@@ -25,7 +25,7 @@ $('#login_form').submit(function(event) {
                 email = dataJson['Email'];
                 password = dataJson['Password'];
                 sessionStorage.setItem('email', email);
-                sessionStorage.setItem('password', password);
+                // sessionStorage.setItem('password', password);
                 alert("Logged in");
                 window.location="../home/index.php";
             }
