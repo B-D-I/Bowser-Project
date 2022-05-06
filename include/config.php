@@ -17,6 +17,7 @@ $connection = new mysqli($servername, $username, $password, $dbname);
 	}
 }
 
+
 function CloseConnection($connection){
 	$connection -> close();
 }

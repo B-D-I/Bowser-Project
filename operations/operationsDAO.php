@@ -1,5 +1,6 @@
 <?php
-// get connection from config.php
+//use Operations\Transactions;
+
 include "../include/config.php";
 // create new user function
 if ($_POST['phpFunction']=='createUser') {
@@ -131,7 +132,6 @@ function updateLentBowser($bowserID){
 function lendBowser($capacity, $transaction, $organisation, $company){
     $userID = returnUserID();
     $stock = returnBowserStock($capacity);
-
     $modifiedStock = $stock - 1;
     $bowserID = returnStockedBowser('BowserID', $capacity);
     $bowserCost = returnStockedBowser('Bowser_Cost', $capacity);
@@ -139,7 +139,15 @@ function lendBowser($capacity, $transaction, $organisation, $company){
     updateLentBowser($bowserID);
     createInvoice($transaction, $userID, $bowserID, $organisation, $company, $bowserCost);
     updateBowserStock($modifiedStock, $capacity);
-    header("Location: ../operations/operations.php");
+
+    // Object Orientated
+//    $userID= Transactions::returnUsersID();
+//    $stock = Transactions::returnBowsersStock($capacity);
+//    $bowserID = Transactions::returnStockedBowsers('BowserID', $capacity);
+//    $bowserCost = Transactions::returnStockedBowsers('Bowser_Cost', $capacity);
+//    Transactions::updateBowsersStock($modifiedStock, $capacity);
+
+    header("Location: ../operations/admin.php");
 }
 
 // FUNCTION TO PERFORM BOWSER TRANSACTIONS
@@ -153,15 +161,15 @@ function bowserTransaction()
     $priority = strip_tags(trim($_POST['Priority']));
     $company = $_POST['company'];
 
-
     if ($transaction == 'Lend') {
         lendBowser($capacity, 'Lend', $organisation, $company);
     }
     if ($transaction == 'Loan') {
         $userID = returnUserID();
         bowserRequest($userID, $capacity, $organisation, $company, $priority, $reason);
-        header("Location: ../operations/operations.php");
+        header("Location: ../operations/admin.php");
     }
     CloseConnection($connection);
 }
 ?>
+

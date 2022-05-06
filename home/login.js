@@ -12,22 +12,20 @@ $('#login_form').submit(function(event) {
         data: formData+"&phpFunction=login",
         datatype: 'json',
         success: function(msg){
-
             dataJson = JSON.parse(msg);
             console.log(dataJson);
-
-            // need if statement for isAdmin
 
             // if incorrect data - display message
             if (dataJson['result']=='false') {
                 $("#divmessage").html("wrong username or password");
                 alert("Incorrect Login");
+                window.location="../home/index.php";
                 // else set session storage, alert and redirect to index page
             } else {
                 email = dataJson['Email'];
                 password = dataJson['Password'];
                 sessionStorage.setItem('email', email);
-                sessionStorage.setItem('password', password);
+                // sessionStorage.setItem('password', password);
                 alert("Logged in");
                 window.location="../home/index.php";
             }

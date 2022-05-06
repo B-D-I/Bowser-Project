@@ -24,12 +24,22 @@ else if ($_GET['phpFunction']=='verify') {
 	verify();
 }
 
+function returnAreaCode($location){
+	$connection=OpenConnection();
+	$sql="SELECT * FROM `tbl_area` WHERE Area_Name='$location'";
+	$result = mysqli_query($connection, $sql);
+	$rows = mysqli_fetch_array($result);
+	$areaCode = $rows["Area_ID"];
+	return $areaCode;
+}
 
 // insert data into db table tbl_user
 function create() {
 	$verificationcode = substr(md5(uniqid(rand(), true)), 16, 16);
 	$email= strip_tags(trim($_POST['email']));
 	$password= strip_tags(trim($_POST['password']));
+	$location= strip_tags(trim($_POST['userLocation']));
+	$areaCode = returnAreaCode($location);
 	
 	// query to select from database
 	$connection=OpenConnection();
@@ -41,8 +51,8 @@ function create() {
 	}
 
 	// construct query string - insert into db
-	$sql2= "insert into tbl_user_account (User_Type, Password, Email, UserLevel, isVerified, Verification_Code) values
-		('Customer','$password','$email', 1,'1','$verificationcode')";
+	$sql2= "insert into tbl_user_account (User_Type, Password, Email, UserLevel, isVerified, Verification_Code, Location) values
+		('Customer','$password','$email', 1,'1','$verificationcode', '$areaCode')";
 
 	// connection confirmation
 	if (mysqli_query($connection, $sql2)){

@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-
 function queryClose($sql){
     $connection = OpenConnection();
     if (mysqli_query($connection, $sql)) {
@@ -13,7 +12,6 @@ function queryClose($sql){
     }
     mysqli_close($connection);
 }
-
 
 // UPDATE BOWSER STATUS
 function updateStatus($status, $requestID){

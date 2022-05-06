@@ -17,14 +17,10 @@ $query = mysqli_query($connection, $sql);
 $job = mysqli_fetch_assoc($query);
 // CloseConnection($connection);
 
-
 // url parameters
 if(isset($_GET['id'])){
     $id= $_GET['id'];
 }
-
-
-
 
 ?>
 <!doctype html>
@@ -37,7 +33,7 @@ if(isset($_GET['id'])){
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="../global/global.css" type="text/css">
-    <link rel="stylesheet" href="maintenanceCSS.php" type="text/css">
+    <link rel="stylesheet" href="maintenance.css" type="text/css">
     <link rel="icon" type="image/x-icon" href="../images/logo/bowserLogo.png">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
 
@@ -49,12 +45,11 @@ if(isset($_GET['id'])){
     <!--jQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!--google maps api-->
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<!--    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>-->
     <title>Water Bowser</title>
 </head>
 
 <body>
-
 <!---html anchor to return to top of page-->
 <p id="back_to_top"></p>
 
@@ -99,13 +94,16 @@ if(isset($_GET['id'])){
             <div class="row">
                 <div class="col">
 
-                    <h2> Requirements:</h2>
+                    <h2> Tasks:</h2>
                     <br />
-
                     <ul class="maintenance_list">
-
                         <br />
-                        <h4>User: <?php echo $email  ?> </h4>
+
+                        <h4>User: <?php
+                            $username = current(explode('@', $email));
+                            $sql1="SELECT * FROM `tbl_user_account` WHERE email='$email'";
+                            echo $username;
+                            ?> </h4>
 
                         <br /><br />
                         <script>
@@ -113,29 +111,55 @@ if(isset($_GET['id'])){
                                 $('[data-toggle="popover"]').popover();
                             });
                         </script>
-
                         <?php
                         
                         foreach($query as $row){
-                            
 
+                                // Tidying code by assigning row values to variables
                                         $jobStatus = $row['Status'];
+                                        $maintenanceID = $row['Maintenance_ID'];
+                                        $bowserID = $row['Bowser_ID'];
+                                        $userID = $row['User_ID'];
+                                        $description = $row['Description'];
+                                        $date = $row['Date'];
+                                        $assignedTo = $row['Assigned_To'];
+                                        $areaID = $row['Area_ID'];
+                                        $priority = $row['Priority'];
+                                        $taskType= $row['Task_Type'];
+
+                                        // Changes value of div based on priority from database
+                                        switch($priority){
+                                            case 1:
+                                                $jobPriorityDiv = "highPriority";
+                                                break;
+
+                                            case 2:
+                                                 $jobPriorityDiv = "medPriority";
+                                                 break;
+
+                                            case 3:
+                                                 $jobPriorityDiv = "lowPriority";
+                                                  break;
+                                        }
+
+                                        // Echoing a row of information, buttonsm, alert etc for each task.
 
                                         echo "<div class='form-check'>";
-                                         echo "<label class='form-check-label'>";
-                                        echo "Bowser ", $row['Bowser_ID']," - " ,$row['Date'], " ", "<span class = status>",$jobStatus,"</span>";
+                                        echo "<label class='form-check-label'>";
+                                        echo "<div id = $jobPriorityDiv> ";
+                                        echo "Bowser ", $bowserID," - " ,$date, " ",$jobStatus;
+                                        echo "</div>";
                                         echo "</label>";
 
                                         echo "<button type='button' class='btn btn-link' data-toggle='popover' data-html = 'true' 
-                                        title= 'Description: $row[Description]  Area ID: $row[Area_ID] <span> Priority $row[Priority] Task Type: $row[Task_Type]'  
+                                        title= 'Description: $description  Area ID: $areaID Priority: $priority Task Type: $taskType'  
                                         style='float:right;'>View Details</button>";
 
                                         echo "<br/><br/>";
-                                       echo "<button type='button' class='btn btn-primary' style='float:right position:fixed; id='initialSubmit'>Task Complete</button>";
+                                        echo "<button type='button' class='btn btn-primary' style='float:right position:fixed; id='initialSubmit'>Task Complete</button>";
 
                                     //    In progress
                                        echo "<button type='button' class='btn btn-secondary' style='float:right position:fixed; id='taskInProgress'>Task In Progress</button>";
-
 
                                     //    Alerts for each task
                                        echo "<div class = 'alert alert-primary alert-dismissible'>";
@@ -143,11 +167,11 @@ if(isset($_GET['id'])){
                                     <path d='M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z'/>
                                     </svg>";
                                        echo  "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
-                                       echo "Are you sure you want to submit task $row[Maintenance_ID]?";
+                                       echo "Are you sure you want to submit task $maintenanceID?";
                                        echo "<br/><br/>";
 
                                     //    Setting url parameter for submitting task
-                                       echo "<form action='maintenance.php?id=$row[Maintenance_ID]' method='post'>";
+                                       echo "<form action='maintenance.php?id=$maintenanceID' method='post'>";
                                        echo "<button class = 'btn btn-secondary' type='submit' name='submit' value='Submit'> Yes, submit </button> ";
                                        echo "</form>";
 
@@ -161,13 +185,26 @@ if(isset($_GET['id'])){
 
                                     //    Submitting task if url parameter is set
                                     if(isset($id)){
-                                        $submitSQL = "UPDATE tbl_maintenance_schedule SET Status = 'Completed' WHERE maintenance_ID='$id'";
-                                        mysqli_query($connection, $submitSQL);                                
-                                        
-                                    }
+                                        $submitSQL = "UPDATE tbl_maintenance_schedule SET Status = 'Completed', Completed_Date = NOW() WHERE maintenance_ID='$id'";
+                                        mysqli_query($connection, $submitSQL);
 
-                        ?>       
-               
+                                        $date = $row['Date'];
+                                        $bowserID = $row['Bowser_ID'];
+                                        $type = $row['Task_Type'];
+                                        $area = $row['Area_ID'];
+                                        $fixNoticeText = "On ".$date."&nbsp;&nbsp;Bowser: ".$bowserID."&nbsp;has undertaken a ".$type;
+
+                                        $sql = "INSERT INTO `tbl_notifications` (Notice_Text, Area_ID, Type) VALUES ('$fixNoticeText', '$area', 2) ";
+                                        $connection = OpenConnection();
+                                        if (mysqli_query($connection, $sql)) {
+//                                            echo "success";
+//                                            header("Location: ../maintenance/maintenance.php");
+                                        } else {
+                                            echo mysqli_error($connection);
+                                        }
+                                        mysqli_close($connection);
+                                    }
+                        ?>
                 </div>
 
                 <div class="col">
@@ -175,11 +212,53 @@ if(isset($_GET['id'])){
                         <h2>Bowser Map</h2>
                         <br />
                         <!--div to display map--->
-                        <div id="map"></div>
+                        <div class="mapDiv"  id="map"></div>
                     </div>
                 </div>
             </div>
+
+
+
+<!-- Viewing information about water mains supply -->
+            <h2>  Mains Supply Information:</h2>
+            <div class ="backgroundBox"> 
+
+            <?php  
+            
+            $mainsSQL = "SELECT * FROM tbl_area ORDER BY Last_Modified DESC";
+            $mainsQuery = mysqli_query($connection, $mainsSQL);
+            
+            foreach ($mainsQuery as $area){
+                $areaID = $area['Area_ID'];
+                $areaName = $area['Area_Name'];
+                $areaStatus = $area['Area_Mains_Status'];
+                $areaLastModified = $area['Last_Modified'];
+
+                switch ($areaStatus){
+
+                    case "Operational":
+                        $areaDiv = "operational";
+                        break;
+                    case "Non-Operational":
+                        $areaDiv = "broken";
+                        break;
+
+                }
+
+                echo "<div id = $areaDiv >";
+                echo $areaName," Mains Status: ", $areaStatus," <span style='float:right'> Last Updated: ", $areaLastModified, "</span>","</div> <br/>";
+                echo "";
+            }
+            
+            ?>
+
+            </div>
+
+
+
         </div>
+
+        
 
         <br /><br /><br /><br /><br />
 
@@ -188,7 +267,7 @@ if(isset($_GET['id'])){
         <br />  <br />
 
         <script src="maintenance.js"></script>
-        <script src ="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization&callback=initMap" async defer> </script>
+        <script src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv17Pa1iXPZVBV4q4uGYCtESCD2evyHg8&sensor=false&libraries=visualization&callback=initMap" async defer> </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>
 </html>

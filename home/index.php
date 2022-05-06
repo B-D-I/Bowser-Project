@@ -16,6 +16,7 @@ if (isset($_SESSION['email'])) {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $userType = $row["User_Type"];
+            $userLocation = $row["Location"];
 	    CloseConnection($connection);
         }
     }
@@ -49,7 +50,7 @@ if (isset($_SESSION['email'])) {
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 	
     <!--google maps api-->
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<!--    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>-->
 	<!--report screen functions -->
 	<script type = "text/javascript" src="reportFuncs.js"></script>
 	
@@ -115,17 +116,17 @@ if (isset($_SESSION['email'])) {
                                     <div class="col">
                                         <div class="select">
                                             <select name="Report_Type" id="select" onchange="reportTypeCheck(this);">';
-			<?php			
+											<?php			
 												$connection = OpenConnection();
 												$result = mysqli_query($connection, "SELECT id, description, is_bowser FROM tbl_report_type order by id asc;");
 												echo "<option value='-1' disabled selected>---</option>";
 												if (mysqli_num_rows($result) > 0){
 													while($row = mysqli_fetch_assoc($result)) {
-														echo "<option id='".$row['is_bowser']."' value='".$row['id']."'>".$row['description']."</option>";
+														echo "<option id='" . $row['is_bowser'] . "' value='".$row['id']."'>".$row['description']."</option>";
 													}
 												}
 												CloseConnection($connection);
-			?>
+											?>
                                             </select>
                                         </div>
                                     </div>
@@ -161,21 +162,8 @@ if (isset($_SESSION['email'])) {
                                 <a id="link" href="mailto:s4008324@glos.ac.uk">bowser-hub@email.com</a>
                                 </p><br /><br />
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                               <input type="submit" name="submit" value="Send Report"></input>
+                                <button type="button" class="btn btn-primary" name="submit" onclick="sendReport()">Send Report</button>
 
-							   	<?php
-									$connection = OpenConnection();
-    								if(isset($_POST["submit"])){
-										if (empty($Bowser_ID)){
-											$Bowser_ID = "0";
-										}
-										$Report_Type = $connection->real_escape_string($_POST['Report_Type']);
-										$Bowser_ID = $connection->real_escape_string($_POST['Bowser_ID']);
-										$Description = $connection->real_escape_string($_POST['Description']);
-        								if($query = mysqli_query($connection,"INSERT INTO tbl_Reports(Report_ID,Report_Type,Bowser_ID,Description, Status) VALUES (NULL,'$Report_Type','$Bowser_ID','$Description', 'Pending')"));
-    								}
-									CloseConnection($connection)
-                        		?>
                         </div>
                     </div>
                     </form>
@@ -195,7 +183,6 @@ if (isset($_SESSION['email'])) {
         <div class="wave"></div>
     </div>
 
-
         <div class="right-side" >
 
             <?php
@@ -204,10 +191,11 @@ if (isset($_SESSION['email'])) {
                 echo "<a href='logout.php'>Logout</a>";
                 echo "</div>";
             } else {
+                $connection = OpenConnection();
                 echo '
 
             <div class="nav-link-wrapper" id="loginTab">
-                <a class="text-focus-in" id="loginLink" href="#loginModal" data-bs-toggle="modal" >Login</a>
+                <a class="" id="loginLink" href="#loginModal" data-bs-toggle="modal" >Login</a>
                
                 <!-- Modal -->
                 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -239,7 +227,7 @@ if (isset($_SESSION['email'])) {
                     </div>
                 </div>
                 <div class="nav-link-wrapper" id="registrationTab">
-                    <a class="text-focus-in" id="registerLink" href="#registerModal" data-bs-toggle="modal" >Registration</a>
+                    <a class="" id="registerLink" href="#registerModal" data-bs-toggle="modal" >Registration</a>
 
                     <!-- Modal -->
                     <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
@@ -247,7 +235,7 @@ if (isset($_SESSION['email'])) {
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="registerModalLabel">Registration</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" id="registerModalClose" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <div class="row">
@@ -264,6 +252,22 @@ if (isset($_SESSION['email'])) {
 
                                                 <div class="mb-3">
                                                     <input type="password" name="re_password" class="form-control" placeholder="Repeat Password" id="password_confirm">
+                                                </div>
+                                                
+                                                <div class="select">
+                                                    <select name="userLocation" id="select">                                         
+                                                       <option value="-1" disabled selected>---</option>';
+                                                        $sql = "SELECT * FROM `tbl_area` ";
+                                                        $result = mysqli_query($connection, $sql);
+                                                        $rows = mysqli_fetch_array($result);
+                                                        if ($result->num_rows > 0) {
+                                                            while ($rows = $result->fetch_assoc()) {
+                                                                $areaName = $rows['Area_Name'];
+                                                                echo "<option value='".$areaName."'>".$areaName."</option>";
+                                                            }
+                                                        }
+                                                        echo'                                                      
+                                                    </select>
                                                 </div>
 
                                                 <div id="account_submit_button">
@@ -290,40 +294,40 @@ if (isset($_SESSION['email'])) {
 <!--The main section of page--->
     <div class="upperPage">
         <!---row for bowser info and faq buttons--->
-        <div class="row">
-            <!---bowser info--->
-            <div class="col">
-                <div class="vibrate-2" id="viewBowserInformation" >
-                    <a class="text-focus-in" class="remove_outline" href="javascript:popUpWindow('../bowsers/bowsers.php','bowsers','900','500')"><h3 id="reportTxt">Bowser Info</h3></a>
-                </div>
-            </div>
-            <!---faqs-->
-            <div class="col">
-                <div class="vibrate-2" id="viewFAQ" >
-                    <a class="text-focus-in" href="#FAQModal" data-bs-toggle="modal" ><h3 id="reportTxt">FAQs</h3></a>
-                </div>
-            </div>
-            <!---additonal columns for spacing--->
-            <div class="col"></div>
-            <div class="col"></div>
-        </div>
 
         <div class="shadow-sm p-3 mb-5 bg-body rounded">
             <!---row for notifications and map--->
             <div class="row">
                     <div class="col">
-                        <h2> Notifications and Alerts</h2>
+                        <div>
+                        <h2> Notifications and Alerts</h2><span id="clock">clock</span></div>
                         <ul class="notification-list">
                             <?php
                             $connection = OpenConnection();
-                            $sql = "SELECT * FROM `tbl_notifications` ORDER BY Date DESC LIMIT 10 ";
-                            $result = mysqli_query($connection, $sql);
-                            $rows = mysqli_fetch_array($result);
+                            if (isset($_SESSION['email'])) {
+                                if ($userType == "Operations" OR "Maintenance")
+                                $sql2 = "SELECT * FROM `tbl_notifications` ORDER BY Date DESC LIMIT 10  ";
+                                if ($userType == "Customer")
+                                    $sql2 = "SELECT * FROM `tbl_notifications` WHERE Area_ID = '$userLocation' ORDER BY Date DESC LIMIT 10 ";
+                            } else {
+                                $sql2 = "SELECT * FROM `tbl_notifications` ORDER BY Date DESC LIMIT 10 ";
+                            }
+                            $result2 = mysqli_query($connection, $sql2);
+                            $rows2 = mysqli_fetch_array($result);
 
-                            while($rows = mysqli_fetch_assoc($result)) {
-                                $notification = $rows['Notice_Text'];
+                            while($rows2 = mysqli_fetch_assoc($result2)) {
+                                $notificationType = $rows2['Type'];
+                                switch($notificationType){
+                                    case 1:
+                                        $notificationDiv = "notificationFault";
+                                        break;
+                                    case 2:
+                                        $notificationDiv = "notificationFix";
+                                        break;
+                                }
+                                $notification = $rows2['Notice_Text'];
+                                echo "<div id='$notificationDiv'>".$notification."</div>";
                                 echo "<br />";
-                                echo $notification."<br /><br />";
                             }
                             ?>
                         </ul>
@@ -332,20 +336,33 @@ if (isset($_SESSION['email'])) {
                     <div class="col">
                         <div class="text_area">
                             <h2>Bowser Map</h2>
-                            <br />
                             <p> Find local bowsers using the map below </p>
-                            <br />
                             <!--div to display map--->
-                            <div id="map">
+                            <div class="mapDiv" id="map"></div>
+
+                        </div>
+
+
+                        <div class="row" id="bowserButtonDiv">
+                            <!---bowser info--->
+                            <div class="vibrate-2" id="viewBowserInformation" >
+                                <a class="text-focus-in" class="remove_outline" href="javascript:popUpWindow('../bowsers/bowsers.php','bowsers','900','500')"><h3 id="reportTxt">Bowser Info</h3></a>
                             </div>
                         </div>
-                    </div>
+
+                        <div class="row" id="FAQButtonDiv">
+                            <!---faqs-->
+                            <div class="vibrate-2" id="viewFAQ" >
+                                <a class="text-focus-in" href="#FAQModal" data-bs-toggle="modal" ><h3 id="reportTxt">FAQs</h3></a>
+                            </div>
+                        </div>
+
+                        </div>
 
 
             </div>
         </div>
     </div>
-
 
                     <!-- Modal -->
                     <div class="modal fade" id="FAQModal" tabindex="-1" aria-labelledby="FAQModalLabel" aria-hidden="true">
@@ -356,14 +373,16 @@ if (isset($_SESSION['email'])) {
                                     <div class="row">
                                         <div class="col">
                                             <h2>FAQs</h2><br />
-                                            <p style="color: dodgerblue">HOW DO I VIEW NOTIFICATIONS AND ALERTS: </p><br />
-                                            <p>Check the notification news feed</p><br /><br />
-                                            <p style="color: dodgerblue">HOW DO I REPORT AN ISSUE: </p><br />
-                                            <p>Click the reports tab and send us a query</p><br /><br />
-                                            <p style="color: dodgerblue">HOW DO I CONTACT YOU WITHOUT CREATING AN ACCOUNT: </p><br />
+                                            <p style="color: dodgerblue">HOW DO I VIEW NOTIFICATIONS AND ALERTS </p>
+                                            <p>Check the notification news feed</p><br />
+                                            <p style="color: dodgerblue">HOW DO I REPORT AN ISSUE? </p>
+                                            <p>Click the reports tab and send us a query</p><br />
+                                            <p style="color: dodgerblue">HOW DO MOVE THE MAP TO MY LOCATION? </p>
+                                            <p>Click the 'Pan to Current Location' button above the map</p><br />
+                                            <p style="color: dodgerblue">HOW DO I CONTACT YOU? </p>
                                             <p>For assistance, contact us at:
                                                 <a id="link" href="mailto:s4008324@glos.ac.uk">bowser-hub@email.com</a>
-                                            </p><br /><br />
+                                            </p><br />
                                         </div>
                                     </div>
                                 </div>
@@ -381,9 +400,8 @@ if (isset($_SESSION['email'])) {
         <script src="home.js"></script>
         <script src="login.js"></script>
         <script src="register.js"></script>
-        <script src ="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization&callback=initMap" async defer> </script>
+        <script src ="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv17Pa1iXPZVBV4q4uGYCtESCD2evyHg8&sensor=false&libraries=visualization&callback=initMap" async defer> </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-
 
 </body>
 
