@@ -45,6 +45,7 @@ $row_bowserLng = -2.088;
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<link rel="stylesheet" href="../global/global.css" type="text/css">
+		<link rel="stylesheet" href="bowsers.css" type="text/css">
     	<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
     	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
     	<link rel="icon" type="image/x-icon" href="../images/logo/bowserLogo.png">
@@ -78,11 +79,8 @@ $row_bowserLng = -2.088;
     <div class="upperPage">
         <div class="shadow-sm p-3 mb-5 bg-body rounded">
             <div class="row">
-  				<div class="row">
-  				</div>
-
-				<div class="col">
-					<div class="maintenance_list">
+  				<div class="col">
+					<div class="bowser-list">
 					<h2>Bowser Information</h2>
 						<form action="" id="bowser" method="POST">
      					  <p>
@@ -265,9 +263,6 @@ if (isset($_SESSION['email'])){
 														<input type="text" name="status" class="form-control" required></input>
 													<label for="cap">Bowser Cost: </label>
 														<input type="number" name="cost" class="form-control" required></input>
-													<label for="model">Bowser Location: </label>
-														<input type="text" name="location" class="form-control" required></input>
-													
 													<br />
 													<input class="btn btn-primary" type="submit" name="addBowser" value="Add Bowser"/>
 													<button id='closeModal' type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
@@ -280,7 +275,7 @@ if (isset($_SESSION['email'])){
 															$Bowser_Capacity = $_POST["cap"];
 															$Bowser_status = $_POST["status"];
 															$Bowser_cost = $_POST["cost"];
-															$sql3 = "INSERT INTO tbl_bowsers(bowserID,Bowser_Description,Bowser_Capacity,status,cost,location) VALUES (NULL,'$Bowser_Serial','$Bowser_Model', '$Bowser_Capacity')";
+															$sql3 = "INSERT INTO tbl_bowsers(bowserID,Bowser_Description,Bowser_Capacity,status,cost) VALUES (NULL,'$Bowser_Serial','$Bowser_Model', '$Bowser_Capacity')";
 															if($query = mysqli_query($connection, $sql3)) {
 																echo "<script>alert('Is Done is Good')</script>";
 																echo "<meta http-equiv='refresh' content='0'>";
@@ -328,10 +323,7 @@ if (isset($_SESSION['email'])){
 															<option selected><?php echo $row_bowserStatus; ?></option>
 														</select>
 													<label for="cost">Bowser Cost: </label>
-														<input type="text" name="cost" class="form-control" value="<?php echo $row_bowserCost; ?>" required></input>
-													<label for="location">Bowser Location: </label>
-														<input type="text" name="location" class="form-control" value="<?php echo $row_bowserLocation; ?>" required></input>
-																							
+														<input type="text" name="cost" class="form-control" value="<?php echo $row_bowserCost; ?>" required></input>								
 													<br />
 
                                                 <?php
