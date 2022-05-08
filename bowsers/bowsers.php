@@ -233,15 +233,12 @@ if (isset($_SESSION['email'])){
 ?>
 		</table>
 	</div>
-
-                <?php
+	<div class="col">
+		<div class="maintenance_list">
+		<?php
                 if (isset($_SESSION['email'])){
                     if ($userType == "Operations")
-                        echo '
-
-                <div class="col">
-					<div class="maintenance_list">
-						<h2>Add & Edit Bowsers</h2>
+                        echo '<h2>Add & Edit Bowsers</h2>
  
 
 						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Add New Bowser</button>
