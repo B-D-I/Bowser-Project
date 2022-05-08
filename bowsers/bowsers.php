@@ -149,7 +149,8 @@ $row_bowserLng = -2.088;
 <?php
 if (isset($_SESSION['email'])){
     if ($userType == "Operations"){
-        echo '<h4>Maintenance History</h4>';
+		echo '<div class="maintenance-list">
+			<h4>Maintenance History</h4>';
 			if (isset($_SESSION['email'])) {
             if ($userType == "Operations")
 				$connection = OpenConnection();
@@ -228,13 +229,15 @@ if (isset($_SESSION['email'])){
 						}
 		}
 	CloseConnection($connection);
+
 	}
 }
 ?>
 		</table>
 	</div>
+	</div>
 	<div class="col">
-		<div class="maintenance_list">
+		<div class="maintenance-list">
 		<?php
                 if (isset($_SESSION['email'])){
                     if ($userType == "Operations")
@@ -252,6 +255,8 @@ if (isset($_SESSION['email'])){
 											<h2>Bowser Details</h2>
             	            			    <div class="col">
   												<form method="POST">
+													<label for="bowserID">Bowser ID: </label>
+														<input type="text" name="bowserID" class="form-control" value="<?php echo $row_bowserID; ?>"></input>
 													<label for="serial">Bowser Description: </label>
 														<input type="text" name="description" class="form-control" required></input>
 													<label for="cap">Bowser Capacity: </label>

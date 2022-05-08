@@ -10,6 +10,15 @@
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+
+.maintenance-list {
+  padding: 30px;
+  background-color: white;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
 #searchedTask{
   padding: 30px;
   border: 0 cornflowerblue;
