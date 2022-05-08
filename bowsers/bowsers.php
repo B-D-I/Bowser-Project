@@ -150,7 +150,7 @@ $row_bowserLng = -2.088;
 					<br />
 <?php
 if (isset($_SESSION['email'])){
-    if ($userType == "Operations")
+    if ($userType == "Operations"){
         echo '<h4>Maintenance History</h4>';
 			if (isset($_SESSION['email'])) {
             if ($userType == "Operations")
@@ -216,21 +216,21 @@ if (isset($_SESSION['email'])){
                             echo "<td align='center'>" . $row2['Status'] . "</td>";
                             echo "<td align='center'>" . $row2['Description'] . "</td>";
 							if ($row2['Days'] >= 14){
-								echo "<td align='center' style='background-color: #FF0000'>";
+								echo "<td align='center' style='background-color: #FF0000; border-radius: 10px;'>" . $row2['Difference'] . "</td>";
 							}
 							if ($row2['Days'] >= 4 and $row2['Days'] <= 13)
-								echo "<td align='center' style='background-color: #FF8800'>";
+								echo "<td align='center' style='background-color: #FF8800; border-radius: 10px;'>" . $row2['Difference'] . "</td>";
 							}
 							if ($row2['Days'] > 0 and $row2['Days'] <= 3)
-								echo "<td align='center' style='background-color: #FFFF00'>";
+								echo "<td align='center' style='background-color: #FFFF00;  border-radius: 10px;'>" . $row2['Difference'] . "</td>";
 							} else {
-								echo "<td align='center'>";
+								echo "<td align='center'>" . $row2['Difference'] . "</td>";	
+								echo "</tr>";
 							}
-							echo $row2['Difference'] . "</td>";
-							echo "</tr>";
 						}
-					}
-					CloseConnection($connection);
+		}
+	CloseConnection($connection);
+	}
 }
 ?>
 		</table>
