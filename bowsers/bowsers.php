@@ -45,6 +45,7 @@ $row_bowserLng = -2.088;
     	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<link rel="stylesheet" href="../global/global.css" type="text/css">
+		<link rel="stylesheet" href="bowsers.css" type="text/css">
     	<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
     	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
     	<link rel="icon" type="image/x-icon" href="../images/logo/bowserLogo.png">
@@ -78,11 +79,8 @@ $row_bowserLng = -2.088;
     <div class="upperPage">
         <div class="shadow-sm p-3 mb-5 bg-body rounded">
             <div class="row">
-  				<div class="row">
-  				</div>
-
-				<div class="col">
-					<div class="maintenance_list">
+  				<div class="col">
+					<div class="bowser-list">
 					<h2>Bowser Information</h2>
 						<form action="" id="bowser" method="POST">
      					  <p>
@@ -150,100 +148,100 @@ $row_bowserLng = -2.088;
 					<br />
 <?php
 if (isset($_SESSION['email'])){
-    if ($userType == "Operations")
-        echo '<h4>Maintenance History</h4>';
+    if ($userType == "Operations"){
+		echo '<div class="maintenance-list">
+			<h4>Maintenance History</h4>';
 			if (isset($_SESSION['email'])) {
             if ($userType == "Operations")
 				$connection = OpenConnection();
-				$sql2=("
-					WITH difference_in_seconds AS (
-						SELECT
-							Bowser_ID,
-    						Maintenance_ID,
-    						Description,
-    						Status,
-    						Date,
-    						Completed_Date,
-    						TIMESTAMPDIFF(SECOND, date, Completed_Date) AS seconds
-  						FROM tbl_maintenance_schedule
-						),
- 
- 						differences AS (
-  							SELECT
+				$sql2=("WITH difference_in_minutes AS(
+							SELECT
 								Bowser_ID,
     							Maintenance_ID,
     							Description,
     							Status,
     							Date,
     							Completed_Date,
-								seconds,
-    							MOD(seconds, 60) AS seconds_part,
-    							MOD(seconds, 3600) AS minutes_part,
-    							MOD(seconds, 3600 * 24) AS hours_part
-  								FROM difference_in_seconds
-							)
- 
- 							SELECT
+    							TIMESTAMPDIFF(MINUTE, Date, Completed_Date) AS minutes
+  							FROM tbl_maintenance_schedule
+  						),
+  	
+						differences AS (
+							SELECT
 								Bowser_ID,
     							Maintenance_ID,
     							Description,
-    							DATE_FORMAT(Date, '%m/%d/%y - %T') as Date,
-								Status,
-								CONCAT(
-    								FLOOR(seconds / 3600 / 24), ' days ',
-    								FLOOR(hours_part / 3600), ' hours ',
-    								FLOOR(minutes_part / 60), ' minutes ',
-    								seconds_part, ' seconds'
-  								) AS Difference,
-								FLOOR(seconds / 3600 / 24) as Days
-							FROM differences 
-							WHERE bowser_id = '$selBowserID' and Date < Now()");
-				echo"<table style='width: 100%;'>";
+    							Status,
+    							Date,
+    							Completed_Date,
+								MOD(minutes, 60) AS minutes_part,
+								MOD(minutes, 60 * 24) AS hours_part,
+								minutes
+								FROM difference_in_minutes
+						)
+	
+	
+						SELECT
+							Bowser_ID,
+    						Maintenance_ID,
+    						Description,
+    						DATE_FORMAT(DATE, '%m/%d/%y - %T') AS Date,
+							Status,
+							CONCAT(
+    							FLOOR(minutes / 60 / 24), ' days ',
+    							FLOOR(hours_part / 60), ' hours '
+							) AS Difference,
+							FLOOR(minutes / 60 / 24) AS Days
+							FROM differences
+							WHERE bowser_id = '$selBowserID' AND DATE < NOW()");
+				echo"<table id='maint-table' style='width: 100%;'>";
 				echo"<tr align='center'>
 						<th>Maintenance ID</th>
 						<th>Created</td>
 						<th>Status</th>
 						<th>Description</th>
+						<th></th>
 						<th>Days to Complete</th>
 					</tr>";
 				$result2 = mysqli_query($connection, $sql2);
 				while($row2 = mysqli_fetch_assoc($result2)) {
                 	if (mysqli_num_rows($result2) > 0) {
                     	foreach ($result2 as $row2) {
-                        	echo "<tr>";
-							echo "<td align='center'>" . $row2['Maintenance_ID'] . "</td>";
-							echo "<td align='center'>" . $row2['Date'] . "</td>";
-                            echo "<td align='center'>" . $row2['Status'] . "</td>";
-                            echo "<td align='center'>" . $row2['Description'] . "</td>";
+                        	echo "<tr style='padding: 10px;'>";
+							echo "<td align='center' style='background-color: #EEEEEE; border-radius:15px 0px 0px 15px'>" . $row2['Maintenance_ID'] . "</td>";
+							echo "<td align='center' style='background-color: #EEEEEE;'>" . $row2['Date'] . "</td>";
+                            echo "<td align='center' style='background-color: #EEEEEE;'>" . $row2['Status'] . "</td>";
+                            echo "<td align='center' style='background-color: #EEEEEE; border-radius:0px 15px 15px 0px'>" . $row2['Description'] . "</td>";
+							echo "<td></td>";
 							if ($row2['Days'] >= 14){
-								echo "<td align='center' style='background-color: #FF0000'>";
-							}
+								echo "<td align='center' style='color: #FFFFFF; background-color: #FF0000; border-radius: 15px;'>" . $row2['Difference'] . "</td>";
+							}						
 							if ($row2['Days'] >= 4 and $row2['Days'] <= 13)
-								echo "<td align='center' style='background-color: #FF8800'>";
+								echo "<td align='center' style='background-color: #FF8800; border-radius: 15px;'>" . $row2['Difference'] . "</td>";
 							}
 							if ($row2['Days'] > 0 and $row2['Days'] <= 3)
-								echo "<td align='center' style='background-color: #FFFF00'>";
+								echo "<td align='center' style='background-color: #FFFF00;  border-radius: 15px;'>" . $row2['Difference'] . "</td>";
 							} else {
-								echo "<td align='center'>";
+
+								echo "<td align='center'>" . $row2['Difference'] . "</td>";	
+								echo "</tr>";
 							}
-							echo $row2['Difference'] . "</td>";
-							echo "</tr>";
 						}
-					}
-					CloseConnection($connection);
+		}
+	CloseConnection($connection);
+
+	}
 }
 ?>
 		</table>
 	</div>
-
-                <?php
+	</div>
+	<div class="col">
+		<div class="maintenance-list">
+		<?php
                 if (isset($_SESSION['email'])){
                     if ($userType == "Operations")
-                        echo '
-
-                <div class="col">
-					<div class="maintenance_list">
-						<h2>Add & Edit Bowsers</h2>
+                        echo '<h2>Add & Edit Bowsers</h2>
  
 
 						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Add New Bowser</button>
@@ -257,6 +255,8 @@ if (isset($_SESSION['email'])){
 											<h2>Bowser Details</h2>
             	            			    <div class="col">
   												<form method="POST">
+													<label for="bowserID">Bowser ID: </label>
+														<input type="text" name="bowserID" class="form-control" required></input>
 													<label for="serial">Bowser Description: </label>
 														<input type="text" name="description" class="form-control" required></input>
 													<label for="cap">Bowser Capacity: </label>
@@ -265,9 +265,6 @@ if (isset($_SESSION['email'])){
 														<input type="text" name="status" class="form-control" required></input>
 													<label for="cap">Bowser Cost: </label>
 														<input type="number" name="cost" class="form-control" required></input>
-													<label for="model">Bowser Location: </label>
-														<input type="text" name="location" class="form-control" required></input>
-													
 													<br />
 													<input class="btn btn-primary" type="submit" name="addBowser" value="Add Bowser"/>
 													<button id='closeModal' type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
@@ -276,11 +273,12 @@ if (isset($_SESSION['email'])){
 														set_exception_handler('ex_handler');
 														$connection = OpenConnection();
 														if(isset($_POST['addBowser'])) {
+															$bowser_ID = $_POST["bowserID"];
 															$Bowser_Serial = $_POST["description"];
 															$Bowser_Capacity = $_POST["cap"];
 															$Bowser_status = $_POST["status"];
 															$Bowser_cost = $_POST["cost"];
-															$sql3 = "INSERT INTO tbl_bowsers(bowserID,Bowser_Description,Bowser_Capacity,status,cost,location) VALUES (NULL,'$Bowser_Serial','$Bowser_Model', '$Bowser_Capacity')";
+															$sql3 = "INSERT INTO tbl_bowsers(bowserID,Bowser_Description,Bowser_Capacity,status,cost) VALUES ('$bowser_ID','$Bowser_Serial','$Bowser_Model', '$Bowser_Capacity')";
 															if($query = mysqli_query($connection, $sql3)) {
 																echo "<script>alert('Is Done is Good')</script>";
 																echo "<meta http-equiv='refresh' content='0'>";
@@ -328,10 +326,7 @@ if (isset($_SESSION['email'])){
 															<option selected><?php echo $row_bowserStatus; ?></option>
 														</select>
 													<label for="cost">Bowser Cost: </label>
-														<input type="text" name="cost" class="form-control" value="<?php echo $row_bowserCost; ?>" required></input>
-													<label for="location">Bowser Location: </label>
-														<input type="text" name="location" class="form-control" value="<?php echo $row_bowserLocation; ?>" required></input>
-																							
+														<input type="text" name="cost" class="form-control" value="<?php echo $row_bowserCost; ?>" required></input>								
 													<br />
 
                                                 <?php
@@ -404,10 +399,12 @@ if (isset($_SESSION['email'])){
 				</div>
 
 
-	    <br /><br /><br /><br /><br />
+	    
 
         <!-- Link back to top of page -->
-        <p><a id="top_link" href="#back_to_top" >RETURN TO TOP</a></p>
+
+
+        <p><br /><br /><br /><br /><br /><a id="top_link" href="#back_to_top" >RETURN TO TOP</a></p>
         <br />  <br />
 
 <!--        <script src ="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization&callback=initMap" async defer> </script> -->
