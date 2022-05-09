@@ -19,6 +19,21 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+#maint-table {
+        border-collapse: separate;
+        border-spacing: 0 15px;
+      }
+
+#maint-table th {
+        background-color: #0d6efd;
+        color: white;
+      }
+
+#maint-table th, #maint-table td {
+        width: 150px;
+        text-align: center;
+}
+      
 #searchedTask{
   padding: 30px;
   border: 0 cornflowerblue;
