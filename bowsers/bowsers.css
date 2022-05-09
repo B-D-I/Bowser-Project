@@ -1,0 +1,236 @@
+.left-side{
+  margin-left: 5px;
+}
+
+/*Maintenance Schedule*/
+.bowser-list {
+  padding: 30px;
+  background-color: lightblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.maintenance-list {
+  padding: 30px;
+  background-color: white;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+#maint-table {
+        border-collapse: separate;
+        border-spacing: 0 15px;
+}
+
+#maint-table th{
+	color: white;
+	background-color: #0d6efd;
+}
+#maint-table th:nth-child(1){
+        color: white;
+		border-radius: .25rem 0 0 .25rem;
+      }
+
+#maint-table th:nth-child(6){
+        color: white;
+		border-radius: 0 .25rem .25rem 0;
+}
+
+#maint-table th, #maint-table td {
+        width: 150px;
+        text-align: center;
+}
+
+#maint-table > tbody > tr {
+	height:50px;
+}
+
+#maint-table > tbody > tr > td:nth-child(-n+4) {
+	box-shadow: 0 0 0 0 #fff,  0 0 0 0 #fff, 6px 4px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 0 #fff;
+	
+}
+
+#maint-table > tbody > tr > td:nth-child(1){
+	border-radius: 15px 0 0 15px;
+}
+
+#maint-table > tbody > tr > td:nth-child(4){
+	border-radius: 0 15px 15px 0;
+}
+
+#maint-table > tbody > tr > td:nth-child(6) {
+	box-shadow: 6px 4px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 0 #fff;
+	
+	
+}
+
+table tr th:nth-child(5),
+table tr td:nth-child(5) {
+    border: none;
+    max-width: 10px;
+}
+      
+#searchedTask{
+  padding: 30px;
+  border: 0 cornflowerblue;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+/*User details and buttons*/
+#text_area {
+  height: 100px;
+  padding: 20px;
+  background-color: lightblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#requestAlerts{
+  padding: 30px;
+  background-color: lightblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+/*map div*/
+#viewMap{
+  padding: 20px;
+  font-stretch: expanded;
+  background-color: lightblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+/*button*/
+#buttonTxt {
+  color: whitesmoke;
+  text-align: center;
+}
+/*modal / pop up window buttons*/
+#modalButton{
+  height: 65px;
+  padding: 20px;
+  font-stretch: expanded;
+  background-color: dodgerblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+/*Allocate Tasks*/
+#taskAllocation{
+  padding: 30px;
+  font-stretch: expanded;
+  background-color: lightblue;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+#insertButton{
+  text-align: right;
+  margin-top: -45px;
+}
+#maintDiv{
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.select {
+  width: 150px;
+  color: whitesmoke;
+}
+select{
+  background: cornflowerblue;
+}
+#bowserIDSearch{
+  width: 150px;
+}
+#maintenanceID{
+  margin-left: 300px;
+  margin-top: -120px;
+}
+#taskID{
+  margin-top: 20px;
+}
+#priorityID{
+  margin-left: 300px;
+  margin-top: -95px;
+}
+#dateID{
+}
+#formID{}
+#allocateSubmitID{
+  margin-top: -20px;
+  text-align: center;
+}
+
+
+
+/*Button vibrate*/
+.vibrate-2 {
+  -webkit-animation: vibrate-2 2s linear infinite both;
+  animation: vibrate-2 2s linear infinite both;
+}
+@-webkit-keyframes vibrate-2 {
+  0% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+  20% {
+    -webkit-transform: translate(2px, -2px);
+    transform: translate(2px, -2px);
+  }
+  40% {
+    -webkit-transform: translate(2px, 2px);
+    transform: translate(2px, 2px);
+  }
+  60% {
+    -webkit-transform: translate(-2px, 2px);
+    transform: translate(-2px, 2px);
+  }
+  80% {
+    -webkit-transform: translate(-2px, -2px);
+    transform: translate(-2px, -2px);
+  }
+  100% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+}
+@keyframes vibrate-2 {
+  0% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+  20% {
+    -webkit-transform: translate(2px, -2px);
+    transform: translate(2px, -2px);
+  }
+  40% {
+    -webkit-transform: translate(2px, 2px);
+    transform: translate(2px, 2px);
+  }
+  60% {
+    -webkit-transform: translate(-2px, 2px);
+    transform: translate(-2px, 2px);
+  }
+  80% {
+    -webkit-transform: translate(-2px, -2px);
+    transform: translate(-2px, -2px);
+  }
+  100% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+}
+
+@media only screen and (max-width: 415px) {
+  #navTitle {
+    margin-left: -250px;
+    font-size: 25px;
+  }
+}
