@@ -154,7 +154,11 @@ if (isset($_SESSION['email'])){
 			if (isset($_SESSION['email'])) {
             if ($userType == "Operations")
 				$connection2 = OpenConnection();
-				$sql2=("WITH difference_in_minutes AS(
+				$sql2=("
+						DROP TABLE IF EXISTS difference_in_minutes;
+						DROP TABLE IF EXISTS differences;
+							
+						CREATE TEMPORARY TABLE difference_in_minutes
 							SELECT
 								Bowser_ID,
     							Maintenance_ID,
@@ -163,37 +167,36 @@ if (isset($_SESSION['email'])){
     							Date,
     							Completed_Date,
     							TIMESTAMPDIFF(MINUTE, Date, Completed_Date) AS minutes
-  							FROM tbl_maintenance_schedule
-  						),
-  	
-						differences AS (
+  							FROM tbl_maintenance_schedule;
+  
+  						CREATE TEMPORARY TABLE differences
 							SELECT
 								Bowser_ID,
-    							Maintenance_ID,
-    							Description,
-    							Status,
-    							Date,
-    							Completed_Date,
+								Maintenance_ID,
+								Description,
+								Status,
+								Date,
+								Completed_Date,
 								MOD(minutes, 60) AS minutes_part,
 								MOD(minutes, 60 * 24) AS hours_part,
 								minutes
-								FROM difference_in_minutes
-						)
-	
-	
+							FROM difference_in_minutes;
+		
 						SELECT
 							Bowser_ID,
-    						Maintenance_ID,
+							Maintenance_ID,
     						Description,
-    						DATE_FORMAT(DATE, '%m/%d/%y - %T') AS Date,
+    						DATE_FORMAT(Date, '%m/%d/%y - %T') AS Date,
 							Status,
 							CONCAT(
-    							FLOOR(minutes / 60 / 24), ' days ',
+								FLOOR(minutes / 60 / 24), ' days ',
     							FLOOR(hours_part / 60), ' hours '
 							) AS Difference,
 							FLOOR(minutes / 60 / 24) AS Days
 							FROM differences
-							WHERE bowser_id = '$selBowserID' AND DATE < NOW()");
+							WHERE bowser_id = '$selBowserID' AND DATE < NOW();
+ 						");
+				
 				echo"<table id='maint-table' style='width: 100%;'>";
 				echo"<tr align='center'>
 						<th>Maintenance ID</th>
@@ -203,33 +206,38 @@ if (isset($_SESSION['email'])){
 						<th></th>
 						<th>Days to Complete</th>
 					</tr>";
-				$result2 = mysqli_query($connection2, $sql2);
-				while($row2 = mysqli_fetch_assoc($result2)) {
-                	if (mysqli_num_rows($result2) > 0) {
-                    	foreach ($result2 as $row2) {
-                        	echo "<tr style='padding: 10px;'>";
-							echo "<td align='center' style='background-color: #EEEEEE; border-radius:15px 0px 0px 15px'>" . $row2['Maintenance_ID'] . "</td>";
-							echo "<td align='center' style='background-color: #EEEEEE;'>" . $row2['Date'] . "</td>";
-                            echo "<td align='center' style='background-color: #EEEEEE;'>" . $row2['Status'] . "</td>";
-                            echo "<td align='center' style='background-color: #EEEEEE; border-radius:0px 15px 15px 0px'>" . $row2['Description'] . "</td>";
-							echo "<td></td>";
-							if ($row2['Days'] >= 14){
-								echo "<td align='center' style='color: #FFFFFF; background-color: #FF0000; border-radius: 15px;'>" . $row2['Difference'] . "</td>";
-							}						
-							if ($row2['Days'] >= 4 and $row2['Days'] <= 13)
-								echo "<td align='center' style='background-color: #FF8800; border-radius: 15px;'>" . $row2['Difference'] . "</td>";
-							}
-							if ($row2['Days'] > 0 and $row2['Days'] <= 3)
-								echo "<td align='center' style='background-color: #FFFF00;  border-radius: 15px;'>" . $row2['Difference'] . "</td>";
-							} else {
-
-								echo "<td align='center'>" . $row2['Difference'] . "</td>";	
+				$query2 = mysqli_multi_query($connection2, $sql2);
+				if ($query2) {
+					do {
+         				if ($result = mysqli_use_result($connection2)) {
+            				while ($row2 = mysqli_fetch_row($result)) {
+								echo "<tr style='padding: 10px;'>";
+									echo "<td align='center' style='background-color: #EEEEEE; border-radius:15px 0px 0px 15px'>" . $row2[1] . "</td>";
+									echo "<td align='center' style='background-color: #EEEEEE;'>" . $row2[3] . "</td>";
+                            		echo "<td align='center' style='background-color: #EEEEEE;'>" . $row2[4] . "</td>";
+                            		echo "<td align='center' style='background-color: #EEEEEE; border-radius:0px 15px 15px 0px'>" . $row2[2] . "</td>";
+									echo "<td></td>";
+									if ($row2[6] > 0 and $row2[6] <= 3){
+										echo "<td align='center' style='background-color: #FFFF00; border-radius: 15px;'>" . $row2[5] . "</td>";
+									}						
+									else if ($row2[6] >= 4 and $row2[6] <= 13){
+										echo "<td align='center' style='background-color: #FF8800; border-radius: 15px;'>" . $row2[5] . "</td>";
+									}			
+									else if
+										($row2[6] >= 14){
+										echo "<td align='center' style='color: #FFFFFF; background-color: #FF0000; border-radius: 15px;'>" . $row2[5] . "</td>";
+									} else {
+										echo "<td align='center' style='border-radius: 15px;'>" . $row2[5] . "</td>";
+									}
 								echo "</tr>";
 							}
-						}
-		}
-	CloseConnection($connection2);
-
+							mysqli_free_result($result);
+							if (mysqli_more_results($connection2)){}
+							}
+					} while (mysqli_next_result($connection2));
+				}
+				mysqli_close($connection2);
+			}
 	}
 }
 ?>
