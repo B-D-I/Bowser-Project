@@ -398,10 +398,12 @@ if (isset($_SESSION['email'])){
 				</div>
 
 
-	    <br /><br /><br /><br /><br />
+	    
 
         <!-- Link back to top of page -->
-        <p><a id="top_link" href="#back_to_top" >RETURN TO TOP</a></p>
+
+
+        <p><br /><br /><br /><br /><br /><a id="top_link" href="#back_to_top" >RETURN TO TOP</a></p>
         <br />  <br />
 
 <!--        <script src ="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization&callback=initMap" async defer> </script> -->
