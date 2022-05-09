@@ -256,7 +256,7 @@ if (isset($_SESSION['email'])){
             	            			    <div class="col">
   												<form method="POST">
 													<label for="bowserID">Bowser ID: </label>
-														<input type="text" name="bowserID" class="form-control" value="<?php echo $row_bowserID; ?>"></input>
+														<input type="text" name="bowserID" class="form-control" required></input>
 													<label for="serial">Bowser Description: </label>
 														<input type="text" name="description" class="form-control" required></input>
 													<label for="cap">Bowser Capacity: </label>
@@ -273,11 +273,12 @@ if (isset($_SESSION['email'])){
 														set_exception_handler('ex_handler');
 														$connection = OpenConnection();
 														if(isset($_POST['addBowser'])) {
+															$bowser_ID = $_POST["bowserID"];
 															$Bowser_Serial = $_POST["description"];
 															$Bowser_Capacity = $_POST["cap"];
 															$Bowser_status = $_POST["status"];
 															$Bowser_cost = $_POST["cost"];
-															$sql3 = "INSERT INTO tbl_bowsers(bowserID,Bowser_Description,Bowser_Capacity,status,cost) VALUES (NULL,'$Bowser_Serial','$Bowser_Model', '$Bowser_Capacity')";
+															$sql3 = "INSERT INTO tbl_bowsers(bowserID,Bowser_Description,Bowser_Capacity,status,cost) VALUES ('$bowser_ID','$Bowser_Serial','$Bowser_Model', '$Bowser_Capacity')";
 															if($query = mysqli_query($connection, $sql3)) {
 																echo "<script>alert('Is Done is Good')</script>";
 																echo "<meta http-equiv='refresh' content='0'>";
