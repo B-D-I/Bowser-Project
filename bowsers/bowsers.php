@@ -153,7 +153,7 @@ if (isset($_SESSION['email'])){
 			<h4>Maintenance History</h4>';
 			if (isset($_SESSION['email'])) {
             if ($userType == "Operations")
-				$connection = OpenConnection();
+				$connection2 = OpenConnection();
 				$sql2=("WITH difference_in_minutes AS(
 							SELECT
 								Bowser_ID,
@@ -203,7 +203,7 @@ if (isset($_SESSION['email'])){
 						<th></th>
 						<th>Days to Complete</th>
 					</tr>";
-				$result2 = mysqli_query($connection, $sql2);
+				$result2 = mysqli_query($connection2, $sql2);
 				while($row2 = mysqli_fetch_assoc($result2)) {
                 	if (mysqli_num_rows($result2) > 0) {
                     	foreach ($result2 as $row2) {
@@ -228,7 +228,7 @@ if (isset($_SESSION['email'])){
 							}
 						}
 		}
-	CloseConnection($connection);
+	CloseConnection($connection2);
 
 	}
 }
