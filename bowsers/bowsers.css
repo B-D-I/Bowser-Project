@@ -33,6 +33,35 @@
         width: 150px;
         text-align: center;
 }
+
+#maint-table > tbody > tr {
+	height:50px;
+}
+
+#maint-table > tbody > tr > td:nth-child(-n+4) {
+	box-shadow: 0 0 0 0 #fff,  0 0 0 0 #fff, 6px 4px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 0 #fff;
+	
+}
+
+#maint-table > tbody > tr > td:nth-child(1){
+	border-radius: 15px 0 0 15px;
+}
+
+#maint-table > tbody > tr > td:nth-child(4){
+	border-radius: 0 15px 15px 0;
+}
+
+#maint-table > tbody > tr > td:nth-child(6) {
+	box-shadow: 6px 4px 8px 0 rgba(0, 0, 0, 0.2), 0 0 0 0 #fff;
+	
+	
+}
+
+table tr th:nth-child(5),
+table tr td:nth-child(5) {
+    border: none;
+    max-width: 10px;
+}
       
 #searchedTask{
   padding: 30px;

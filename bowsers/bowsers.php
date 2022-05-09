@@ -189,8 +189,7 @@ if (isset($_SESSION['email'])){
 							Status,
 							CONCAT(
     							FLOOR(minutes / 60 / 24), ' days ',
-    							FLOOR(hours_part / 60), ' hours ',
-    							FLOOR(minutes_part), ' minutes '
+    							FLOOR(hours_part / 60), ' hours '
 							) AS Difference,
 							FLOOR(minutes / 60 / 24) AS Days
 							FROM differences
@@ -201,6 +200,7 @@ if (isset($_SESSION['email'])){
 						<th>Created</td>
 						<th>Status</th>
 						<th>Description</th>
+						<th></th>
 						<th>Days to Complete</th>
 					</tr>";
 				$result2 = mysqli_query($connection, $sql2);
@@ -212,6 +212,7 @@ if (isset($_SESSION['email'])){
 							echo "<td align='center' style='background-color: #EEEEEE;'>" . $row2['Date'] . "</td>";
                             echo "<td align='center' style='background-color: #EEEEEE;'>" . $row2['Status'] . "</td>";
                             echo "<td align='center' style='background-color: #EEEEEE; border-radius:0px 15px 15px 0px'>" . $row2['Description'] . "</td>";
+							echo "<td></td>";
 							if ($row2['Days'] >= 14){
 								echo "<td align='center' style='color: #FFFFFF; background-color: #FF0000; border-radius: 15px;'>" . $row2['Difference'] . "</td>";
 							}						
