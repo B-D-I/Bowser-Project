@@ -1,3 +1,4 @@
+// this ajax function will submit new user registration data to the associated php page, which will update database
 $('#formUserRegistration').submit(function(event) {
     formData = $('#formUserRegistration').serialize();
     // prevents the form submission
@@ -16,7 +17,7 @@ $('#formUserRegistration').submit(function(event) {
         }
     });
 });
-
+// this ajax function will submit the bowser request form data to associated php page
 $('#formBowserRequest').submit(function(event) {
     formData2 = $('#formBowserRequest').serialize();
     event.preventDefault();
@@ -36,7 +37,7 @@ $('#formBowserRequest').submit(function(event) {
 });
 
 
-//				    POP UP WINDOW
+//				    POP UP WINDOW - used to provide a window for bowser page
 var taskWindow;                       // function allows for url, window name, width and height to be defined within the html
 function popUpWindow(URL, windowName, windowWidth, windowHeight) {
     var centerLeft = (screen.width/3)-(windowWidth/3); // window dimensions
@@ -52,8 +53,7 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
 
 
 
-
-//                GOOGLE MAPS DIV
+//                GOOGLE MAPS DIV: includes bowser locations, geo-location, and deploy bowser draggable icon
 var geocoder = new google.maps.Geocoder();
 var infowindow = new google.maps.InfoWindow();   // display content
 mapCenter = new google.maps.LatLng(51.8979988098144,-2.0838599205017);
@@ -66,12 +66,14 @@ function initialize(){       // function for map options
     };
     myMap = new google.maps.Map(document.getElementById("map"), mapOptions);
 
+    // water tank image used for the deploy bowser icon
     const image = {
         url: "/Bowser-Project/images/other/water-tank.png",
         scaledSize: new google.maps.Size(50, 50),
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(0, 0)
     }
+    // make water bowser marker draggable
     marker = new google.maps.Marker({    // draggable marker for bowser deployment
         map: myMap,
         // position: mapCenter,
@@ -83,6 +85,7 @@ function initialize(){       // function for map options
     var markers, i;
     var lat, lng, locObj, bowserID ;
     var locations=[];
+    // retrieve deployed bowser locations
     $.post("../home/bowserLocationsDAO.php","",function(data){
         //our json data is inside data variable
         console.log(data);
@@ -97,7 +100,7 @@ function initialize(){       // function for map options
             //create LatLng object using lat nad lng variables
             locObj=new google.maps.LatLng(lat,lng);
             locations.push(locObj);
-// create markers for all bowsers
+            // create markers for all bowsers
             for (i = 0; i < locations.length; i++) {
                 markers = new google.maps.Marker({
                     position: new google.maps.LatLng(lat, lng),
@@ -137,23 +140,24 @@ function markerLocation() {
     // document.getElementById('locationComb').value = eventLat+", "+ eventLng;
     console.log(eventLng, eventLat);
 }
-
+// return marker latitude
 function returnMarkerLat(){
     var eventLat = marker.getPosition().lat();  // latitude information
     document.getElementById('locationLat').value = eventLat;
     return eventLat;
 }
+// return marker longitude
 function returnMarkerLng(){
     var eventLng = marker.getPosition().lng();  // longitude
     document.getElementById('locationLng').value = eventLng;
     return eventLng;
 }
 
-// POST TO SERVER
+// POST TO BOWSER LOCATION SERVER
 $('#formInsertEvent').submit(function(event) {
     event.preventDefault();
     formData = $('#formInsertEvent').serialize();
-
+        // new marker location
         eventLat = returnMarkerLat();
         eventLng = returnMarkerLng();
     // confirm data
@@ -177,7 +181,7 @@ $('#formInsertEvent').submit(function(event) {
         });
     });
 
-
+// reports page heatmap
 function heatMap(){
     var map=new google.maps.Map(document.getElementById('map'),{
         zoom:10,
@@ -186,6 +190,7 @@ function heatMap(){
     //We are going to load geo locations from the database.
     var lat, lng, locObj ;
     var locations=[];
+    // retrieve report location data
     $.post("heatMapDAO.php","",function(data){
         //our json data is inside data variable
         //console.log(data);

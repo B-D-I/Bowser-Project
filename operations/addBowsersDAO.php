@@ -26,11 +26,10 @@ function updateBowserStatus($stock, $capacity){
     } CloseConnection($connection);
 }
 
-// ADD BOWSER
+// ADD BOWSER TO STOCK
 if (isset($_SESSION['email'])) {
     $email = $_SESSION['email'];
     $connection = OpenConnection();
-
     $capacity = strip_tags(trim($_POST['Capacity']));
     $sql1 = "SELECT Stock From `tbl_bowser_stock` WHERE Bowser_Capacity = '$capacity'";
     $result = mysqli_query($connection, $sql1);

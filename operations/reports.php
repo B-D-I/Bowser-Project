@@ -1,6 +1,6 @@
 <?php
 include "../include/config.php";
-
+// if user is logged in set $email variable to current user email
 session_start();
 if (isset($_SESSION['email'])){
     $email = $_SESSION['email'];
@@ -13,7 +13,7 @@ if (isset($_SESSION['email'])){
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<!--    styling and fonts-->
     <link rel="stylesheet" href="../global/global.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
@@ -44,7 +44,7 @@ if (isset($_SESSION['email'])){
         <div class="row">
             <div class="row">
             </div>
-
+<!--                this provides a heatmap of all report locations-->
             <div class="col">
                 <div class="heatmap">
                     <h2>Reports Heatmap</h2>
@@ -55,7 +55,7 @@ if (isset($_SESSION['email'])){
             <div class="col">
                 <div class="manageReports">
                     <h2>Manage Reports</h2>
-
+<!--                                            this provides the sent reports along with accept or deny buttons-->
                     <?php
                     $connection = OpenConnection();
                     $sql = "SELECT * FROM `tbl_reports` WHERE Status ='Pending'";
@@ -110,10 +110,8 @@ if (isset($_SESSION['email'])){
                         echo "<br />";
                     }
                     ?>
-
+                    </div>
                 </div>
-            </div>
-
             </div>
         </div>
     </div>

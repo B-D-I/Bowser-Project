@@ -1,6 +1,7 @@
 .left-side{
   margin-left: 5px;
 }
+/*the notifications section styling*/
 .notification-list{
   padding: 20px;
   background-color: lightblue;
@@ -8,6 +9,7 @@
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+/*styling for notifications relating to faults*/
 #notificationFault{
   padding: 10px;
   background-color: indianred;
@@ -18,6 +20,7 @@
   color: white;
   height: 50px;
 }
+/*styling for notifications relating to fixes*/
 #notificationFix{
   padding: 10px;
   background-color: mediumseagreen;
@@ -28,6 +31,7 @@
   color: white;
   height: 50px;
 }
+/*bowser info button styling*/
 #viewBowserInformation{
   padding: 10px;
   height: 50px;
@@ -41,6 +45,7 @@
 #bowserButtonDiv{
   margin-top: 50px;
 }
+/*faq modal stlying */
 #viewFAQ{
   padding: 10px;
   height: 50px;
@@ -54,22 +59,20 @@
 #FAQButtonDiv{
   margin-top: 20px;
 }
-
 #reportTxt{
   color: whitesmoke;
   text-align: center;
 }
-
 .select{
   width: 150px;
 }
+/*register an account submit button styles*/
 #registerAccountSubmit{
   margin-left: 320px;
   margin-top: -75px
 }
 
-
-/*Button vibrate*/
+/*Button vibrate effects*/
 .vibrate-2 {
   -webkit-animation: vibrate-2 1s linear infinite both;
   animation: vibrate-2 1s linear infinite both;
@@ -127,13 +130,12 @@
   }
 }
 
-
+/*@media used to change the display when page dimensions change*/
 @media only screen and (max-width: 1200px) {
   #viewBowserInformation {
     margin-left: 50px;
   }
 }
-
   @media only screen and (max-width: 500px) {
   #viewBowserInformation {
     margin-left: 0pc;

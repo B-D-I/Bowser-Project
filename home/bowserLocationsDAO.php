@@ -1,4 +1,5 @@
 <?php
+// this query is used to return the locations of all deployed bowsers
 include "../include/config.php";
 $connection = OpenConnection();
 $sql="SELECT * FROM `tbl_bowser_inuse`";

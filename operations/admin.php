@@ -1,6 +1,7 @@
 <?php
 include "../include/config.php";
 
+// retrieve logged in users email
 session_start();
 if (isset($_SESSION['email'])){
     $email = $_SESSION['email'];
@@ -14,6 +15,7 @@ if (isset($_SESSION['email'])){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<!--    styling and fonts-->
     <link rel="stylesheet" href="../global/global.css" type="text/css">
     <link rel="stylesheet" href="admin.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
@@ -46,6 +48,7 @@ if (isset($_SESSION['email'])){
 
          <div class="bowserLoan">
           <h2>Bowser Requests</h2><br />
+<!--             form to enable bowser requests to third party organisations -->
             <form method="post" id="formBowserRequest">
                 <?php
                 $connection = OpenConnection();
@@ -55,7 +58,7 @@ if (isset($_SESSION['email'])){
                 $company = $rows["Organisation_Name"];
                 ?>
                 <input type='hidden' name='company' value='<?php echo "$company";?>'/>
-
+<!--                select the transaction type-->
                 <div class="mb-3">
                     <div id="transactionID">
                         <label>Transaction Type</label>
@@ -68,6 +71,7 @@ if (isset($_SESSION['email'])){
                         </div>
                     </div>
                     <br />
+<!--                    select the organisation-->
                     <div id="organisationID">
                         <label>Organisation</label>
                         <div class="select">
@@ -91,6 +95,7 @@ if (isset($_SESSION['email'])){
                     </div>
                 </div>
                 <br />
+<!--                select bowser capacity-->
                 <div id="capacityID">
                     <label>Capacity</label>
                     <div class="select">
@@ -105,6 +110,7 @@ if (isset($_SESSION['email'])){
                     </div>
                 </div>
                 <br />
+<!--                select priority of the request -->
                 <div id="loanPriorityID">
                     <label>Priority</label>
                     <div class="select">
@@ -117,11 +123,13 @@ if (isset($_SESSION['email'])){
                     </div>
                 </div>
                 <br />
+<!--                description text area-->
                 <div class="form-floating">
                     <textarea class="form-control" name="Reason" placeholder="Reason for Request"style="height: 100px"></textarea>
                     <label for="floatingTextarea2">Reason for Request</label>
                 </div>
                 <br /><br />
+<!--                submit the request -->
                 <div id="submitRegiser">
                     <button type="submit" name="requestBowserSubmit" class="btn btn-secondary">Submit</button>
                 </div>
@@ -131,6 +139,7 @@ if (isset($_SESSION['email'])){
 
         <br />
         <div class="row">
+<!--            register a new staff user -->
             <div class="col" id="registerUser">
                 <h2>Register New User</h2>
                 <form method="post" id="formUserRegistration">
@@ -140,6 +149,7 @@ if (isset($_SESSION['email'])){
                     <div class="col">
                         <div class="select">
                             <select name="user_type" id="select">
+<!--                                new user role-->
                                 <option value='-1' disabled selected>---</option>
                                 <option value="Maintenance">Maintenance</option>
                                 <option value="Operations">Operations</option>
@@ -155,7 +165,7 @@ if (isset($_SESSION['email'])){
             <div class="col"></div>
         </div>
 
-
+<!--        this section displays all invoices from bowser transactions-->
         <br />
         <div class="row">
             <div class="bowserInvoices">
@@ -193,12 +203,9 @@ if (isset($_SESSION['email'])){
                 </table>
         </div>
         </div>
-
-
         </div>
     </div>
 </div>
-
 
 <br /><br />
 <script src="operations.js"></script>

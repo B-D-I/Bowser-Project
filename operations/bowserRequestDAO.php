@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+// close the query
 function queryClose($sql){
     $connection = OpenConnection();
     if (mysqli_query($connection, $sql)) {
@@ -18,7 +18,7 @@ function updateStatus($status, $requestID){
     $sql = "UPDATE `tbl_bowser_requests` SET Status = '$status' WHERE RequestID = '$requestID'";
     queryClose($sql);
 }
-
+// variables of posted data
 $requestID = $_POST['requestID'];
 $capacity = $_POST['capacity'];
 $organisation = $_POST['organisation'];
