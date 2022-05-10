@@ -1,5 +1,5 @@
 
-//				    POP UP WINDOW
+//				    POP UP WINDOW - this is used to dislpay the bowser page
 var taskWindow;                       // function allows for url, window name, width and height to be defined within the html
 function popUpWindow(URL, windowName, windowWidth, windowHeight) {
     var centerLeft = (screen.width/3)-(windowWidth/3); // window dimensions
@@ -9,21 +9,26 @@ function popUpWindow(URL, windowName, windowWidth, windowHeight) {
     return window.open(URL, windowName, windowFeatures +' width='+ windowWidth +', height='+ windowHeight +', top='+ centerTop +', left='+ centerLeft); // open the defined window
 }
 
+// popover is used to display further information when an element is clicked
 var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
     return new bootstrap.Popover(popoverTriggerEl)
 })
 
+//              GOOGLE MAPS
 
 // Google map with geolocation
 let map, infoWindow;
 
 function initMap() {
+    // set map location and zoom
     var map = new google.maps.Map(document.getElementById("map"), {
         zoom:14,
         center:{lat:51.8979988098144, lng:-2.0838599205017}
     });
 
+    // the following ajax method retrieves all bowser locations from bowserLocationsDAO.php query, then provides a marker
+    // for each location, with their bowser ID viewable on hover
     var marker, i;
     var lat, lng, locObj, bowserID ;
     var locations=[];
@@ -41,7 +46,7 @@ function initMap() {
             //create LatLng object using lat nad lng variables
             locObj=new google.maps.LatLng(lat,lng);
             locations.push(locObj);
-// create markers for all bowsers
+            // create markers for all bowsers
             for (i = 0; i < locations.length; i++) {
                 marker = new google.maps.Marker({
                     position: new google.maps.LatLng(lat, lng),
@@ -58,14 +63,14 @@ function initMap() {
     },"json");
 
 
-// geo locate button
+// geo locate button - this allows the user to view their current location
     var infoWindow = new google.maps.InfoWindow();
     const locationButton = document.createElement("button");
     locationButton.textContent = "Pan to Current Location";
     locationButton.classList.add("custom-map-control-button");
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
 
-// geo locate user
+// geo locate user button
     locationButton.addEventListener("click", () => {
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
@@ -103,7 +108,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 window.initMap = initMap;
 
 
-
+// function to display the current time on the home page
 function ShowTime() {
     // data class for time created using hours, minutes and seconds, followed by the month and year
     var date = new Date();
@@ -114,7 +119,6 @@ function ShowTime() {
     var month = date.getMonth() + 1;	// get.month returns an interger between 0 (Jan) and 11 (Dec).
     //first month is represented as 0, so + 1 required
     var year = date.getFullYear();
-
 
     hour = updateTime(hour);    // defines where to place '0' in function below
     min = updateTime(min);

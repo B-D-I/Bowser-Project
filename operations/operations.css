@@ -10,13 +10,13 @@
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+/*div for searched tasks*/
 #searchedTask{
   padding: 30px;
   border: 0 cornflowerblue;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-
 /*User details and buttons*/
 #text_area {
   height: 200px;
@@ -29,7 +29,7 @@
 #bowserStock{
 text-align: center;
 }
-
+/*third party bowser request alerts div styling*/
 #requestAlerts{
   padding: 30px;
   background-color: lightblue;
@@ -37,7 +37,6 @@ text-align: center;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-
 /*map div*/
 #viewMap{
   padding: 20px;
@@ -47,7 +46,7 @@ text-align: center;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-/*button*/
+/*button style*/
 #buttonTxt {
   color: whitesmoke;
   text-align: center;
@@ -62,8 +61,7 @@ text-align: center;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-
-/*Allocate Tasks*/
+/*Allocate Tasks style*/
 #taskAllocation{
   padding: 30px;
   font-stretch: expanded;
@@ -88,6 +86,7 @@ text-align: center;
 select{
   background: cornflowerblue;
 }
+/*dropdown menu styling*/
 #bowserIDSearch{
   width: 150px;
 }
@@ -111,8 +110,7 @@ select{
 }
 
 
-
-/*Button vibrate*/
+/*Button vibrate effects*/
 .vibrate-2 {
   -webkit-animation: vibrate-2 2s linear infinite both;
   animation: vibrate-2 2s linear infinite both;
@@ -169,7 +167,7 @@ select{
     transform: translate(0);
   }
 }
-
+/*@media used to change the display when page dimensions change*/
 @media only screen and (max-width: 415px) {
   #navTitle {
     margin-left: -250px;

@@ -140,7 +140,7 @@ function lendBowser($capacity, $transaction, $organisation, $company){
     createInvoice($transaction, $userID, $bowserID, $organisation, $company, $bowserCost);
     updateBowserStock($modifiedStock, $capacity);
 
-    // Object Orientated
+    // Object Orientated -> to be used for unit testing
 //    $userID= Transactions::returnUsersID();
 //    $stock = Transactions::returnBowsersStock($capacity);
 //    $bowserID = Transactions::returnStockedBowsers('BowserID', $capacity);
@@ -161,6 +161,7 @@ function bowserTransaction()
     $priority = strip_tags(trim($_POST['Priority']));
     $company = $_POST['company'];
 
+    // different function depending on whether transaction is lend or loan
     if ($transaction == 'Lend') {
         lendBowser($capacity, 'Lend', $organisation, $company);
     }

@@ -23,7 +23,7 @@ else if ($_POST['phpFunction']=='delete') {
 else if ($_GET['phpFunction']=='verify') {
 	verify();
 }
-
+// function to return the area code
 function returnAreaCode($location){
 	$connection=OpenConnection();
 	$sql="SELECT * FROM `tbl_area` WHERE Area_Name='$location'";
@@ -67,10 +67,8 @@ function create() {
 
 }
 
-
 //verification email function
 function sendEmail($emailTo, $verificationcode) {
-
 	include "../include/config.php";
 	// sender
 	$fromserver="<br />FROM: s4008324@glos.ac.uk";

@@ -1,10 +1,10 @@
 <?php
 function OpenConnection(){
 // connect to database and credentials
-$servername = "localhost"; // server name
-$username = "root"; // username
-$password = ""; // password
-$dbname = "bowser_database"; // database name
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "bowser_database";
 	
 // connection variable to hold credentials
 $connection = new mysqli($servername, $username, $password, $dbname);
@@ -16,8 +16,7 @@ $connection = new mysqli($servername, $username, $password, $dbname);
 		return $connection;
 	}
 }
-
-
+// function to close the connection
 function CloseConnection($connection){
 	$connection -> close();
 }

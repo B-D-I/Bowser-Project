@@ -2,7 +2,7 @@
 session_start();
 include '../include/config.php';
 $connection = OpenConnection();
-
+// funtion to retrieve the current user ID
 function returnUserID(){
     $email =$_SESSION['email'];
     $connection = OpenConnection();
@@ -13,6 +13,7 @@ function returnUserID(){
     $userID = $rows["User_ID"];
     return $userID;
 }
+// function to update a bowsers location
 function updateBowserLocation($postLng, $postLat, $status, $bowserID){
     $connection = OpenConnection();
     $sql = "UPDATE `tbl_bowsers` SET Lat ='$postLat', Lng ='$postLng', Status = '$status' WHERE BowserID = '$bowserID'";
@@ -22,6 +23,7 @@ function updateBowserLocation($postLng, $postLat, $status, $bowserID){
         echo "error";
     } CloseConnection($connection);
 }
+// function to update the information of bowsers in use
 function updateBowserInUse($bowserID, $postLat, $postLng, $userID){
     $connection = OpenConnection();
     $sql = "INSERT INTO `tbl_bowser_inuse` (Bowser_ID, Lat, Lng, User_ID)
@@ -32,7 +34,6 @@ function updateBowserInUse($bowserID, $postLat, $postLng, $userID){
         echo "error";
     } CloseConnection($connection);
 }
-
 $bowserID=$_POST['bowserID'];
 $postLng=$_POST['locationLng'];
 $postLat=$_POST['locationLat'];

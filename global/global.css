@@ -1,130 +1,8 @@
+/*              Global CSS    */
+
+/*provide buffer to left of screen*/
 .left-side{
   margin-left: 5px;
-}
-#logo{
-}
-#logo_image{
-  margin-top: -150px;
-  margin-left: 65pc;
-}
-
-body {
-  font-family: "Comfortaa", cursive;
-  margin: 0px;
-  background-color: whitesmoke;
-}
-
-.container {
-  display: grid;
-  grid-template-columns: 1fr;
-  background-color: white;
-}
-
-.nav-wrapper {
-  display: flex;
-  justify-content: space-between;
-  padding: 38px;
-  font-size: larger;
-}
-
-#navTitle{
-  font-family: 'Rubik Moonrocks', cursive;
-  font-size: 90px;
-  color: lightblue;
-  margin-left: 30pc;
-}
-
-.left-side {
-  display: flex;
-  margin-left: -4%;
-}
-
-.nav-wrapper > .left-side > div {
-  margin-right: 30px;
-  text-transform: uppercase;
-  font-size: 1.1rem;
-}
-
-.nav-wrapper > .right-side > div {
-  margin-right: 50px;
-}
-
-.nav-link-wrapper {
-  height: 22px;
-  border-bottom: 1px solid transparent;
-  transition: border-bottom 0.5s;
-}
-
-.active-nav-link a {
-  color: #727272;
-}
-
-.nav-link-wrapper a {
-  color: #727272;
-  text-decoration: none;
-  transition: color 0.5s;
-}
-
-.nav-link-wrapper:hover {
-  border-bottom: 1px solid black;
-}
-
-.nav-link-wrapper a:hover {
-  color: black;
-}
-
-.content-wrapper {
-  background-color: whitesmoke;
-  margin-bottom: 100px;
-}
-/* Navbar effect */
-.text-focus-in {
-  -webkit-animation: text-focus-in 0.7s cubic-bezier(0.55, 0.085, 0.68, 0.53)
-  both;
-  animation: text-focus-in 0.7s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
-  animation-delay: 0.7s;
-}
-@-webkit-keyframes text-focus-in {
-  0% {
-    -webkit-filter: blur(12px);
-    filter: blur(12px);
-    opacity: 0;
-  }
-  100% {
-    -webkit-filter: blur(0px);
-    filter: blur(0px);
-    opacity: 1;
-  }
-}
-@keyframes text-focus-in {
-  0% {
-    -webkit-filter: blur(12px);
-    filter: blur(12px);
-    opacity: 0;
-  }
-  100% {
-    -webkit-filter: blur(0px);
-    filter: blur(0px);
-    opacity: 1;
-  }
-}
-
-.middle {
-  margin-left: -30%;
-}
-
-/* differentiate the upper page / text area */
-.upperPage {
-  background-color: rgb(240, 240, 240);
-  border-radius: 5px;
-  padding: 15px;
-  margin-top: -35px;
-}
-/* container */
-.container {
-  padding-top: 25px;
-  margin-top: -40px;
-  border-radius: 5px;
 }
 
 /* SCROLL BAR */
@@ -150,6 +28,125 @@ body {
   /*background: linear-gradient(to right,#201c29,#201c29 1px,#100e17 1px,#100e17);*/
 }
 
+/*logo sizing*/
+#logo_image{
+  margin-top: -150px;
+  margin-left: 65pc;
+}
+/*body styling*/
+body {
+  font-family: "Comfortaa", cursive;
+  margin: 0px;
+  background-color: whitesmoke;
+}
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  background-color: white;
+}
+/*Nav Bar */
+.nav-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 38px;
+  font-size: larger;
+}
+/*nav title styled to suit the page*/
+#navTitle{
+  font-family: 'Rubik Moonrocks', cursive;
+  font-size: 90px;
+  color: lightblue;
+  margin-left: 30pc;
+}
+.left-side {
+  display: flex;
+  margin-left: -4%;
+}
+/*nav link and side styling*/
+.nav-wrapper > .left-side > div {
+  margin-right: 30px;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+}
+.nav-wrapper > .right-side > div {
+  margin-right: 50px;
+}
+.nav-link-wrapper {
+  height: 22px;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom 0.5s;
+}
+.active-nav-link a {
+  color: #727272;
+}
+.nav-link-wrapper a {
+  color: #727272;
+  text-decoration: none;
+  transition: color 0.5s;
+}
+/*nav link underline*/
+.nav-link-wrapper:hover {
+  border-bottom: 1px solid black;
+}
+/*nav link underline on hover*/
+.nav-link-wrapper a:hover {
+  color: black;
+}
+.content-wrapper {
+  background-color: whitesmoke;
+  margin-bottom: 100px;
+}
+/* Navbar effect */
+.text-focus-in {
+  -webkit-animation: text-focus-in 0.7s cubic-bezier(0.55, 0.085, 0.68, 0.53)
+  both;
+  animation: text-focus-in 0.7s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  animation-delay: 0.7s;
+}
+/*this provides a delay on elements when page refreshes*/
+@-webkit-keyframes text-focus-in {
+  0% {
+    -webkit-filter: blur(12px);
+    filter: blur(12px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-filter: blur(0px);
+    filter: blur(0px);
+    opacity: 1;
+  }
+}
+/*this provide a focus effect on elements*/
+@keyframes text-focus-in {
+  0% {
+    -webkit-filter: blur(12px);
+    filter: blur(12px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-filter: blur(0px);
+    filter: blur(0px);
+    opacity: 1;
+  }
+}
+.middle {
+  margin-left: -30%;
+}
+
+/* differentiate the upper page / text area */
+.upperPage {
+  background-color: rgb(240, 240, 240);
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: -35px;
+}
+/* container */
+.container {
+  padding-top: 25px;
+  margin-top: -40px;
+  border-radius: 5px;
+}
+
 /* Anchor Link */
 #top_link {
   color: #656565;
@@ -159,6 +156,7 @@ body {
   color: #648ab5;
   margin-left: 45%;
 }
+/*link styles*/
 a:link {
   text-decoration: none;
 }
@@ -172,6 +170,7 @@ a:active {
   text-decoration: none;
 }
 
+/*google map div styling*/
 #map {
   height: 400px; /*height set*/
 }
@@ -186,7 +185,7 @@ textarea {
   resize: none;
 }
 
-/* DROP DOWN BOX */
+/*  DROP DOWN BOX */
 select {
   -webkit-appearance: none; /*Support for different browsers*/
   -moz-appearance: none;
@@ -245,6 +244,7 @@ select::-ms-expand {
   transition: 0.25s all ease;
 }
 
+/*@media used to style page when dimensions change*/
 @media only screen and (max-width: 1200px) {
   .middle {
     margin-left: -50px;
@@ -269,8 +269,8 @@ select::-ms-expand {
     display: none;
   }
 }
+/*reduce the size of elements and remove logo, when page too small*/
 @media only screen and (max-width: 920px) {
-
   #navTitle{
     margin-top: 50px;
     font-size: 45px;
@@ -299,11 +299,7 @@ select::-ms-expand {
   }
 }
 
-
-
-
-
-/*WATER DROP*/
+/*WATER DROP: this provides a droplet affect from the page title */
 .drop {
   position: relative;
   width: 20px;
@@ -327,7 +323,6 @@ select::-ms-expand {
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }
-
 .drop:before {
   content: "";
   position: absolute;
@@ -338,7 +333,6 @@ select::-ms-expand {
   border-bottom: 30px solid rgba(255,255,255,1);
   top: -22px;
 }
-
 .wave {
   position: relative;
   opacity: 0;
@@ -362,7 +356,6 @@ select::-ms-expand {
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }
-
 .wave:after {
   content: "";
   position: absolute;
@@ -385,7 +378,7 @@ select::-ms-expand {
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }
-
+/*ripple effect*/
 @keyframes ripple {
   from {
     opacity: 1;
@@ -398,7 +391,6 @@ select::-ms-expand {
     opacity: 0;
   }
 }
-
 @keyframes ripple-2 {
   0% {
     opacity: 1;
@@ -414,7 +406,6 @@ select::-ms-expand {
     left: 200px;
   }
 }
-
 @keyframes drip {
   to {
     top: 90px;

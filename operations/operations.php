@@ -1,6 +1,7 @@
 <?php
 include "../include/config.php";
 
+// if user is logged in set $email variable to current user email
 session_start();
 if (isset($_SESSION['email'])){
     $email = $_SESSION['email'];
@@ -33,7 +34,7 @@ if (empty($filter)){
     <link rel="stylesheet" href="operations.css" type="text/css">
     <link rel="icon" type="image/x-icon" href="../images/logo/bowserLogo.png">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
-
+<!--    font styles-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&family=Rubik+Puddles&display=swap" rel="stylesheet">
@@ -58,26 +59,27 @@ if (empty($filter)){
 </script>
 <!---html anchor to return to top of page-->
 <p id="back_to_top"></p>
-<!--NAV-->
+<!--NAV BAR-->
 <div>
     <div class="nav-wrapper">
         <div class="left-side">
+<!--            home page link-->
             <div class="nav-link-wrapper active-nav-link">
                 <a class="text-focus-in" id="homeLink" href="../home/index.php">Home</a>
             </div>
-
+<!--                operations page link-->
             <div class="nav-link-wrapper active-nav-link">
                 <a class="text-focus-in" href="operations.php">Operations</a>
             </div>
         </div>
-
+<!--        page heading -->
         <div class="middle">
             <h2 class="text-focus-in" id="navTitle">Bowser Hub</h2>
             <div id="logo">
                 <img id="logo_image" src="../images/logo/bowserLogo.png" alt="" width="100" height="100">
             </div>
         </div>
-
+<!--        logout option-->
         <div class="right-side">
             <div class="nav-link-wrapper">
                 <!--right navbar--->
@@ -97,10 +99,12 @@ if (empty($filter)){
             <div class="row">
                 <div class="col">
                     <ul class="operations-list">
+<!--                        this section display the maintenance tasks and an auto-search bar -->
                         <h3 class="text-focus-in"> Maintenance Schedule</h3>
                         <br />
                         <form action="" method="POST">
                             <div class="input-group mb-3">
+<!--                                auto search bar-->
                                 <?php
                                 $_SESSION['query'] = 'SELECT * FROM tbl_maintenance_schedule WHERE Maintenance_ID LIKE "%{TERM}%" LIMIT 25';
                                 ?>
@@ -131,7 +135,7 @@ if (empty($filter)){
                             }
                             ?>
                         </form>
-<!--Maintenance tasks div-->
+<!--Maintenance tasks div to display all recent allocated tasks and information-->
                         <div id="searchedTask">
                             <?php
 						$connection = OpenConnection();
@@ -154,7 +158,6 @@ if (empty($filter)){
                         <br />
                         <?php
                         $connection = OpenConnection();
-
                         $sql="SELECT * FROM tbl_maintenance_schedule ORDER BY Date DESC LIMIT 10 ";
                         $result = mysqli_query($connection, $sql);
                         $row = mysqli_fetch_array($result);
@@ -175,17 +178,18 @@ if (empty($filter)){
 
                     </ul>
                     <br />
-<!--View bowser requests-->
+<!--View bowser requests from third parties, with an option to accept or deny requests-->
                     <div id="requestAlerts">
                     <h4>Externally Requested Bowsers:</h4>
                     <br />
                         <?php
+                        // retrieve company ops email
                         $connection = OpenConnection();
                         $sql = "SELECT Organisation_Name FROM tbl_company_representative WHERE Email = '$email'";
                         $result = mysqli_query($connection,$sql);
                         $rows = mysqli_fetch_array($result);
                         $company = $rows["Organisation_Name"];
-
+                        // retrieve request information
                         $sql2 = "SELECT * FROM tbl_bowser_requests WHERE Organisation_Name = '$company' AND Status = 'Pending'";
                         $result2 = mysqli_query($connection, $sql2);
                         $row2 = mysqli_fetch_array($result2);
@@ -223,6 +227,7 @@ if (empty($filter)){
                 <div class="col">
                     <div class="row">
                         <div id="text_area">
+<!--                            display user information and current bowser stock-->
                             <?php
                             $connection = OpenConnection();
                             $email = $_SESSION['email'];
@@ -235,6 +240,7 @@ if (empty($filter)){
                             echo "<h4>ID:&nbsp;".$userID."</h4></div>";
                             CloseConnection($connection);
                             ?>
+<!--                            bowser stock table-->
                             <div id="bowserStock">
                             <h4>Current Stock:</h4>
                             <tr>
@@ -269,7 +275,7 @@ if (empty($filter)){
                         </div>
                     </div>
                     <br />
-<!--div to display map--->
+<!--div to display google map. this contains all bowser locations and draggable deploy-bowser marker--->
                     <div id="viewMap">
 
                     <form id="formInsertEvent" method="post" enctype="multipart/form-data" >
@@ -281,6 +287,7 @@ if (empty($filter)){
                         <br />
                         <div id="bowserInsertion">
                         <div class="select">
+<!--                            confirm the id of bowser to be deployed-->
                                 <select name="bowserForInsert" id="select">
                                     <?php
                                     $connection = OpenConnection();
@@ -298,7 +305,7 @@ if (empty($filter)){
                                 </select>
                         </div>
                         </div>
-
+<!--                        bowser coordinates are taken but left hidden-->
                         <div class="Coordinates">
                             <input type="text" id="locationLat" name="Llat" hidden>
 
@@ -306,14 +313,13 @@ if (empty($filter)){
 
                             <input type="text" id="locationComb" class="remove_outline" hidden>
                         </div>
-
                         <div id="insertButton">
                             <button type="submit" name="submitBowser" class="btn btn-primary ">Add Bowser</button>
                         </div>
 
                     </form>
                     </div>
-<!--Allocate Tasks-->
+<!--Allocate Maintenance Tasks-->
                         <br />
                         <div id="taskAllocation">
 
@@ -326,7 +332,7 @@ if (empty($filter)){
                                 <div class="select">
                                   <p>
                                     <select name="bowserID" id="select">
-                                      
+<!--                                        select bowser-->
                                       <?php
                                         $connection = OpenConnection();
                                         $sql = $boweser_query;
@@ -343,11 +349,13 @@ if (empty($filter)){
                                         ?>
                                     </select>
                                 </div>
+<!--                                option to filter the bowser to only display deployed bowsers-->
 									<label for="filter">Show Only Deployed Bowsers</label>
                                     <input type="checkbox" name="filter" form="Filter" value="filter" onchange="this.form.submit()" <?php if(!empty($_SESSION["filter"])){echo "checked";} ?>></input>
                             </div>
                             <br />
                             <div id="maintenanceID">
+<!--                                                        select the worker for the task-->
                                 <label>Maintenance Worker:</label>
                                 <br />
                                 <div class="select">
@@ -371,6 +379,7 @@ if (empty($filter)){
                             </div>
                             <br />
                             <div id="taskID">
+<!--                                                            select the type of tasks-->
                                 <label>Task Type</label>
                                 <div id="taskType" class="select">
                                     <select name="task" id="select">
@@ -385,6 +394,8 @@ if (empty($filter)){
                                 </div>
                             </div>
                             <br />
+                            <!--                                select the task priority-->
+
                             <div id="priorityID">
                                 <label>Priority</label>
                                 <div id="priorityMenu" class="select">
@@ -396,6 +407,7 @@ if (empty($filter)){
                                     </select>
                                 </div>
                             </div>
+                            <!--                                task date-->
 
                             <br />
                             <div id="dateID">
@@ -416,19 +428,22 @@ if (empty($filter)){
                     </div>
                     <br />
 
-<!--Buttons-->
+<!--Buttons to create pop up windows for associated pages -->
+<!--                    reports page-->
                     <div class="vibrate-2">
                         <div class="d-grid gap-2" id="modalButton" >
                             <a class="text-focus-in" href="javascript:popUpWindow('reports.php','heatmap','900','500')" class="remove_outline" ><h3 id="buttonTxt">Reports</h3></a>
                         </div>
                     </div>
                     <br />
+<!--                    admin page-->
                     <div class="vibrate-2">
                         <div class="d-grid gap-2" id="modalButton" >
                             <a class="text-focus-in" href="javascript:popUpWindow('admin.php','admin','900','500')" class="remove_outline" ><h3 id="buttonTxt">Admin</h3></a>
                         </div>
                     </div>
                     <br />
+<!--                    bowser page-->
                     <div class="vibrate-2">
                         <div class="d-grid gap-2" id="modalButton" >
                             <a class="text-focus-in" class="remove_outline" href="javascript:popUpWindow('../bowsers/bowsers.php','bowsers','900','500')"><h3 id="buttonTxt">Bowsers</h3></a>
@@ -453,6 +468,7 @@ if (empty($filter)){
                                 <div id="capacityID">
                                     <label>Capacity</label>
                                     <div class="select">
+<!--                                        select new bowser quantity-->
                                         <select name="Capacity" id="select">
                                             <option value='-1' disabled selected>---</option>
                                             <option value="500">500L</option>
@@ -476,7 +492,6 @@ if (empty($filter)){
         </div>
     </div>
 </div>
-
 
     <br /><br />
 <!-- Link back to top of page -->

@@ -1,20 +1,23 @@
+/*STYLES FOR THE ADMIN POP UP PAGE*/
+
+/*loaning div*/
 .bowserLoan{
     padding: 10px;
     border: 0;
     border-radius: 15px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-#transactionID{}
+/*organisation drop down menu*/
 #organisationID{
     margin-top: -97px;
     margin-left: 400px;
 }
-#capacityID{}
+/*priority dropdown menu*/
 #loanPriorityID{
     margin-top: -97px;
     margin-left: 400px;
 }
-
+/*invoice div styles*/
 .bowserInvoices{
     padding: 10px;
     border: 0;
@@ -24,7 +27,7 @@
 #invoiceTable{
     margin-top: -550px;
 }
-
+/*user registration div styling*/
 #registerUser{
     padding: 10px;
     border: 0;

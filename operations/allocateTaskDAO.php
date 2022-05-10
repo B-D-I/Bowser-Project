@@ -2,7 +2,7 @@
 session_start();
 include "../include/config.php";
 if (isset($_SESSION['email'])) {
-
+// retrieve the current user ID
     $email = $_SESSION['email'];
     $connection = OpenConnection();
     $sql = "SELECT User_ID FROM tbl_user_account WHERE Email='$email'";
@@ -13,7 +13,7 @@ if (isset($_SESSION['email'])) {
             CloseConnection($connection);
         }
     }
-
+// store all posted data into variables
     $bowserID = strip_tags(trim($_POST['bowserID']));
     $workerID = strip_tags(trim($_POST['workerID']));
     $description = strip_tags(trim($_POST['description']));
@@ -21,6 +21,7 @@ if (isset($_SESSION['email'])) {
     $priority = strip_tags(trim($_POST['priority']));
     $date = strip_tags(trim($_POST['date']));
 
+    // update the maintenance table with task information
     $connection = OpenConnection();
     $sql = "insert into tbl_maintenance_schedule (Bowser_ID, User_ID, Description, Status, Date, Assigned_To, Priority, Task_Type) values
 		('$bowserID', '$userID','$description','Incomplete', '$date','$workerID', '$priority', '$task')";
