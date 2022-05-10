@@ -186,7 +186,7 @@ function heatMap(){
     //We are going to load geo locations from the database.
     var lat, lng, locObj ;
     var locations=[];
-    $.post("HeatMapDAO.php","",function(data){
+    $.post("heatMapDAO.php","",function(data){
         //our json data is inside data variable
         //console.log(data);
         $.each(data, function(key,value){

@@ -183,9 +183,9 @@ if (isset($_SESSION['email'])){
                             $bowser = $rows['BowserID'];
                             $organisation = $rows['Organisation_Name'];
                             $price = $rows['Price'];
-                            echo "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$rows['InvoiceID']."</td><td>".$rows['Transaction_Type']."</td>
+                            echo "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$rows['InvoiceID']."</td><td>".$rows['Transaction_Type']."</td>
                                             <td>".$rows['UserID']."</td><td>".$rows['BowserID']."</td><td>"
-                                .$rows['Organisation_Name']."</td><td>".$rows['Price']."</td></tr><br />";
+                                .$rows['Organisation_Name']."</td></tr><br />";
                         }
                     }
                     CloseConnection($connection);
