@@ -231,10 +231,41 @@ if (empty($filter)){
                             $result = mysqli_query($connection, $sql1);
                             $rows = mysqli_fetch_array($result);
                             $userID = $rows["User_ID"];
-                            echo "<h4>User&nbsp;".$username."</h4>";
-                            echo "<h4>ID:&nbsp;".$userID."</h4>";
+                            echo "<div id='userInfo'><h4>User&nbsp;".$username."</h4>";
+                            echo "<h4>ID:&nbsp;".$userID."</h4></div>";
                             CloseConnection($connection);
                             ?>
+                            <div id="bowserStock">
+                            <h4>Current Stock:</h4>
+                            <tr>
+                                <th>&nbsp;&nbsp;&nbsp;500L&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th>1000L&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th>5000L&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th>10,000L&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th>15,000L&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                            </tr>
+                            <br />
+                            <?php
+                            function returnBowserStock($capacityNo){
+                                $connection = OpenConnection();
+                                $sql ="SELECT * FROM `tbl_bowser_stock` WHERE Bowser_Capacity = '$capacityNo'";
+                                $result = mysqli_query($connection, $sql);
+                                $rows = mysqli_fetch_array($result);
+                                $stock = $rows["Stock"];
+                                return $stock;
+                            }
+                            $fiveHundred = returnBowserStock(500);
+                            $thousand = returnBowserStock(1000);
+                            $fiveThousand = returnBowserStock(5000);
+                            $tenThousand = returnBowserStock(10000);
+                            $fifteenThousand = returnBowserStock(15000);
+
+                            echo "<tr><td>".$fiveHundred."</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$thousand."</td>
+                                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$fiveThousand."</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+                                .$tenThousand."</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+                                .$fifteenThousand."</td></tr><br />";
+                            ?>
+                            </div>
                         </div>
                     </div>
                     <br />
