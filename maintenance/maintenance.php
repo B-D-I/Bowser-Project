@@ -71,8 +71,8 @@ if(isset($_GET['id'])){
                 <img id="logo_image" src="../images/logo/bowserLogo.png" alt="" width="100" height="100">
             </div>
             <!--WATER DROPS-->
-            <div class="drop"></div>
-            <div class="wave"></div>
+<!--            <div class="drop"></div>-->
+<!--            <div class="wave"></div>-->
         </div>
 
         <div class="right-side">
