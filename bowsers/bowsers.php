@@ -361,19 +361,18 @@
 														<label for="cost">Bowser Cost: </label>
 															<input type="text" name="cost" class="form-control" value="<?php echo $row_bowserCost; ?>" required></input>								
 														<br />
+														<!-- Button to updatecurrently select Bowser -->
+														<input class="btn btn-primary" type="submit" name="editBowser" value="Edit Bowser"/>
 														<!-- Button to set currently select Bowser to Decommissioned -->
-														<?php
-															echo '<input class="btn btn-primary" type="submit" name="editBowser" value="Edit Bowser"/>
-																	<button class="btn btn-secondary">Decommission</button>';
-														?>
-														<button id='closeModal' type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+														<input class="btn btn-secondary" type="submit" name="decommission" value="Decommission"/>
+														<input id='closeModal' type="button" class="btn btn-danger" data-bs-dismiss="modal" name="close" value="Close"/>
 														<!-- PHP Function to write Bowser changes to MySQL -->
 														<?php
 															//Routine to display error messages in Modal
 															set_exception_handler('ex_handler');
-															$connection = OpenConnection();
-
+														
 															if(isset($_POST['editBowser'])) {
+																$connection = OpenConnection();
 																$bowserID = $_POST["bowserID"];
 																$Bowser_Description = $_POST["description"];
 																$Bowser_Capacity = $_POST["cap"];
@@ -384,18 +383,33 @@
 																			SET Bowser_Description = '$Bowser_Description',
 																			Bowser_Capacity = '$Bowser_Capacity',
 																			Status = '$Bowser_Status',
-																			Bowser_Cost = '$Bowser_Cost',
+																			Bowser_Cost = '$Bowser_Cost'
 																		WHERE bowserID = '$bowserID'";
 																if($query = mysqli_query($connection, $sql)) {
-																	echo "<script>alert('Is Done is Good')</script>";
 																	echo "<meta http-equiv='refresh' content='0'>";
 																	header("Location: ./bowsers.php");
 																} else {
 																	header("Location: ./bowsers.php");
 																	echo "<meta http-equiv='refresh' content='0'>";
 																}
+																CloseConnection($connection);
 															} 
-															CloseConnection($connection);
+															
+															
+															if(isset($_POST['decommission'])) { 
+																$connection = OpenConnection();
+																$bowserID = $_POST["bowserID"];
+																$sql = "UPDATE tbl_bowsers 
+																			SET 
+																			Status = 'Decommissioned'
+																			WHERE bowserID = '$bowserID'";
+																if($query = mysqli_query($connection, $sql)) {
+																	header("Location: ./bowsers.php");
+																	echo "<meta http-equiv='refresh' content='0'>";
+																}
+																CloseConnection($connection);
+															} 
+															
 														?>
 													</form>	
 												</div>
