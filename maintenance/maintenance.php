@@ -12,7 +12,7 @@ $User_Query = mysqli_query($connection, $User_SQL);
 $User = mysqli_fetch_assoc($User_Query);
 $User_ID = $User['User_ID'];
 
-//Getting Maintenence job info
+//Getting Maintenence job info where status not completed
 $sql = "SELECT * FROM tbl_maintenance_schedule WHERE Assigned_To = '$User_ID' AND Status <> 'Completed'";
 $query = mysqli_query($connection, $sql);
 $job = mysqli_fetch_assoc($query);
@@ -21,6 +21,10 @@ $job = mysqli_fetch_assoc($query);
 // url parameters
 if(isset($_GET['id'])){
     $id= $_GET['id'];
+}
+
+if(isset($_GET['inProgressID'])){
+    $inProgressID= $_GET['inProgressID'];
 }
 
 ?>
@@ -166,10 +170,9 @@ if(isset($_GET['id'])){
 
                                     //    In progress
                                     //sets url parameter for task in progress
-                                    echo "<form action='maintenance.php?id=$maintenanceID' method='post' style='margin:0;padding-top: 0.375rem;padding-right: 0.75rem; padding-bottom: 0.375rem; padding-left: 0.75rem;>";
-                                      echo "<button type='submit' class='btn btn-secondary' style='float:right position:fixed; inProgressID='taskInProgress' value = 'Submit'  name='submit'>In Progress</button>";
+                                    echo "<form action='maintenance.php?inProgressID=$maintenanceID' method='post' style='margin:0; padding-top: 0.375rem; padding-right: 0.75rem; padding-bottom: 0.375rem; padding-left: 0.75rem;'>";
+                                    echo "<button class = 'btn btn-secondary' type='submit' name='submit' value='Submit'> In Progress </button> ";
                                    //    Setting url parameter for submitting task as complete
-                                    //    echo "<button class = 'btn btn-secondary' type='submit' name='submit' value='Submit'> Yes, submit </button> ";
                                        echo "</form>";
 
                                     //    Alerts for each task
@@ -218,12 +221,22 @@ if(isset($_GET['id'])){
 //                                            echo "success";
 //                                            header("Location: ../maintenance/maintenance.php");
                                         } else {
-                                            //Close connection if statement can't be run for any reason
+                                            //show error if statement can't be run for any reason
                                             echo mysqli_error($connection);
                                         }
                                         //Close connection after either outcome once completed
-                                        mysqli_close($connection);
+                                        // mysqli_close($connection);
                                     }
+
+
+
+                                    //    Submitting task as in progress if url parameter is set
+                                    if(isset($inProgressID)){
+                                        $inProgressSQL = "UPDATE tbl_maintenance_schedule SET Status = 'In Progress' WHERE maintenance_ID='$inProgressID'";
+                                        mysqli_query($connection, $inProgressSQL);
+
+                                        }
+    
                         ?>
                 </div>
 
