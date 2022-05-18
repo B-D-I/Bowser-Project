@@ -1,5 +1,6 @@
 <!-- Includes config information needed for opening database connections etc -->
 <?php
+ ob_start();
 include "../include/config.php";
 session_start();
 if (isset($_SESSION['email'])){
@@ -197,45 +198,45 @@ if(isset($_GET['inProgressID'])){
                                     echo "<br/>";
                         }
 
-                                    //    Submitting task if url parameter is set
-                                    if(isset($id)){
-                                        $submitSQL = "UPDATE tbl_maintenance_schedule SET Status = 'Completed', Completed_Date = NOW() WHERE maintenance_ID='$id'";
-                                        mysqli_query($connection, $submitSQL);
-
-                                        // Variables for more easily using $row
-                                        $date = $row['Date'];
-                                        $bowserID = $row['Bowser_ID'];
-                                        $type = $row['Task_Type'];
-                                        $area = $row['Area_ID'];
-                                        $fixNoticeText = "On ".$date."&nbsp;&nbsp;Bowser: ".$bowserID."&nbsp;has undertaken a ".$type;
-
-                                        //Sql statement to run
-                                        $sql = "INSERT INTO `tbl_notifications` (Notice_Text, Area_ID, Type) VALUES ('$fixNoticeText', '$area', 2) ";
-
-                                        $connection = OpenConnection();
-                                        // Running sql statement
-                                        if (mysqli_query($connection, $sql)) {
-
-                                            // If the operation is successful, put out a success message
-
-//                                            echo "success";
-//                                            header("Location: ../maintenance/maintenance.php");
-                                        } else {
-                                            //show error if statement can't be run for any reason
-                                            echo mysqli_error($connection);
-                                        }
-                                        //Close connection after either outcome once completed
-                                        // mysqli_close($connection);
-                                    }
+                        function queryClose($sql){
+                            $connection = OpenConnection();
+                            if (mysqli_query($connection, $sql)) {
+                                echo "success";
+                                header("Location: ../maintenance/maintenance.php");
+                            } else {
+                                echo mysqli_error($connection);
+                                header("Location: ../maintenance/maintenance.php");
+                            }
+                            mysqli_close($connection);
+                            }
+                            function updateSchedule($id){
+                                $sql = "UPDATE tbl_maintenance_schedule SET Status = 'Completed', Completed_Date = NOW() WHERE maintenance_ID='$id'";
+                                queryClose($sql);
+                            }
+                            function updateNotifications($fixNoticeText, $area, $type){
+                                $sql = "INSERT INTO `tbl_notifications` (Notice_Text, Area_ID, Type) VALUES ('$fixNoticeText', '$area', '$type') ";
+                                queryClose($sql);
+                            }
 
 
+                            if(isset($inProgressID)){
+                                $sql = "UPDATE tbl_maintenance_schedule SET Status = 'In Progress' WHERE maintenance_ID='$inProgressID'";
+                                queryClose($sql);
+                                }
 
-                                    //    Submitting task as in progress if url parameter is set
-                                    if(isset($inProgressID)){
-                                        $inProgressSQL = "UPDATE tbl_maintenance_schedule SET Status = 'In Progress' WHERE maintenance_ID='$inProgressID'";
-                                        mysqli_query($connection, $inProgressSQL);
+                            if(isset($id)){
+                                updateSchedule($id);
+                                $date = $row['Date'];
+                                $bowserID = $row['Bowser_ID'];
+                                $type = $row['Task_Type'];
+                                $area = $row['Area_ID'];
+                                $fixNoticeText = "On ".$date."&nbsp;&nbsp;Bowser: ".$bowserID."&nbsp;has undertaken a ".$type;
+                                updateNotifications($fixNoticeText, $area, 2);
+                                }
+                            //    Submitting task as in progress if url parameter is set
 
-                                        }
+                        
+                        
     
                         ?>
                 </div>
