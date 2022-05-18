@@ -1,3 +1,4 @@
+<!-- Includes config information needed for opening database connections etc -->
 <?php
 include "../include/config.php";
 session_start();
@@ -54,6 +55,7 @@ if(isset($_GET['id'])){
 <p id="back_to_top"></p>
 
 <div>
+    <!-- Navbar -->
     <div class="nav-wrapper">
         <div class="left-side">
             <div class="nav-link-wrapper active-nav-link">
@@ -99,13 +101,17 @@ if(isset($_GET['id'])){
                     <ul class="maintenance_list">
                         <br />
 
+                        <!-- Generating username from user email address -->
                         <h4>User: <?php
+                        // Seperates email string on the @ symbol
                             $username = current(explode('@', $email));
                             $sql1="SELECT * FROM `tbl_user_account` WHERE email='$email'";
+                            //Outputs current users username
                             echo $username;
                             ?> </h4>
 
                         <br /><br />
+                        <!-- Script for allowing the use of the popovers for task detail on the page -->
                         <script>
                             $(document).ready(function(){
                                 $('[data-toggle="popover"]').popover();
@@ -127,7 +133,7 @@ if(isset($_GET['id'])){
                                         $priority = $row['Priority'];
                                         $taskType= $row['Task_Type'];
 
-                                        // Changes value of div based on priority from database
+                                        // Changes value of div based on priority from database for colour coding
                                         switch($priority){
                                             case 1:
                                                 $jobPriorityDiv = "highPriority";
@@ -159,7 +165,12 @@ if(isset($_GET['id'])){
                                         echo "<button type='button' class='btn btn-primary' style='float:right position:fixed; id='initialSubmit'>Task Complete</button>";
 
                                     //    In progress
-                                       echo "<button type='button' class='btn btn-secondary' style='float:right position:fixed; id='taskInProgress'>Task In Progress</button>";
+                                    //sets url parameter for task in progress
+                                    echo "<form action='maintenance.php?id=$maintenanceID' method='post' style='margin:0;padding-top: 0.375rem;padding-right: 0.75rem; padding-bottom: 0.375rem; padding-left: 0.75rem;>";
+                                      echo "<button type='submit' class='btn btn-secondary' style='float:right position:fixed; inProgressID='taskInProgress' value = 'Submit'  name='submit'>In Progress</button>";
+                                   //    Setting url parameter for submitting task as complete
+                                    //    echo "<button class = 'btn btn-secondary' type='submit' name='submit' value='Submit'> Yes, submit </button> ";
+                                       echo "</form>";
 
                                     //    Alerts for each task
                                        echo "<div class = 'alert alert-primary alert-dismissible'>";
@@ -170,7 +181,7 @@ if(isset($_GET['id'])){
                                        echo "Are you sure you want to submit task $maintenanceID?";
                                        echo "<br/><br/>";
 
-                                    //    Setting url parameter for submitting task
+                                    //    Setting url parameter for submitting task as complete
                                        echo "<form action='maintenance.php?id=$maintenanceID' method='post'>";
                                        echo "<button class = 'btn btn-secondary' type='submit' name='submit' value='Submit'> Yes, submit </button> ";
                                        echo "</form>";
@@ -188,25 +199,35 @@ if(isset($_GET['id'])){
                                         $submitSQL = "UPDATE tbl_maintenance_schedule SET Status = 'Completed', Completed_Date = NOW() WHERE maintenance_ID='$id'";
                                         mysqli_query($connection, $submitSQL);
 
+                                        // Variables for more easily using $row
                                         $date = $row['Date'];
                                         $bowserID = $row['Bowser_ID'];
                                         $type = $row['Task_Type'];
                                         $area = $row['Area_ID'];
                                         $fixNoticeText = "On ".$date."&nbsp;&nbsp;Bowser: ".$bowserID."&nbsp;has undertaken a ".$type;
 
+                                        //Sql statement to run
                                         $sql = "INSERT INTO `tbl_notifications` (Notice_Text, Area_ID, Type) VALUES ('$fixNoticeText', '$area', 2) ";
+
                                         $connection = OpenConnection();
+                                        // Running sql statement
                                         if (mysqli_query($connection, $sql)) {
+
+                                            // If the operation is successful, put out a success message
+
 //                                            echo "success";
 //                                            header("Location: ../maintenance/maintenance.php");
                                         } else {
+                                            //Close connection if statement can't be run for any reason
                                             echo mysqli_error($connection);
                                         }
+                                        //Close connection after either outcome once completed
                                         mysqli_close($connection);
                                     }
                         ?>
                 </div>
 
+                <!-- Div containing the map and assosciated elements -->
                 <div class="col">
                     <div class="text_area">
                         <h2>Bowser Map</h2>
@@ -225,17 +246,23 @@ if(isset($_GET['id'])){
 
             <?php  
             
+            // Query to run
             $mainsSQL = "SELECT * FROM tbl_area ORDER BY Last_Modified DESC";
+            //Execute query
             $mainsQuery = mysqli_query($connection, $mainsSQL);
             
+            //For each item found by query 
             foreach ($mainsQuery as $area){
+                // Defining variables for more inuitive use
                 $areaID = $area['Area_ID'];
                 $areaName = $area['Area_Name'];
                 $areaStatus = $area['Area_Mains_Status'];
                 $areaLastModified = $area['Last_Modified'];
 
+                // Switch action performed depending on area status
                 switch ($areaStatus){
 
+                    //When operational, div class is set to operational and vice versa
                     case "Operational":
                         $areaDiv = "operational";
                         break;
@@ -245,6 +272,7 @@ if(isset($_GET['id'])){
 
                 }
 
+                // Echoing each area and its main status as well as when it was last updated
                 echo "<div id = $areaDiv >";
                 echo $areaName," Mains Status: ", $areaStatus," <span style='float:right'> Last Updated: ", $areaLastModified, "</span>","</div> <br/>";
                 echo "";
@@ -259,7 +287,7 @@ if(isset($_GET['id'])){
         </div>
 
         
-
+<!-- Spacing  -->
         <br /><br /><br /><br /><br />
 
         <!-- Link back to top of page -->
