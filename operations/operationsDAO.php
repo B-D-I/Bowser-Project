@@ -93,34 +93,40 @@ function updateBowserStock($modifiedStock, $capacity){
     } CloseConnection($connection);
 }
 
-// FUNCTION TO CREATE AN INVOICE
+/**
+ * @param $transaction = either loan or lend bowser
+ * @param $userID = the current session userID
+ * @param $bowserID = the ID of selected bowser
+ * @param $organisation = the name of current user's organisation
+ * @param $company = the name of the company issuing the request
+ * @param $bowserCost = the cost of the bowser
+ * @return void
+ */
 function createInvoice($transaction, $userID, $bowserID, $organisation, $company, $bowserCost){
     $connection = OpenConnection();
-    $sql = "INSERT INTO `tbl_bowser_invoices` (Transaction_Type, UserID, BowserID, Organisation_Name, Organisation_From, Price) 
-                            VALUES ('$transaction', '$userID', '$bowserID', '$organisation', '$company', '$bowserCost')";
+    $sql="INSERT INTO `tbl_bowser_invoices`(Transaction_Type, UserID, BowserID, Organisation_Name, Organisation_From, Price) 
+            VALUES ('$transaction', '$userID', '$bowserID', '$organisation', '$company', '$bowserCost')";
     if (mysqli_query($connection, $sql)) {
         echo "success";
     } else {
         echo "error";
     } CloseConnection($connection);
 }
-
 // FUNCTION TO SEND A BOWSER REQUEST
 function bowserRequest($userID, $capacity, $organisation, $company, $priority, $reason){
     $connection = OpenConnection();
-    $sql = "INSERT INTO `tbl_bowser_requests` (UserID, Bowser_Capacity, Organisation_Name, Organisation_From, Priority, Status, Request_Reason) VALUES
-		    ('$userID','$capacity', '$organisation', '$company' ,'$priority', 'Pending', '$reason')";
+    $sql="INSERT INTO `tbl_bowser_requests`(UserID, Bowser_Capacity, Organisation_Name, Organisation_From, Priority, Status, Request_Reason) 
+            VALUES ('$userID','$capacity', '$organisation', '$company' ,'$priority', 'Pending', '$reason')";
     if (mysqli_query($connection, $sql)) {
         echo "success";
     } else {
         echo "error";
     } CloseConnection($connection);
 }
-
 // FUNCTION TO SET BOWSER STATUS TO LENT
 function updateLentBowser($bowserID){
     $connection = OpenConnection();
-    $sql = "UPDATE `tbl_bowsers` SET Status = 'Lent' WHERE BowserID = '$bowserID'";
+    $sql="UPDATE `tbl_bowsers` SET Status = 'Lent' WHERE BowserID = '$bowserID'";
     if (mysqli_query($connection, $sql)) {
         echo "success";
     } else {

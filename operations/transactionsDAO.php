@@ -1,9 +1,13 @@
 <?php
-// this has been created to provide unit testing on functions
 namespace Operations;
 include "../include/config.php";
 
 class Transactions{
+    /**
+     * This function returns the bowser stock of specified capacities
+     * @param $capacity = the capacity of bowsers in which stock is required
+     * @return mixed
+     */
     public static function returnBowsersStock($capacity){
         $connection = OpenConnection();
         // fetch current bowser stock amount
@@ -13,6 +17,12 @@ class Transactions{
         $stock = $rows["Stock"];
         return $stock;
     }
+    /**
+     * This function returns data relating to stocked bowsers
+     * @param $type = the column from which to retrieve data
+     * @param $capacity = the capacity of bowser
+     * @return mixed|void
+     */
     public static function returnStockedBowsers($type, $capacity){
         $connection = OpenConnection();
         $sql1 = "SELECT * FROM `tbl_bowsers` WHERE Bowser_Capacity = '$capacity' AND Status = 'Stock' LIMIT 1";

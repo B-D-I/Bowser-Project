@@ -98,79 +98,76 @@ if (isset($_SESSION['email'])) {
 			}
 			?>
 <!--			report modal - to allow users to send bowser reports-->
-            	<div class="nav-link-wrapper">
-                	<a class="text-focus-in" id="link" href="#reportModal" data-bs-toggle="modal">Report</a></div>
-			    <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
-                    <form action="" id="report" method="POST">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="reportModalLabel">Report Form</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-
-                                <div class="row">
-                                    <div class="col">
-                                        <p>Report Type: </p>
-                                    </div>
-                                    <div class="col">
-                                        <div class="select">
-                                            <select name="Report_Type" id="select" onchange="reportTypeCheck(this);">';
-											<?php			
-												$connection = OpenConnection();
-												$result = mysqli_query($connection, "SELECT id, description, is_bowser FROM tbl_report_type order by id asc;");
-												echo "<option value='-1' disabled selected>---</option>";
-												if (mysqli_num_rows($result) > 0){
-													while($row = mysqli_fetch_assoc($result)) {
-														echo "<option id='" . $row['is_bowser'] . "' value='".$row['id']."'>".$row['description']."</option>";
+            <div class="nav-link-wrapper">
+            	<a class="text-focus-in" id="link" href="#reportModal" data-bs-toggle="modal">Report</a>
+			</div>
+			<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+            	<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="reportModalLabel">Report Form</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+								<div class="row">
+									<form action="" id="report" method="POST">
+									<label for="select">Report Type:</label>
+										<div class="select">
+											<select name="Report_Type" class="" id="select" onchange="reportTypeCheck(this);">';
+												<!-- Query to populate Report_Type select box -->
+												<?php
+													$connection = OpenConnection();
+													$result = mysqli_query($connection, "SELECT id, description, is_bowser FROM tbl_report_type order by id asc;");
+													echo "<option value='-1' disabled selected>---</option>";
+													if (mysqli_num_rows($result) > 0){
+														while($row = mysqli_fetch_assoc($result)) {
+															echo "<option id='" . $row['is_bowser'] . "'value='".$row['id']."'>".$row['description']."</option>";
+														}
 													}
-												}
-												CloseConnection($connection);
-											?>
+													CloseConnection($connection);
+												?>
                                             </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                               <div class="row">
-                                    <div class="col" id="bowserSelect">
-                                        <p>Bowser ID: </p>
+										</div>
+								</div>
+								<br />
+								<div class="row">
+							        <label for="term">Bowser ID:</label>
+									<!-- Method for auto completing Bowser ID and only permitting valid IDs -->
 									<?php
 										$_SESSION['query'] = 'SELECT * FROM tbl_bowser_inuse WHERE Bowser_ID LIKE "%{TERM}%" LIMIT 25';
 									?>
 					   				<input type="text" name="Bowser_ID" id="term" placeholder="Enter Bowser Serial Number...." class="form-control">
 									<script type="text/javascript">
-  									$(function() {
-										$( "#term" ).autocomplete({
-											appendTo: reportModal,
-											source: '../include/dbsearch.php'
-
+  										$(function() {
+											$( "#term" ).autocomplete({
+												appendTo: reportModal,
+												source: '../include/dbsearch.php'
+											});
 										});
-									});
 									</script>
-										<br />
-									</div>
-                                </div>
+								</div>
+								<br />
+								<!-- Description Textfield -->
+								<div class="row">
+	    	                		<label for="floatingTextarea2" class="form-label">Description</label>
+    	    	                	<textarea class="form-control" name="Description" id="floatingTextarea2" style="height: 100px"></textarea>
+                          		</div>
+								<br />
+								<!-- Footer including buttons to submit or close form -->
+                            	<div class="modal-footer">
+                        	    	<p>For assistance, contact us at:
+										<a id="link" href="mailto:s4008324@glos.ac.uk">bowser-hub@email.com</a>
+                                	</p>
+									<br /><br />
+                    	            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        	        <button type="button" class="btn btn-primary" name="submit" onclick="sendReport()">Send Report</button>
+									</form>
+                        		</div>
 							</div>
-                            <div class="form-floating">
-                                <textarea class="form-control" name="Description" placeholder="Description" id="floatingTextarea2" style="height: 100px"></textarea>
-                                <label for="floatingTextarea2">Description</label>
-                            </div>
-                            <div class="modal-footer">
-                                <br /><p>For assistance, contact us at:
-                                <a id="link" href="mailto:s4008324@glos.ac.uk">bowser-hub@email.com</a>
-                                </p><br /><br />
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" name="submit" onclick="sendReport()">Send Report</button>
-                        </div>
-                    </div>
-                    </form>
-                </div>
-            </div>
-
-	</div>
-
+						</div>
+            		</div>
+				</div>
+			</div>
 <!--    nav bar title with water droplets-->
     <div class="middle">
         <h2 class="text-focus-in" id="navTitle">Bowser Hub</h2>
@@ -255,7 +252,7 @@ if (isset($_SESSION['email'])) {
                                                 
                                                 <div class="select">
                                                     <select name="userLocation" id="select">                                         
-                                                       <option value="-1" disabled selected>---</option>';
+                                                       <option value="-1" disabled selected>Area</option>';
                                                         $sql = "SELECT * FROM `tbl_area` ";
                                                         $result = mysqli_query($connection, $sql);
                                                         $rows = mysqli_fetch_array($result);

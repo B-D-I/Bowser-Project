@@ -174,7 +174,7 @@ if (isset($_SESSION['email'])){
                     <tr>
                         <th>&nbsp;&nbsp;&nbsp;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                         <th>Transaction&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                        <th>Created By&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                        <th>Created By (UserID)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                         <th>Bowser ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                         <th>Organisation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                         <th>Charge (£)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
@@ -195,7 +195,7 @@ if (isset($_SESSION['email'])){
                             $price = $rows['Price'];
                             echo "<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$rows['InvoiceID']."</td><td>".$rows['Transaction_Type']."</td>
                                             <td>".$rows['UserID']."</td><td>".$rows['BowserID']."</td><td>"
-                                .$rows['Organisation_Name']."</td></tr><br />";
+                                .$rows['Organisation_Name']."</td><td>" .$rows['Price']."</td></tr><br />";
                         }
                     }
                     CloseConnection($connection);

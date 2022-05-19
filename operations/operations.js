@@ -68,18 +68,20 @@ function initialize(){       // function for map options
 
     // water tank image used for the deploy bowser icon
     const image = {
+        // plesk: "/images/other/water-tank.png"
         url: "/Bowser-Project/images/other/water-tank.png",
         scaledSize: new google.maps.Size(50, 50),
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(0, 0)
     }
     // make water bowser marker draggable
-    marker = new google.maps.Marker({    // draggable marker for bowser deployment
+    marker = new google.maps.Marker({
         map: myMap,
-        // position: mapCenter,
-        position: {lat:51.8979988098144, lng:-2.0838599205017},     // Positioned in the centre of map
+        position: {lat:51.8979988098144, lng:-2.0838599205017},
+        // Set marker icon to bowser image
         icon: image,
-        draggable: true,         // Marker has been made movable
+        // Marker has been made movable
+        draggable: true,
     });
     // seperate markers for pre-deployed bowsers
     var markers, i;

@@ -575,8 +575,7 @@ ALTER TABLE `tbl_maintenance_schedule`
 -- Indexes for table `tbl_notifications`
 --
 ALTER TABLE `tbl_notifications`
-  ADD PRIMARY KEY (`Notice_ID`),
-  ADD KEY `bowser_database` (`Area_ID`);
+  ADD PRIMARY KEY (`Notice_ID`);
 
 --
 -- Indexes for table `tbl_reports`
