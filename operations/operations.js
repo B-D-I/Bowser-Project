@@ -68,6 +68,7 @@ function initialize(){       // function for map options
 
     // water tank image used for the deploy bowser icon
     const image = {
+        // plesk: "/images/other/water-tank.png"
         url: "/Bowser-Project/images/other/water-tank.png",
         scaledSize: new google.maps.Size(50, 50),
         origin: new google.maps.Point(0,0),

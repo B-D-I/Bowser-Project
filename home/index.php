@@ -252,7 +252,7 @@ if (isset($_SESSION['email'])) {
                                                 
                                                 <div class="select">
                                                     <select name="userLocation" id="select">                                         
-                                                       <option value="-1" disabled selected>---</option>';
+                                                       <option value="-1" disabled selected>Area</option>';
                                                         $sql = "SELECT * FROM `tbl_area` ";
                                                         $result = mysqli_query($connection, $sql);
                                                         $rows = mysqli_fetch_array($result);
