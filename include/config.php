@@ -1,4 +1,8 @@
 <?php
+
+function getAPI()
+{ return "*************"; }
+
 function OpenConnection(){
 // connect to database and credentials
 $servername = "localhost";
